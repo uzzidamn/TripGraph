@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+venv/
+.venv/
+env/
+
+# Node / Frontend
+node_modules/
+frontend/dist/
+frontend/build/
+.vite/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Neo4j data (local volume)
+neo4j_data/
+
+# Environment files (contain secrets)
+.env
+.env.local
+
+# Logs
+*.log
+
+# OS
+Thumbs.db
