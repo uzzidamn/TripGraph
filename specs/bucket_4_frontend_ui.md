@@ -1,1029 +1,732 @@
-# Task 4: Frontend UI & Visualization — Mini Spec
+# Bucket 4: Frontend UI & Visualization — LLM-Ready Spec
 
-> **Owner**: Task 4 assignee
-> **Priority**: P1 — Can start Day 1 with mock data; connect to real API later
-> **Estimated effort**: 12-16 days
-> **Reference**: Read `MASTER_SPEC.md` (same folder) for full project context
+> **Generated for**: Distributed LLM execution (Claude / Gemini session)
+> **Priority**: P1 — Can start immediately with mock data (no backend needed)
+> **Reference**: This spec is self-contained. You may also read `specs/MASTER_SPEC.md` for full project context.
+
+---
+
+## Section A — Project Context
+
+**TripGraph AI** is a GenAI-agentic group travel planner that converts WhatsApp-style group chat into structured, constraint-aware itineraries. It uses a Neo4j knowledge graph, a LangGraph agentic pipeline, a deterministic Python planning engine, and a React frontend.
+
+**Your role (Bucket 4):** Build the **React frontend** — a polished, modern, dark-themed single-page application with smooth animations. Users paste group chat messages, see extracted preferences, view itinerary options with an interactive timeline, see the route on a Leaflet map with animated polylines, view animated cost breakdowns, and simulate delays. **The UI is the face of this project. It must be excellent.**
+
+---
+
+## Section B — 🔒 Frozen Interface Contracts
+
+### B.1 API Endpoints
+
+**Base URL:** `http://localhost:8000` (from `VITE_API_URL` in `.env`)
+
+#### POST `/api/parse-chat`
+**Request:**
+```typescript
+interface ParseChatRequest {
+  chat_messages: string[];
+}
+```
+**Response:**
+```typescript
+interface ParseChatResponse {
+  extracted_constraints: {
+    origin: string | null;
+    destination: string | null;
+    destination_type: string | null;
+    budget_per_person: number | null;
+    dates: string | null;
+    trip_duration: string | null;
+    transport_preference: string[];
+    avoid_night_driving: boolean;
+    must_include: string[];
+    return_deadline: string | null;
+    hotel_tier: string | null;
+    risk_tolerance: string | null;
+    group_size: number | null;
+    special_requirements: string[];
+  };
+  missing_fields: string[];
+  assumptions: Record<string, string>;
+  conflict_report: {
+    conflicts: Array<{field1: string; field2: string; reason: string}>;
+  };
+}
+```
+
+#### POST `/api/generate-itinerary`
+**Request:**
+```typescript
+interface GenerateItineraryRequest {
+  constraints: Record<string, any>;
+}
+```
+**Response:**
+```typescript
+interface ItineraryResponse {
+  recommended_itinerary: {
+    route: { route_id: string; origin: string; destination: string; distance_km: number };
+    transport: { mode: string; cost_total: number };
+    hotel: { name: string; price_per_night: number };
+    activities: Array<{ name: string; cost_per_person: number }>;
+    total_cost_per_person: number;
+    cost_breakdown: CostBreakdown;
+  } | null;
+  alternatives: any[];
+  validation_report: {
+    is_valid: boolean;
+    hard_constraint_violations: string[];
+    soft_constraint_warnings: string[];
+  };
+  score_breakdown: {
+    preference_match: number;
+    budget_efficiency: number;
+    comfort: number;
+    scenic: number;
+    fatigue: number;
+    risk: number;
+    final_score: number;
+  };
+  timeline: TimelineEvent[];
+  map_points: MapPoint[];
+  cost_breakdown: CostBreakdown;
+  explanation: string;
+}
+
+interface TimelineEvent {
+  day: number;
+  start_time: string;  // "HH:MM"
+  end_time: string;
+  title: string;
+  type: "travel" | "meal" | "hotel" | "activity" | "rest";
+  cost?: number;
+}
+
+interface MapPoint {
+  lat: number;
+  lng: number;
+  label: string;
+  type: "origin" | "waypoint" | "destination" | "hotel" | "activity";
+}
+
+interface CostBreakdown {
+  transport: number;
+  hotel: number;
+  activities: number;
+  food: number;
+  miscellaneous: number;
+  total: number;
+  budget_limit?: number;
+}
+```
+
+#### POST `/api/simulate-delay`
+**Request:**
+```typescript
+interface SimulateDelayRequest {
+  delay_type: string;
+  delay_minutes: number;
+  constraints?: Record<string, any>;
+  selected_itinerary?: any;
+}
+```
+**Response:**
+```typescript
+interface DelaySimulationResponse {
+  updated_itinerary: any | null;
+  changes: string[];
+  validation_report: any;
+  explanation: string;
+}
+```
+
+### B.2 MOCK_DATA.js
+
+Create this file at `frontend/src/api/mockData.js`. Import it in `tripApi.js` as a fallback when the backend is unavailable.
+
+```javascript
+// frontend/src/api/mockData.js
+// Hardcoded mock responses matching API contracts exactly.
+// Use these for development when the backend is not running.
+
+export const MOCK_PARSE_CHAT = {
+  extracted_constraints: {
+    origin: "Gurugram",
+    destination: null,
+    destination_type: "mountains",
+    budget_per_person: 15000,
+    dates: null,
+    trip_duration: "weekend",
+    transport_preference: [],
+    avoid_night_driving: true,
+    must_include: ["rafting", "cafes"],
+    return_deadline: "Monday morning",
+    hotel_tier: "comfort",
+    risk_tolerance: "medium",
+    group_size: 4,
+    special_requirements: [],
+  },
+  missing_fields: [],
+  assumptions: {
+    group_size: "4 (default)",
+    risk_tolerance: "medium (default)",
+  },
+  conflict_report: { conflicts: [] },
+};
+
+export const MOCK_ITINERARY = {
+  recommended_itinerary: {
+    route: {
+      route_id: "gurugram_rishikesh_2d1n",
+      origin: "Gurugram",
+      destination: "Rishikesh",
+      distance_km: 260,
+    },
+    transport: { mode: "cab_with_driver", cost_total: 9500 },
+    hotel: { name: "Riverside Comfort Stay", price_per_night: 4200 },
+    activities: [
+      { name: "White Water Rafting (16 km)", cost_per_person: 1800 },
+      { name: "Ganga Aarti at Triveni Ghat", cost_per_person: 0 },
+    ],
+    total_cost_per_person: 10275,
+    cost_breakdown: {
+      transport: 2375,
+      hotel: 1050,
+      activities: 1800,
+      food: 1050,
+      miscellaneous: 2000,
+      total: 10275,
+    },
+  },
+  alternatives: [
+    {
+      route: { route_id: "gurugram_tirthan_3d2n", destination: "Tirthan Valley" },
+      total_cost_per_person: 14500,
+    },
+  ],
+  validation_report: {
+    is_valid: true,
+    hard_constraint_violations: [],
+    soft_constraint_warnings: [],
+  },
+  score_breakdown: {
+    preference_match: 25,
+    budget_efficiency: 6.3,
+    comfort: 12,
+    scenic: 7,
+    fatigue: 10.5,
+    risk: 6,
+    final_score: 66.8,
+  },
+  timeline: [
+    { day: 1, start_time: "06:00", end_time: "09:00", title: "Drive from Gurugram", type: "travel" },
+    { day: 1, start_time: "09:00", end_time: "09:45", title: "Breakfast at Murthal Dhaba", type: "meal", cost: 250 },
+    { day: 1, start_time: "09:45", end_time: "13:00", title: "Continue to Rishikesh", type: "travel" },
+    { day: 1, start_time: "13:00", end_time: "14:15", title: "Lunch at Little Buddha Cafe", type: "meal", cost: 600 },
+    { day: 1, start_time: "14:30", end_time: "16:00", title: "Check-in & Rest at Riverside Comfort Stay", type: "hotel", cost: 1050 },
+    { day: 1, start_time: "16:30", end_time: "17:30", title: "Riverside Cafe Hopping", type: "activity", cost: 400 },
+    { day: 1, start_time: "18:30", end_time: "19:30", title: "Ganga Aarti at Triveni Ghat", type: "activity", cost: 0 },
+    { day: 1, start_time: "20:00", end_time: "21:00", title: "Dinner", type: "meal", cost: 500 },
+    { day: 2, start_time: "07:30", end_time: "08:15", title: "Breakfast at Hotel", type: "meal", cost: 200 },
+    { day: 2, start_time: "09:00", end_time: "12:00", title: "White Water Rafting (16 km)", type: "activity", cost: 1800 },
+    { day: 2, start_time: "12:30", end_time: "13:30", title: "Freshen Up", type: "rest" },
+    { day: 2, start_time: "13:30", end_time: "14:30", title: "Lunch", type: "meal", cost: 500 },
+    { day: 2, start_time: "15:00", end_time: "21:30", title: "Return Drive to Gurugram", type: "travel" },
+  ],
+  map_points: [
+    { lat: 28.4595, lng: 77.0266, label: "Gurugram", type: "origin" },
+    { lat: 29.0281, lng: 77.0474, label: "Murthal Dhaba Belt", type: "waypoint" },
+    { lat: 30.0869, lng: 78.2676, label: "Rishikesh", type: "destination" },
+    { lat: 30.0869, lng: 78.2676, label: "Riverside Comfort Stay", type: "hotel" },
+    { lat: 30.1159, lng: 78.3127, label: "White Water Rafting", type: "activity" },
+    { lat: 30.1050, lng: 78.2950, label: "Ganga Aarti", type: "activity" },
+  ],
+  cost_breakdown: {
+    transport: 2375,
+    hotel: 1050,
+    activities: 1800,
+    food: 1050,
+    miscellaneous: 2000,
+    total: 10275,
+    budget_limit: 15000,
+  },
+  explanation:
+    "This itinerary was selected because it stays within the ₹15,000 budget at ₹10,275 per person, avoids night driving on both legs, includes white water rafting and riverside cafe hopping, and returns to Gurugram by 9:30 PM Sunday — well before Monday morning.",
+};
+
+export const MOCK_DELAY = {
+  updated_itinerary: {
+    ...MOCK_ITINERARY.recommended_itinerary,
+    total_cost_per_person: 10275,
+  },
+  changes: [
+    "Departure delayed from 06:00 to 07:30",
+    "Breakfast shortened from 45 min to 25 min",
+    "Rest period reduced from 90 min to 45 min",
+    "Cafe hopping removed to save time",
+  ],
+  validation_report: {
+    is_valid: true,
+    hard_constraint_violations: [],
+    soft_constraint_warnings: ["Rest time below recommended minimum"],
+  },
+  explanation:
+    "The 90-minute departure delay was absorbed by compressing flexible events. Breakfast was shortened, the rest period was halved, and riverside cafe hopping was removed. Rafting, Ganga Aarti, and the return deadline are all preserved.",
+};
+```
+
+### B.3 Exact Field Paths (Frontend Must Read These)
+
+```
+response.extracted_constraints.origin
+response.extracted_constraints.budget_per_person
+response.extracted_constraints.must_include[0]
+response.recommended_itinerary.route.destination
+response.recommended_itinerary.total_cost_per_person
+response.recommended_itinerary.cost_breakdown.transport
+response.timeline[0].day
+response.timeline[0].start_time
+response.timeline[0].end_time
+response.timeline[0].title
+response.timeline[0].type
+response.map_points[0].lat
+response.map_points[0].lng
+response.map_points[0].label
+response.map_points[0].type
+response.cost_breakdown.total
+response.cost_breakdown.budget_limit
+response.explanation
+response.changes[0]
+```
+
+### B.4 Leaflet Map Coordinate Format
+
+```javascript
+{ lat: 28.4595, lng: 77.0266, label: "Gurugram", type: "origin" }
+```
+
+Map center default: `[28.5, 77.5]`, zoom: `7`
+
+Marker colors by type:
+- `origin` → 🟢 green
+- `destination` → 🔴 red
+- `hotel` → 🔵 blue
+- `activity` → 🟡 yellow/gold
+- `waypoint` → ⚪ gray
+
+---
+
+## Section C — Decisions & Defaults (Pre-Made)
+
+| # | Decision | Value |
+|---|----------|-------|
+| 1 | Framework | React 18 + Vite 5 |
+| 2 | CSS Framework | Tailwind CSS v3 (`tailwindcss@3`) |
+| 3 | Animation library | Framer Motion (`framer-motion`) |
+| 4 | Icon library | Lucide React (`lucide-react`) |
+| 5 | Component base | shadcn/ui patterns (copy component code, do NOT use CLI — build manually) |
+| 6 | HTTP client | Axios |
+| 7 | Map library | react-leaflet + leaflet |
+| 8 | Google Font | Inter — `https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap` |
+| 9 | Theme | Dark mode only. No light mode toggle. |
+| 10 | Background color | `#0f1117` |
+| 11 | Surface/card color | `#1a1d2e` |
+| 12 | Surface hover | `#242842` |
+| 13 | Border color | `#2a2e45` |
+| 14 | Text primary | `#e4e6f0` |
+| 15 | Text muted | `#8b8fa3` |
+| 16 | Primary accent | `#6c5ce7` (purple) |
+| 17 | Secondary accent | `#00cec9` (teal) |
+| 18 | Success | `#00b894` |
+| 19 | Warning | `#fdcb6e` |
+| 20 | Danger | `#e17055` |
+| 21 | API URL env var | `VITE_API_URL` (from `.env`) — default `http://localhost:8000` |
+| 22 | Mock mode | If API call fails, fallback to `mockData.js` and show a toast: "Using demo data (backend unavailable)" |
+| 23 | Responsive breakpoints | mobile: 375px, tablet: 768px, desktop: 1280px |
+| 24 | No `console.log` | Remove all debug logging before committing |
+| 25 | App title | "TripGraph AI — Group Travel Planner" |
+| 26 | Meta description | "AI-powered group travel planner that converts chat to optimized itineraries" |
+
+---
+
+## UI Excellence Requirements
+
+These are **mandatory**. The frontend must implement ALL of the following:
+
+1. **Skeleton loaders** on every data fetch — show animated placeholder shapes (not blank screens) while APIs load
+2. **Animated number counters** in the cost breakdown — numbers count up from 0 to final value over 1.5 seconds when the card enters viewport
+3. **Smooth polyline drawing** on the Leaflet map — the route line animates from origin to destination (not instant)
+4. **Toast notifications** for errors — use a toast component (top-right), auto-dismiss after 5 seconds, with error icon and message
+5. **Timeline item entrance animations** — each timeline event fades in and slides up staggered by 100ms
+6. **Hover card effects** — cards lift slightly (`translateY(-4px)`) and border glows on hover
+7. **Tab/section transitions** — switching between views (Timeline/Map/Cost/Calendar) has a cross-fade animation
+8. **Chat message bubbles** — messages appear one by one with a typing effect (staggered 200ms per message)
+9. **Score breakdown radar/bar chart** — visualize the scoring dimensions (preference, comfort, scenic, etc.) as colored bars or a radar chart
+10. **Budget progress bar** — show a horizontal progress bar: "₹10,275 of ₹15,000 used" with color shifting from green (< 60%) to yellow (60-85%) to red (> 85%)
+11. **Responsive layout** — all 8 components work at 375px width. Use single-column on mobile, multi-column on desktop.
+12. **Empty states** — if no data yet, show a centered illustration/icon with text like "Paste your group chat to get started"
+
+---
+
+## Fallback Option
 
 > [!NOTE]
-> This mini-spec is **extra-detailed** because the team may be less experienced with JavaScript/React. Every step includes setup commands, file templates, and explanations.
+> If the Tailwind + Framer Motion + shadcn approach produces code that is too complex to replicate or run:
+> **Fallback:** Use vanilla CSS with CSS custom properties (matching the color palette above) and CSS `@keyframes` for animations. The existing `index.css` design system in the original spec already provides this foundation. Drop Tailwind and Framer Motion but keep Leaflet and Axios.
 
 ---
 
-## Overview
+## Section D — Step-by-Step Build Instructions
 
-Your job is to build the **React frontend** that lets users interact with TripGraph AI. Users paste group chat messages, see extracted preferences, view itinerary options with a timeline, see the route on a Leaflet map, view cost breakdowns, and simulate delays.
-
-The frontend communicates with the Python backend via HTTP (JSON). You do NOT need to know Python — you only need to call REST API endpoints and render the responses.
-
----
-
-## What You Deliver
-
-| # | Deliverable | File |
-|---|------------|------|
-| 1 | React + Vite app setup | `frontend/package.json`, `vite.config.js`, `index.html` |
-| 2 | App layout | `src/App.jsx`, `src/main.jsx` |
-| 3 | Global styles | `src/index.css` |
-| 4 | API client | `src/api/tripApi.js` |
-| 5 | Chat Room component | `src/components/chat/ChatRoom.jsx` |
-| 6 | Chat Message component | `src/components/chat/ChatMessage.jsx` |
-| 7 | Extracted Preferences | `src/components/preferences/ExtractedPreferences.jsx` |
-| 8 | Itinerary Options | `src/components/itinerary/ItineraryOptions.jsx` |
-| 9 | Itinerary Timeline | `src/components/itinerary/ItineraryTimeline.jsx` |
-| 10 | Calendar View | `src/components/itinerary/CalendarView.jsx` |
-| 11 | Map View (Leaflet) | `src/components/map/MapView.jsx` |
-| 12 | Cost Breakdown | `src/components/cost/CostBreakdown.jsx` |
-| 13 | Delay Simulator | `src/components/delay/DelaySimulator.jsx` |
-| 14 | Layout components | `src/components/layout/Header.jsx`, `AppLayout.jsx` |
-| 15 | Custom hook | `src/hooks/useItinerary.js` |
-
----
-
-## Step-by-Step Instructions
-
-### Step 1: Create React App with Vite
+### Step 1: Create React + Vite App
 
 ```bash
-# From the project root (TripGraph/)
 npm create vite@latest frontend -- --template react
 cd frontend
 npm install
-
-# Install dependencies
-npm install axios react-leaflet leaflet react-icons
-
-# Start dev server (should open http://localhost:5173)
-npm run dev
+npm install axios react-leaflet leaflet framer-motion lucide-react
+npm install -D tailwindcss@3 postcss autoprefixer
+npx tailwindcss init -p
 ```
 
-> **What is Vite?** Vite is a fast build tool for modern web apps. It replaces Create React App (which is deprecated). It gives you instant hot-reload — save a file and see changes immediately in the browser.
+### Step 2: Configure Tailwind (`tailwind.config.js`)
 
-### Step 2: Fix Leaflet CSS Import
+```javascript
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {
+      colors: {
+        bg: "#0f1117",
+        surface: "#1a1d2e",
+        "surface-hover": "#242842",
+        border: "#2a2e45",
+        "text-primary": "#e4e6f0",
+        "text-muted": "#8b8fa3",
+        primary: "#6c5ce7",
+        "primary-hover": "#7d6ff0",
+        accent: "#00cec9",
+        success: "#00b894",
+        warning: "#fdcb6e",
+        danger: "#e17055",
+      },
+      fontFamily: {
+        sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
+      },
+    },
+  },
+  plugins: [],
+};
+```
 
-Leaflet needs its CSS loaded. Add this to `index.html` inside `<head>`:
+### Step 3: Update `index.html`
 
 ```html
-<!-- In frontend/index.html -->
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TripGraph AI — Group Travel Planner</title>
-  <meta name="description" content="AI-powered group travel planner that converts chat to itineraries" />
-  <!-- Leaflet CSS -->
+  <meta name="description" content="AI-powered group travel planner that converts chat to optimized itineraries" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 </head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>
 ```
 
-### Step 3: Create `src/index.css` — Global Design System
+### Step 4: Create `src/index.css`
 
 ```css
-/* === TripGraph AI Design System === */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  /* Color palette */
-  --color-bg: #0f1117;
-  --color-surface: #1a1d2e;
-  --color-surface-hover: #242842;
-  --color-border: #2a2e45;
-  --color-text: #e4e6f0;
-  --color-text-muted: #8b8fa3;
-  --color-primary: #6c5ce7;
-  --color-primary-hover: #7d6ff0;
-  --color-accent: #00cec9;
-  --color-success: #00b894;
-  --color-warning: #fdcb6e;
-  --color-danger: #e17055;
-
-  /* Typography */
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-base: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.25rem;
-  --font-size-2xl: 1.5rem;
-  --font-size-3xl: 2rem;
-
-  /* Spacing */
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 3rem;
-
-  /* Border radius */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-full: 9999px;
-
-  /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
-
-  /* Transitions */
-  --transition: all 0.2s ease;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  font-family: var(--font-family);
-  background: var(--color-bg);
-  color: var(--color-text);
-  line-height: 1.6;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #0f1117;
+  color: #e4e6f0;
   min-height: 100vh;
+  line-height: 1.6;
 }
 
-/* Scrollbar styling */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--color-bg); }
-::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: var(--radius-full); }
-::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
+::-webkit-scrollbar-track { background: #0f1117; }
+::-webkit-scrollbar-thumb { background: #2a2e45; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #8b8fa3; }
 
-/* Utility classes */
-.card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  transition: var(--transition);
-}
-.card:hover {
-  border-color: var(--color-primary);
-  box-shadow: var(--shadow-md);
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-lg);
-  border-radius: var(--radius-md);
-  font-family: var(--font-family);
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  cursor: pointer;
-  border: none;
-  transition: var(--transition);
-}
-
-.btn-primary {
-  background: var(--color-primary);
-  color: white;
-}
-.btn-primary:hover {
-  background: var(--color-primary-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(108, 92, 231, 0.4);
-}
-.btn-primary:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 10px;
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-}
-.badge-success { background: rgba(0, 184, 148, 0.15); color: var(--color-success); }
-.badge-warning { background: rgba(253, 203, 110, 0.15); color: var(--color-warning); }
-.badge-danger  { background: rgba(225, 112, 85, 0.15);  color: var(--color-danger); }
-
-.section-title {
-  font-size: var(--font-size-lg);
-  font-weight: 700;
-  margin-bottom: var(--space-md);
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-}
-
-/* Loading spinner */
-.spinner {
-  width: 20px;
-  height: 20px;
-  border: 2px solid var(--color-border);
-  border-top: 2px solid var(--color-primary);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
+/* Leaflet dark theme overrides */
+.leaflet-container { background: #1a1d2e; }
+.leaflet-control-zoom a { background: #1a1d2e !important; color: #e4e6f0 !important; border-color: #2a2e45 !important; }
+.leaflet-popup-content-wrapper { background: #1a1d2e; color: #e4e6f0; border: 1px solid #2a2e45; }
+.leaflet-popup-tip { background: #1a1d2e; }
 ```
 
-### Step 4: Create `src/api/tripApi.js` — API Client
+### Step 5: Create `src/api/tripApi.js`
 
 ```javascript
-/**
- * API client for TripGraph backend.
- * All API calls go through this file.
- */
-import axios from 'axios';
+import axios from "axios";
+import { MOCK_PARSE_CHAT, MOCK_ITINERARY, MOCK_DELAY } from "./mockData";
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 const api = axios.create({
-  baseURL: API_BASE,
-  headers: { 'Content-Type': 'application/json' },
-  timeout: 120000, // 2 minutes (LLM calls can be slow on free tier)
+  baseURL: API_URL,
+  headers: { "Content-Type": "application/json" },
+  timeout: 60000, // 60s — LLM calls can be slow
 });
 
-/**
- * Parse group chat messages and extract constraints.
- * @param {string[]} chatMessages - Array of chat message strings
- * @returns {Promise<{extracted_constraints, missing_fields, assumptions, conflict_report}>}
- */
 export async function parseChat(chatMessages) {
-  const response = await api.post('/api/parse-chat', {
-    chat_messages: chatMessages,
-  });
-  return response.data;
+  try {
+    const res = await api.post("/api/parse-chat", { chat_messages: chatMessages });
+    return res.data;
+  } catch (err) {
+    console.warn("API unavailable, using mock data:", err.message);
+    return MOCK_PARSE_CHAT;
+  }
 }
 
-/**
- * Generate itinerary from constraints.
- * @param {object} constraints - Extracted constraints object
- * @returns {Promise<{recommended_itinerary, alternatives, timeline, map_points, cost_breakdown, explanation}>}
- */
 export async function generateItinerary(constraints) {
-  const response = await api.post('/api/generate-itinerary', {
-    constraints,
-  });
-  return response.data;
+  try {
+    const res = await api.post("/api/generate-itinerary", { constraints });
+    return res.data;
+  } catch (err) {
+    console.warn("API unavailable, using mock data:", err.message);
+    return MOCK_ITINERARY;
+  }
 }
 
-/**
- * Simulate a delay and get updated itinerary.
- * @param {string} delayType - e.g. "departure_delay"
- * @param {number} delayMinutes - e.g. 90
- * @param {object} constraints - Current constraints
- * @param {object} selectedItinerary - Current itinerary
- * @returns {Promise<{updated_itinerary, changes, explanation}>}
- */
 export async function simulateDelay(delayType, delayMinutes, constraints, selectedItinerary) {
-  const response = await api.post('/api/simulate-delay', {
-    delay_type: delayType,
-    delay_minutes: delayMinutes,
-    constraints,
-    selected_itinerary: selectedItinerary,
-  });
-  return response.data;
+  try {
+    const res = await api.post("/api/simulate-delay", {
+      delay_type: delayType,
+      delay_minutes: delayMinutes,
+      constraints,
+      selected_itinerary: selectedItinerary,
+    });
+    return res.data;
+  } catch (err) {
+    console.warn("API unavailable, using mock data:", err.message);
+    return MOCK_DELAY;
+  }
 }
 ```
 
-### Step 5: Create `src/hooks/useItinerary.js` — State Management Hook
+### Step 6: Create `src/hooks/useItinerary.js`
 
-```javascript
-/**
- * Custom hook to manage the itinerary planning flow state.
- * Centralizes all API calls and state transitions.
- */
-import { useState, useCallback } from 'react';
-import { parseChat, generateItinerary, simulateDelay } from '../api/tripApi';
+Custom React hook that manages the full application state:
+- `chatMessages` — array of input messages
+- `isLoading` / `loadingStep` — loading state with step name ("Parsing chat...", "Generating itinerary...")
+- `parsedConstraints` — from `/parse-chat`
+- `itinerary` — from `/generate-itinerary`
+- `delayResult` — from `/simulate-delay`
+- `error` — error message string
+- `currentView` — "chat" | "results"
 
-export function useItinerary() {
-  const [step, setStep] = useState('chat'); // chat | preferences | itinerary | delay
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  // Data state
-  const [chatMessages, setChatMessages] = useState([]);
-  const [constraints, setConstraints] = useState(null);
-  const [itineraryData, setItineraryData] = useState(null);
-  const [delayResult, setDelayResult] = useState(null);
-
-  const handleParseChat = useCallback(async (messages) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const result = await parseChat(messages);
-      setChatMessages(messages);
-      setConstraints(result);
-      setStep('preferences');
-    } catch (err) {
-      setError(err.response?.data?.detail || err.message);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  const handleGenerateItinerary = useCallback(async () => {
-    if (!constraints?.extracted_constraints) return;
-    setLoading(true);
-    setError(null);
-    try {
-      const result = await generateItinerary(constraints.extracted_constraints);
-      setItineraryData(result);
-      setStep('itinerary');
-    } catch (err) {
-      setError(err.response?.data?.detail || err.message);
-    } finally {
-      setLoading(false);
-    }
-  }, [constraints]);
-
-  const handleSimulateDelay = useCallback(async (delayType, delayMinutes) => {
-    if (!itineraryData?.recommended_itinerary) return;
-    setLoading(true);
-    setError(null);
-    try {
-      const result = await simulateDelay(
-        delayType,
-        delayMinutes,
-        constraints.extracted_constraints,
-        itineraryData.recommended_itinerary,
-      );
-      setDelayResult(result);
-    } catch (err) {
-      setError(err.response?.data?.detail || err.message);
-    } finally {
-      setLoading(false);
-    }
-  }, [constraints, itineraryData]);
-
-  const resetFlow = useCallback(() => {
-    setStep('chat');
-    setChatMessages([]);
-    setConstraints(null);
-    setItineraryData(null);
-    setDelayResult(null);
-    setError(null);
-  }, []);
-
-  return {
-    step, loading, error,
-    chatMessages, constraints, itineraryData, delayResult,
-    handleParseChat, handleGenerateItinerary, handleSimulateDelay, resetFlow,
-  };
-}
-```
-
-### Step 6: Create `src/App.jsx` — Root Component
-
-```jsx
-import { useItinerary } from './hooks/useItinerary';
-import Header from './components/layout/Header';
-import ChatRoom from './components/chat/ChatRoom';
-import ExtractedPreferences from './components/preferences/ExtractedPreferences';
-import ItineraryTimeline from './components/itinerary/ItineraryTimeline';
-import ItineraryOptions from './components/itinerary/ItineraryOptions';
-import MapView from './components/map/MapView';
-import CostBreakdown from './components/cost/CostBreakdown';
-import DelaySimulator from './components/delay/DelaySimulator';
-import CalendarView from './components/itinerary/CalendarView';
-
-function App() {
-  const {
-    step, loading, error,
-    chatMessages, constraints, itineraryData, delayResult,
-    handleParseChat, handleGenerateItinerary, handleSimulateDelay, resetFlow,
-  } = useItinerary();
-
-  return (
-    <div className="app">
-      <Header onReset={resetFlow} />
-
-      {error && (
-        <div className="error-banner">
-          <span>⚠️ {error}</span>
-          <button onClick={() => {}}>Dismiss</button>
-        </div>
-      )}
-
-      <main className="app-main">
-        {/* Left Column: Chat + Preferences */}
-        <section className="app-sidebar">
-          <ChatRoom
-            onSubmit={handleParseChat}
-            loading={loading}
-            disabled={step !== 'chat'}
-            messages={chatMessages}
-          />
-          {constraints && (
-            <ExtractedPreferences
-              constraints={constraints}
-              onGenerate={handleGenerateItinerary}
-              loading={loading}
-            />
-          )}
-        </section>
-
-        {/* Right Column: Results */}
-        <section className="app-content">
-          {itineraryData && (
-            <>
-              <ItineraryOptions
-                recommended={itineraryData.recommended_itinerary}
-                alternatives={itineraryData.alternatives}
-                explanation={itineraryData.explanation}
-              />
-              <div className="app-grid">
-                <ItineraryTimeline timeline={itineraryData.timeline} />
-                <MapView mapPoints={itineraryData.map_points} />
-              </div>
-              <div className="app-grid">
-                <CostBreakdown costData={itineraryData.cost_breakdown} />
-                <CalendarView timeline={itineraryData.timeline} />
-              </div>
-              <DelaySimulator
-                onSimulate={handleSimulateDelay}
-                result={delayResult}
-                loading={loading}
-              />
-            </>
-          )}
-
-          {!itineraryData && step === 'chat' && (
-            <div className="empty-state">
-              <h2>🗺️ Plan Your Group Trip</h2>
-              <p>Paste your group chat on the left to get started.</p>
-            </div>
-          )}
-
-          {loading && (
-            <div className="loading-overlay">
-              <div className="spinner" />
-              <p>AI is planning your trip...</p>
-            </div>
-          )}
-        </section>
-      </main>
-    </div>
-  );
-}
-
-export default App;
-```
-
-Add these layout styles to `index.css`:
-
-```css
-/* App Layout */
-.app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.app-main {
-  display: grid;
-  grid-template-columns: 380px 1fr;
-  gap: var(--space-lg);
-  padding: var(--space-lg);
-  max-width: 1600px;
-  margin: 0 auto;
-  width: 100%;
-  flex: 1;
-}
-
-.app-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-lg);
-}
-
-.app-content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-lg);
-}
-
-.app-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-lg);
-}
-
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-2xl);
-  text-align: center;
-  color: var(--color-text-muted);
-}
-
-.empty-state h2 {
-  font-size: var(--font-size-2xl);
-  margin-bottom: var(--space-md);
-  color: var(--color-text);
-}
-
-.loading-overlay {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-2xl);
-  color: var(--color-text-muted);
-}
-
-.error-banner {
-  background: rgba(225, 112, 85, 0.1);
-  border: 1px solid var(--color-danger);
-  padding: var(--space-sm) var(--space-lg);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: var(--color-danger);
-}
-
-@media (max-width: 1024px) {
-  .app-main { grid-template-columns: 1fr; }
-  .app-grid { grid-template-columns: 1fr; }
-}
-```
+Functions:
+- `submitChat(messages)` — calls parseChat → generateItinerary in sequence
+- `simulateDelay(type, minutes)` — calls simulateDelay
+- `reset()` — clear all state
 
 ### Step 7: Create Components
 
-Below are **starter templates** for each component. Build on these.
+Build the following 8 components. Each should be its own `.jsx` file.
 
-#### `components/layout/Header.jsx`
-```jsx
-export default function Header({ onReset }) {
-  return (
-    <header className="header">
-      <div className="header-brand">
-        <span className="header-logo">🗺️</span>
-        <h1>TripGraph AI</h1>
-        <span className="badge badge-success">v0.1</span>
-      </div>
-      <button className="btn btn-primary" onClick={onReset}>New Trip</button>
-      <style>{`
-        .header {
-          display: flex; align-items: center; justify-content: space-between;
-          padding: var(--space-md) var(--space-xl);
-          background: var(--color-surface);
-          border-bottom: 1px solid var(--color-border);
-        }
-        .header-brand { display: flex; align-items: center; gap: var(--space-sm); }
-        .header-brand h1 { font-size: var(--font-size-xl); font-weight: 700; }
-        .header-logo { font-size: 1.5rem; }
-      `}</style>
-    </header>
-  );
-}
+**Component List with Prop Interfaces:**
+
+#### `ChatRoom` (`src/components/chat/ChatRoom.jsx`)
 ```
-
-#### `components/chat/ChatRoom.jsx`
-```jsx
-import { useState } from 'react';
-
-export default function ChatRoom({ onSubmit, loading, disabled, messages }) {
-  const [input, setInput] = useState('');
-
-  // Default sample chat for quick testing
-  const sampleChat = `Ujjwal: Let's do a weekend trip from Gurugram
-Aman: Budget under 15k per person
-Priya: Mountains please, not Jaipur
-Meenal: No night driving
-Kushagra: I want rafting and good cafes
-Ujjwal: We need to be back by Monday morning`;
-
-  const handleSubmit = () => {
-    const text = input.trim() || sampleChat;
-    const msgs = text.split('\n').filter(line => line.trim());
-    onSubmit(msgs);
-  };
-
-  return (
-    <div className="card">
-      <h3 className="section-title">💬 Group Chat</h3>
-      <textarea
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder={sampleChat}
-        rows={10}
-        disabled={disabled || loading}
-        style={{
-          width: '100%',
-          background: 'var(--color-bg)',
-          color: 'var(--color-text)',
-          border: '1px solid var(--color-border)',
-          borderRadius: 'var(--radius-md)',
-          padding: 'var(--space-md)',
-          fontFamily: 'var(--font-family)',
-          fontSize: 'var(--font-size-sm)',
-          resize: 'vertical',
-        }}
-      />
-      <button
-        className="btn btn-primary"
-        onClick={handleSubmit}
-        disabled={loading || disabled}
-        style={{ marginTop: 'var(--space-md)', width: '100%' }}
-      >
-        {loading ? <><div className="spinner" /> Analyzing...</> : '🔍 Parse Chat'}
-      </button>
-
-      {messages.length > 0 && (
-        <div style={{ marginTop: 'var(--space-md)', fontSize: 'var(--font-size-xs)', color: 'var(--color-text-muted)' }}>
-          ✅ {messages.length} messages parsed
-        </div>
-      )}
-    </div>
-  );
-}
+Props: { onSubmit: (messages: string[]) => void, isLoading: boolean }
 ```
+- Textarea for pasting chat messages (one per line)
+- Sample chat button that fills textarea with demo messages
+- Submit button with loading spinner
 
-#### `components/preferences/ExtractedPreferences.jsx`
-```jsx
-export default function ExtractedPreferences({ constraints, onGenerate, loading }) {
-  const c = constraints?.extracted_constraints || {};
-  const missing = constraints?.missing_fields || [];
-  const assumptions = constraints?.assumptions || {};
-
-  const items = [
-    { label: 'Origin', value: c.origin },
-    { label: 'Destination Type', value: c.destination_type },
-    { label: 'Budget/Person', value: c.budget_per_person ? `₹${c.budget_per_person.toLocaleString()}` : null },
-    { label: 'Night Driving', value: c.avoid_night_driving ? '❌ Avoided' : '✅ Allowed' },
-    { label: 'Must Include', value: c.must_include?.join(', ') },
-    { label: 'Return By', value: c.return_deadline },
-    { label: 'Hotel Tier', value: c.hotel_tier },
-    { label: 'Group Size', value: c.group_size },
-  ].filter(item => item.value);
-
-  return (
-    <div className="card">
-      <h3 className="section-title">📋 Extracted Preferences</h3>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)' }}>
-        {items.map(item => (
-          <div key={item.label} style={{ display: 'flex', justifyContent: 'space-between', padding: 'var(--space-xs) 0', borderBottom: '1px solid var(--color-border)' }}>
-            <span style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-sm)' }}>{item.label}</span>
-            <span style={{ fontWeight: 600, fontSize: 'var(--font-size-sm)' }}>{item.value}</span>
-          </div>
-        ))}
-      </div>
-
-      {Object.keys(assumptions).length > 0 && (
-        <div style={{ marginTop: 'var(--space-md)', padding: 'var(--space-sm)', background: 'rgba(108, 92, 231, 0.1)', borderRadius: 'var(--radius-sm)', fontSize: 'var(--font-size-xs)' }}>
-          <strong>Assumptions:</strong> {Object.entries(assumptions).map(([k, v]) => `${k}: ${v}`).join(' | ')}
-        </div>
-      )}
-
-      <button
-        className="btn btn-primary"
-        onClick={onGenerate}
-        disabled={loading || missing.length > 0}
-        style={{ marginTop: 'var(--space-lg)', width: '100%' }}
-      >
-        {loading ? <><div className="spinner" /> Generating...</> : '✨ Generate Itinerary'}
-      </button>
-    </div>
-  );
-}
+#### `ExtractedPreferences` (`src/components/preferences/ExtractedPreferences.jsx`)
 ```
-
-#### `components/map/MapView.jsx` — Leaflet Integration
-
-```jsx
-import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
-import L from 'leaflet';
-
-// Fix Leaflet default icon issue with bundlers
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
-  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-});
-
-// Fallback points if API returns empty
-const FALLBACK_POINTS = [
-  { lat: 28.4595, lng: 77.0266, label: 'Gurugram', type: 'origin' },
-  { lat: 30.0869, lng: 78.2676, label: 'Rishikesh', type: 'destination' },
-];
-
-export default function MapView({ mapPoints = [] }) {
-  const points = mapPoints.length > 0 ? mapPoints : FALLBACK_POINTS;
-  const center = points.length > 0 ? [points[0].lat, points[0].lng] : [28.5, 77.5];
-  const positions = points.map(p => [p.lat, p.lng]);
-
-  // Color markers by type
-  const getIcon = (type) => {
-    const colors = {
-      origin: '#6c5ce7',
-      destination: '#00cec9',
-      hotel: '#fdcb6e',
-      activity: '#e17055',
-      restaurant: '#00b894',
-      waypoint: '#8b8fa3',
-    };
-    const color = colors[type] || '#6c5ce7';
-    return L.divIcon({
-      className: 'custom-marker',
-      html: `<div style="background:${color};width:14px;height:14px;border-radius:50%;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.4);"></div>`,
-      iconSize: [14, 14],
-      iconAnchor: [7, 7],
-    });
-  };
-
-  return (
-    <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
-      <h3 className="section-title" style={{ padding: 'var(--space-lg) var(--space-lg) 0' }}>🗺️ Route Map</h3>
-      <div style={{ height: 400 }}>
-        <MapContainer center={center} zoom={7} style={{ height: '100%', width: '100%', borderRadius: '0 0 var(--radius-lg) var(--radius-lg)' }}>
-          <TileLayer
-            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-            attribution='&copy; OpenStreetMap contributors &copy; CARTO'
-          />
-          {points.map((point, i) => (
-            <Marker key={i} position={[point.lat, point.lng]} icon={getIcon(point.type)}>
-              <Popup>
-                <strong>{point.label}</strong><br />
-                <span style={{ textTransform: 'capitalize' }}>{point.type}</span>
-              </Popup>
-            </Marker>
-          ))}
-          {positions.length > 1 && (
-            <Polyline positions={positions} color="#6c5ce7" weight={3} opacity={0.7} dashArray="8 8" />
-          )}
-        </MapContainer>
-      </div>
-    </div>
-  );
-}
+Props: { constraints: object, assumptions: object, missingFields: string[] }
 ```
+- Display extracted constraints as labeled badges/chips
+- Show assumptions with a muted "assumed" label
+- Highlight missing fields in warning color
 
-#### `components/itinerary/ItineraryTimeline.jsx`
-```jsx
-export default function ItineraryTimeline({ timeline = [] }) {
-  const typeIcons = {
-    travel: '🚗', meal: '🍽️', hotel: '🏨', activity: '🎯',
-    rest: '😴', sightseeing: '📸', return: '🏠',
-  };
-
-  const typeColors = {
-    travel: 'var(--color-primary)', meal: 'var(--color-success)',
-    hotel: 'var(--color-warning)', activity: 'var(--color-danger)',
-    rest: 'var(--color-text-muted)', sightseeing: 'var(--color-accent)',
-    return: 'var(--color-primary)',
-  };
-
-  // Group by day
-  const days = {};
-  timeline.forEach(event => {
-    const day = event.day || 1;
-    if (!days[day]) days[day] = [];
-    days[day].push(event);
-  });
-
-  return (
-    <div className="card">
-      <h3 className="section-title">📅 Timeline</h3>
-      {Object.entries(days).map(([day, events]) => (
-        <div key={day} style={{ marginBottom: 'var(--space-lg)' }}>
-          <h4 style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-accent)', marginBottom: 'var(--space-sm)' }}>
-            Day {day}
-          </h4>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-xs)', borderLeft: '2px solid var(--color-border)', paddingLeft: 'var(--space-lg)', marginLeft: 'var(--space-sm)' }}>
-            {events.map((event, i) => (
-              <div key={i} style={{ display: 'flex', gap: 'var(--space-md)', alignItems: 'flex-start', padding: 'var(--space-sm) 0' }}>
-                <span style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-muted)', minWidth: 90, fontFamily: 'monospace' }}>
-                  {event.start_time} – {event.end_time}
-                </span>
-                <span style={{ fontSize: '1.1rem' }}>{typeIcons[event.type] || '📍'}</span>
-                <div>
-                  <div style={{ fontSize: 'var(--font-size-sm)', fontWeight: 500 }}>{event.title}</div>
-                  {event.cost && (
-                    <span style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-muted)' }}>₹{event.cost}</span>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-      {timeline.length === 0 && (
-        <p style={{ color: 'var(--color-text-muted)', textAlign: 'center' }}>No timeline data yet</p>
-      )}
-    </div>
-  );
-}
+#### `ItineraryOptions` (`src/components/itinerary/ItineraryOptions.jsx`)
 ```
-
-#### `components/cost/CostBreakdown.jsx`
-```jsx
-export default function CostBreakdown({ costData = {} }) {
-  const items = Object.entries(costData).filter(([k]) => k !== 'total' && k !== 'budget_limit');
-  const total = costData.total || items.reduce((sum, [, v]) => sum + (v || 0), 0);
-  const budget = costData.budget_limit;
-
-  return (
-    <div className="card">
-      <h3 className="section-title">💰 Cost Breakdown</h3>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-xs)' }}>
-        {items.map(([label, value]) => (
-          <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: 'var(--space-xs) 0', borderBottom: '1px solid var(--color-border)' }}>
-            <span style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-sm)', textTransform: 'capitalize' }}>
-              {label.replace(/_/g, ' ')}
-            </span>
-            <span style={{ fontWeight: 500, fontSize: 'var(--font-size-sm)' }}>₹{(value || 0).toLocaleString()}</span>
-          </div>
-        ))}
-        <div style={{ display: 'flex', justifyContent: 'space-between', padding: 'var(--space-sm) 0', fontWeight: 700, fontSize: 'var(--font-size-base)', borderTop: '2px solid var(--color-primary)' }}>
-          <span>Total / Person</span>
-          <span>₹{total.toLocaleString()}</span>
-        </div>
-        {budget && (
-          <div style={{ textAlign: 'right' }}>
-            <span className={`badge ${total <= budget ? 'badge-success' : 'badge-danger'}`}>
-              {total <= budget ? '✅ Within Budget' : '⚠️ Over Budget'}
-              {' (limit: ₹' + budget.toLocaleString() + ')'}
-            </span>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
+Props: { recommended: object, alternatives: object[], explanation: string, scoreBreakdown: object }
 ```
+- Show recommended itinerary as a highlighted card
+- List alternatives (if any) below
+- Show explanation text
+- Visualize score breakdown as colored horizontal bars
 
-#### `components/delay/DelaySimulator.jsx`
-```jsx
-import { useState } from 'react';
-
-export default function DelaySimulator({ onSimulate, result, loading }) {
-  const [delayType, setDelayType] = useState('departure_delay');
-  const [delayMinutes, setDelayMinutes] = useState(90);
-
-  const delayTypes = [
-    { value: 'departure_delay', label: '🚗 Departure Delay' },
-    { value: 'traffic_delay', label: '🚦 Traffic Delay' },
-    { value: 'activity_delay', label: '🎯 Activity Delay' },
-  ];
-
-  return (
-    <div className="card">
-      <h3 className="section-title">⏱️ Delay Simulator</h3>
-      <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap', alignItems: 'flex-end' }}>
-        <div>
-          <label style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-muted)' }}>Delay Type</label>
-          <select value={delayType} onChange={e => setDelayType(e.target.value)}
-            style={{ display: 'block', padding: 'var(--space-sm)', background: 'var(--color-bg)', color: 'var(--color-text)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-sm)', marginTop: 4 }}>
-            {delayTypes.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
-          </select>
-        </div>
-        <div>
-          <label style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-muted)' }}>Minutes</label>
-          <input type="number" value={delayMinutes} onChange={e => setDelayMinutes(+e.target.value)} min={15} max={300} step={15}
-            style={{ display: 'block', padding: 'var(--space-sm)', background: 'var(--color-bg)', color: 'var(--color-text)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-sm)', width: 80, marginTop: 4 }} />
-        </div>
-        <button className="btn btn-primary" onClick={() => onSimulate(delayType, delayMinutes)} disabled={loading}>
-          {loading ? 'Replanning...' : '⚡ Simulate'}
-        </button>
-      </div>
-
-      {result && (
-        <div style={{ marginTop: 'var(--space-lg)' }}>
-          <h4 style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-warning)', marginBottom: 'var(--space-sm)' }}>Changes Made:</h4>
-          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 'var(--space-xs)' }}>
-            {(result.changes || []).map((change, i) => (
-              <li key={i} style={{ fontSize: 'var(--font-size-sm)', padding: 'var(--space-xs) var(--space-sm)', background: 'rgba(253, 203, 110, 0.1)', borderRadius: 'var(--radius-sm)' }}>
-                ↳ {change}
-              </li>
-            ))}
-          </ul>
-          {result.explanation && (
-            <p style={{ marginTop: 'var(--space-md)', fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
-              {result.explanation}
-            </p>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
+#### `ItineraryTimeline` (`src/components/itinerary/ItineraryTimeline.jsx`)
 ```
+Props: { timeline: TimelineEvent[] }
+```
+- Vertical timeline grouped by day
+- Each event shows: time range, title, type icon, cost (if any)
+- Events animate in on mount (staggered)
+- Color-code by type: travel=blue, meal=orange, activity=green, hotel=purple, rest=gray
 
-> **Remaining components** (`ItineraryOptions.jsx`, `CalendarView.jsx`): Follow the same patterns above. `ItineraryOptions` shows the recommended plan and alternatives as cards. `CalendarView` renders a day/hour grid.
+#### `CalendarView` (`src/components/itinerary/CalendarView.jsx`)
+```
+Props: { timeline: TimelineEvent[] }
+```
+- Day/hour grid (like Google Calendar)
+- Events rendered as colored blocks spanning their duration
+- Hours on Y-axis, days on X-axis
+
+#### `MapView` (`src/components/map/MapView.jsx`)
+```
+Props: { mapPoints: MapPoint[] }
+```
+- Leaflet map with OpenStreetMap tiles
+- Colored markers per point type (see Section B.4)
+- Popup on click showing label
+- Polyline connecting all points in order
+- Animated polyline drawing on mount
+- Auto-fit bounds to show all markers
+
+#### `CostBreakdown` (`src/components/cost/CostBreakdown.jsx`)
+```
+Props: { costBreakdown: CostBreakdown, groupSize: number }
+```
+- Animated number counters (count up from 0)
+- Budget progress bar with color coding
+- Category breakdown (transport, hotel, activities, food, misc)
+- Per-person and total cost display
+
+#### `DelaySimulator` (`src/components/delay/DelaySimulator.jsx`)
+```
+Props: { onSimulate: (type: string, minutes: number) => void, result: object | null, isLoading: boolean }
+```
+- Dropdown for delay type (departure_delay, traffic_delay, activity_delay)
+- Slider or number input for minutes (15-300)
+- Simulate button
+- Show result: changes list, explanation, validation status
+
+### Step 8: Create `src/App.jsx`
+
+Main app layout:
+1. **Header** — Logo, title "TripGraph AI"
+2. **Chat phase**: Show `ChatRoom` centered. On submit, show loading skeleton.
+3. **Results phase**: Multi-panel layout with tabs:
+   - Tab 1: Timeline + Preferences
+   - Tab 2: Map
+   - Tab 3: Cost Breakdown
+   - Tab 4: Calendar
+   - Always visible: Explanation card, Delay Simulator
+
+Use Framer Motion `AnimatePresence` for smooth transitions between phases.
 
 ---
 
-## Mock Data for Early Development
+## Section E — File Manifest
 
-Before the API is ready, import mock data directly to build and test your components:
-
-```javascript
-// src/mockData.js — use this during development
-export const mockConstraints = {
-  extracted_constraints: {
-    origin: "Gurugram", destination_type: "mountains", budget_per_person: 15000,
-    avoid_night_driving: true, must_include: ["rafting", "cafes"],
-    return_deadline: "Monday morning", hotel_tier: "comfort", group_size: 4,
-  },
-  missing_fields: [],
-  assumptions: { group_size: "4 (default)" },
-  conflict_report: { conflicts: [] },
-};
-
-export const mockItinerary = {
-  recommended_itinerary: {
-    route: "Gurugram to Rishikesh", tier: "comfort", total_cost_per_person: 10275,
-  },
-  alternatives: [
-    { route: "Gurugram to Tirthan", tier: "budget", total_cost_per_person: 14800, status: "warning" },
-    { route: "Gurugram to Jaipur", tier: "comfort", total_cost_per_person: 9500, status: "rejected", reason: "Not mountains" },
-  ],
-  timeline: [
-    { day: 1, start_time: "06:00", end_time: "09:00", title: "Drive from Gurugram", type: "travel" },
-    { day: 1, start_time: "09:00", end_time: "09:45", title: "Breakfast at Highway Stop", type: "meal" },
-    { day: 1, start_time: "09:45", end_time: "13:00", title: "Continue to Rishikesh", type: "travel" },
-    { day: 1, start_time: "14:00", end_time: "15:00", title: "Hotel check-in", type: "hotel" },
-    { day: 1, start_time: "16:30", end_time: "17:30", title: "Riverside Cafe", type: "meal" },
-    { day: 1, start_time: "18:30", end_time: "20:00", title: "Ganga Aarti", type: "activity" },
-    { day: 2, start_time: "09:00", end_time: "12:00", title: "River Rafting", type: "activity", cost: 1800 },
-    { day: 2, start_time: "15:00", end_time: "21:30", title: "Return to Gurugram", type: "travel" },
-  ],
-  map_points: [
-    { lat: 28.4595, lng: 77.0266, label: "Gurugram", type: "origin" },
-    { lat: 29.0281, lng: 77.0474, label: "Murthal Breakfast", type: "waypoint" },
-    { lat: 30.0869, lng: 78.2676, label: "Rishikesh", type: "destination" },
-    { lat: 30.0872, lng: 78.2680, label: "Riverside Hotel", type: "hotel" },
-    { lat: 30.1256, lng: 78.3152, label: "Rafting Point", type: "activity" },
-  ],
-  cost_breakdown: {
-    transport: 2375, hotel: 2100, food: 2000, activities: 1800, miscellaneous: 2000, total: 10275, budget_limit: 15000,
-  },
-  explanation: "This itinerary was selected because it stays within ₹15,000 budget, avoids night driving...",
-};
 ```
-
-In `App.jsx`, you can temporarily use:
-```javascript
-// import { mockConstraints, mockItinerary } from './mockData';
-// Then pass these directly to components instead of calling the API
+frontend/package.json                          — Dependencies
+frontend/vite.config.js                        — Vite config
+frontend/tailwind.config.js                    — Tailwind custom theme
+frontend/postcss.config.js                     — PostCSS with Tailwind
+frontend/index.html                            — HTML entry with Leaflet CSS + Google Font
+frontend/src/main.jsx                          — React entry point
+frontend/src/App.jsx                           — Main app component with routing
+frontend/src/index.css                         — Global styles + Tailwind directives
+frontend/src/api/tripApi.js                    — Axios API client with mock fallback
+frontend/src/api/mockData.js                   — Hardcoded mock API responses
+frontend/src/hooks/useItinerary.js             — Custom hook for app state
+frontend/src/components/layout/Header.jsx      — App header with logo
+frontend/src/components/chat/ChatRoom.jsx      — Chat input interface
+frontend/src/components/preferences/ExtractedPreferences.jsx — Constraint display
+frontend/src/components/itinerary/ItineraryOptions.jsx — Itinerary cards
+frontend/src/components/itinerary/ItineraryTimeline.jsx — Vertical timeline
+frontend/src/components/itinerary/CalendarView.jsx — Calendar grid view
+frontend/src/components/map/MapView.jsx        — Leaflet map with markers
+frontend/src/components/cost/CostBreakdown.jsx — Animated cost display
+frontend/src/components/delay/DelaySimulator.jsx — Delay simulation UI
+frontend/src/components/ui/Toast.jsx           — Toast notification component
+frontend/src/components/ui/Skeleton.jsx        — Skeleton loader component
+specs/logs/bucket_4_decisions.md               — Decisions & assumptions log
 ```
 
 ---
 
-## Testing Checklist
+## Section F — Integration Verification Checklist
 
-- [ ] `npm run dev` starts without errors on `http://localhost:5173`
-- [ ] ChatRoom accepts text input and parses on submit
-- [ ] ExtractedPreferences displays constraint key-value pairs
-- [ ] ItineraryTimeline renders day-grouped events
-- [ ] MapView shows Leaflet map with markers and polyline
-- [ ] CostBreakdown shows itemized costs with budget badge
-- [ ] DelaySimulator triggers simulation and shows changes
-- [ ] Layout is responsive (works on narrow screens)
-- [ ] API calls work when backend is running (CORS passes)
-- [ ] Dark theme looks polished (no white backgrounds, no default fonts)
+### Pre-Commit Checklist
+- [ ] `npm run dev` starts without errors at `http://localhost:5173`
+- [ ] `npm run build` succeeds with no errors
+- [ ] All 8 core components render with mock data (no backend needed)
+- [ ] Chat input accepts text and triggers the submit flow
+- [ ] Extracted preferences display all constraint fields
+- [ ] Timeline shows all events grouped by day with animations
+- [ ] Map renders with markers and polyline
+- [ ] Cost breakdown shows animated counters and budget progress bar
+- [ ] Delay simulator sends request and shows results
+- [ ] Calendar view renders events as blocks
+- [ ] Skeleton loaders appear during loading states
+- [ ] Toast notifications appear on API errors
+- [ ] All components are responsive at 375px width
+- [ ] No `console.log` in committed code
+- [ ] Dark theme is consistent across all components
+- [ ] All interactive elements have unique IDs
+- [ ] `specs/logs/bucket_4_decisions.md` is created
+
+### Visual Checklist (Manual)
+- [ ] First impression is "wow, this looks professional"
+- [ ] No blank/white screens at any point
+- [ ] Animations are smooth (60fps)
+- [ ] Colors are harmonious and high-contrast
+- [ ] Typography is clean and readable
 
 ---
 
-## Coordination with Other Tasks
+## Section G — 📋 Assumptions & Decisions Log (Output File)
 
-| You need from | What |
-|--------------|------|
-| Task 3 (Backend API) | API endpoint URLs and response JSON shapes |
-| Task 3 (Backend API) | CORS enabled for `http://localhost:5173` |
+**You MUST create:** `specs/logs/bucket_4_decisions.md`
 
-| Others need from you | What |
-|---------------------|------|
-| Nobody — you are the final consumer | — |
+```markdown
+# Bucket 4 — Decisions & Assumptions Log
+Generated by: [Model Name] on [Date]
 
-> **Start with mock data immediately.** Build all components with mock data first. Connect to real API later — just swap `mockData` imports for actual `tripApi.js` calls.
-
----
-
-## Git Workflow
-
-```bash
-git checkout -b bucket-4/react-vite-setup
-# npm create vite, install deps, index.css
-git commit -m "Task 4: React + Vite setup with design system"
-
-git checkout -b bucket-4/chat-preferences
-# ChatRoom, ExtractedPreferences
-git commit -m "Task 4: Chat and preferences components"
-
-git checkout -b bucket-4/itinerary-views
-# Timeline, ItineraryOptions, CalendarView
-git commit -m "Task 4: Itinerary display components"
-
-git checkout -b bucket-4/map-leaflet
-# MapView with Leaflet
-git commit -m "Task 4: Leaflet map integration"
-
-git checkout -b bucket-4/delay-cost
-# CostBreakdown, DelaySimulator
-git commit -m "Task 4: Cost breakdown and delay simulator"
+## Pre-Specified Decisions Applied
+## Unspecified Decisions Made During Build
+## Deviations from Spec
+## External Assumptions
+## Validation Results
 ```
+
+---
+
+## Git Commit Protocol
+
+```
+1. Stage all files listed in File Manifest (Section E)
+2. Stage specs/logs/bucket_4_decisions.md
+3. Commit message: "Bucket 4: React frontend with full UI, mock API, animations — [date]"
+4. Branch: bucket-4/implementation
+5. Push to origin
+6. Do NOT merge to main
+```
+
+---
+
+## Quality Bar Reminder
+
+- The UI is the **face of this project**. It must be excellent.
+- Dark theme everywhere. No white backgrounds. No unstyled browser defaults.
+- Every loading state has a skeleton. No blank screens ever.
+- Every error has a human-readable toast with retry action.
+- The Leaflet map must animate the polyline drawing.
+- Timeline events must animate in with staggered entrance.
+- Cost numbers must count up from 0.
+- Mobile-responsive at 375px.
+- A bucket without `specs/logs/bucket_4_decisions.md` is incomplete.
