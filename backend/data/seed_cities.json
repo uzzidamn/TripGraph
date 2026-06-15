@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Gurugram",
+    "type": "origin",
+    "lat": 28.4595,
+    "lng": 77.0266,
+    "description": "Millennium City and the starting point for all TripGraph routes. Well-connected to Delhi NCR via expressways.",
+    "tags": ["origin", "urban", "metro"]
+  },
+  {
+    "name": "Jaipur",
+    "type": "heritage",
+    "lat": 26.9124,
+    "lng": 75.7873,
+    "description": "The Pink City of Rajasthan, famous for Amber Fort, palaces, bazaars, and Rajasthani cuisine.",
+    "tags": ["heritage", "culture", "food", "family", "shopping", "history"]
+  },
+  {
+    "name": "Rishikesh",
+    "type": "mountains",
+    "lat": 30.0869,
+    "lng": 78.2676,
+    "description": "Yoga and adventure capital of India. River rafting, Ganga Aarti, riverside cafes, and Himalayan foothills.",
+    "tags": ["adventure", "mountains", "spiritual", "nature", "cafes", "rafting"]
+  },
+  {
+    "name": "Tirthan Valley",
+    "type": "mountains",
+    "lat": 31.6381,
+    "lng": 77.4511,
+    "description": "Remote Himalayan valley in Himachal Pradesh, bordering the Great Himalayan National Park. Pristine rivers, trout fishing, and untouched nature.",
+    "tags": ["nature", "mountains", "trekking", "offbeat", "wildlife", "scenic"]
+  }
+]

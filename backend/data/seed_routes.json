@@ -1,0 +1,32 @@
+[
+  {
+    "route_id": "gurugram_jaipur_2d1n",
+    "origin": "Gurugram",
+    "destination": "Jaipur",
+    "distance_km": 240,
+    "base_drive_minutes": 300,
+    "risk_level": "low",
+    "scenic_score": 5,
+    "recommended_for": ["heritage", "food", "family", "weekend", "culture"]
+  },
+  {
+    "route_id": "gurugram_rishikesh_2d1n",
+    "origin": "Gurugram",
+    "destination": "Rishikesh",
+    "distance_km": 260,
+    "base_drive_minutes": 390,
+    "risk_level": "medium",
+    "scenic_score": 7,
+    "recommended_for": ["adventure", "weekend", "friends", "nature", "spiritual"]
+  },
+  {
+    "route_id": "gurugram_tirthan_3d2n",
+    "origin": "Gurugram",
+    "destination": "Tirthan Valley",
+    "distance_km": 510,
+    "base_drive_minutes": 720,
+    "risk_level": "high",
+    "scenic_score": 9,
+    "recommended_for": ["nature", "offbeat", "long_weekend", "trekking", "wildlife"]
+  }
+]

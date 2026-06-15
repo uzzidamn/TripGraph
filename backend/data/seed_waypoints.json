@@ -1,0 +1,90 @@
+[
+  {
+    "waypoint_id": "murthal_stop",
+    "route_id": "gurugram_rishikesh_2d1n",
+    "name": "Murthal Dhaba Belt",
+    "type": "breakfast_stop",
+    "km_from_origin": 35,
+    "order": 1,
+    "lat": 29.0281,
+    "lng": 77.0474,
+    "typical_stop_minutes": 30
+  },
+  {
+    "waypoint_id": "muzaffarnagar_fuel",
+    "route_id": "gurugram_rishikesh_2d1n",
+    "name": "Muzaffarnagar Fuel & Rest",
+    "type": "fuel_stop",
+    "km_from_origin": 130,
+    "order": 2,
+    "lat": 29.4727,
+    "lng": 77.7085,
+    "typical_stop_minutes": 20
+  },
+  {
+    "waypoint_id": "haridwar_viewpoint",
+    "route_id": "gurugram_rishikesh_2d1n",
+    "name": "Har Ki Pauri Entry, Haridwar",
+    "type": "viewpoint",
+    "km_from_origin": 225,
+    "order": 3,
+    "lat": 29.9583,
+    "lng": 78.1642,
+    "typical_stop_minutes": 20
+  },
+  {
+    "waypoint_id": "neemrana_fuel",
+    "route_id": "gurugram_jaipur_2d1n",
+    "name": "Neemrana Fuel Stop (NH-48)",
+    "type": "fuel_stop",
+    "km_from_origin": 80,
+    "order": 1,
+    "lat": 27.9731,
+    "lng": 76.3840,
+    "typical_stop_minutes": 15
+  },
+  {
+    "waypoint_id": "shahpura_rest",
+    "route_id": "gurugram_jaipur_2d1n",
+    "name": "Shahpura Rest Stop",
+    "type": "rest_stop",
+    "km_from_origin": 170,
+    "order": 2,
+    "lat": 27.3928,
+    "lng": 75.9622,
+    "typical_stop_minutes": 20
+  },
+  {
+    "waypoint_id": "chandigarh_breakfast",
+    "route_id": "gurugram_tirthan_3d2n",
+    "name": "Chandigarh Breakfast Stop",
+    "type": "breakfast_stop",
+    "km_from_origin": 250,
+    "order": 1,
+    "lat": 30.7333,
+    "lng": 76.7794,
+    "typical_stop_minutes": 45
+  },
+  {
+    "waypoint_id": "bilaspur_fuel",
+    "route_id": "gurugram_tirthan_3d2n",
+    "name": "Bilaspur Fuel & Stretch",
+    "type": "fuel_stop",
+    "km_from_origin": 380,
+    "order": 2,
+    "lat": 31.3400,
+    "lng": 76.7600,
+    "typical_stop_minutes": 20
+  },
+  {
+    "waypoint_id": "aut_tunnel_viewpoint",
+    "route_id": "gurugram_tirthan_3d2n",
+    "name": "Aut Tunnel Viewpoint",
+    "type": "viewpoint",
+    "km_from_origin": 460,
+    "order": 3,
+    "lat": 31.8167,
+    "lng": 77.1833,
+    "typical_stop_minutes": 15
+  }
+]
