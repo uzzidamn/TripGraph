@@ -246,6 +246,83 @@ class ClaudeClient(LLMClient):
 
 
 # ---------------------------------------------------------------------------
+# Ollama (OpenAI compatible endpoint at http://localhost:11434/v1)
+# ---------------------------------------------------------------------------
+
+class OllamaClient(LLMClient):
+    def __init__(self, system_prompt: str):
+        super().__init__()
+        import httpx
+        self._httpx = httpx
+        self._url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434/v1/chat/completions")
+        self._model = os.getenv("LLM_MODEL", "gemma3:4b")
+        self._system_prompt = system_prompt
+        self._temperature = float(os.getenv("LLM_TEMPERATURE", "0"))
+        
+        # Convert tools schema to OpenAI format
+        from backend.agents_augmented.tool_registry import get_claude_tool_schemas
+        self._tools = []
+        for t in get_claude_tool_schemas():
+            self._tools.append({
+                "type": "function",
+                "function": {
+                    "name": t["name"],
+                    "description": t["description"],
+                    "parameters": t["input_schema"]
+                }
+            })
+            
+        self._messages = [
+            {"role": "system", "content": system_prompt + "\nOutput ONLY a raw JSON object. Do not wrap in markdown block code tags. Do not add explanation."}
+        ]
+
+    def add_user_message(self, content: str) -> None:
+        self._messages.append({"role": "user", "content": content})
+
+    def add_tool_result(self, tool_call_id: str, tool_name: str, result: dict) -> None:
+        self._messages.append({
+            "role": "tool",
+            "tool_call_id": tool_call_id,
+            "name": tool_name,
+            "content": json.dumps(result, default=str)
+        })
+
+    def invoke(self) -> dict:
+        self._rate_limit_wait()
+        payload = {
+            "model": self._model,
+            "messages": self._messages,
+            "tools": self._tools,
+            "temperature": self._temperature,
+            "stream": False
+        }
+        try:
+            response = self._httpx.post(self._url, json=payload, timeout=60.0)
+            response.raise_for_status()
+            res_json = response.json()
+            choice = res_json["choices"][0]["message"]
+        except Exception as e:
+            print(f"[LLM ERROR] Ollama call failed: {e}")
+            raise
+
+        self._messages.append(choice)
+
+        tool_calls = choice.get("tool_calls")
+        if tool_calls:
+            tc = tool_calls[0]
+            args_str = tc["function"]["arguments"]
+            args = json.loads(args_str) if isinstance(args_str, str) else args_str
+            return {
+                "type": "tool_call",
+                "tool_call_id": tc["id"],
+                "tool_name": tc["function"]["name"],
+                "arguments": args
+            }
+
+        return {"type": "final_answer", "content": choice.get("content") or ""}
+
+
+# ---------------------------------------------------------------------------
 # Factory
 # ---------------------------------------------------------------------------
 
@@ -256,4 +333,6 @@ def create_llm_client(system_prompt: str) -> LLMClient:
         return GeminiClient(system_prompt)
     if provider == "claude":
         return ClaudeClient(system_prompt)
-    raise ValueError(f"Unknown LLM_PROVIDER: '{provider}'. Supported: gemini, claude")
+    if provider == "ollama":
+        return OllamaClient(system_prompt)
+    raise ValueError(f"Unknown LLM_PROVIDER: '{provider}'. Supported: gemini, claude, ollama")
