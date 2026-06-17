@@ -24,22 +24,24 @@ class LLMClient:
     at the start of their invoke() implementation.
     """
 
+    _call_timestamps: list[float] = []
+
     def __init__(self) -> None:
-        self._rate_limit: int = int(os.getenv("LLM_RATE_LIMIT_RPM", "5"))
-        self._call_timestamps: list[float] = []
+        from backend.config import settings
+        self._rate_limit: int = settings.LLM_RATE_LIMIT_RPM
 
     def _rate_limit_wait(self) -> None:
         """Sleep if necessary to stay within LLM_RATE_LIMIT_RPM calls/minute."""
         now = time.time()
         window = 60.0
         # Drop timestamps older than 60 seconds
-        self._call_timestamps = [t for t in self._call_timestamps if now - t < window]
-        if len(self._call_timestamps) >= self._rate_limit:
-            sleep_secs = window - (now - self._call_timestamps[0])
+        LLMClient._call_timestamps = [t for t in LLMClient._call_timestamps if now - t < window]
+        if len(LLMClient._call_timestamps) >= self._rate_limit:
+            sleep_secs = window - (now - LLMClient._call_timestamps[0])
             if sleep_secs > 0:
                 print(f"[RATE LIMIT] Sleeping {sleep_secs:.1f}s (>{self._rate_limit} calls/min)")
                 time.sleep(sleep_secs)
-        self._call_timestamps.append(time.time())
+        LLMClient._call_timestamps.append(time.time())
 
     def add_user_message(self, content: str) -> None:
         raise NotImplementedError

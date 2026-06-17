@@ -24,6 +24,7 @@ class Settings:
     GOOGLE_API_KEY: str = os.getenv("GOOGLE_API_KEY", "")
     LLM_TEMPERATURE: float = float(os.getenv("LLM_TEMPERATURE", "0"))
     PIPELINE_MODE: str = os.getenv("PIPELINE_MODE", "agentic")
+    LLM_RATE_LIMIT_RPM: int = int(os.getenv("LLM_RATE_LIMIT_RPM", "5"))
 
     # API server
     API_HOST: str = os.getenv("API_HOST", "0.0.0.0")

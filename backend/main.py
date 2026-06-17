@@ -43,11 +43,33 @@ app.include_router(chat_router)
 app.include_router(itinerary_router)
 app.include_router(replanner_router)
 
+# Config request model
+from pydantic import BaseModel
+from fastapi.responses import HTMLResponse
+from backend.api.test_client_html import HTML_CONTENT
 
-@app.get("/", tags=["Health"])
-async def root() -> dict:
-    """Root endpoint — confirms the API is running."""
-    return {"message": "TripGraph AI API is running", "docs": "/docs"}
+class ConfigUpdate(BaseModel):
+    pipeline_mode: str
+
+@app.get("/api/config", tags=["Config"])
+async def get_config() -> dict:
+    """Get the current active pipeline mode."""
+    return {"pipeline_mode": settings.PIPELINE_MODE}
+
+@app.post("/api/config", tags=["Config"])
+async def set_config(config: ConfigUpdate) -> dict:
+    """Set the active pipeline mode dynamically."""
+    if config.pipeline_mode not in ("agentic", "augmented"):
+        from fastapi import HTTPException
+        raise HTTPException(status_code=400, detail="Invalid pipeline mode. Use 'agentic' or 'augmented'.")
+    settings.PIPELINE_MODE = config.pipeline_mode
+    return {"pipeline_mode": settings.PIPELINE_MODE}
+
+
+@app.get("/", tags=["Root"], response_class=HTMLResponse)
+async def root() -> HTMLResponse:
+    """Root endpoint — serves the interactive Test Console UI."""
+    return HTMLResponse(content=HTML_CONTENT)
 
 
 @app.get("/health", tags=["Health"])

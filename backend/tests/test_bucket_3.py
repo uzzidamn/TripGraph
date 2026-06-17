@@ -11,12 +11,29 @@ client = TestClient(app)
 def test_root():
     response = client.get("/")
     assert response.status_code == 200
-    assert "TripGraph AI API is running" in response.json()["message"]
+    assert "text/html" in response.headers["content-type"]
+    assert "TripGraph AI" in response.text
 
 def test_health():
     response = client.get("/health")
     assert response.status_code == 200
     assert response.json() == {"status": "healthy"}
+
+def test_get_config():
+    response = client.get("/api/config")
+    assert response.status_code == 200
+    assert "pipeline_mode" in response.json()
+
+def test_set_config():
+    payload = {"pipeline_mode": "augmented"}
+    response = client.post("/api/config", json=payload)
+    assert response.status_code == 200
+    assert response.json() == {"pipeline_mode": "augmented"}
+
+    # Test invalid config
+    payload_invalid = {"pipeline_mode": "invalid_mode"}
+    response_invalid = client.post("/api/config", json=payload_invalid)
+    assert response_invalid.status_code == 400
 
 @patch("backend.agents.workflow.run_workflow")
 def test_parse_chat(mock_run_workflow):
