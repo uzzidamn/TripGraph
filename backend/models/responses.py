@@ -10,7 +10,7 @@ class ParseChatResponse(BaseModel):
     extracted_constraints: Dict[str, Any] = Field(default_factory=dict)
     missing_fields: List[str] = Field(default_factory=list)
     assumptions: Dict[str, Any] = Field(default_factory=dict)
-    conflict_report: Dict[str, Any] = Field(default_factory=dict)
+    conflict_report: Optional[Dict[str, Any]] = None
 
 
 class ItineraryResponse(BaseModel):
@@ -18,11 +18,11 @@ class ItineraryResponse(BaseModel):
 
     recommended_itinerary: Optional[Dict[str, Any]] = None
     alternatives: List[Dict[str, Any]] = Field(default_factory=list)
-    validation_report: Dict[str, Any] = Field(default_factory=dict)
-    score_breakdown: Dict[str, Any] = Field(default_factory=dict)
+    validation_report: Optional[Dict[str, Any]] = None
+    score_breakdown: Optional[Dict[str, Any]] = None
     timeline: List[Dict[str, Any]] = Field(default_factory=list)
     map_points: List[Dict[str, Any]] = Field(default_factory=list)
-    cost_breakdown: Dict[str, Any] = Field(default_factory=dict)
+    cost_breakdown: Optional[Dict[str, Any]] = None
     explanation: str = ""
 
 
@@ -31,7 +31,7 @@ class DelaySimulationResponse(BaseModel):
 
     updated_itinerary: Optional[Dict[str, Any]] = None
     changes: List[str] = Field(default_factory=list)
-    validation_report: Dict[str, Any] = Field(default_factory=dict)
+    validation_report: Optional[Dict[str, Any]] = None
     explanation: str = ""
 
 
