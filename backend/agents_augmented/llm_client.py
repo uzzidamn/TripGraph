@@ -273,7 +273,7 @@ class OllamaClient(LLMClient):
             })
             
         self._messages = [
-            {"role": "system", "content": system_prompt + "\nOutput ONLY a raw JSON object. Do not wrap in markdown block code tags. Do not add explanation."}
+            {"role": "system", "content": system_prompt}
         ]
 
     def add_user_message(self, content: str) -> None:
