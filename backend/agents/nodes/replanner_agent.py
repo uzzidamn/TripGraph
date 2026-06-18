@@ -65,7 +65,8 @@ def replanner_agent_node(state: TripState) -> dict:
     print(f"  ✅ Replanner: {len(changes)} changes, "
           f"absorbed={round(delay_absorbed)}min, remaining={round(delay_remaining)}min")
 
+    # Embed changes inside the dict so replanner_routes.py can pop it out
     return {
-        "replanned_itinerary": updated_itinerary,
+        "replanned_itinerary": {**updated_itinerary, "changes": changes},
         "replanning_explanation": explanation,
     }

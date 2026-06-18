@@ -1,7 +1,6 @@
 """
 Generate candidate itineraries by combining routes × transport × hotels × activities.
 """
-from itertools import product
 from backend.planner.trip_graph_builder import build_trip_graph
 
 
