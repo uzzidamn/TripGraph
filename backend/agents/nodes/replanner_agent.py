@@ -3,7 +3,7 @@ Agent 6: Replanner Agent
 Handles delay simulation by calling the deterministic replanner,
 then explains the changes via LLM.
 """
-from backend.agents.llm_client import get_llm
+from backend.agents.llm_client import get_llm, extract_text_content
 from backend.agents.prompts import REPLANNER_EXPLAIN_HUMAN, REPLANNER_EXPLAIN_SYSTEM
 from backend.agents.state import TripState
 from backend.planner.replanner import replan_itinerary
@@ -57,7 +57,7 @@ def replanner_agent_node(state: TripState) -> dict:
 
     try:
         response = llm.invoke(messages)
-        explanation = response.content.strip()
+        explanation = extract_text_content(response.content).strip()
     except Exception as e:
         print(f"  ❌ LLM call failed in replanner agent: {e}")
         raise

@@ -118,12 +118,13 @@ if MOCK_MODE:
     print("  ⏭️  Skipped (no GOOGLE_API_KEY)")
 else:
     try:
-        from backend.agents.llm_client import get_llm
+        from backend.agents.llm_client import get_llm, extract_text_content
         llm = get_llm()
         check(True, f"LLM initialized: {type(llm).__name__}")
         # Minimal smoke test
         response = llm.invoke([("human", "Say OK")])
-        check("ok" in response.content.lower() or len(response.content) > 0, "LLM responds to a simple prompt")
+        content_str = extract_text_content(response.content)
+        check("ok" in content_str.lower() or len(content_str) > 0, "LLM responds to a simple prompt")
     except Exception as e:
         check(False, f"LLM init/call failed: {e}")
 

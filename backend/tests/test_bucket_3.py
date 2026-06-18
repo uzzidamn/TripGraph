@@ -68,7 +68,7 @@ def test_parse_chat(mock_run_workflow):
     assert json_data["extracted_constraints"]["destination"] == "Jaipur"
     mock_run_workflow.assert_called_once_with(["Let's go to Jaipur from Gurugram"])
 
-@patch("backend.agents.workflow.run_workflow")
+@patch("backend.agents.workflow.run_workflow_from_constraints")
 def test_generate_itinerary(mock_run_workflow):
     # Setup mock return
     mock_run_workflow.return_value = {

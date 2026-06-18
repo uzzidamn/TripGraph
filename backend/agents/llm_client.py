@@ -48,3 +48,19 @@ def get_llm() -> BaseChatModel:
         raise ValueError(
             f"Unknown LLM_PROVIDER: '{provider}'. Supported: gemini, openai, ollama, anthropic"
         )
+
+
+def extract_text_content(content: any) -> str:
+    """Helper to convert LangChain message content (which could be a string, a list of dicts/strings, or other types) into a plain string."""
+    if isinstance(content, list):
+        parts = []
+        for part in content:
+            if isinstance(part, dict) and "text" in part:
+                parts.append(part["text"])
+            elif isinstance(part, str):
+                parts.append(part)
+        return "".join(parts)
+    elif not isinstance(content, str):
+        return str(content) if content is not None else ""
+    return content
+
