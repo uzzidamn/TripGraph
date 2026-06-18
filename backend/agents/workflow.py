@@ -82,6 +82,12 @@ def run_workflow(chat_messages: list[str]) -> TripState:
     Returns:
         Populated TripState dict.
     """
+    from backend.config import settings
+    if getattr(settings, "PIPELINE_MODE", "agentic") == "augmented":
+        print("\n🚀 Starting Augmented LLM workflow (Bucket 2.1)")
+        from backend.agents_augmented.workflow import run_workflow as run_augmented
+        return run_augmented(chat_messages)
+
     print("\n🚀 Starting TripGraph workflow")
     initial_state = initialize_state(chat_messages)
     result = _main_app.invoke(initial_state)
@@ -99,6 +105,12 @@ def run_replan_workflow(state: TripState, delay_event: dict) -> TripState:
     Returns:
         Updated TripState with replanned_itinerary and replanning_explanation set.
     """
+    from backend.config import settings
+    if getattr(settings, "PIPELINE_MODE", "agentic") == "augmented":
+        print("\n🔄 Starting Augmented LLM replan workflow (Bucket 2.1)")
+        from backend.agents_augmented.workflow import run_replan_workflow as run_augmented
+        return run_augmented(state, delay_event)
+
     print("\n🔄 Starting replan workflow")
     replan_state = {**state, "delay_event": delay_event}
     result = _replan_app.invoke(replan_state)

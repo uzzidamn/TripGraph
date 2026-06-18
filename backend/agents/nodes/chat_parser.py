@@ -27,12 +27,23 @@ _DEFAULTS: Dict[str, Any] = {
 _REQUIRED_FIELDS = ["origin", "budget_per_person", "destination_type"]
 
 
-def _parse_llm_json(text: str) -> Dict[str, Any]:
+def _parse_llm_json(text: Any) -> Dict[str, Any]:
     """Strip markdown code fences and parse JSON from an LLM response.
 
     Gemini frequently wraps JSON in ```json ... ``` blocks.
     This handles raw JSON, ```json fenced, and ``` fenced responses.
     """
+    if isinstance(text, list):
+        parts = []
+        for part in text:
+            if isinstance(part, dict) and "text" in part:
+                parts.append(part["text"])
+            elif isinstance(part, str):
+                parts.append(part)
+        text = "".join(parts)
+    elif not isinstance(text, str):
+        text = str(text)
+
     # Remove markdown code fences
     text = re.sub(r"```(?:json)?", "", text).strip()
     # Remove any trailing backticks

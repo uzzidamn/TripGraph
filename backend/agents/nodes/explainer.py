@@ -105,7 +105,17 @@ def explainer_node(state: TripState) -> dict:
 
     try:
         response = llm.invoke(messages)
-        explanation = response.content.strip()
+        content = response.content
+        if isinstance(content, list):
+            parts = []
+            for part in content:
+                if isinstance(part, dict) and "text" in part:
+                    parts.append(part["text"])
+                elif isinstance(part, str):
+                    parts.append(part)
+            explanation = "".join(parts).strip()
+        else:
+            explanation = str(content).strip()
     except Exception as e:
         print(f"  ❌ LLM call failed in explainer: {e}")
         raise
