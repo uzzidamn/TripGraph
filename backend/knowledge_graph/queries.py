@@ -13,7 +13,7 @@ class TravelQueries:
                 """
                 MATCH (origin:City {name: $origin})-[:ORIGIN_OF]->(r:Route)-[:ARRIVES_AT]->(dest:City)
                 WHERE dest.type = $dest_type
-                RETURN r {.*, destination: dest.name, destination_type: dest.type,
+                RETURN r {.*, origin: origin.name, destination: dest.name, destination_type: dest.type,
                           dest_lat: dest.lat, dest_lng: dest.lng} AS route
                 """,
                 {"origin": origin, "dest_type": destination_type},
@@ -21,7 +21,7 @@ class TravelQueries:
         return (
             """
             MATCH (origin:City {name: $origin})-[:ORIGIN_OF]->(r:Route)-[:ARRIVES_AT]->(dest:City)
-            RETURN r {.*, destination: dest.name, destination_type: dest.type,
+            RETURN r {.*, origin: origin.name, destination: dest.name, destination_type: dest.type,
                       dest_lat: dest.lat, dest_lng: dest.lng} AS route
             """,
             {"origin": origin},
@@ -138,7 +138,7 @@ class TravelQueries:
             OPTIONAL MATCH (r)-[:HAS_TRANSPORT]->(t:TransportOption)
             OPTIONAL MATCH (dest)-[:HAS_RESTAURANT]->(rest:Restaurant)
             OPTIONAL MATCH (r)-[:PASSES_THROUGH]->(w:Waypoint)
-            RETURN r {{.*}} AS route,
+            RETURN r {{.*, origin: origin.name}} AS route,
                    dest {{.*}} AS destination,
                    collect(DISTINCT h {{.*}}) AS hotels,
                    collect(DISTINCT a {{.*}}) AS activities,

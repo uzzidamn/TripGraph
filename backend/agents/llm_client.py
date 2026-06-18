@@ -2,12 +2,12 @@
 Swappable LLM client factory.
 
 Change LLM_PROVIDER and LLM_MODEL in .env to switch models with no code changes.
-Supported providers: gemini, openai, ollama
+Supported providers: gemini, openai, ollama, anthropic
 
 .env example:
-    LLM_PROVIDER=gemini
-    LLM_MODEL=gemini-2.0-flash
-    GOOGLE_API_KEY=your_key_here
+    LLM_PROVIDER=anthropic
+    LLM_MODEL=claude-haiku-4-5-20251001
+    ANTHROPIC_API_KEY=your_key_here
     LLM_TEMPERATURE=0
 """
 import os
@@ -31,6 +31,13 @@ def get_llm() -> BaseChatModel:
             temperature=temperature,
             google_api_key=os.getenv("GOOGLE_API_KEY"),
         )
+    elif provider == "anthropic":
+        from langchain_anthropic import ChatAnthropic
+        return ChatAnthropic(
+            model=model,
+            temperature=temperature,
+            anthropic_api_key=os.getenv("ANTHROPIC_API_KEY"),
+        )
     elif provider == "openai":
         from langchain_openai import ChatOpenAI
         return ChatOpenAI(model=model, temperature=temperature)
@@ -39,5 +46,5 @@ def get_llm() -> BaseChatModel:
         return ChatOllama(model=model, temperature=temperature)
     else:
         raise ValueError(
-            f"Unknown LLM_PROVIDER: '{provider}'. Supported: gemini, openai, ollama"
+            f"Unknown LLM_PROVIDER: '{provider}'. Supported: gemini, openai, ollama, anthropic"
         )

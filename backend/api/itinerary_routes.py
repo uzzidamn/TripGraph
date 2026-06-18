@@ -96,10 +96,9 @@ async def generate_itinerary(request: GenerateItineraryRequest) -> ItineraryResp
         #     explanation="Stub: Rishikesh comfort itinerary within ₹15,000 budget.",
         # )
 
-        from backend.agents.workflow import run_workflow
+        from backend.agents.workflow import run_workflow_from_constraints
 
-        chat_messages = _constraints_to_chat(request.constraints)
-        result = run_workflow(chat_messages)
+        result = run_workflow_from_constraints(request.constraints)
 
         return ItineraryResponse(
             recommended_itinerary=result.get("selected_itinerary"),

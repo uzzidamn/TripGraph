@@ -1,9 +1,10 @@
 """
 LangGraph workflow definitions for TripGraph AI.
 
-Exports two public functions consumed by Bucket 3 (FastAPI):
-    run_workflow(chat_messages)          — full planning pipeline
-    run_replan_workflow(state, delay)    — delay-aware replanning
+Exports three public functions consumed by Bucket 3 (FastAPI):
+    run_workflow(chat_messages)               — full pipeline from raw chat
+    run_workflow_from_constraints(constraints) — skip LLM re-parse, inject constraints directly
+    run_replan_workflow(state, delay)         — delay-aware replanning
 
 Main workflow graph:
     parse_chat → validate_constraints → [conditional]
@@ -93,6 +94,28 @@ def run_workflow(chat_messages: list[str]) -> TripState:
     result = _main_app.invoke(initial_state)
     print("✅ Workflow complete\n")
     return result
+
+
+def run_workflow_from_constraints(constraints: dict) -> TripState:
+    """Run the planning pipeline with pre-extracted constraints, skipping LLM re-parse.
+
+    Used by /api/generate-itinerary when the frontend already holds a parsed
+    constraints dict. Injecting directly avoids a second LLM extraction pass
+    where destination / destination_type can drift (e.g. "heritage" → "cultural").
+
+    Steps run: data_retriever → planner_orchestrator → explainer  (no chat_parser, no validator)
+    """
+    print("\n🚀 Starting TripGraph workflow (from constraints)")
+    state = initialize_state([])
+    state["extracted_constraints"] = constraints
+    state["is_ready_to_plan"] = True
+
+    state.update(data_retriever_node(state))
+    state.update(planner_orchestrator_node(state))
+    state.update(explainer_node(state))
+
+    print("✅ Workflow complete\n")
+    return state
 
 
 def run_replan_workflow(state: TripState, delay_event: dict) -> TripState:
