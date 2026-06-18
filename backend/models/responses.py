@@ -7,9 +7,9 @@ from pydantic import BaseModel, Field
 class ParseChatResponse(BaseModel):
     """Response for POST /api/parse-chat."""
 
-    extracted_constraints: Dict[str, Any] = Field(default_factory=dict)
-    missing_fields: List[str] = Field(default_factory=list)
-    assumptions: Dict[str, Any] = Field(default_factory=dict)
+    extracted_constraints: Optional[Dict[str, Any]] = None
+    missing_fields: Optional[List[str]] = None
+    assumptions: Optional[Dict[str, Any]] = None
     conflict_report: Optional[Dict[str, Any]] = None
 
 
@@ -17,22 +17,22 @@ class ItineraryResponse(BaseModel):
     """Response for POST /api/generate-itinerary."""
 
     recommended_itinerary: Optional[Dict[str, Any]] = None
-    alternatives: List[Dict[str, Any]] = Field(default_factory=list)
+    alternatives: Optional[List[Dict[str, Any]]] = None
     validation_report: Optional[Dict[str, Any]] = None
     score_breakdown: Optional[Dict[str, Any]] = None
-    timeline: List[Dict[str, Any]] = Field(default_factory=list)
-    map_points: List[Dict[str, Any]] = Field(default_factory=list)
+    timeline: Optional[List[Dict[str, Any]]] = None
+    map_points: Optional[List[Dict[str, Any]]] = None
     cost_breakdown: Optional[Dict[str, Any]] = None
-    explanation: str = ""
+    explanation: Optional[str] = ""
 
 
 class DelaySimulationResponse(BaseModel):
     """Response for POST /api/simulate-delay."""
 
     updated_itinerary: Optional[Dict[str, Any]] = None
-    changes: List[str] = Field(default_factory=list)
+    changes: Optional[List[str]] = None
     validation_report: Optional[Dict[str, Any]] = None
-    explanation: str = ""
+    explanation: Optional[str] = ""
 
 
 class ErrorResponse(BaseModel):
