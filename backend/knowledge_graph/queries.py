@@ -148,3 +148,73 @@ class TravelQueries:
             """,
             params,
         )
+
+class IngestionQueries:
+    """Cypher queries for inserting/merging new API data into the KG."""
+
+    @staticmethod
+    def merge_city(name: str, lat: float, lng: float, city_type: str = "generic") -> tuple[str, dict]:
+        return (
+            """
+            MERGE (c:City {name: $name})
+            ON CREATE SET c.lat = $lat, c.lng = $lng, c.type = $type
+            ON MATCH SET c.lat = coalesce(c.lat, $lat), c.lng = coalesce(c.lng, $lng), c.type = case when c.type is null then $type else c.type end
+            RETURN c {.*} AS city
+            """,
+            {"name": name, "lat": lat, "lng": lng, "type": city_type}
+        )
+
+    @staticmethod
+    def merge_route(origin: str, dest: str, route_id: str, distance_km: float, duration_hours: float, driving_distance: str, driving_time: str) -> tuple[str, dict]:
+        return (
+            """
+            MATCH (orig:City {name: $origin})
+            MATCH (dest:City {name: $dest})
+            MERGE (r:Route {route_id: $route_id})
+            ON CREATE SET r.distance_km = $distance_km, r.duration_hours = $duration_hours,
+                          r.driving_distance = $driving_distance, r.driving_time = $driving_time
+            MERGE (orig)-[:ORIGIN_OF]->(r)
+            MERGE (r)-[:ARRIVES_AT]->(dest)
+            RETURN r {.*} AS route
+            """,
+            {
+                "origin": origin, "dest": dest, "route_id": route_id,
+                "distance_km": distance_km, "duration_hours": duration_hours,
+                "driving_distance": driving_distance, "driving_time": driving_time
+            }
+        )
+
+    @staticmethod
+    def merge_hotel(destination: str, hotel_id: str, name: str, lat: float, lng: float, tier: str = "comfort", price: int = 5000, address: str = "") -> tuple[str, dict]:
+        return (
+            """
+            MATCH (c:City {name: $destination})
+            MERGE (h:Hotel {hotel_id: $hotel_id})
+            ON CREATE SET h.name = $name, h.lat = $lat, h.lng = $lng, h.tier = $tier, 
+                          h.price_per_night = $price, h.address = $address, h.destination = $destination
+            MERGE (c)-[:HAS_HOTEL]->(h)
+            RETURN h {.*} AS hotel
+            """,
+            {
+                "destination": destination, "hotel_id": hotel_id, "name": name,
+                "lat": lat, "lng": lng, "tier": tier, "price": price, "address": address
+            }
+        )
+
+    @staticmethod
+    def merge_activity(destination: str, activity_id: str, name: str, lat: float, lng: float, category: str, address: str = "") -> tuple[str, dict]:
+        return (
+            """
+            MATCH (c:City {name: $destination})
+            MERGE (a:Activity {activity_id: $activity_id})
+            ON CREATE SET a.name = $name, a.lat = $lat, a.lng = $lng, a.category = $category,
+                          a.address = $address, a.tags = [$category]
+            MERGE (c)-[:HAS_ACTIVITY]->(a)
+            RETURN a {.*} AS activity
+            """,
+            {
+                "destination": destination, "activity_id": activity_id, "name": name,
+                "lat": lat, "lng": lng, "category": category, "address": address
+            }
+        )
+

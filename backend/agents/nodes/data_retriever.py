@@ -91,7 +91,7 @@ def data_retriever_node(state: TripState) -> dict:
     routes: list[dict] = []
     try:
         from backend.tools.route_tool import get_routes
-        routes = get_routes(origin, destination_type)
+        routes = get_routes(origin, destination_type, destination)
         if not routes:
             routes = seed["routes"]
     except Exception as e:
