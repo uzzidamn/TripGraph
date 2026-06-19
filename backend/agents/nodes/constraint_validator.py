@@ -1,119 +1,125 @@
 """
-Agent 2: Constraint Validator
-Validates extracted constraints for completeness and logical consistency.
-
-Phase A (Python): Check required fields and obvious hard conflicts.
-Phase B (LLM):    Detect subtle logical conflicts and suggest assumptions.
+Agent 2: validate extracted constraints — pure Python, no LLM call.
 """
-import json
-
-from backend.agents.llm_client import get_llm
-from backend.agents.nodes.chat_parser import _parse_llm_json
-from backend.agents.prompts import CONSTRAINT_VALIDATOR_HUMAN, CONSTRAINT_VALIDATOR_SYSTEM
 from backend.agents.state import TripState
 
-
-def _check_required_fields(constraints: dict) -> list[str]:
-    """Return list of required fields that are missing (null or absent)."""
-    missing = []
-    if not constraints.get("origin"):
-        missing.append("origin")
-    has_duration = constraints.get("budget_per_person") or constraints.get("trip_duration")
-    if not has_duration:
-        missing.append("budget_per_person_or_trip_duration")
-    has_preference = (
-        constraints.get("destination_type")
-        or constraints.get("must_include")
-        or constraints.get("destination")
-    )
-    if not has_preference:
-        missing.append("destination_type_or_must_include")
-    return missing
-
-
-def _check_hard_conflicts(constraints: dict) -> list[str]:
-    """Detect obvious hard conflicts using Python rules — no LLM needed."""
-    conflicts = []
-    budget = constraints.get("budget_per_person")
-    tier = constraints.get("hotel_tier")
-
-    # Luxury tier with very low budget
-    if budget and tier == "comfort" and budget < 5000:
-        conflicts.append(
-            f"Hotel tier 'comfort' typically costs ₹3,500–5,500/night but budget is only ₹{budget}/person"
-        )
-    if budget and tier == "expedition" and budget < 3000:
-        conflicts.append(
-            f"Expedition-tier camps cost ₹2,000–4,000/night but budget is only ₹{budget}/person"
-        )
-
-    # Night driving conflict
-    avoid_night = constraints.get("avoid_night_driving", False)
-    transport_prefs = constraints.get("transport_preference", [])
-    if avoid_night and "self_drive" in transport_prefs:
-        conflicts.append(
-            "avoid_night_driving=true conflicts with self_drive preference (self-drive allows night driving)"
-        )
-
-    return conflicts
+# Known destination → destination_type mapping for mismatch detection (Decision 25)
+_DEST_TYPE_MAP: dict[str, str] = {
+    "rishikesh": "mountains",
+    "manali": "mountains",
+    "shimla": "mountains",
+    "mussoorie": "mountains",
+    "tirthan": "mountains",
+    "jaipur": "heritage",
+    "agra": "heritage",
+    "varanasi": "heritage",
+    "udaipur": "heritage",
+    "jodhpur": "heritage",
+    "corbett": "nature",
+    "ranthambore": "nature",
+    "kaziranga": "nature",
+}
 
 
 def constraint_validator_node(state: TripState) -> dict:
-    """Validate constraints and decide if planning can proceed.
+    constraints = dict(state.get("extracted_constraints") or {})
+    blocking: list[dict] = []
+    warnings: list[dict] = []
+    missing_fields: list[str] = []
 
-    Returns is_ready_to_plan=False immediately if required fields are missing.
-    Otherwise calls LLM to detect subtle conflicts and fill assumptions.
-    """
-    constraints = state["extracted_constraints"]
+    # ── Normalize (defensive — chat_parser should have done this already) ──
+    for field in ("origin", "destination"):
+        if constraints.get(field):
+            constraints[field] = str(constraints[field]).strip().title()
 
-    # Phase A: Python checks — fast, no LLM
-    missing = _check_required_fields(constraints)
-    hard_conflicts = _check_hard_conflicts(constraints)
+    for field in ("hotel_tier", "risk_tolerance", "destination_type"):
+        if constraints.get(field):
+            constraints[field] = str(constraints[field]).strip().lower()
 
-    if missing:
-        print(f"  ⚠️  Constraint validator: missing required fields: {missing}")
-        return {
-            "is_ready_to_plan": False,
-            "missing_fields": missing,
-            "conflict_report": {
-                "has_conflicts": bool(hard_conflicts),
-                "conflicts": hard_conflicts,
-            },
-            "assumptions": {},
-        }
+    for field in ("transport_preference", "must_include"):
+        if isinstance(constraints.get(field), list):
+            constraints[field] = [str(x).strip().lower() for x in constraints[field] if x]
 
-    # Phase B: LLM checks — subtle conflicts and assumptions
-    llm = get_llm()
-    messages = [
-        ("system", CONSTRAINT_VALIDATOR_SYSTEM),
-        ("human", CONSTRAINT_VALIDATOR_HUMAN.format(constraints=json.dumps(constraints, indent=2))),
-    ]
+    # ── Required field checks (Decision 20) ──
+    if not constraints.get("origin"):
+        missing_fields.append("origin")
+        blocking.append({
+            "type": "missing_required_field",
+            "field": "origin",
+            "description": "Origin city is required to plan a trip.",
+        })
 
-    llm_result: dict = {}
-    try:
-        response = llm.invoke(messages)
-        llm_result = _parse_llm_json(response.content)
-    except json.JSONDecodeError as e:
-        print(f"  ⚠️  Constraint validator JSON parse failed: {e}")
-        llm_result = {"conflict_report": {}, "assumptions": {}}
-    except Exception as e:
-        print(f"  ❌ LLM call failed: {e}")
-        raise
+    if not constraints.get("budget_per_person") and not constraints.get("trip_duration"):
+        missing_fields.extend(["budget_per_person", "trip_duration"])
+        blocking.append({
+            "type": "missing_required_field",
+            "field": "budget_per_person / trip_duration",
+            "description": "At least one of budget_per_person or trip_duration is required.",
+        })
 
-    # Merge Python-detected conflicts with LLM-detected conflicts
-    llm_conflicts = llm_result.get("conflict_report", {}).get("conflicts", [])
-    all_conflicts = hard_conflicts + llm_conflicts
-    assumptions = llm_result.get("assumptions", {})
+    has_preference = any([
+        constraints.get("destination"),
+        constraints.get("destination_type"),
+        constraints.get("must_include"),
+    ])
+    if not has_preference:
+        missing_fields.append("destination / destination_type / must_include")
+        blocking.append({
+            "type": "missing_required_field",
+            "field": "destination",
+            "description": "At least one preference (destination, destination_type, or must_include) is required.",
+        })
 
-    print(f"  ✅ Constraint validator: ready_to_plan=True, "
-          f"conflicts={len(all_conflicts)}, assumptions={len(assumptions)}")
+    # ── Invalid value checks ──
+    budget = constraints.get("budget_per_person")
+    if budget is not None:
+        try:
+            if int(budget) <= 0:
+                blocking.append({
+                    "type": "invalid_value",
+                    "field": "budget_per_person",
+                    "description": f"budget_per_person must be positive, got {budget}.",
+                })
+        except (TypeError, ValueError):
+            pass
+
+    group_size = constraints.get("group_size")
+    if group_size is not None:
+        try:
+            if int(group_size) <= 0:
+                blocking.append({
+                    "type": "invalid_value",
+                    "field": "group_size",
+                    "description": f"group_size must be positive, got {group_size}.",
+                })
+        except (TypeError, ValueError):
+            pass
+
+    # ── Destination vs destination_type mismatch (Decision 25) ──
+    destination = constraints.get("destination", "")
+    dest_type = constraints.get("destination_type", "")
+    if destination and dest_type:
+        known_type = _DEST_TYPE_MAP.get(destination.lower())
+        if known_type and known_type != dest_type.lower():
+            blocking.append({
+                "type": "destination_mismatch",
+                "field": "destination_type",
+                "description": (
+                    f"{destination} is a {known_type} destination, "
+                    f"not a {dest_type} destination."
+                ),
+            })
+
+    conflict_report = {
+        "has_conflicts": len(blocking) > 0 or len(warnings) > 0,
+        "blocking_conflicts": blocking,
+        "warnings": warnings,
+    }
+    is_ready_to_plan = len(blocking) == 0
 
     return {
-        "is_ready_to_plan": True,
-        "conflict_report": {
-            "has_conflicts": bool(all_conflicts),
-            "conflicts": all_conflicts,
-        },
-        "assumptions": assumptions,
-        "missing_fields": [],
+        "extracted_constraints": constraints,
+        "conflict_report": conflict_report,
+        "is_ready_to_plan": is_ready_to_plan,
+        "missing_fields": missing_fields,
     }

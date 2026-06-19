@@ -1,8 +1,4 @@
-"""
-Shared state schema for the LangGraph agentic pipeline.
-All nodes read from and write to TripState.
-"""
-from typing import Any, Dict, List, Optional, TypedDict
+from typing import TypedDict, List, Dict, Any, Optional
 
 
 class TripState(TypedDict):
@@ -39,20 +35,19 @@ class TripState(TypedDict):
     # Explanation
     explanation: str
 
+    # Observability
+    trace_id: Optional[str]
+
     # Replanning
     delay_event: Optional[Dict[str, Any]]
     replanned_itinerary: Optional[Dict[str, Any]]
     replanning_explanation: Optional[str]
 
 
-def initialize_state(raw_chat: List[str]) -> TripState:
-    """Return a fully initialized TripState with all fields set to safe defaults.
-
-    LangGraph raises KeyError if any field is absent when a node tries to read it.
-    Every field must be present from the start even if its value is empty.
-    """
+def init_state(chat_messages: list[str]) -> TripState:
+    """Return a fully initialized TripState — every field has a value."""
     return TripState(
-        raw_chat=raw_chat,
+        raw_chat=chat_messages,
         extracted_constraints={},
         missing_fields=[],
         assumptions={},
@@ -73,6 +68,7 @@ def initialize_state(raw_chat: List[str]) -> TripState:
         map_points=[],
         cost_breakdown={},
         explanation="",
+        trace_id=None,
         delay_event=None,
         replanned_itinerary=None,
         replanning_explanation=None,

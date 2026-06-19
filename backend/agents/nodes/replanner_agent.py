@@ -1,71 +1,106 @@
 """
-Agent 6: Replanner Agent
-Handles delay simulation by calling the deterministic replanner,
-then explains the changes via LLM.
+Agent 6: handle delay events — call replan_itinerary() then explain changes.
 """
-from backend.agents.llm_client import get_llm
+import json
+
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
+
+from backend.agents.llm_client import get_llm_json, get_provider
 from backend.agents.prompts import REPLANNER_EXPLAIN_HUMAN, REPLANNER_EXPLAIN_SYSTEM
 from backend.agents.state import TripState
 from backend.planner.replanner import replan_itinerary
 
 
-def replanner_agent_node(state: TripState) -> dict:
-    """Replan an existing itinerary around a delay event.
+def _extract_text(content) -> str:
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        parts = []
+        for block in content:
+            if isinstance(block, str):
+                parts.append(block)
+            elif hasattr(block, "text"):
+                parts.append(block.text)
+            elif isinstance(block, dict):
+                parts.append(block.get("text", ""))
+        return "".join(parts)
+    return str(content)
 
-    Step 1: Calls the deterministic replanner to shift/compress/drop events.
-    Step 2: Calls the LLM to explain the changes in plain English.
-    """
-    selected = state.get("selected_itinerary") or {}
+
+def _strip_fences(text: str) -> str:
+    text = text.strip()
+    if text.startswith("```"):
+        lines = text.splitlines()[1:]
+        if lines and lines[-1].strip() == "```":
+            lines = lines[:-1]
+        text = "\n".join(lines).strip()
+    return text
+
+
+def _build_messages(system: str, human: str) -> list:
+    msgs = [SystemMessage(content=system), HumanMessage(content=human)]
+    if get_provider() == "claude":
+        msgs.append(AIMessage(content="{"))
+    return msgs
+
+
+def _safe_json(obj) -> str:
+    if isinstance(obj, dict):
+        obj = {k: v for k, v in obj.items() if k != "trip_graph"}
+    return json.dumps(obj, default=str, ensure_ascii=False)
+
+
+def replanner_agent_node(state: TripState) -> dict:
+    itinerary = state.get("selected_itinerary") or {}
     delay_event = state.get("delay_event") or {}
     constraints = state.get("extracted_constraints") or {}
 
-    if not selected or not delay_event:
-        return {
-            "replanned_itinerary": selected,
-            "replanning_explanation": "No delay event provided — itinerary unchanged.",
-        }
+    # Call the Python replanner
+    replan_result = replan_itinerary(itinerary, delay_event, constraints)
+    updated_itinerary = replan_result.get("updated_itinerary") or itinerary
+    changes = replan_result.get("changes") or []
 
-    # Step 1: Deterministic replanning (no LLM)
-    replan_result = replan_itinerary(selected, delay_event, constraints)
-    updated_itinerary = replan_result.get("updated_itinerary", selected)
-    changes = replan_result.get("changes", [])
-    delay_absorbed = replan_result.get("delay_absorbed", 0)
-    delay_remaining = replan_result.get("delay_remaining", 0)
-
-    # Step 2: LLM explanation of what changed
-    validation = state.get("validation_report") or {}
-    constraints_ok = (
-        "Return deadline and must-include activities still satisfied"
-        if validation.get("is_valid", True)
-        else f"Warning: {'; '.join(validation.get('hard_constraint_violations', []))}"
+    human_prompt = REPLANNER_EXPLAIN_HUMAN.format(
+        constraints_json=_safe_json(constraints),
+        original_itinerary_json=_safe_json(itinerary),
+        updated_itinerary_json=_safe_json(updated_itinerary),
+        changes_json=json.dumps(changes, default=str),
+        delay_event_json=json.dumps(delay_event, default=str),
     )
-
-    changes_formatted = "\n".join(f"- {c}" for c in changes) if changes else "- No changes required"
-
-    llm = get_llm()
-    messages = [
-        ("system", REPLANNER_EXPLAIN_SYSTEM),
-        ("human", REPLANNER_EXPLAIN_HUMAN.format(
-            delay_type=delay_event.get("delay_type", "departure_delay"),
-            delay_minutes=delay_event.get("delay_minutes", 0),
-            delay_absorbed=round(delay_absorbed),
-            delay_remaining=round(delay_remaining),
-            changes_list=changes_formatted,
-            constraints_ok=constraints_ok,
-        )),
-    ]
+    messages = _build_messages(REPLANNER_EXPLAIN_SYSTEM, human_prompt)
 
     try:
+        llm = get_llm_json(run_name="replanner_agent")
         response = llm.invoke(messages)
-        explanation = response.content.strip()
+        raw = _extract_text(response.content)
+        if get_provider() == "claude":
+            raw = "{" + raw
+        parsed = json.loads(_strip_fences(raw))
+        replanning_explanation = parsed.get("replanning_explanation", "")
+    except json.JSONDecodeError:
+        print("[replanner_agent] Invalid JSON — retrying once")
+        try:
+            correction = messages + [
+                HumanMessage(content=(
+                    "Your previous response was not valid JSON. "
+                    'Return ONLY {"replanning_explanation": "..."} — no markdown, no extra text.'
+                )),
+            ]
+            llm2 = get_llm_json(run_name="replanner_agent_retry")
+            response2 = llm2.invoke(correction)
+            raw2 = _extract_text(response2.content)
+            if get_provider() == "claude":
+                raw2 = "{" + raw2
+            parsed2 = json.loads(_strip_fences(raw2))
+            replanning_explanation = parsed2.get("replanning_explanation", "")
+        except Exception as e:
+            print(f"[ERROR] LLM call failed: {e}")
+            replanning_explanation = ""
     except Exception as e:
-        print(f"  ❌ LLM call failed in replanner agent: {e}")
+        print(f"[ERROR] LLM call failed: {e}")
         raise
-
-    print(f"  ✅ Replanner: {len(changes)} changes, "
-          f"absorbed={round(delay_absorbed)}min, remaining={round(delay_remaining)}min")
 
     return {
         "replanned_itinerary": updated_itinerary,
-        "replanning_explanation": explanation,
+        "replanning_explanation": replanning_explanation,
     }

@@ -1,124 +1,96 @@
 """
-Agent 5: Explainer
-Generates a natural language explanation of why the selected itinerary was chosen.
-
-This is the only node that asks the LLM for prose rather than JSON.
-The raw itinerary dict is summarised before passing to the LLM to avoid
-non-serializable fields and excessive prompt length.
+Agent 5: generate a natural language explanation of the selected itinerary.
 """
-from backend.agents.llm_client import get_llm
+import json
+
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
+
+from backend.agents.llm_client import get_llm_json, get_provider
 from backend.agents.prompts import EXPLAINER_HUMAN, EXPLAINER_SYSTEM
 from backend.agents.state import TripState
 
 
-def _summarise_itinerary(itinerary: dict) -> dict:
-    """Extract key display fields from an itinerary for the LLM prompt."""
-    route = itinerary.get("route") or {}
-    transport = itinerary.get("transport") or {}
-    hotel = itinerary.get("hotel") or {}
-    activities = itinerary.get("activities") or []
-    cost = itinerary.get("cost_breakdown") or {}
-    return {
-        "destination": route.get("destination", "Unknown"),
-        "transport_mode": transport.get("mode", "unknown"),
-        "transport_tier": transport.get("tier", "unknown"),
-        "hotel_name": hotel.get("name", "Unknown"),
-        "hotel_price": hotel.get("price_per_night", 0),
-        "total_cost": cost.get("total", 0),
-        "budget_limit": cost.get("budget_limit", 0),
-        "activities": ", ".join(a.get("name", "") for a in activities) or "None",
-    }
+def _extract_text(content) -> str:
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        parts = []
+        for block in content:
+            if isinstance(block, str):
+                parts.append(block)
+            elif hasattr(block, "text"):
+                parts.append(block.text)
+            elif isinstance(block, dict):
+                parts.append(block.get("text", ""))
+        return "".join(parts)
+    return str(content)
 
 
-def _summarise_alternatives(alternatives: list[dict]) -> str:
-    """Build a brief summary string of alternative itineraries."""
-    if not alternatives:
-        return "No alternatives generated."
-    parts = []
-    for alt in alternatives[:3]:
-        route = alt.get("route") or {}
-        transport = alt.get("transport") or {}
-        cost = alt.get("cost_breakdown") or {}
-        dest = route.get("destination", "?")
-        tier = transport.get("tier", "?")
-        total = cost.get("total", 0)
-        parts.append(f"{dest} ({tier} tier, ₹{total:,}/person)")
-    return "; ".join(parts)
+def _strip_fences(text: str) -> str:
+    text = text.strip()
+    if text.startswith("```"):
+        lines = text.splitlines()[1:]
+        if lines and lines[-1].strip() == "```":
+            lines = lines[:-1]
+        text = "\n".join(lines).strip()
+    return text
 
 
-def _summarise_constraints(constraints: dict) -> str:
-    """Build a readable one-line summary of user constraints."""
-    parts = []
-    if constraints.get("destination_type"):
-        parts.append(f"wants {constraints['destination_type']}")
-    if constraints.get("budget_per_person"):
-        parts.append(f"budget ₹{constraints['budget_per_person']:,}/person")
-    if constraints.get("avoid_night_driving"):
-        parts.append("no night driving")
-    if constraints.get("must_include"):
-        parts.append(f"must include: {', '.join(constraints['must_include'])}")
-    if constraints.get("return_deadline"):
-        parts.append(f"return by {constraints['return_deadline']}")
-    return "; ".join(parts) if parts else "No specific constraints"
+def _build_messages(system: str, human: str) -> list:
+    msgs = [SystemMessage(content=system), HumanMessage(content=human)]
+    if get_provider() == "claude":
+        msgs.append(AIMessage(content="{"))
+    return msgs
+
+
+def _safe_json(obj) -> str:
+    """Serialize obj to JSON, stripping trip_graph to avoid non-serializable dataclasses."""
+    if isinstance(obj, dict):
+        obj = {k: v for k, v in obj.items() if k != "trip_graph"}
+    return json.dumps(obj, default=str, ensure_ascii=False)
 
 
 def explainer_node(state: TripState) -> dict:
-    """Generate a plain-English explanation of the selected itinerary.
-
-    Summarises the selected itinerary and constraints before sending to the LLM
-    to avoid non-serializable fields and reduce token count.
-    """
-    selected = state.get("selected_itinerary") or {}
-    alternatives = state.get("alternative_itineraries") or []
+    itinerary = state.get("selected_itinerary") or {}
     constraints = state.get("extracted_constraints") or {}
-    score = state.get("score_breakdown") or {}
-    validation = state.get("validation_report") or {}
+    timeline = state.get("timeline") or []
 
-    if not selected:
-        return {"explanation": "No itinerary was generated."}
-
-    summary = _summarise_itinerary(selected)
-    validation_summary = (
-        "All constraints satisfied"
-        if validation.get("is_valid")
-        else f"Violations: {'; '.join(validation.get('hard_constraint_violations', []))}"
+    human_prompt = EXPLAINER_HUMAN.format(
+        constraints_json=_safe_json(constraints),
+        itinerary_json=_safe_json(itinerary),
+        timeline_json=json.dumps(timeline, default=str),
     )
-
-    llm = get_llm()
-    messages = [
-        ("system", EXPLAINER_SYSTEM),
-        ("human", EXPLAINER_HUMAN.format(
-            destination=summary["destination"],
-            transport_mode=summary["transport_mode"],
-            transport_tier=summary["transport_tier"],
-            hotel_name=summary["hotel_name"],
-            hotel_price=summary["hotel_price"],
-            total_cost=summary["total_cost"],
-            budget_limit=summary["budget_limit"],
-            activities=summary["activities"],
-            validation_summary=validation_summary,
-            final_score=round(score.get("final_score", 0), 1),
-            constraints_summary=_summarise_constraints(constraints),
-            alternatives_summary=_summarise_alternatives(alternatives),
-        )),
-    ]
+    messages = _build_messages(EXPLAINER_SYSTEM, human_prompt)
 
     try:
+        llm = get_llm_json(run_name="explainer")
         response = llm.invoke(messages)
-        content = response.content
-        if isinstance(content, list):
-            parts = []
-            for part in content:
-                if isinstance(part, dict) and "text" in part:
-                    parts.append(part["text"])
-                elif isinstance(part, str):
-                    parts.append(part)
-            explanation = "".join(parts).strip()
-        else:
-            explanation = str(content).strip()
+        raw = _extract_text(response.content)
+        if get_provider() == "claude":
+            raw = "{" + raw
+        parsed = json.loads(_strip_fences(raw))
+        explanation = parsed.get("explanation", "")
+    except json.JSONDecodeError:
+        print("[explainer] Invalid JSON — retrying once")
+        try:
+            correction = messages + [
+                HumanMessage(content=(
+                    "Your previous response was not valid JSON. "
+                    'Return ONLY {"explanation": "..."} — no markdown, no extra text.'
+                )),
+            ]
+            llm2 = get_llm_json(run_name="explainer_retry")
+            response2 = llm2.invoke(correction)
+            raw2 = _extract_text(response2.content)
+            if get_provider() == "claude":
+                raw2 = "{" + raw2
+            parsed2 = json.loads(_strip_fences(raw2))
+            explanation = parsed2.get("explanation", "")
+        except Exception as e:
+            print(f"[ERROR] LLM call failed: {e}")
+            explanation = ""
     except Exception as e:
-        print(f"  ❌ LLM call failed in explainer: {e}")
+        print(f"[ERROR] LLM call failed: {e}")
         raise
 
-    print(f"  ✅ Explainer: generated {len(explanation)} char explanation")
     return {"explanation": explanation}
