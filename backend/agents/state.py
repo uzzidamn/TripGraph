@@ -39,6 +39,9 @@ class TripState(TypedDict):
     # Explanation
     explanation: str
 
+    # Enrichment
+    enrichment_applied: bool
+
     # Replanning
     delay_event: Optional[Dict[str, Any]]
     replanned_itinerary: Optional[Dict[str, Any]]
@@ -73,6 +76,7 @@ def initialize_state(raw_chat: List[str]) -> TripState:
         map_points=[],
         cost_breakdown={},
         explanation="",
+        enrichment_applied=False,
         delay_event=None,
         replanned_itinerary=None,
         replanning_explanation=None,

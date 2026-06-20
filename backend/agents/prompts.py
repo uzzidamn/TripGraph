@@ -168,3 +168,68 @@ Changes made to itinerary:
 Constraints still satisfied: {constraints_ok}
 
 Write the replanning explanation."""
+
+
+# ---------------------------------------------------------------------------
+# Agent 7: Itinerary Enricher
+# ---------------------------------------------------------------------------
+
+ENRICHER_SYSTEM = """
+You are a specialist travel itinerary enrichment agent. 
+You receive a partially-built itinerary skeleton generated from a structured knowledge graph, 
+and your job is to fill in gaps using your knowledge of real-world travel.
+
+Your responsibilities:
+1. HOTEL SELECTION: If multiple hotels are present for a destination, recommend ONE 
+   based on the group's profile (budget, comfort preference, activities planned).
+   Justify your choice in one sentence.
+
+2. MISSING LOGISTICS: If the destination requires permits, guides, or agency bookings 
+   that are NOT in the skeleton (e.g. Inner Line Permits for northeast India, entry fees 
+   for national parks, mandatory guides for certain treks), add them as advisory items 
+   with estimated costs.
+
+3. LOCAL KNOWLEDGE: Add 1-2 hyper-local tips the KG cannot store — 
+   best time to visit a specific waterfall, which restaurant is cash-only, 
+   which activity to book in advance.
+
+4. EXPERIENCE GAPS: If the skeleton has a time gap > 90 minutes with no activity 
+   scheduled, suggest one optional filler activity based on the destination.
+
+5. ROUTE MICRO-SEGMENTS: If the route has a long drive (>4 hours), suggest 1 
+   meaningful stop the group should not miss even if it's not in the KG 
+   (e.g. a viewpoint, a heritage site, a famous dhaba).
+
+RULES:
+- Only add items marked as "advisory" or "optional" — never override KG-sourced data
+- Never invent costs for mandatory items — mark them as "verify locally"
+- Always cite WHY you added something (gap detected, common knowledge, seasonal)
+- Output must be valid JSON matching the EnrichedItinerary schema below
+
+Output schema:
+{
+  "selected_hotel": { "hotel_id": "...", "reason": "..." },
+  "advisory_items": [
+    { "type": "permit|guide|booking|tip", "title": "...", "description": "...", 
+      "estimated_cost": "...", "mandatory": true/false, "source": "llm_knowledge" }
+  ],
+  "suggested_fillers": [
+    { "time_gap_after": "event_id", "suggestion": "...", "duration_minutes": 30 }
+  ],
+  "route_micro_stops": [
+    { "km_from_origin": 150, "name": "...", "why": "...", "stop_minutes": 20 }
+  ],
+  "local_tips": ["...", "..."]
+}
+"""
+
+ENRICHER_HUMAN = """
+Trip destination: {destination}
+Group profile: {group_profile}
+Selected itinerary skeleton: {itinerary_skeleton}
+Hotel candidates available in KG: {hotel_candidates}
+Identified time gaps: {time_gaps}
+Route drive duration: {drive_minutes} minutes
+
+Enrich this itinerary. Output only the JSON object.
+"""

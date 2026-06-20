@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { DollarSign } from "lucide-react";
+import { IndianRupee, Wallet } from "lucide-react";
 
 const LABELS = {
   transport:     "Transport",
@@ -9,7 +9,7 @@ const LABELS = {
   miscellaneous: "Misc",
 };
 
-const COLORS = ["#6c5ce7", "#00cec9", "#fdcb6e", "#00b894", "#e17055"];
+const COLORS = ["#7c6df7", "#00cec9", "#fdcb6e", "#00b894", "#e17055"];
 
 export function CostBreakdown({ costBreakdown }) {
   if (!costBreakdown) return null;
@@ -19,30 +19,62 @@ export function CostBreakdown({ costBreakdown }) {
   const usagePct = budget_limit ? Math.min(100, (total / budget_limit) * 100) : null;
 
   return (
-    <div className="bg-surface border border-border rounded-xl p-5 space-y-4">
-      <div className="flex items-center gap-2">
-        <DollarSign size={15} className="text-primary" />
-        <h3 className="text-sm font-semibold text-text-primary">Cost breakdown</h3>
-        <span className="ml-auto text-xs text-text-muted">per person</span>
+    <div
+      style={{
+        background: "rgba(14, 18, 38, 0.6)",
+        border: "1px solid rgba(255,255,255,0.07)",
+        borderRadius: "12px",
+        padding: "14px",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "6px",
+          marginBottom: "12px",
+        }}
+      >
+        <Wallet size={13} style={{ color: "#00cec9" }} />
+        <span style={{ fontSize: "12px", fontWeight: 700, color: "#e2e8f0" }}>Cost breakdown</span>
+        <span style={{ marginLeft: "auto", fontSize: "10px", color: "#64748b" }}>per person</span>
       </div>
 
-      <div className="space-y-2.5">
+      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
         {entries.map(([key, label], i) => {
           const val = items[key];
           const pct = total > 0 ? (val / total) * 100 : 0;
           return (
-            <div key={key} className="space-y-1">
-              <div className="flex justify-between text-xs">
-                <span className="text-text-muted">{label}</span>
-                <span className="text-text-primary">₹{val.toLocaleString()}</span>
+            <div key={key}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: "3px",
+                }}
+              >
+                <span style={{ fontSize: "11px", color: "#64748b" }}>{label}</span>
+                <span style={{ fontSize: "11px", color: "#e2e8f0", fontWeight: 600 }}>
+                  ₹{val.toLocaleString()}
+                </span>
               </div>
-              <div className="h-1.5 bg-border rounded-full overflow-hidden">
+              <div
+                style={{
+                  height: "3px",
+                  background: "rgba(255,255,255,0.07)",
+                  borderRadius: "999px",
+                  overflow: "hidden",
+                }}
+              >
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${pct}%` }}
-                  transition={{ duration: 0.6, delay: i * 0.08 }}
-                  className="h-full rounded-full"
-                  style={{ background: COLORS[i % COLORS.length] }}
+                  transition={{ duration: 0.6, delay: i * 0.07 }}
+                  style={{
+                    height: "100%",
+                    background: COLORS[i % COLORS.length],
+                    borderRadius: "999px",
+                  }}
                 />
               </div>
             </div>
@@ -50,26 +82,57 @@ export function CostBreakdown({ costBreakdown }) {
         })}
       </div>
 
-      <div className="border-t border-border pt-3">
-        <div className="flex justify-between font-semibold">
-          <span className="text-sm text-text-primary">Total</span>
-          <span className="text-base text-primary">₹{total?.toLocaleString()}</span>
+      <div
+        style={{
+          borderTop: "1px solid rgba(255,255,255,0.07)",
+          marginTop: "12px",
+          paddingTop: "10px",
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <span style={{ fontSize: "12px", color: "#e2e8f0", fontWeight: 600 }}>Total</span>
+          <span style={{ fontSize: "16px", color: "#7c6df7", fontWeight: 800 }}>
+            ₹{total?.toLocaleString()}
+          </span>
         </div>
 
-        {budget_limit && (
-          <div className="mt-2 space-y-1">
-            <div className="flex justify-between text-xs text-text-muted">
-              <span>Budget utilization</span>
-              <span className={usagePct > 90 ? "text-warning" : "text-success"}>
-                {usagePct?.toFixed(0)}% of ₹{budget_limit.toLocaleString()}
+        {budget_limit && usagePct != null && (
+          <div style={{ marginTop: "8px" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "4px",
+              }}
+            >
+              <span style={{ fontSize: "10px", color: "#64748b" }}>Budget utilization</span>
+              <span
+                style={{
+                  fontSize: "10px",
+                  fontWeight: 700,
+                  color: usagePct > 90 ? "#fdcb6e" : "#00b894",
+                }}
+              >
+                {usagePct.toFixed(0)}% of ₹{budget_limit.toLocaleString()}
               </span>
             </div>
-            <div className="h-1.5 bg-border rounded-full overflow-hidden">
+            <div
+              style={{
+                height: "4px",
+                background: "rgba(255,255,255,0.07)",
+                borderRadius: "999px",
+                overflow: "hidden",
+              }}
+            >
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${usagePct}%` }}
                 transition={{ duration: 0.7 }}
-                className={`h-full rounded-full ${usagePct > 90 ? "bg-warning" : "bg-success"}`}
+                style={{
+                  height: "100%",
+                  background: usagePct > 90 ? "#fdcb6e" : "#00b894",
+                  borderRadius: "999px",
+                }}
               />
             </div>
           </div>

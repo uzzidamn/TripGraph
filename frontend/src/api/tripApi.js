@@ -1,7 +1,7 @@
 import axios from "axios";
 import { MOCK_PARSE_CHAT, MOCK_ITINERARY, MOCK_DELAY } from "./mockData";
 
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8001";
 
 const client = axios.create({
   baseURL: BASE_URL,

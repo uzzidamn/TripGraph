@@ -22,6 +22,7 @@ from backend.agents.nodes.data_retriever import data_retriever_node
 from backend.agents.nodes.explainer import explainer_node
 from backend.agents.nodes.planner_orchestrator import planner_orchestrator_node
 from backend.agents.nodes.replanner_agent import replanner_agent_node
+from backend.agents.nodes.itinerary_enricher import itinerary_enricher_node
 from backend.agents.state import TripState, initialize_state
 
 
@@ -30,6 +31,16 @@ def _route_after_validation(state: TripState) -> str:
     if state.get("is_ready_to_plan"):
         return "retrieve_data"
     return END
+
+def check_kg_coverage(state: TripState) -> str:
+    """Route to full enrichment if KG data is sparse."""
+    hotels = state.get("hotel_candidates", [])
+    activities = state.get("activity_candidates", [])
+    
+    # If KG returned very little data, use LLM-heavy enrichment path
+    if len(hotels) == 0 or len(activities) <= 1:
+        return "llm_heavy_enrichment"
+    return "standard_enrichment"
 
 
 def build_main_workflow() -> StateGraph:
@@ -40,6 +51,7 @@ def build_main_workflow() -> StateGraph:
     graph.add_node("validate_constraints", constraint_validator_node)
     graph.add_node("retrieve_data", data_retriever_node)
     graph.add_node("plan_itinerary", planner_orchestrator_node)
+    graph.add_node("enrich_itinerary", itinerary_enricher_node)
     graph.add_node("explain_plan", explainer_node)
 
     graph.set_entry_point("parse_chat")
@@ -50,7 +62,15 @@ def build_main_workflow() -> StateGraph:
         {"retrieve_data": "retrieve_data", END: END},
     )
     graph.add_edge("retrieve_data", "plan_itinerary")
-    graph.add_edge("plan_itinerary", "explain_plan")
+    graph.add_conditional_edges(
+        "plan_itinerary",
+        check_kg_coverage,
+        {
+            "standard_enrichment": "enrich_itinerary",
+            "llm_heavy_enrichment": "enrich_itinerary"
+        }
+    )
+    graph.add_edge("enrich_itinerary", "explain_plan")
     graph.add_edge("explain_plan", END)
 
     return graph.compile()
@@ -87,7 +107,12 @@ def run_workflow(chat_messages: list[str]) -> TripState:
     if getattr(settings, "PIPELINE_MODE", "agentic") == "augmented":
         print("\n🚀 Starting Augmented LLM workflow (Bucket 2.1)")
         from backend.agents_augmented.workflow import run_workflow as run_augmented
-        return run_augmented(chat_messages)
+        result = run_augmented(chat_messages)
+        # Apply itinerary enrichment post-planning!
+        from backend.agents.nodes.itinerary_enricher import itinerary_enricher_node
+        enriched = itinerary_enricher_node(result)
+        result.update(enriched)
+        return result
 
     print("\n🚀 Starting TripGraph workflow")
     initial_state = initialize_state(chat_messages)
@@ -112,6 +137,8 @@ def run_workflow_from_constraints(constraints: dict) -> TripState:
 
     state.update(data_retriever_node(state))
     state.update(planner_orchestrator_node(state))
+    from backend.agents.nodes.itinerary_enricher import itinerary_enricher_node
+    state.update(itinerary_enricher_node(state))
     state.update(explainer_node(state))
 
     print("✅ Workflow complete\n")
@@ -132,7 +159,12 @@ def run_replan_workflow(state: TripState, delay_event: dict) -> TripState:
     if getattr(settings, "PIPELINE_MODE", "agentic") == "augmented":
         print("\n🔄 Starting Augmented LLM replan workflow (Bucket 2.1)")
         from backend.agents_augmented.workflow import run_replan_workflow as run_augmented
-        return run_augmented(state, delay_event)
+        result = run_augmented(state, delay_event)
+        # Apply itinerary enrichment post-planning!
+        from backend.agents.nodes.itinerary_enricher import itinerary_enricher_node
+        enriched = itinerary_enricher_node(result)
+        result.update(enriched)
+        return result
 
     print("\n🔄 Starting replan workflow")
     replan_state = {**state, "delay_event": delay_event}

@@ -8,8 +8,8 @@ export function Header({ step, onReset }) {
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-bg/80 backdrop-blur border-b border-border">
-      <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+    <header className="sticky top-0 z-40 bg-surface/90 backdrop-blur-md border-b border-border shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Map size={20} className="text-primary" />
           <span className="font-semibold text-text-primary tracking-tight">
