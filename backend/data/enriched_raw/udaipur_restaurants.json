@@ -1,0 +1,205 @@
+[
+  {
+    "restaurant_id": "ambrai_udaipur_01",
+    "destination": "Udaipur",
+    "route_id": "lake_pichola_tour",
+    "name": "Ambrai Restaurant",
+    "cuisine": "Multi-cuisine",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 1500,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "romantic",
+      "lake view",
+      "fine dining"
+    ],
+    "lat": 24.5751,
+    "lng": 73.6795,
+    "signature_dish": "Laal Maas",
+    "insider_tip": "Book a table by the water at least two weeks in advance for the best view of the City Palace at night.",
+    "confidence_pct": 100,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "natraj_udaipur_01",
+    "destination": "Udaipur",
+    "route_id": "city_center_tour",
+    "name": "Natraj Dining Hall",
+    "cuisine": "Rajasthani",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 350,
+    "avg_duration_minutes": 45,
+    "tags": [
+      "traditional",
+      "thali",
+      "authentic"
+    ],
+    "lat": 24.5854,
+    "lng": 73.6912,
+    "signature_dish": "Rajasthani Thali",
+    "insider_tip": "The thali is unlimited; go with an empty stomach and be prepared for the servers to keep refilling your plate.",
+    "confidence_pct": 100,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "jheel_udaipur_01",
+    "destination": "Udaipur",
+    "route_id": "gangaur_ghat_walk",
+    "name": "Jheel's Ginger Coffee Bar & Bakery",
+    "cuisine": "Cafe",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 400,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "cafe",
+      "lake view",
+      "bakery"
+    ],
+    "lat": 24.5785,
+    "lng": 73.6832,
+    "signature_dish": "Ginger Coffee",
+    "insider_tip": "Grab a seat on the small balcony overlooking the lake for a peaceful morning coffee.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "shastri_udaipur_01",
+    "destination": "Udaipur",
+    "route_id": "street_food_tour",
+    "name": "Shastri Circle Pav Bhaji",
+    "cuisine": "Street Food",
+    "meal_types": [
+      "dinner"
+    ],
+    "avg_cost_per_person": 150,
+    "avg_duration_minutes": 30,
+    "tags": [
+      "street food",
+      "local favorite"
+    ],
+    "lat": 24.5921,
+    "lng": 73.6985,
+    "signature_dish": "Pav Bhaji",
+    "insider_tip": "It is a local evening hotspot; expect a crowd and enjoy the bustling atmosphere while standing by your car.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "u_pre_udaipur_01",
+    "destination": "Udaipur",
+    "route_id": "city_palace_tour",
+    "name": "Upre by 1559 AD",
+    "cuisine": "North Indian",
+    "meal_types": [
+      "dinner"
+    ],
+    "avg_cost_per_person": 1800,
+    "avg_duration_minutes": 120,
+    "tags": [
+      "rooftop",
+      "romantic",
+      "fine dining"
+    ],
+    "lat": 24.5762,
+    "lng": 73.6811,
+    "signature_dish": "Mutton Rogan Josh",
+    "insider_tip": "The rooftop terrace offers the best panoramic view of the lake and palace; request a corner table.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "dilkhush_udaipur_01",
+    "destination": "Udaipur",
+    "route_id": "old_city_walk",
+    "name": "Dilkhush Restaurant",
+    "cuisine": "Multi-cuisine",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 500,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "rooftop",
+      "budget-friendly"
+    ],
+    "lat": 24.5778,
+    "lng": 73.6825,
+    "signature_dish": "Paneer Butter Masala",
+    "insider_tip": "Great spot for a relaxed breakfast with a view of the Jagdish Temple.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "paliwal_udaipur_01",
+    "destination": "Udaipur",
+    "route_id": "city_center_tour",
+    "name": "Paliwal Restaurant",
+    "cuisine": "Rajasthani",
+    "meal_types": [
+      "breakfast"
+    ],
+    "avg_cost_per_person": 100,
+    "avg_duration_minutes": 20,
+    "tags": [
+      "local",
+      "breakfast",
+      "street food"
+    ],
+    "lat": 24.5812,
+    "lng": 73.6855,
+    "signature_dish": "Pyaz Kachori",
+    "insider_tip": "Go early in the morning (before 10 AM) to get the kachoris fresh and hot out of the fryer.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "1559_udaipur_01",
+    "destination": "Udaipur",
+    "route_id": "fateh_sagar_tour",
+    "name": "1559 AD",
+    "cuisine": "Continental/Indian",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 2000,
+    "avg_duration_minutes": 100,
+    "tags": [
+      "fine dining",
+      "garden setting"
+    ],
+    "lat": 24.5915,
+    "lng": 73.6752,
+    "signature_dish": "Lotus Stem Curry",
+    "insider_tip": "The garden seating is beautiful during the winter months; perfect for a quiet, upscale dinner.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

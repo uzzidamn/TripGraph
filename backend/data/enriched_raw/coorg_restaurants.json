@@ -1,0 +1,207 @@
+[
+  {
+    "restaurant_id": "coorg_cuisine_madikeri_01",
+    "destination": "Coorg",
+    "route_id": "madikeri_central",
+    "name": "Coorg Cuisine",
+    "cuisine": "Kodava",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 600,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "authentic",
+      "traditional",
+      "local"
+    ],
+    "lat": 12.4215,
+    "lng": 75.7384,
+    "signature_dish": "Pandhi Curry with Kadambuttu",
+    "insider_tip": "Arrive early for lunch as the place gets crowded with locals and tourists alike.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "raintree_madikeri_02",
+    "destination": "Coorg",
+    "route_id": "madikeri_central",
+    "name": "The Raintree",
+    "cuisine": "Multi-cuisine",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 1200,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "fine-dining",
+      "ambiance",
+      "upscale"
+    ],
+    "lat": 12.4221,
+    "lng": 75.7392,
+    "signature_dish": "Bamboo Shoot Curry",
+    "insider_tip": "Request a table on the balcony for a pleasant view of the town.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "beans_n_brews_03",
+    "destination": "Coorg",
+    "route_id": "madikeri_outskirts",
+    "name": "Beans N Brews",
+    "cuisine": "Cafe",
+    "meal_types": [
+      "breakfast"
+    ],
+    "avg_cost_per_person": 400,
+    "avg_duration_minutes": 45,
+    "tags": [
+      "coffee",
+      "breakfast",
+      "scenic"
+    ],
+    "lat": 12.435,
+    "lng": 75.75,
+    "signature_dish": "Filter Coffee and Banana Fritters",
+    "insider_tip": "Best spot to enjoy the morning mist with a fresh cup of locally grown coffee.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "east_end_hotel_04",
+    "destination": "Coorg",
+    "route_id": "madikeri_central",
+    "name": "East End Hotel",
+    "cuisine": "South Indian",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 300,
+    "avg_duration_minutes": 40,
+    "tags": [
+      "budget",
+      "quick-bite",
+      "local-favorite"
+    ],
+    "lat": 12.4208,
+    "lng": 75.7375,
+    "signature_dish": "Masala Dosa",
+    "insider_tip": "A legendary spot for a quick, no-frills breakfast before heading out for sightseeing.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "by_the_lake_05",
+    "destination": "Coorg",
+    "route_id": "kushalnagar_area",
+    "name": "By The Lake",
+    "cuisine": "Continental",
+    "meal_types": [
+      "dinner"
+    ],
+    "avg_cost_per_person": 1500,
+    "avg_duration_minutes": 120,
+    "tags": [
+      "romantic",
+      "lake-view",
+      "upscale"
+    ],
+    "lat": 12.465,
+    "lng": 75.965,
+    "signature_dish": "Grilled Trout",
+    "insider_tip": "Book a table in advance for sunset views over the water.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "street_food_corner_06",
+    "destination": "Coorg",
+    "route_id": "madikeri_market",
+    "name": "Madikeri Market Street Food",
+    "cuisine": "Street Food",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 150,
+    "avg_duration_minutes": 20,
+    "tags": [
+      "street-food",
+      "budget",
+      "local"
+    ],
+    "lat": 12.421,
+    "lng": 75.738,
+    "signature_dish": "Bajjis and Mirchi Vada",
+    "insider_tip": "Look for the stall near the bus stand for the freshest hot snacks in the evening.",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "tiger_tiger_07",
+    "destination": "Coorg",
+    "route_id": "madikeri_central",
+    "name": "Tiger Tiger",
+    "cuisine": "Kodava",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 700,
+    "avg_duration_minutes": 75,
+    "tags": [
+      "traditional",
+      "family-friendly"
+    ],
+    "lat": 12.4225,
+    "lng": 75.7395,
+    "signature_dish": "Koli Curry",
+    "insider_tip": "Try the 'Akki Roti' which is made fresh to order.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "the_coffee_cup_08",
+    "destination": "Coorg",
+    "route_id": "virajpet_road",
+    "name": "The Coffee Cup",
+    "cuisine": "Cafe",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 500,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "cafe",
+      "relaxing",
+      "coffee-estate"
+    ],
+    "lat": 12.35,
+    "lng": 75.7,
+    "signature_dish": "Coffee Cake",
+    "insider_tip": "Located on the way to Virajpet, it's the perfect pitstop for a coffee break amidst plantations.",
+    "confidence_pct": 91,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

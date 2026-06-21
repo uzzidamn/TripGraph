@@ -1,0 +1,252 @@
+[
+  {
+    "hotel_id": "coorg_budget_01",
+    "destination": "Coorg",
+    "name": "Backpacker's Nest Homestay",
+    "tier": "budget",
+    "price_per_night": 1200,
+    "rooms_required": 1,
+    "checkin_time": "12:00 PM",
+    "checkout_time": "11:00 AM",
+    "comfort_score": 6,
+    "lat": 12.4245,
+    "lng": 75.7382,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "parking"
+    ],
+    "tags": [
+      "homestay",
+      "budget",
+      "nature"
+    ],
+    "editorial_summary": "A cozy and affordable homestay perfect for solo travelers looking for a local experience.",
+    "price_confidence": "high",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "coorg_budget_02",
+    "destination": "Coorg",
+    "name": "Green Valley Budget Inn",
+    "tier": "budget",
+    "price_per_night": 1800,
+    "rooms_required": 1,
+    "checkin_time": "1:00 PM",
+    "checkout_time": "11:00 AM",
+    "comfort_score": 5,
+    "lat": 12.4312,
+    "lng": 75.7451,
+    "amenities": [
+      "wifi",
+      "parking"
+    ],
+    "tags": [
+      "budget",
+      "simple",
+      "central"
+    ],
+    "editorial_summary": "Basic accommodation providing essential amenities for budget-conscious tourists.",
+    "price_confidence": "high",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "coorg_comfort_01",
+    "destination": "Coorg",
+    "name": "Coffee Estate Resort",
+    "tier": "comfort",
+    "price_per_night": 4500,
+    "rooms_required": 1,
+    "checkin_time": "2:00 PM",
+    "checkout_time": "12:00 PM",
+    "comfort_score": 8,
+    "lat": 12.4501,
+    "lng": 75.7523,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "restaurant",
+      "ac"
+    ],
+    "tags": [
+      "resort",
+      "coffee-plantation",
+      "family-friendly"
+    ],
+    "editorial_summary": "A comfortable resort nestled within a lush coffee plantation, offering great views and amenities.",
+    "price_confidence": "high",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "coorg_comfort_02",
+    "destination": "Coorg",
+    "name": "Hillside Comfort Suites",
+    "tier": "comfort",
+    "price_per_night": 3200,
+    "rooms_required": 1,
+    "checkin_time": "12:00 PM",
+    "checkout_time": "11:00 AM",
+    "comfort_score": 7,
+    "lat": 12.4189,
+    "lng": 75.729,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "parking",
+      "room_service"
+    ],
+    "tags": [
+      "comfort",
+      "hill-view",
+      "mid-range"
+    ],
+    "editorial_summary": "Well-maintained suites offering a pleasant stay with easy access to local attractions.",
+    "price_confidence": "medium",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "coorg_comfort_03",
+    "destination": "Coorg",
+    "name": "Mist Valley Retreat",
+    "tier": "comfort",
+    "price_per_night": 6000,
+    "rooms_required": 1,
+    "checkin_time": "2:00 PM",
+    "checkout_time": "11:00 AM",
+    "comfort_score": 8,
+    "lat": 12.4678,
+    "lng": 75.789,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "gym",
+      "ac"
+    ],
+    "tags": [
+      "comfort",
+      "scenic",
+      "modern"
+    ],
+    "editorial_summary": "A modern retreat offering a blend of comfort and nature, ideal for weekend getaways.",
+    "price_confidence": "high",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "coorg_expedition_01",
+    "destination": "Coorg",
+    "name": "The Heritage Plantation Manor",
+    "tier": "expedition",
+    "price_per_night": 12000,
+    "rooms_required": 1,
+    "checkin_time": "3:00 PM",
+    "checkout_time": "12:00 PM",
+    "comfort_score": 10,
+    "lat": 12.4892,
+    "lng": 75.8123,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "bar",
+      "ac"
+    ],
+    "tags": [
+      "luxury",
+      "heritage",
+      "premium"
+    ],
+    "editorial_summary": "An exquisite heritage manor offering unparalleled luxury and personalized service in the heart of Coorg.",
+    "price_confidence": "high",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "coorg_expedition_02",
+    "destination": "Coorg",
+    "name": "Wilderness Luxury Lodge",
+    "tier": "expedition",
+    "price_per_night": 15000,
+    "rooms_required": 1,
+    "checkin_time": "2:00 PM",
+    "checkout_time": "12:00 PM",
+    "comfort_score": 9,
+    "lat": 12.5012,
+    "lng": 75.8567,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "gym",
+      "ac"
+    ],
+    "tags": [
+      "luxury",
+      "wilderness",
+      "exclusive"
+    ],
+    "editorial_summary": "A high-end lodge providing an immersive nature experience with top-tier luxury amenities.",
+    "price_confidence": "medium",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "coorg_expedition_03",
+    "destination": "Coorg",
+    "name": "Royal Coorg Estate & Spa",
+    "tier": "expedition",
+    "price_per_night": 18500,
+    "rooms_required": 1,
+    "checkin_time": "3:00 PM",
+    "checkout_time": "11:00 AM",
+    "comfort_score": 10,
+    "lat": 12.4755,
+    "lng": 75.8341,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "gym",
+      "room_service",
+      "ac",
+      "bar"
+    ],
+    "tags": [
+      "luxury",
+      "spa",
+      "premium"
+    ],
+    "editorial_summary": "The ultimate luxury destination in Coorg, featuring world-class spa facilities and fine dining.",
+    "price_confidence": "high",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

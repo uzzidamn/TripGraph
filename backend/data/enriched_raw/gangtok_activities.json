@@ -1,0 +1,747 @@
+[
+  {
+    "activity_id": "rumtek_monastery_gangtok_01",
+    "destination": "Gangtok",
+    "name": "Rumtek Monastery",
+    "category": "cultural",
+    "duration_minutes": 120,
+    "cost_per_person": 20,
+    "available_slots": [
+      "09:00",
+      "11:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "buddhism",
+      "architecture",
+      "heritage"
+    ],
+    "lat": 27.3167,
+    "lng": 88.5333,
+    "fatigue_score_base": 3,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Step into the spiritual heart of Sikkim at this magnificent seat of the Karma Kagyu lineage, adorned with intricate murals and golden stupas.",
+    "opening_hours": [
+      "Monday-Sunday: 09:00-17:00"
+    ],
+    "skip_if": "Heavy rain or dense fog",
+    "insider_tip": "Visit the Golden Stupa and walk the circumambulation path for the best views of the valley.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "mg_marg_shopping_gangtok_02",
+    "destination": "Gangtok",
+    "name": "MG Marg",
+    "category": "shopping",
+    "duration_minutes": 180,
+    "cost_per_person": 0,
+    "available_slots": [
+      "10:00",
+      "14:00",
+      "18:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "shopping",
+      "walking",
+      "citylife"
+    ],
+    "lat": 27.3314,
+    "lng": 88.6138,
+    "fatigue_score_base": 2,
+    "morale_score_base": 8,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Mar-Jun",
+      "Oct-Dec"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Experience the vibrant pulse of Gangtok on this vehicle-free promenade, where local culture meets modern charm under the glow of evening lights.",
+    "opening_hours": [
+      "Monday-Sunday: 10:00-20:00"
+    ],
+    "skip_if": "Extreme cold",
+    "insider_tip": "Try the local momos at the small stalls tucked away in the side alleys for an authentic taste.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "tsomgo_lake_nature_gangtok_03",
+    "destination": "Gangtok",
+    "name": "Tsomgo Lake",
+    "category": "nature",
+    "duration_minutes": 180,
+    "cost_per_person": 500,
+    "available_slots": [
+      "08:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "lake",
+      "scenic",
+      "highaltitude"
+    ],
+    "lat": 27.3745,
+    "lng": 88.7589,
+    "fatigue_score_base": 5,
+    "morale_score_base": 10,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Apr-Jun",
+      "Oct-Nov"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Witness the ethereal beauty of this glacial lake, where the mirror-like waters reflect the snow-capped peaks of the Himalayas.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-15:00"
+    ],
+    "skip_if": "Heavy snowfall or road closure",
+    "insider_tip": "Carry heavy woolens and permit documents; the altitude can cause breathlessness, so walk slowly.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "namgyal_institute_culture_gangtok_04",
+    "destination": "Gangtok",
+    "name": "Namgyal Institute of Tibetology",
+    "category": "cultural",
+    "duration_minutes": 90,
+    "cost_per_person": 50,
+    "available_slots": [
+      "10:00",
+      "13:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "museum",
+      "history",
+      "tibet"
+    ],
+    "lat": 27.3256,
+    "lng": 88.6055,
+    "fatigue_score_base": 1,
+    "morale_score_base": 7,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Delve into the profound depths of Tibetan history and Buddhist philosophy within this architectural gem housing rare manuscripts and artifacts.",
+    "opening_hours": [
+      "Monday-Saturday: 10:00-16:00"
+    ],
+    "skip_if": "Public holidays",
+    "insider_tip": "Don't miss the rare collection of thangkas and the ancient statues in the main hall.",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "hanuman_tok_spiritual_gangtok_05",
+    "destination": "Gangtok",
+    "name": "Hanuman Tok",
+    "category": "spiritual",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "07:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "temple",
+      "viewpoint",
+      "peaceful"
+    ],
+    "lat": 27.3589,
+    "lng": 88.6212,
+    "fatigue_score_base": 2,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-May"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Ascend to this serene hilltop temple for a divine encounter and breathtaking panoramic views of the Kanchenjunga range.",
+    "opening_hours": [
+      "Monday-Sunday: 07:00-17:00"
+    ],
+    "skip_if": "Heavy fog",
+    "insider_tip": "Visit early in the morning to catch the sunrise hitting the mountain peaks.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "paragliding_adventure_gangtok_06",
+    "destination": "Gangtok",
+    "name": "Paragliding at Bulbuley",
+    "category": "adventure",
+    "duration_minutes": 60,
+    "cost_per_person": 4500,
+    "available_slots": [
+      "10:00",
+      "12:00",
+      "14:00"
+    ],
+    "risk_level": "high",
+    "tags": [
+      "adventure",
+      "flying",
+      "adrenaline"
+    ],
+    "lat": 27.3456,
+    "lng": 88.6345,
+    "fatigue_score_base": 4,
+    "morale_score_base": 10,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "Mar-May",
+      "Oct-Nov"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Soar like an eagle over the lush green valleys of Gangtok for an unparalleled perspective of the Himalayan foothills.",
+    "opening_hours": [
+      "Monday-Sunday: 09:00-16:00"
+    ],
+    "skip_if": "High winds or rain",
+    "insider_tip": "Book your slot in advance and ensure you have a GoPro mount for your helmet.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "flower_exhibition_nature_gangtok_07",
+    "destination": "Gangtok",
+    "name": "Flower Exhibition Centre",
+    "category": "nature",
+    "duration_minutes": 45,
+    "cost_per_person": 30,
+    "available_slots": [
+      "09:00",
+      "11:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "flowers",
+      "gardens",
+      "photography"
+    ],
+    "lat": 27.3345,
+    "lng": 88.6156,
+    "fatigue_score_base": 1,
+    "morale_score_base": 8,
+    "best_time_of_day": "any",
+    "best_season": [
+      "Mar-May"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Immerse yourself in a kaleidoscope of colors at this seasonal exhibition showcasing the rare and exotic orchids of Sikkim.",
+    "opening_hours": [
+      "Monday-Sunday: 09:00-17:00"
+    ],
+    "skip_if": "Off-season",
+    "insider_tip": "The best time to visit is during the International Flower Festival in spring.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "bakthang_waterfall_nature_gangtok_08",
+    "destination": "Gangtok",
+    "name": "Bakthang Waterfall",
+    "category": "nature",
+    "duration_minutes": 30,
+    "cost_per_person": 20,
+    "available_slots": [
+      "08:00",
+      "12:00",
+      "16:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "waterfall",
+      "nature",
+      "roadside"
+    ],
+    "lat": 27.3489,
+    "lng": 88.6012,
+    "fatigue_score_base": 1,
+    "morale_score_base": 7,
+    "best_time_of_day": "any",
+    "best_season": [
+      "Jun-Sep"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A refreshing roadside cascade that offers a perfect quick stop to appreciate the raw, cascading beauty of the Sikkimese landscape.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-18:00"
+    ],
+    "skip_if": "Dry season",
+    "insider_tip": "There is a small adventure park nearby if you are traveling with children.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "thakali_food_experience_gangtok_09",
+    "destination": "Gangtok",
+    "name": "Thakali Kitchen Experience",
+    "category": "food",
+    "duration_minutes": 60,
+    "cost_per_person": 500,
+    "available_slots": [
+      "12:30",
+      "19:30"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "food",
+      "localcuisine",
+      "authentic"
+    ],
+    "lat": 27.3321,
+    "lng": 88.6145,
+    "fatigue_score_base": 1,
+    "morale_score_base": 9,
+    "best_time_of_day": "any",
+    "best_season": [
+      "Any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Savor the hearty, traditional flavors of a Thakali thali, a culinary journey through the mountain regions of the Himalayas.",
+    "opening_hours": [
+      "Monday-Sunday: 12:00-22:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Ask for the local fermented vegetable pickle (gundruk) to complete your meal.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "tashi_viewpoint_nature_gangtok_10",
+    "destination": "Gangtok",
+    "name": "Tashi Viewpoint",
+    "category": "nature",
+    "duration_minutes": 45,
+    "cost_per_person": 0,
+    "available_slots": [
+      "06:00",
+      "16:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "viewpoint",
+      "mountains",
+      "sunrise"
+    ],
+    "lat": 27.3556,
+    "lng": 88.6256,
+    "fatigue_score_base": 1,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Witness the majestic Kanchenjunga peaks turn golden at sunrise from this iconic vantage point overlooking the valley.",
+    "opening_hours": [
+      "Monday-Sunday: 05:00-18:00"
+    ],
+    "skip_if": "Cloudy weather",
+    "insider_tip": "Bring a pair of binoculars to spot the distant monasteries on the opposite hills.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "do_drul_chorten_spiritual_gangtok_11",
+    "destination": "Gangtok",
+    "name": "Do Drul Chorten",
+    "category": "spiritual",
+    "duration_minutes": 45,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "stupa",
+      "meditation",
+      "peace"
+    ],
+    "lat": 27.3245,
+    "lng": 88.6045,
+    "fatigue_score_base": 1,
+    "morale_score_base": 8,
+    "best_time_of_day": "any",
+    "best_season": [
+      "Any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Find inner peace at this golden-domed stupa, surrounded by 108 prayer wheels that hum with the chants of devotees.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-18:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Spin the prayer wheels in a clockwise direction for good fortune.",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "ropeway_ride_experience_gangtok_12",
+    "destination": "Gangtok",
+    "name": "Gangtok Ropeway",
+    "category": "experience",
+    "duration_minutes": 30,
+    "cost_per_person": 150,
+    "available_slots": [
+      "09:30",
+      "12:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "cablecar",
+      "views",
+      "city"
+    ],
+    "lat": 27.3301,
+    "lng": 88.6089,
+    "fatigue_score_base": 1,
+    "morale_score_base": 8,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "Any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Glide above the bustling city streets and enjoy a bird's-eye view of the sprawling Gangtok cityscape nestled in the mountains.",
+    "opening_hours": [
+      "Monday-Sunday: 09:30-16:30"
+    ],
+    "skip_if": "High winds",
+    "insider_tip": "The Deorali station is the best starting point for the full experience.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "yoga_wellness_gangtok_13",
+    "destination": "Gangtok",
+    "name": "Himalayan Yoga Session",
+    "category": "wellness",
+    "duration_minutes": 90,
+    "cost_per_person": 800,
+    "available_slots": [
+      "07:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "yoga",
+      "wellness",
+      "meditation"
+    ],
+    "lat": 27.335,
+    "lng": 88.612,
+    "fatigue_score_base": 2,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Rejuvenate your body and soul with a guided yoga session amidst the tranquil and crisp mountain air of Gangtok.",
+    "opening_hours": [
+      "Monday-Saturday: 07:00-08:30"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Look for studios near MG Marg for easy access and professional instructors.",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "lal_bazaar_shopping_gangtok_14",
+    "destination": "Gangtok",
+    "name": "Lal Bazaar",
+    "category": "shopping",
+    "duration_minutes": 90,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "market",
+      "local",
+      "culture"
+    ],
+    "lat": 27.3333,
+    "lng": 88.6167,
+    "fatigue_score_base": 3,
+    "morale_score_base": 7,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Any"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Dive into the authentic chaos of a traditional Sikkimese market, where local farmers sell everything from yak cheese to exotic spices.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-19:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Visit on a Sunday to see the market at its most vibrant and crowded.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "fambong_lho_wildlife_gangtok_15",
+    "destination": "Gangtok",
+    "name": "Fambong Lho Wildlife Sanctuary",
+    "category": "wildlife",
+    "duration_minutes": 300,
+    "cost_per_person": 200,
+    "available_slots": [
+      "08:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "wildlife",
+      "trekking",
+      "nature"
+    ],
+    "lat": 27.38,
+    "lng": 88.55,
+    "fatigue_score_base": 7,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Mar-May",
+      "Oct-Nov"
+    ],
+    "accessibility": "difficult",
+    "editorial_summary": "Trek through dense rhododendron forests in this sanctuary, home to the elusive red panda and a variety of Himalayan bird species.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-16:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Hire a local guide to increase your chances of spotting rare wildlife.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "bakers_cafe_food_gangtok_16",
+    "destination": "Gangtok",
+    "name": "Baker's Cafe",
+    "category": "food",
+    "duration_minutes": 60,
+    "cost_per_person": 300,
+    "available_slots": [
+      "09:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "cafe",
+      "coffee",
+      "relax"
+    ],
+    "lat": 27.331,
+    "lng": 88.614,
+    "fatigue_score_base": 1,
+    "morale_score_base": 8,
+    "best_time_of_day": "any",
+    "best_season": [
+      "Any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A cozy retreat in the heart of the city, perfect for enjoying a warm cup of coffee while watching the world go by.",
+    "opening_hours": [
+      "Monday-Sunday: 09:00-20:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Try their signature chocolate cake; it is a local favorite.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "enchey_monastery_cultural_gangtok_17",
+    "destination": "Gangtok",
+    "name": "Enchey Monastery",
+    "category": "cultural",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "monastery",
+      "history",
+      "culture"
+    ],
+    "lat": 27.342,
+    "lng": 88.618,
+    "fatigue_score_base": 2,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Any"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Perched on a ridge, this historic monastery offers a tranquil escape and a glimpse into the mystical traditions of Sikkim.",
+    "opening_hours": [
+      "Monday-Sunday: 09:00-16:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Visit during the Cham dance festival for a spectacular cultural display.",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "gaj_restaurant_food_gangtok_18",
+    "destination": "Gangtok",
+    "name": "Gaj Restaurant",
+    "category": "food",
+    "duration_minutes": 90,
+    "cost_per_person": 700,
+    "available_slots": [
+      "13:00",
+      "20:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "dining",
+      "multicuisine",
+      "nightlife"
+    ],
+    "lat": 27.3325,
+    "lng": 88.6135,
+    "fatigue_score_base": 1,
+    "morale_score_base": 8,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Enjoy a sophisticated dining experience with a menu that blends local ingredients with international culinary techniques.",
+    "opening_hours": [
+      "Monday-Sunday: 12:00-23:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "The rooftop seating offers a great view of the city lights at night.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "shingba_rhododendron_nature_gangtok_19",
+    "destination": "Gangtok",
+    "name": "Shingba Rhododendron Sanctuary",
+    "category": "nature",
+    "duration_minutes": 240,
+    "cost_per_person": 100,
+    "available_slots": [
+      "09:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "nature",
+      "flowers",
+      "trekking"
+    ],
+    "lat": 27.75,
+    "lng": 88.75,
+    "fatigue_score_base": 6,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Apr-Jun"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Walk through a vibrant forest of blooming rhododendrons, a breathtaking spectacle that defines the spring season in Sikkim.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-17:00"
+    ],
+    "skip_if": "Off-season",
+    "insider_tip": "The best blooms are usually found in late April and early May.",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "mg_marg_nightlife_gangtok_20",
+    "destination": "Gangtok",
+    "name": "Pub Crawl at MG Marg",
+    "category": "nightlife",
+    "duration_minutes": 180,
+    "cost_per_person": 1500,
+    "available_slots": [
+      "20:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "nightlife",
+      "drinks",
+      "social"
+    ],
+    "lat": 27.3315,
+    "lng": 88.614,
+    "fatigue_score_base": 3,
+    "morale_score_base": 9,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Experience the lively nightlife of Gangtok with a tour of the city's best pubs and bars, featuring local brews and music.",
+    "opening_hours": [
+      "Monday-Sunday: 19:00-00:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Try the local millet beer, 'Tongba', for a truly unique Sikkimese experience.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

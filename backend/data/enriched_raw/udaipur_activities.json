@@ -1,0 +1,862 @@
+[
+  {
+    "activity_id": "city_palace_udaipur_01",
+    "destination": "Udaipur",
+    "name": "City Palace",
+    "category": "cultural",
+    "duration_minutes": 180,
+    "cost_per_person": 300,
+    "available_slots": [
+      "09:30",
+      "11:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "heritage",
+      "architecture",
+      "history"
+    ],
+    "lat": 24.5765,
+    "lng": 73.6845,
+    "fatigue_score_base": 4,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "A breathtaking fusion of Rajasthani and Mughal architecture overlooking the shimmering Lake Pichola.",
+    "opening_hours": [
+      "Monday: 09:30-17:30",
+      "Tuesday: 09:30-17:30",
+      "Wednesday: 09:30-17:30",
+      "Thursday: 09:30-17:30",
+      "Friday: 09:30-17:30",
+      "Saturday: 09:30-17:30",
+      "Sunday: 09:30-17:30"
+    ],
+    "skip_if": "Extreme heat",
+    "insider_tip": "Visit the Crystal Gallery inside the palace for a rare collection of Osler's crystal.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "pichola_lake_boat_ride_01",
+    "destination": "Udaipur",
+    "name": "Lake Pichola Boat Ride",
+    "category": "water_sport",
+    "duration_minutes": 60,
+    "cost_per_person": 500,
+    "available_slots": [
+      "10:00",
+      "16:00",
+      "17:30"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "boating",
+      "scenic",
+      "sunset"
+    ],
+    "lat": 24.5735,
+    "lng": 73.6815,
+    "fatigue_score_base": 1,
+    "morale_score_base": 10,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Glide across the tranquil waters of Lake Pichola as the sun paints the City Palace in hues of gold.",
+    "opening_hours": [
+      "Monday: 10:00-18:00",
+      "Tuesday: 10:00-18:00",
+      "Wednesday: 10:00-18:00",
+      "Thursday: 10:00-18:00",
+      "Friday: 10:00-18:00",
+      "Saturday: 10:00-18:00",
+      "Sunday: 10:00-18:00"
+    ],
+    "skip_if": "High winds",
+    "insider_tip": "Book the sunset slot at least two days in advance during peak season.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "jagdish_temple_udaipur_01",
+    "destination": "Udaipur",
+    "name": "Jagdish Temple",
+    "category": "spiritual",
+    "duration_minutes": 45,
+    "cost_per_person": 0,
+    "available_slots": [
+      "06:00",
+      "09:00",
+      "18:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "temple",
+      "architecture",
+      "culture"
+    ],
+    "lat": 24.5785,
+    "lng": 73.6855,
+    "fatigue_score_base": 2,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "An architectural marvel of Indo-Aryan style, this 17th-century temple is the spiritual heart of the city.",
+    "opening_hours": [
+      "Monday: 05:00-14:00, 16:00-20:00",
+      "Tuesday: 05:00-14:00, 16:00-20:00",
+      "Wednesday: 05:00-14:00, 16:00-20:00",
+      "Thursday: 05:00-14:00, 16:00-20:00",
+      "Friday: 05:00-14:00, 16:00-20:00",
+      "Saturday: 05:00-14:00, 16:00-20:00",
+      "Sunday: 05:00-14:00, 16:00-20:00"
+    ],
+    "skip_if": "Crowded festival days",
+    "insider_tip": "Observe the intricate carvings on the pillars; they are some of the finest in Rajasthan.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "saheliyon_ki_bari_01",
+    "destination": "Udaipur",
+    "name": "Saheliyon Ki Bari",
+    "category": "nature",
+    "duration_minutes": 60,
+    "cost_per_person": 50,
+    "available_slots": [
+      "09:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "garden",
+      "fountains",
+      "leisure"
+    ],
+    "lat": 24.5925,
+    "lng": 73.6825,
+    "fatigue_score_base": 2,
+    "morale_score_base": 7,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A lush, historic garden built for the royal ladies, featuring marble elephants and lotus pools.",
+    "opening_hours": [
+      "Monday: 09:00-19:00",
+      "Tuesday: 09:00-19:00",
+      "Wednesday: 09:00-19:00",
+      "Thursday: 09:00-19:00",
+      "Friday: 09:00-19:00",
+      "Saturday: 09:00-19:00",
+      "Sunday: 09:00-19:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Visit during the monsoon season when the fountains are at their most vibrant.",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "hathi_pole_bazaar_01",
+    "destination": "Udaipur",
+    "name": "Hathi Pole Bazaar",
+    "category": "shopping",
+    "duration_minutes": 90,
+    "cost_per_person": 0,
+    "available_slots": [
+      "11:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "shopping",
+      "art",
+      "souvenirs"
+    ],
+    "lat": 24.5815,
+    "lng": 73.6865,
+    "fatigue_score_base": 3,
+    "morale_score_base": 8,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "The ultimate destination for authentic Rajasthani miniature paintings and vibrant textiles.",
+    "opening_hours": [
+      "Monday: 10:00-20:00",
+      "Tuesday: 10:00-20:00",
+      "Wednesday: 10:00-20:00",
+      "Thursday: 10:00-20:00",
+      "Friday: 10:00-20:00",
+      "Saturday: 10:00-20:00",
+      "Sunday: 10:00-20:00"
+    ],
+    "skip_if": "Extreme heat",
+    "insider_tip": "Bargaining is expected; start at 50% of the quoted price.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "fateh_sagar_lake_01",
+    "destination": "Udaipur",
+    "name": "Fateh Sagar Lake",
+    "category": "nature",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "08:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "lake",
+      "walkway",
+      "scenic"
+    ],
+    "lat": 24.5955,
+    "lng": 73.6755,
+    "fatigue_score_base": 2,
+    "morale_score_base": 8,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A serene artificial lake surrounded by the Aravalli hills, perfect for a sunset stroll.",
+    "opening_hours": [
+      "Monday: 08:00-22:00",
+      "Tuesday: 08:00-22:00",
+      "Wednesday: 08:00-22:00",
+      "Thursday: 08:00-22:00",
+      "Friday: 08:00-22:00",
+      "Saturday: 08:00-22:00",
+      "Sunday: 08:00-22:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Try the local 'Kulhad Coffee' from the stalls along the promenade.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "bagore_ki_haveli_01",
+    "destination": "Udaipur",
+    "name": "Bagore Ki Haveli",
+    "category": "cultural",
+    "duration_minutes": 120,
+    "cost_per_person": 150,
+    "available_slots": [
+      "19:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "museum",
+      "dance",
+      "culture"
+    ],
+    "lat": 24.5775,
+    "lng": 73.6835,
+    "fatigue_score_base": 2,
+    "morale_score_base": 9,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Step back in time at this historic mansion, culminating in a mesmerizing folk dance performance.",
+    "opening_hours": [
+      "Monday: 10:00-17:30, 19:00-20:00",
+      "Tuesday: 10:00-17:30, 19:00-20:00",
+      "Wednesday: 10:00-17:30, 19:00-20:00",
+      "Thursday: 10:00-17:30, 19:00-20:00",
+      "Friday: 10:00-17:30, 19:00-20:00",
+      "Saturday: 10:00-17:30, 19:00-20:00",
+      "Sunday: 10:00-17:30, 19:00-20:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Arrive 30 minutes early to secure a seat for the Dharohar folk dance show.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "sajjangarh_monsoon_palace_01",
+    "destination": "Udaipur",
+    "name": "Sajjangarh Monsoon Palace",
+    "category": "nature",
+    "duration_minutes": 120,
+    "cost_per_person": 100,
+    "available_slots": [
+      "10:00",
+      "16:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "viewpoint",
+      "palace",
+      "sunset"
+    ],
+    "lat": 24.5985,
+    "lng": 73.6455,
+    "fatigue_score_base": 3,
+    "morale_score_base": 9,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Jul-Sep"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Perched high on a hill, this palace offers the most dramatic panoramic views of Udaipur's lakes.",
+    "opening_hours": [
+      "Monday: 09:00-18:00",
+      "Tuesday: 09:00-18:00",
+      "Wednesday: 09:00-18:00",
+      "Thursday: 09:00-18:00",
+      "Friday: 09:00-18:00",
+      "Saturday: 09:00-18:00",
+      "Sunday: 09:00-18:00"
+    ],
+    "skip_if": "Heavy fog",
+    "insider_tip": "Hire a taxi to reach the top as the road is steep and winding.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "shilpgram_crafts_village_01",
+    "destination": "Udaipur",
+    "name": "Shilpgram Crafts Village",
+    "category": "experience",
+    "duration_minutes": 150,
+    "cost_per_person": 50,
+    "available_slots": [
+      "11:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "crafts",
+      "culture",
+      "art"
+    ],
+    "lat": 24.6155,
+    "lng": 73.6755,
+    "fatigue_score_base": 3,
+    "morale_score_base": 7,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "Nov-Feb"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A living ethnographic museum showcasing the rural arts and crafts of Western India.",
+    "opening_hours": [
+      "Monday: 11:00-19:00",
+      "Tuesday: 11:00-19:00",
+      "Wednesday: 11:00-19:00",
+      "Thursday: 11:00-19:00",
+      "Friday: 11:00-19:00",
+      "Saturday: 11:00-19:00",
+      "Sunday: 11:00-19:00"
+    ],
+    "skip_if": "Extreme heat",
+    "insider_tip": "Visit during the annual Shilpgram Utsav in December for the best cultural experience.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "ambrai_ghat_01",
+    "destination": "Udaipur",
+    "name": "Ambrai Ghat",
+    "category": "nature",
+    "duration_minutes": 45,
+    "cost_per_person": 0,
+    "available_slots": [
+      "06:00",
+      "18:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "photography",
+      "viewpoint",
+      "relax"
+    ],
+    "lat": 24.5755,
+    "lng": 73.6815,
+    "fatigue_score_base": 1,
+    "morale_score_base": 10,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "The most iconic spot to photograph the City Palace illuminated against the night sky.",
+    "opening_hours": [
+      "Monday: 06:00-22:00",
+      "Tuesday: 06:00-22:00",
+      "Wednesday: 06:00-22:00",
+      "Thursday: 06:00-22:00",
+      "Friday: 06:00-22:00",
+      "Saturday: 06:00-22:00",
+      "Sunday: 06:00-22:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Go at sunrise for a peaceful experience without the crowds.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "doodh_talai_musical_garden_01",
+    "destination": "Udaipur",
+    "name": "Doodh Talai Musical Garden",
+    "category": "nature",
+    "duration_minutes": 45,
+    "cost_per_person": 20,
+    "available_slots": [
+      "17:00",
+      "19:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "garden",
+      "sunset",
+      "family"
+    ],
+    "lat": 24.5725,
+    "lng": 73.6855,
+    "fatigue_score_base": 2,
+    "morale_score_base": 7,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A charming rock garden offering a panoramic view of Lake Pichola and the sunset.",
+    "opening_hours": [
+      "Monday: 09:00-20:00",
+      "Tuesday: 09:00-20:00",
+      "Wednesday: 09:00-20:00",
+      "Thursday: 09:00-20:00",
+      "Friday: 09:00-20:00",
+      "Saturday: 09:00-20:00",
+      "Sunday: 09:00-20:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Take the ropeway from here to the Karni Mata Temple for a bird's-eye view.",
+    "confidence_pct": 93,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "udaipur_cooking_class_01",
+    "destination": "Udaipur",
+    "name": "Authentic Rajasthani Cooking Class",
+    "category": "food",
+    "duration_minutes": 180,
+    "cost_per_person": 1500,
+    "available_slots": [
+      "11:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "food",
+      "workshop",
+      "culture"
+    ],
+    "lat": 24.5805,
+    "lng": 73.6845,
+    "fatigue_score_base": 2,
+    "morale_score_base": 9,
+    "best_time_of_day": "any",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Master the art of spice blending and prepare traditional dishes like Laal Maas or Gatte ki Sabzi.",
+    "opening_hours": [
+      "Monday: 10:00-20:00",
+      "Tuesday: 10:00-20:00",
+      "Wednesday: 10:00-20:00",
+      "Thursday: 10:00-20:00",
+      "Friday: 10:00-20:00",
+      "Saturday: 10:00-20:00",
+      "Sunday: 10:00-20:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Look for classes that include a market tour to source fresh ingredients.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "karni_mata_temple_01",
+    "destination": "Udaipur",
+    "name": "Karni Mata Temple",
+    "category": "spiritual",
+    "duration_minutes": 60,
+    "cost_per_person": 100,
+    "available_slots": [
+      "09:00",
+      "17:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "temple",
+      "viewpoint",
+      "adventure"
+    ],
+    "lat": 24.5715,
+    "lng": 73.6875,
+    "fatigue_score_base": 3,
+    "morale_score_base": 8,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "A hilltop temple accessible by ropeway, offering the most spectacular sunset views of the city.",
+    "opening_hours": [
+      "Monday: 09:00-20:00",
+      "Tuesday: 09:00-20:00",
+      "Wednesday: 09:00-20:00",
+      "Thursday: 09:00-20:00",
+      "Friday: 09:00-20:00",
+      "Saturday: 09:00-20:00",
+      "Sunday: 09:00-20:00"
+    ],
+    "skip_if": "High winds",
+    "insider_tip": "The ropeway queue can be long; try to visit on a weekday.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "vintage_car_museum_01",
+    "destination": "Udaipur",
+    "name": "Vintage Car Museum",
+    "category": "cultural",
+    "duration_minutes": 60,
+    "cost_per_person": 250,
+    "available_slots": [
+      "09:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "museum",
+      "cars",
+      "history"
+    ],
+    "lat": 24.5705,
+    "lng": 73.6915,
+    "fatigue_score_base": 2,
+    "morale_score_base": 7,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A fascinating collection of royal vintage cars, including rare Rolls-Royce models.",
+    "opening_hours": [
+      "Monday: 09:00-21:00",
+      "Tuesday: 09:00-21:00",
+      "Wednesday: 09:00-21:00",
+      "Thursday: 09:00-21:00",
+      "Friday: 09:00-21:00",
+      "Saturday: 09:00-21:00",
+      "Sunday: 09:00-21:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "The museum is small; combine it with a visit to the nearby City Palace.",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "bada_bazaar_01",
+    "destination": "Udaipur",
+    "name": "Bada Bazaar",
+    "category": "shopping",
+    "duration_minutes": 120,
+    "cost_per_person": 0,
+    "available_slots": [
+      "10:00",
+      "16:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "shopping",
+      "market",
+      "local"
+    ],
+    "lat": 24.5825,
+    "lng": 73.6875,
+    "fatigue_score_base": 4,
+    "morale_score_base": 7,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "The bustling heart of Udaipur's commerce, perfect for finding traditional jewelry and spices.",
+    "opening_hours": [
+      "Monday: 10:00-21:00",
+      "Tuesday: 10:00-21:00",
+      "Wednesday: 10:00-21:00",
+      "Thursday: 10:00-21:00",
+      "Friday: 10:00-21:00",
+      "Saturday: 10:00-21:00",
+      "Sunday: 10:00-21:00"
+    ],
+    "skip_if": "Extreme heat",
+    "insider_tip": "Wear comfortable walking shoes as the lanes are narrow and crowded.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "jaisamand_lake_01",
+    "destination": "Udaipur",
+    "name": "Jaisamand Lake",
+    "category": "nature",
+    "duration_minutes": 300,
+    "cost_per_person": 200,
+    "available_slots": [
+      "09:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "nature",
+      "wildlife",
+      "daytrip"
+    ],
+    "lat": 24.2355,
+    "lng": 73.9255,
+    "fatigue_score_base": 6,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Asia's second-largest artificial lake, offering a peaceful escape into nature and wildlife.",
+    "opening_hours": [
+      "Monday: 08:00-18:00",
+      "Tuesday: 08:00-18:00",
+      "Wednesday: 08:00-18:00",
+      "Thursday: 08:00-18:00",
+      "Friday: 08:00-18:00",
+      "Saturday: 08:00-18:00",
+      "Sunday: 08:00-18:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Hire a private car for the day as it is about 50km from the city center.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "udaipur_yoga_wellness_01",
+    "destination": "Udaipur",
+    "name": "Yoga and Meditation Session",
+    "category": "wellness",
+    "duration_minutes": 90,
+    "cost_per_person": 800,
+    "available_slots": [
+      "07:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "wellness",
+      "yoga",
+      "relax"
+    ],
+    "lat": 24.5795,
+    "lng": 73.6825,
+    "fatigue_score_base": 2,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Rejuvenate your mind and body with a traditional yoga session overlooking the serene lake.",
+    "opening_hours": [
+      "Monday: 06:00-19:00",
+      "Tuesday: 06:00-19:00",
+      "Wednesday: 06:00-19:00",
+      "Thursday: 06:00-19:00",
+      "Friday: 06:00-19:00",
+      "Saturday: 06:00-19:00",
+      "Sunday: 06:00-19:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Book a session at a rooftop studio for the best views during your practice.",
+    "confidence_pct": 91,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "gulab_bagh_zoo_01",
+    "destination": "Udaipur",
+    "name": "Gulab Bagh",
+    "category": "nature",
+    "duration_minutes": 90,
+    "cost_per_person": 20,
+    "available_slots": [
+      "09:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "garden",
+      "walk",
+      "nature"
+    ],
+    "lat": 24.5745,
+    "lng": 73.6925,
+    "fatigue_score_base": 3,
+    "morale_score_base": 7,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "The largest garden in Udaipur, featuring a rose garden and a small zoo, perfect for a leisurely walk.",
+    "opening_hours": [
+      "Monday: 08:00-18:00",
+      "Tuesday: 08:00-18:00",
+      "Wednesday: 08:00-18:00",
+      "Thursday: 08:00-18:00",
+      "Friday: 08:00-18:00",
+      "Saturday: 08:00-18:00",
+      "Sunday: 08:00-18:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Take the toy train ride if you are traveling with children.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "jagat_niwas_dining_01",
+    "destination": "Udaipur",
+    "name": "Rooftop Dining at Jagat Niwas",
+    "category": "food",
+    "duration_minutes": 120,
+    "cost_per_person": 1200,
+    "available_slots": [
+      "19:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "food",
+      "view",
+      "romantic"
+    ],
+    "lat": 24.5765,
+    "lng": 73.6815,
+    "fatigue_score_base": 1,
+    "morale_score_base": 10,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Indulge in authentic Rajasthani cuisine with an unparalleled view of the illuminated City Palace.",
+    "opening_hours": [
+      "Monday: 12:00-22:30",
+      "Tuesday: 12:00-22:30",
+      "Wednesday: 12:00-22:30",
+      "Thursday: 12:00-22:30",
+      "Friday: 12:00-22:30",
+      "Saturday: 12:00-22:30",
+      "Sunday: 12:00-22:30"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Reserve a table by the railing at least a week in advance for the best view.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "aahar_cenotaphs_01",
+    "destination": "Udaipur",
+    "name": "Aahar Cenotaphs",
+    "category": "cultural",
+    "duration_minutes": 60,
+    "cost_per_person": 30,
+    "available_slots": [
+      "10:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "history",
+      "architecture",
+      "photography"
+    ],
+    "lat": 24.5855,
+    "lng": 73.7055,
+    "fatigue_score_base": 2,
+    "morale_score_base": 7,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A serene site featuring over 372 cenotaphs of the Maharanas of Mewar, offering a glimpse into royal history.",
+    "opening_hours": [
+      "Monday: 10:00-17:00",
+      "Tuesday: 10:00-17:00",
+      "Wednesday: 10:00-17:00",
+      "Thursday: 10:00-17:00",
+      "Friday: 10:00-17:00",
+      "Saturday: 10:00-17:00",
+      "Sunday: 10:00-17:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Visit the nearby Aahar Museum to see ancient pottery and artifacts.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

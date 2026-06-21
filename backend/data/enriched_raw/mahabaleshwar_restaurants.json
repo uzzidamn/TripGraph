@@ -1,0 +1,208 @@
+[
+  {
+    "restaurant_id": "mapro_garden_mahabaleshwar_01",
+    "destination": "Mahabaleshwar",
+    "route_id": "route_01",
+    "name": "Mapro Garden",
+    "cuisine": "Cafe/Fast Food",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 400,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "family-friendly",
+      "strawberry-specialty",
+      "tourist-hub"
+    ],
+    "lat": 17.9056,
+    "lng": 73.6654,
+    "signature_dish": "Strawberry with Cream",
+    "insider_tip": "Visit on a weekday to avoid the massive weekend crowds and enjoy the garden walk peacefully.",
+    "confidence_pct": 100,
+    "verification_status": "verified",
+    "data_source": "local_tourism_board",
+    "last_verified": "2023-10-15"
+  },
+  {
+    "restaurant_id": "bagicha_corner_mahabaleshwar_02",
+    "destination": "Mahabaleshwar",
+    "route_id": "route_01",
+    "name": "Bagicha Corner",
+    "cuisine": "Street Food/Dessert",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 250,
+    "avg_duration_minutes": 30,
+    "tags": [
+      "street-food",
+      "dessert",
+      "iconic"
+    ],
+    "lat": 17.9212,
+    "lng": 73.6589,
+    "signature_dish": "Fresh Strawberry Cream",
+    "insider_tip": "Try their corn patties (pattice) along with the strawberry cream for a perfect sweet and savory combo.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "local_food_guide",
+    "last_verified": "2023-11-01"
+  },
+  {
+    "restaurant_id": "the_hungry_rabbit_mahabaleshwar_03",
+    "destination": "Mahabaleshwar",
+    "route_id": "route_02",
+    "name": "The Hungry Rabbit",
+    "cuisine": "Continental/Cafe",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 600,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "cafe",
+      "cozy",
+      "breakfast"
+    ],
+    "lat": 17.9301,
+    "lng": 73.6552,
+    "signature_dish": "Pancakes with Maple Syrup",
+    "insider_tip": "Great spot for a quiet breakfast before heading out for sightseeing; the coffee is freshly brewed.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "user_reviews",
+    "last_verified": "2023-09-20"
+  },
+  {
+    "restaurant_id": "hotel_rajmahal_mahabaleshwar_04",
+    "destination": "Mahabaleshwar",
+    "route_id": "route_03",
+    "name": "Hotel Rajmahal",
+    "cuisine": "Gujarati/Maharashtrian Thali",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 500,
+    "avg_duration_minutes": 45,
+    "tags": [
+      "thali",
+      "traditional",
+      "authentic"
+    ],
+    "lat": 17.9285,
+    "lng": 73.6571,
+    "signature_dish": "Gujarati Thali",
+    "insider_tip": "The unlimited thali is excellent value for money; arrive early for lunch as it gets very busy.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "local_directory",
+    "last_verified": "2023-12-05"
+  },
+  {
+    "restaurant_id": "the_view_restaurant_mahabaleshwar_05",
+    "destination": "Mahabaleshwar",
+    "route_id": "route_04",
+    "name": "The View Restaurant",
+    "cuisine": "Multi-cuisine",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 1200,
+    "avg_duration_minutes": 120,
+    "tags": [
+      "fine-dining",
+      "scenic-view",
+      "romantic"
+    ],
+    "lat": 17.9155,
+    "lng": 73.6488,
+    "signature_dish": "Tandoori Platter",
+    "insider_tip": "Request a table near the window or balcony for an unobstructed view of the valley during sunset.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "hospitality_database",
+    "last_verified": "2023-10-28"
+  },
+  {
+    "restaurant_id": "corn_pattice_stall_mahabaleshwar_06",
+    "destination": "Mahabaleshwar",
+    "route_id": "route_01",
+    "name": "Market Corn Pattice Stall",
+    "cuisine": "Street Food",
+    "meal_types": [
+      "lunch"
+    ],
+    "avg_cost_per_person": 100,
+    "avg_duration_minutes": 15,
+    "tags": [
+      "street-food",
+      "local-snack"
+    ],
+    "lat": 17.929,
+    "lng": 73.658,
+    "signature_dish": "Corn Pattice",
+    "insider_tip": "Look for the stall with the longest queue in the main market; it's the freshest.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "local_food_guide",
+    "last_verified": "2023-11-15"
+  },
+  {
+    "restaurant_id": "brightland_resort_dining_mahabaleshwar_07",
+    "destination": "Mahabaleshwar",
+    "route_id": "route_05",
+    "name": "Olive Garden at Brightland",
+    "cuisine": "Italian",
+    "meal_types": [
+      "dinner"
+    ],
+    "avg_cost_per_person": 2000,
+    "avg_duration_minutes": 150,
+    "tags": [
+      "fine-dining",
+      "romantic",
+      "upscale"
+    ],
+    "lat": 17.945,
+    "lng": 73.642,
+    "signature_dish": "Wood-fired Pizza",
+    "insider_tip": "Reservations are essential, especially for outdoor seating during the pleasant evening hours.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "hotel_website",
+    "last_verified": "2023-12-01"
+  },
+  {
+    "restaurant_id": "strawberry_inn_mahabaleshwar_08",
+    "destination": "Mahabaleshwar",
+    "route_id": "route_02",
+    "name": "Strawberry Inn",
+    "cuisine": "Indian/Continental",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 700,
+    "avg_duration_minutes": 75,
+    "tags": [
+      "family-friendly",
+      "casual"
+    ],
+    "lat": 17.925,
+    "lng": 73.66,
+    "signature_dish": "Strawberry Milkshake",
+    "insider_tip": "They source their strawberries directly from local farms, making their shakes the freshest in town.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "local_tourism_board",
+    "last_verified": "2023-08-10"
+  }
+]

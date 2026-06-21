@@ -1,0 +1,210 @@
+[
+  {
+    "restaurant_id": "gleneagles_darjeeling_01",
+    "destination": "Darjeeling",
+    "route_id": "mall_road_01",
+    "name": "Glenary's",
+    "cuisine": "Bakery and Continental",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 800,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "iconic",
+      "bakery",
+      "view",
+      "colonial"
+    ],
+    "lat": 27.0415,
+    "lng": 88.2655,
+    "signature_dish": "Meat Pie",
+    "insider_tip": "Grab a window seat in the bakery section early in the morning for the best view of the Kanchenjunga range.",
+    "confidence_pct": 100,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "keventers_darjeeling_01",
+    "destination": "Darjeeling",
+    "route_id": "mall_road_01",
+    "name": "Keventers",
+    "cuisine": "English Breakfast",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 500,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "historic",
+      "breakfast",
+      "outdoor seating"
+    ],
+    "lat": 27.0418,
+    "lng": 88.2652,
+    "signature_dish": "Platter of Sausages and Bacon",
+    "insider_tip": "The open-air terrace is legendary; don't mind the birds, they are part of the experience.",
+    "confidence_pct": 100,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "gatty_darjeeling_01",
+    "destination": "Darjeeling",
+    "route_id": "chowrasta_01",
+    "name": "Gatty's Cafe",
+    "cuisine": "Multi-cuisine",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 600,
+    "avg_duration_minutes": 75,
+    "tags": [
+      "cozy",
+      "music",
+      "youthful"
+    ],
+    "lat": 27.0422,
+    "lng": 88.2648,
+    "signature_dish": "Chicken Thukpa",
+    "insider_tip": "It is a great spot for live music sessions in the evening; check their social media for schedules.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "sonam_kitchen_darjeeling_01",
+    "destination": "Darjeeling",
+    "route_id": "zakir_hussain_road_01",
+    "name": "Sonam's Kitchen",
+    "cuisine": "Cafe",
+    "meal_types": [
+      "breakfast"
+    ],
+    "avg_cost_per_person": 400,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "homemade",
+      "breakfast",
+      "cozy"
+    ],
+    "lat": 27.0405,
+    "lng": 88.2635,
+    "signature_dish": "Porridge with Honey and Fruit",
+    "insider_tip": "They open very early; it is the best place to fuel up before a sunrise trek to Tiger Hill.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "nathaniel_momo_darjeeling_01",
+    "destination": "Darjeeling",
+    "route_id": "nehru_road_01",
+    "name": "Nathmulls Tea & Sunset Lounge",
+    "cuisine": "Tea and Snacks",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 300,
+    "avg_duration_minutes": 45,
+    "tags": [
+      "tea",
+      "premium",
+      "view"
+    ],
+    "lat": 27.0412,
+    "lng": 88.2658,
+    "signature_dish": "First Flush Darjeeling Tea",
+    "insider_tip": "Buy your tea souvenirs here; the staff are experts and will guide you through the different flushes.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "kunga_restaurant_darjeeling_01",
+    "destination": "Darjeeling",
+    "route_id": "gandhi_road_01",
+    "name": "Kunga Restaurant",
+    "cuisine": "Tibetan",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 450,
+    "avg_duration_minutes": 50,
+    "tags": [
+      "authentic",
+      "tibetan",
+      "local favorite"
+    ],
+    "lat": 27.0408,
+    "lng": 88.2642,
+    "signature_dish": "Beef Momos",
+    "insider_tip": "It is a small place and gets crowded quickly; arrive before 7 PM to avoid a long wait.",
+    "confidence_pct": 100,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "simons_darjeeling_01",
+    "destination": "Darjeeling",
+    "route_id": "mall_road_01",
+    "name": "Simons Cafe",
+    "cuisine": "Cafe",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 350,
+    "avg_duration_minutes": 40,
+    "tags": [
+      "budget",
+      "quick bite"
+    ],
+    "lat": 27.0419,
+    "lng": 88.2651,
+    "signature_dish": "Cheese Momos",
+    "insider_tip": "Perfect for a quick snack while walking around the Mall Road loop.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "the_park_darjeeling_01",
+    "destination": "Darjeeling",
+    "route_id": "churasta_01",
+    "name": "The Park Restaurant",
+    "cuisine": "Indian and Chinese",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 900,
+    "avg_duration_minutes": 80,
+    "tags": [
+      "fine dining",
+      "romantic",
+      "upscale"
+    ],
+    "lat": 27.0425,
+    "lng": 88.266,
+    "signature_dish": "Butter Chicken",
+    "insider_tip": "Request a table near the window for a romantic evening view of the town lights.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

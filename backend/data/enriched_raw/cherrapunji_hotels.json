@@ -1,0 +1,246 @@
+[
+  {
+    "hotel_id": "cherrapunji_budget_01",
+    "destination": "Cherrapunji",
+    "name": "Cloud Valley Homestay",
+    "tier": "budget",
+    "price_per_night": 1200,
+    "rooms_required": 1,
+    "checkin_time": "12:00 PM",
+    "checkout_time": "11:00 AM",
+    "comfort_score": 6,
+    "lat": 25.291,
+    "lng": 91.725,
+    "amenities": [
+      "wifi",
+      "breakfast"
+    ],
+    "tags": [
+      "homestay",
+      "scenic",
+      "budget"
+    ],
+    "editorial_summary": "A cozy, family-run homestay offering authentic local hospitality and basic amenities.",
+    "price_confidence": "high",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "cherrapunji_budget_02",
+    "destination": "Cherrapunji",
+    "name": "Rainy Day Backpackers",
+    "tier": "budget",
+    "price_per_night": 950,
+    "rooms_required": 1,
+    "checkin_time": "1:00 PM",
+    "checkout_time": "10:00 AM",
+    "comfort_score": 5,
+    "lat": 25.295,
+    "lng": 91.728,
+    "amenities": [
+      "wifi"
+    ],
+    "tags": [
+      "hostel",
+      "backpacker",
+      "affordable"
+    ],
+    "editorial_summary": "Simple and clean accommodation perfect for solo travelers and backpackers exploring the waterfalls.",
+    "price_confidence": "high",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "cherrapunji_comfort_01",
+    "destination": "Cherrapunji",
+    "name": "Cherrapunji Holiday Resort",
+    "tier": "comfort",
+    "price_per_night": 4500,
+    "rooms_required": 1,
+    "checkin_time": "12:00 PM",
+    "checkout_time": "11:00 AM",
+    "comfort_score": 8,
+    "lat": 25.285,
+    "lng": 91.715,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "parking"
+    ],
+    "tags": [
+      "resort",
+      "family-friendly",
+      "nature"
+    ],
+    "editorial_summary": "A well-established resort offering comfortable rooms with stunning views of the surrounding hills.",
+    "price_confidence": "high",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "cherrapunji_comfort_02",
+    "destination": "Cherrapunji",
+    "name": "Sohra Plaza",
+    "tier": "comfort",
+    "price_per_night": 3200,
+    "rooms_required": 1,
+    "checkin_time": "12:00 PM",
+    "checkout_time": "11:00 AM",
+    "comfort_score": 7,
+    "lat": 25.292,
+    "lng": 91.722,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "ac",
+      "room_service"
+    ],
+    "tags": [
+      "hotel",
+      "central",
+      "convenient"
+    ],
+    "editorial_summary": "Modern hotel located in the heart of Sohra, providing easy access to local markets and transport.",
+    "price_confidence": "medium",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "cherrapunji_comfort_03",
+    "destination": "Cherrapunji",
+    "name": "Eco Park View Inn",
+    "tier": "comfort",
+    "price_per_night": 5500,
+    "rooms_required": 1,
+    "checkin_time": "12:00 PM",
+    "checkout_time": "11:00 AM",
+    "comfort_score": 8,
+    "lat": 25.298,
+    "lng": 91.735,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "parking",
+      "ac"
+    ],
+    "tags": [
+      "eco-friendly",
+      "scenic",
+      "comfort"
+    ],
+    "editorial_summary": "A peaceful retreat near the Eco Park, featuring well-appointed rooms and excellent service.",
+    "price_confidence": "high",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "cherrapunji_expedition_01",
+    "destination": "Cherrapunji",
+    "name": "Seven Sisters Heritage Retreat",
+    "tier": "expedition",
+    "price_per_night": 12000,
+    "rooms_required": 1,
+    "checkin_time": "2:00 PM",
+    "checkout_time": "12:00 PM",
+    "comfort_score": 9,
+    "lat": 25.288,
+    "lng": 91.742,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "spa",
+      "bar",
+      "parking"
+    ],
+    "tags": [
+      "luxury",
+      "heritage",
+      "premium"
+    ],
+    "editorial_summary": "An exclusive heritage property offering unparalleled luxury and panoramic views of the Seven Sisters Falls.",
+    "price_confidence": "high",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "cherrapunji_expedition_02",
+    "destination": "Cherrapunji",
+    "name": "The Mist & Mountain Lodge",
+    "tier": "expedition",
+    "price_per_night": 9500,
+    "rooms_required": 1,
+    "checkin_time": "2:00 PM",
+    "checkout_time": "12:00 PM",
+    "comfort_score": 9,
+    "lat": 25.275,
+    "lng": 91.705,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "gym",
+      "spa",
+      "ac"
+    ],
+    "tags": [
+      "luxury",
+      "wellness",
+      "secluded"
+    ],
+    "editorial_summary": "A high-end lodge designed for those seeking tranquility, wellness, and premium comfort in the clouds.",
+    "price_confidence": "medium",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "cherrapunji_expedition_03",
+    "destination": "Cherrapunji",
+    "name": "Grand Sohra Estate",
+    "tier": "expedition",
+    "price_per_night": 15000,
+    "rooms_required": 1,
+    "checkin_time": "2:00 PM",
+    "checkout_time": "12:00 PM",
+    "comfort_score": 10,
+    "lat": 25.305,
+    "lng": 91.75,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "pool",
+      "spa",
+      "gym",
+      "bar",
+      "room_service"
+    ],
+    "tags": [
+      "luxury",
+      "resort",
+      "exclusive"
+    ],
+    "editorial_summary": "The pinnacle of luxury in Cherrapunji, featuring private villas, a heated pool, and world-class amenities.",
+    "price_confidence": "high",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

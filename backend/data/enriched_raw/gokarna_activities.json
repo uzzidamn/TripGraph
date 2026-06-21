@@ -1,0 +1,739 @@
+[
+  {
+    "activity_id": "mahabaleshwar_temple_gokarna_01",
+    "destination": "Gokarna",
+    "name": "Mahabaleshwar Temple",
+    "category": "spiritual",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "06:00",
+      "12:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "temple",
+      "heritage",
+      "pilgrimage"
+    ],
+    "lat": 14.5458,
+    "lng": 74.3125,
+    "fatigue_score_base": 2,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Step into the spiritual heart of Gokarna at this ancient Dravidian-style temple housing the sacred Atmalinga.",
+    "opening_hours": [
+      "Monday-Sunday: 06:00-12:30",
+      "Monday-Sunday: 17:00-20:30"
+    ],
+    "skip_if": "Heavy monsoon rain",
+    "insider_tip": "Dress modestly; men are required to remove shirts before entering the inner sanctum.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "om_beach_trek_gokarna_02",
+    "destination": "Gokarna",
+    "name": "Om Beach Trek",
+    "category": "adventure",
+    "duration_minutes": 120,
+    "cost_per_person": 0,
+    "available_slots": [
+      "07:00",
+      "16:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "trekking",
+      "scenic",
+      "beach"
+    ],
+    "lat": 14.5255,
+    "lng": 74.3182,
+    "fatigue_score_base": 6,
+    "morale_score_base": 10,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Traverse the rugged coastal cliffs connecting the iconic Om-shaped beach to the hidden coves of Half Moon and Paradise.",
+    "opening_hours": [
+      "Monday-Sunday: 06:00-18:00"
+    ],
+    "skip_if": "Heavy rain or slippery conditions",
+    "insider_tip": "Wear sturdy trekking shoes rather than flip-flops for the rocky sections between beaches.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "namaste_cafe_gokarna_03",
+    "destination": "Gokarna",
+    "name": "Namaste Cafe",
+    "category": "food",
+    "duration_minutes": 90,
+    "cost_per_person": 500,
+    "available_slots": [
+      "08:00",
+      "13:00",
+      "19:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "seafood",
+      "beachside",
+      "cafe"
+    ],
+    "lat": 14.5261,
+    "lng": 74.3178,
+    "fatigue_score_base": 1,
+    "morale_score_base": 8,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Savor fresh catch-of-the-day while watching the sunset paint the Arabian Sea in hues of gold and violet.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-22:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Try the grilled fish platter; it is widely considered the best on Om Beach.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "yoga_shala_gokarna_04",
+    "destination": "Gokarna",
+    "name": "Gokarna Yoga Shala",
+    "category": "wellness",
+    "duration_minutes": 90,
+    "cost_per_person": 800,
+    "available_slots": [
+      "07:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "yoga",
+      "meditation",
+      "wellness"
+    ],
+    "lat": 14.5382,
+    "lng": 74.3155,
+    "fatigue_score_base": 3,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Realign your body and spirit with traditional Hatha yoga sessions set against the tranquil backdrop of the coast.",
+    "opening_hours": [
+      "Monday-Saturday: 07:00-19:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Book a drop-in class a day in advance during peak season to ensure a spot.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "gokarna_market_walk_05",
+    "destination": "Gokarna",
+    "name": "Gokarna Main Market",
+    "category": "shopping",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "10:00",
+      "16:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "shopping",
+      "local",
+      "culture"
+    ],
+    "lat": 14.5445,
+    "lng": 74.3132,
+    "fatigue_score_base": 3,
+    "morale_score_base": 7,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Wander through narrow, bustling lanes filled with incense, brass artifacts, and vibrant local textiles.",
+    "opening_hours": [
+      "Monday-Sunday: 09:00-20:00"
+    ],
+    "skip_if": "Extreme heat",
+    "insider_tip": "Look for handmade brass lamps; they make for authentic and durable souvenirs.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "mirjan_fort_visit_06",
+    "destination": "Gokarna",
+    "name": "Mirjan Fort",
+    "category": "cultural",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "history",
+      "architecture",
+      "photography"
+    ],
+    "lat": 14.4722,
+    "lng": 74.4155,
+    "fatigue_score_base": 2,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Explore the moss-covered laterite walls of this 16th-century fort, a silent witness to the spice trade history of the coast.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-18:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "The fort is best visited during the golden hour for stunning architectural photography.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "half_moon_beach_boating_07",
+    "destination": "Gokarna",
+    "name": "Half Moon Beach Boat Ride",
+    "category": "water_sport",
+    "duration_minutes": 45,
+    "cost_per_person": 1200,
+    "available_slots": [
+      "09:00",
+      "11:00",
+      "15:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "boating",
+      "adventure",
+      "scenic"
+    ],
+    "lat": 14.5185,
+    "lng": 74.3212,
+    "fatigue_score_base": 2,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Charter a local motorboat to reach the secluded, crescent-shaped Half Moon Beach, accessible only by sea or foot.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-17:00"
+    ],
+    "skip_if": "Rough sea conditions",
+    "insider_tip": "Negotiate the price with the boatmen at Om Beach before boarding.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "kudle_beach_sunset_08",
+    "destination": "Gokarna",
+    "name": "Kudle Beach Sunset",
+    "category": "nature",
+    "duration_minutes": 120,
+    "cost_per_person": 0,
+    "available_slots": [
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "sunset",
+      "beach",
+      "relaxation"
+    ],
+    "lat": 14.5322,
+    "lng": 74.3145,
+    "fatigue_score_base": 1,
+    "morale_score_base": 10,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Unwind on the soft sands of Kudle Beach as the sun dips below the horizon, creating a perfect end to your day.",
+    "opening_hours": [
+      "Monday-Sunday: 24/7"
+    ],
+    "skip_if": "Monsoon",
+    "insider_tip": "The path down to the beach is steep; wear comfortable footwear.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "prema_restaurant_gokarna_09",
+    "destination": "Gokarna",
+    "name": "Prema Restaurant",
+    "category": "food",
+    "duration_minutes": 60,
+    "cost_per_person": 300,
+    "available_slots": [
+      "08:00",
+      "13:00",
+      "20:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "vegetarian",
+      "local",
+      "thali"
+    ],
+    "lat": 14.5448,
+    "lng": 74.3128,
+    "fatigue_score_base": 1,
+    "morale_score_base": 8,
+    "best_time_of_day": "any",
+    "best_season": [
+      "All"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Indulge in authentic, home-style vegetarian thalis that capture the true essence of coastal Karnataka cuisine.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-21:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Try their famous fruit salad with curd and honey for a refreshing dessert.",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "paradise_beach_camping_10",
+    "destination": "Gokarna",
+    "name": "Paradise Beach Camping",
+    "category": "adventure",
+    "duration_minutes": 480,
+    "cost_per_person": 2000,
+    "available_slots": [
+      "18:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "camping",
+      "adventure",
+      "nature"
+    ],
+    "lat": 14.5122,
+    "lng": 74.3255,
+    "fatigue_score_base": 5,
+    "morale_score_base": 10,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Nov-Feb"
+    ],
+    "accessibility": "difficult",
+    "editorial_summary": "Experience the raw beauty of nature by camping under the stars on the pristine, isolated shores of Paradise Beach.",
+    "opening_hours": [
+      "Monday-Sunday: 18:00-08:00"
+    ],
+    "skip_if": "Rain or high tide",
+    "insider_tip": "Carry your own water and supplies as there are no permanent shops on this beach.",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "kotiteertha_tank_11",
+    "destination": "Gokarna",
+    "name": "Kotiteertha Tank",
+    "category": "spiritual",
+    "duration_minutes": 30,
+    "cost_per_person": 0,
+    "available_slots": [
+      "06:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "temple",
+      "history",
+      "photography"
+    ],
+    "lat": 14.5475,
+    "lng": 74.3142,
+    "fatigue_score_base": 1,
+    "morale_score_base": 7,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Visit this sacred man-made tank, surrounded by temples, which serves as a vital ritual site for local pilgrims.",
+    "opening_hours": [
+      "Monday-Sunday: 06:00-19:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "The reflection of the surrounding temples in the water makes for excellent morning photography.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "gokarna_cooking_class_12",
+    "destination": "Gokarna",
+    "name": "Coastal Cooking Workshop",
+    "category": "experience",
+    "duration_minutes": 180,
+    "cost_per_person": 1500,
+    "available_slots": [
+      "11:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "cooking",
+      "food",
+      "culture"
+    ],
+    "lat": 14.5432,
+    "lng": 74.3115,
+    "fatigue_score_base": 2,
+    "morale_score_base": 9,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Master the art of balancing coconut, tamarind, and local spices in this hands-on traditional cooking class.",
+    "opening_hours": [
+      "Monday-Saturday: 11:00-14:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Book through a local homestay for a more intimate and authentic experience.",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "yana_caves_excursion_13",
+    "destination": "Gokarna",
+    "name": "Yana Caves Excursion",
+    "category": "nature",
+    "duration_minutes": 300,
+    "cost_per_person": 500,
+    "available_slots": [
+      "08:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "trekking",
+      "nature",
+      "geology"
+    ],
+    "lat": 14.5755,
+    "lng": 74.5722,
+    "fatigue_score_base": 7,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Marvel at the towering, unique limestone rock formations of Yana, hidden deep within the lush Western Ghats.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-17:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Wear leech socks if visiting just after the monsoon season.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "gokarna_beach_surfing_14",
+    "destination": "Gokarna",
+    "name": "Gokarna Surf School",
+    "category": "water_sport",
+    "duration_minutes": 120,
+    "cost_per_person": 2500,
+    "available_slots": [
+      "07:00",
+      "15:00"
+    ],
+    "risk_level": "high",
+    "tags": [
+      "surfing",
+      "adventure",
+      "water"
+    ],
+    "lat": 14.5315,
+    "lng": 74.3152,
+    "fatigue_score_base": 8,
+    "morale_score_base": 10,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Catch your first wave in the gentle, beginner-friendly swells of the Arabian Sea under expert guidance.",
+    "opening_hours": [
+      "Monday-Sunday: 07:00-17:00"
+    ],
+    "skip_if": "Stormy weather",
+    "insider_tip": "Early morning sessions offer the calmest water and best conditions for beginners.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "om_beach_meditation_15",
+    "destination": "Gokarna",
+    "name": "Om Beach Meditation",
+    "category": "wellness",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "06:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "meditation",
+      "wellness",
+      "peace"
+    ],
+    "lat": 14.5265,
+    "lng": 74.3185,
+    "fatigue_score_base": 1,
+    "morale_score_base": 10,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Find inner stillness as the rhythmic sound of the waves provides the perfect soundtrack for your morning meditation.",
+    "opening_hours": [
+      "Monday-Sunday: 24/7"
+    ],
+    "skip_if": "Rain",
+    "insider_tip": "Find a quiet spot on the northern end of the beach for maximum privacy.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "gokarna_museum_visit_16",
+    "destination": "Gokarna",
+    "name": "Gokarna Heritage Museum",
+    "category": "cultural",
+    "duration_minutes": 45,
+    "cost_per_person": 50,
+    "available_slots": [
+      "10:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "museum",
+      "history",
+      "culture"
+    ],
+    "lat": 14.5435,
+    "lng": 74.314,
+    "fatigue_score_base": 2,
+    "morale_score_base": 6,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "All"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Discover the rich maritime and religious history of this coastal town through a curated collection of artifacts.",
+    "opening_hours": [
+      "Monday-Saturday: 10:00-17:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Check for local guided tours that provide deeper context to the exhibits.",
+    "confidence_pct": 80,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "gokarna_street_food_tour_17",
+    "destination": "Gokarna",
+    "name": "Gokarna Street Food Tour",
+    "category": "food",
+    "duration_minutes": 120,
+    "cost_per_person": 600,
+    "available_slots": [
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "food",
+      "streetfood",
+      "local"
+    ],
+    "lat": 14.544,
+    "lng": 74.3135,
+    "fatigue_score_base": 3,
+    "morale_score_base": 9,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Embark on a culinary journey through the town's vibrant streets, sampling local snacks and refreshing beverages.",
+    "opening_hours": [
+      "Monday-Sunday: 17:00-20:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Try the local 'Goli Baje' (fritters) from the small stalls near the main temple.",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "gokarna_bird_watching_18",
+    "destination": "Gokarna",
+    "name": "Gokarna Bird Watching",
+    "category": "nature",
+    "duration_minutes": 120,
+    "cost_per_person": 0,
+    "available_slots": [
+      "06:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "nature",
+      "wildlife",
+      "photography"
+    ],
+    "lat": 14.5522,
+    "lng": 74.3055,
+    "fatigue_score_base": 3,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Observe the diverse avian life of the coastal wetlands and forest fringes surrounding Gokarna.",
+    "opening_hours": [
+      "Monday-Sunday: 06:00-09:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Bring binoculars and a field guide to identify the migratory species during winter.",
+    "confidence_pct": 82,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "gokarna_pottery_workshop_19",
+    "destination": "Gokarna",
+    "name": "Gokarna Pottery Workshop",
+    "category": "experience",
+    "duration_minutes": 120,
+    "cost_per_person": 1000,
+    "available_slots": [
+      "10:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "art",
+      "craft",
+      "experience"
+    ],
+    "lat": 14.5415,
+    "lng": 74.316,
+    "fatigue_score_base": 2,
+    "morale_score_base": 9,
+    "best_time_of_day": "any",
+    "best_season": [
+      "All"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Get your hands dirty and learn the traditional techniques of clay molding from local artisans.",
+    "opening_hours": [
+      "Monday-Saturday: 09:00-18:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "You can ship your finished creations home for a small additional fee.",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "gokarna_night_market_20",
+    "destination": "Gokarna",
+    "name": "Gokarna Night Market",
+    "category": "shopping",
+    "duration_minutes": 90,
+    "cost_per_person": 0,
+    "available_slots": [
+      "19:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "shopping",
+      "nightlife",
+      "local"
+    ],
+    "lat": 14.5442,
+    "lng": 74.313,
+    "fatigue_score_base": 2,
+    "morale_score_base": 7,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Experience the town's vibrant energy after dark as the market comes alive with lights and local chatter.",
+    "opening_hours": [
+      "Monday-Sunday: 19:00-22:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "The market is best for buying local spices and handmade jewelry.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

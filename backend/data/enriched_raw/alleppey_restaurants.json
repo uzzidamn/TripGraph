@@ -1,0 +1,210 @@
+[
+  {
+    "restaurant_id": "thaff_alleppey_01",
+    "destination": "Alleppey",
+    "route_id": "alleppey_main_01",
+    "name": "Thaff Restaurant",
+    "cuisine": "Kerala/Multi-cuisine",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 400,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "local favorite",
+      "family friendly",
+      "authentic"
+    ],
+    "lat": 9.4981,
+    "lng": 76.3315,
+    "signature_dish": "Karimeen Pollichathu",
+    "insider_tip": "Try their chicken biryani if you want a quick, hearty meal; it is a local staple.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "halais_alleppey_01",
+    "destination": "Alleppey",
+    "route_id": "alleppey_main_01",
+    "name": "Halais Restaurant",
+    "cuisine": "Kerala/Arabian",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 500,
+    "avg_duration_minutes": 75,
+    "tags": [
+      "biryani",
+      "spicy",
+      "popular"
+    ],
+    "lat": 9.4975,
+    "lng": 76.3321,
+    "signature_dish": "Beef Biryani",
+    "insider_tip": "The restaurant gets very crowded on weekends, try to arrive before 1 PM for lunch.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "cafe_coffee_cube_alleppey_01",
+    "destination": "Alleppey",
+    "route_id": "alleppey_beach_01",
+    "name": "Coffee Cube",
+    "cuisine": "Cafe/Continental",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 300,
+    "avg_duration_minutes": 45,
+    "tags": [
+      "cafe",
+      "beachside",
+      "relaxed"
+    ],
+    "lat": 9.4922,
+    "lng": 76.3235,
+    "signature_dish": "Cold Coffee",
+    "insider_tip": "Perfect spot to relax after a morning walk on Alleppey Beach.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "dreamers_cafe_alleppey_01",
+    "destination": "Alleppey",
+    "route_id": "alleppey_beach_01",
+    "name": "Dreamers Cafe",
+    "cuisine": "Continental/Fusion",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 600,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "romantic",
+      "seafood",
+      "cozy"
+    ],
+    "lat": 9.4915,
+    "lng": 76.3242,
+    "signature_dish": "Grilled Fish",
+    "insider_tip": "Ask for a table on the terrace for a nice breeze and view of the surroundings.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "kayaloram_restaurant_alleppey_01",
+    "destination": "Alleppey",
+    "route_id": "alleppey_backwaters_01",
+    "name": "Kayaloram Restaurant",
+    "cuisine": "Kerala Traditional",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 800,
+    "avg_duration_minutes": 120,
+    "tags": [
+      "backwaters",
+      "fine dining",
+      "scenic"
+    ],
+    "lat": 9.485,
+    "lng": 76.35,
+    "signature_dish": "Kerala Fish Curry with Appam",
+    "insider_tip": "Best visited during sunset for a stunning view of the backwaters.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "indian_coffee_house_alleppey_01",
+    "destination": "Alleppey",
+    "route_id": "alleppey_town_01",
+    "name": "Indian Coffee House",
+    "cuisine": "Indian/South Indian",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 150,
+    "avg_duration_minutes": 30,
+    "tags": [
+      "budget",
+      "heritage",
+      "quick bite"
+    ],
+    "lat": 9.495,
+    "lng": 76.33,
+    "signature_dish": "Masala Dosa",
+    "insider_tip": "It is a government-run chain with a nostalgic vibe; great for a cheap, authentic breakfast.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "beach_road_street_food_alleppey_01",
+    "destination": "Alleppey",
+    "route_id": "alleppey_beach_01",
+    "name": "Beach Road Street Food Stalls",
+    "cuisine": "Street Food",
+    "meal_types": [
+      "dinner"
+    ],
+    "avg_cost_per_person": 100,
+    "avg_duration_minutes": 20,
+    "tags": [
+      "street food",
+      "local",
+      "budget"
+    ],
+    "lat": 9.493,
+    "lng": 76.325,
+    "signature_dish": "Parippu Vada",
+    "insider_tip": "Look for the stalls with the longest queues of locals for the freshest snacks.",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "haveli_restaurant_alleppey_01",
+    "destination": "Alleppey",
+    "route_id": "alleppey_town_01",
+    "name": "Haveli Restaurant",
+    "cuisine": "North Indian/Multi-cuisine",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 700,
+    "avg_duration_minutes": 70,
+    "tags": [
+      "upscale",
+      "family",
+      "varied menu"
+    ],
+    "lat": 9.496,
+    "lng": 76.333,
+    "signature_dish": "Paneer Butter Masala",
+    "insider_tip": "Good option if you are looking for North Indian food in a town dominated by Kerala cuisine.",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

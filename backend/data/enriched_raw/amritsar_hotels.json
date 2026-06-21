@@ -1,0 +1,248 @@
+[
+  {
+    "hotel_id": "amritsar_budget_01",
+    "destination": "Amritsar",
+    "name": "Backpacker's Nest Amritsar",
+    "tier": "budget",
+    "price_per_night": 950,
+    "rooms_required": 1,
+    "checkin_time": "12:00",
+    "checkout_time": "11:00",
+    "comfort_score": 6,
+    "lat": 31.6339,
+    "lng": 74.8723,
+    "amenities": [
+      "wifi",
+      "breakfast"
+    ],
+    "tags": [
+      "hostel",
+      "central",
+      "budget"
+    ],
+    "editorial_summary": "A vibrant hostel perfect for solo travelers looking to meet others near the Golden Temple.",
+    "price_confidence": "high",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "amritsar_budget_02",
+    "destination": "Amritsar",
+    "name": "Golden Homestay Amritsar",
+    "tier": "budget",
+    "price_per_night": 1800,
+    "rooms_required": 1,
+    "checkin_time": "13:00",
+    "checkout_time": "11:00",
+    "comfort_score": 7,
+    "lat": 31.6201,
+    "lng": 74.8765,
+    "amenities": [
+      "wifi",
+      "ac",
+      "parking"
+    ],
+    "tags": [
+      "homestay",
+      "family-friendly",
+      "quiet"
+    ],
+    "editorial_summary": "A cozy, family-run homestay offering authentic Punjabi hospitality and home-cooked meals.",
+    "price_confidence": "high",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "amritsar_comfort_01",
+    "destination": "Amritsar",
+    "name": "Hotel City Heart",
+    "tier": "comfort",
+    "price_per_night": 3500,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 8,
+    "lat": 31.6345,
+    "lng": 74.8735,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "ac"
+    ],
+    "tags": [
+      "business",
+      "city-center",
+      "reliable"
+    ],
+    "editorial_summary": "A reliable mid-range hotel offering clean rooms and easy access to major city attractions.",
+    "price_confidence": "high",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "amritsar_comfort_02",
+    "destination": "Amritsar",
+    "name": "Regenta Inn Amritsar",
+    "tier": "comfort",
+    "price_per_night": 4800,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 8,
+    "lat": 31.638,
+    "lng": 74.85,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "gym",
+      "restaurant",
+      "ac"
+    ],
+    "tags": [
+      "modern",
+      "business",
+      "convenient"
+    ],
+    "editorial_summary": "Contemporary hotel with well-appointed rooms and professional service for business and leisure travelers.",
+    "price_confidence": "high",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "amritsar_comfort_03",
+    "destination": "Amritsar",
+    "name": "Bloom Hotel - Golden Temple",
+    "tier": "comfort",
+    "price_per_night": 6200,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 9,
+    "lat": 31.6215,
+    "lng": 74.878,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "ac",
+      "room_service"
+    ],
+    "tags": [
+      "boutique",
+      "minimalist",
+      "near-temple"
+    ],
+    "editorial_summary": "A stylish, minimalist hotel located just steps away from the Golden Temple complex.",
+    "price_confidence": "high",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "amritsar_expedition_01",
+    "destination": "Amritsar",
+    "name": "Taj Swarna, Amritsar",
+    "tier": "expedition",
+    "price_per_night": 12500,
+    "rooms_required": 1,
+    "checkin_time": "15:00",
+    "checkout_time": "12:00",
+    "comfort_score": 10,
+    "lat": 31.645,
+    "lng": 74.86,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "gym",
+      "restaurant",
+      "bar"
+    ],
+    "tags": [
+      "luxury",
+      "5-star",
+      "premium"
+    ],
+    "editorial_summary": "The pinnacle of luxury in Amritsar, featuring world-class amenities and impeccable service.",
+    "price_confidence": "high",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "amritsar_expedition_02",
+    "destination": "Amritsar",
+    "name": "WelcomHeritage Ranjit's Svaasa",
+    "tier": "expedition",
+    "price_per_night": 15000,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 10,
+    "lat": 31.63,
+    "lng": 74.88,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "spa",
+      "restaurant",
+      "ac"
+    ],
+    "tags": [
+      "heritage",
+      "boutique",
+      "historic"
+    ],
+    "editorial_summary": "A stunning heritage haveli offering a serene and luxurious retreat with historic charm.",
+    "price_confidence": "high",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "amritsar_expedition_03",
+    "destination": "Amritsar",
+    "name": "Hyatt Regency Amritsar",
+    "tier": "expedition",
+    "price_per_night": 9800,
+    "rooms_required": 1,
+    "checkin_time": "15:00",
+    "checkout_time": "12:00",
+    "comfort_score": 9,
+    "lat": 31.65,
+    "lng": 74.855,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "gym",
+      "restaurant",
+      "bar",
+      "ac"
+    ],
+    "tags": [
+      "luxury",
+      "business",
+      "spacious"
+    ],
+    "editorial_summary": "A large, upscale property offering extensive facilities and spacious rooms for a comfortable stay.",
+    "price_confidence": "high",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

@@ -7,8 +7,19 @@
     "state": "Haryana",
     "region": "north",
     "description": "Millennium City and the primary business hub of NCR, acting as a major route starting point.",
-    "best_months": ["Jan", "Feb", "Mar", "Oct", "Nov", "Dec"],
-    "tags": ["urban", "corporate", "hub"],
+    "best_months": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    "tags": [
+      "urban",
+      "corporate",
+      "hub"
+    ],
     "nearest_airport": "Indira Gandhi International (DEL)",
     "nearest_railway": "Gurgaon (GGN)",
     "confidence_pct": 98,
@@ -20,12 +31,24 @@
     "name": "Delhi",
     "type": "origin",
     "lat": 28.6139,
-    "lng": 77.2090,
+    "lng": 77.209,
     "state": "Delhi",
     "region": "north",
     "description": "The capital city of India, rich in historical monuments, street food, and central connectivity.",
-    "best_months": ["Jan", "Feb", "Mar", "Oct", "Nov", "Dec"],
-    "tags": ["heritage", "food", "urban", "shopping"],
+    "best_months": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    "tags": [
+      "heritage",
+      "food",
+      "urban",
+      "shopping"
+    ],
     "nearest_airport": "Indira Gandhi International (DEL)",
     "nearest_railway": "New Delhi (NDLS)",
     "confidence_pct": 99,
@@ -36,13 +59,26 @@
   {
     "name": "Mumbai",
     "type": "urban",
-    "lat": 19.0760,
+    "lat": 19.076,
     "lng": 72.8777,
     "state": "Maharashtra",
     "region": "west",
     "description": "The city of dreams, famous for Bollywood, coastal views, colonial architecture, and street food.",
-    "best_months": ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"],
-    "tags": ["urban", "coast", "food", "nightlife", "heritage"],
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar"
+    ],
+    "tags": [
+      "urban",
+      "coast",
+      "food",
+      "nightlife",
+      "heritage"
+    ],
     "nearest_airport": "Chhatrapati Shivaji Maharaj (BOM)",
     "nearest_railway": "Chhatrapati Shivaji Terminus (CSMT)",
     "confidence_pct": 99,
@@ -58,8 +94,24 @@
     "state": "Karnataka",
     "region": "south",
     "description": "The Silicon Valley of India, known for its pleasant weather, garden parks, and vibrant pub culture.",
-    "best_months": ["Jan", "Feb", "Mar", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    "tags": ["urban", "tech", "cafes", "gardens", "nightlife"],
+    "best_months": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    "tags": [
+      "urban",
+      "tech",
+      "cafes",
+      "gardens",
+      "nightlife"
+    ],
     "nearest_airport": "Kempegowda International (BLR)",
     "nearest_railway": "KSR Bengaluru (SBC)",
     "confidence_pct": 99,
@@ -75,8 +127,21 @@
     "state": "West Bengal",
     "region": "east",
     "description": "The cultural capital of India, famous for colonial heritage, literature, sweet delicacies, and Durga Puja.",
-    "best_months": ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"],
-    "tags": ["culture", "heritage", "food", "urban", "history"],
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar"
+    ],
+    "tags": [
+      "culture",
+      "heritage",
+      "food",
+      "urban",
+      "history"
+    ],
     "nearest_airport": "Netaji Subhash Chandra Bose (CCU)",
     "nearest_railway": "Howrah Junction (HWH)",
     "confidence_pct": 99,
@@ -87,13 +152,24 @@
   {
     "name": "Hyderabad",
     "type": "origin",
-    "lat": 17.3850,
+    "lat": 17.385,
     "lng": 78.4867,
     "state": "Telangana",
     "region": "south",
     "description": "City of Pearls, famous for Nizami heritage, iconic Biryani, and IT hubs.",
-    "best_months": ["Oct", "Nov", "Dec", "Jan", "Feb"],
-    "tags": ["heritage", "food", "urban", "shopping"],
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb"
+    ],
+    "tags": [
+      "heritage",
+      "food",
+      "urban",
+      "shopping"
+    ],
     "nearest_airport": "Rajiv Gandhi International (HYD)",
     "nearest_railway": "Secunderabad Junction (SC)",
     "confidence_pct": 98,
@@ -109,8 +185,18 @@
     "state": "Tamil Nadu",
     "region": "south",
     "description": "Gateway to the South, major cultural and economic hub known for Marina Beach and temples.",
-    "best_months": ["Nov", "Dec", "Jan", "Feb"],
-    "tags": ["urban", "coast", "culture", "spiritual"],
+    "best_months": [
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb"
+    ],
+    "tags": [
+      "urban",
+      "coast",
+      "culture",
+      "spiritual"
+    ],
     "nearest_airport": "Chennai International (MAA)",
     "nearest_railway": "Chennai Central (MAS)",
     "confidence_pct": 98,
@@ -120,14 +206,28 @@
   },
   {
     "name": "Pune",
-    "type": "origin",
+    "type": "urban",
     "lat": 18.5204,
     "lng": 73.8567,
     "state": "Maharashtra",
     "region": "west",
     "description": "Oxford of the East, a vibrant city with rich Maratha history and close proximity to hill stations.",
-    "best_months": ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb"],
-    "tags": ["culture", "youth", "heritage", "urban"],
+    "best_months": [
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb"
+    ],
+    "tags": [
+      "culture",
+      "youth",
+      "heritage",
+      "urban"
+    ],
     "nearest_airport": "Pune Airport (PNQ)",
     "nearest_railway": "Pune Junction (PUNE)",
     "confidence_pct": 98,
@@ -143,8 +243,20 @@
     "state": "Gujarat",
     "region": "west",
     "description": "A UNESCO World Heritage City, famous for heritage monuments, Sabarmati Ashram, and Gujarati food.",
-    "best_months": ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"],
-    "tags": ["heritage", "culture", "food", "textiles"],
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar"
+    ],
+    "tags": [
+      "heritage",
+      "culture",
+      "food",
+      "textiles"
+    ],
     "nearest_airport": "Sardar Vallabhbhai Patel (AMD)",
     "nearest_railway": "Ahmedabad Junction (ADI)",
     "confidence_pct": 97,
@@ -160,8 +272,20 @@
     "state": "Union Territory",
     "region": "north",
     "description": "India's first planned city, known for its architecture, Rock Garden, and clean urban spaces.",
-    "best_months": ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"],
-    "tags": ["urban", "gardens", "architecture", "gateway"],
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar"
+    ],
+    "tags": [
+      "urban",
+      "gardens",
+      "architecture",
+      "gateway"
+    ],
     "nearest_airport": "Shaheed Bhagat Singh (IXC)",
     "nearest_railway": "Chandigarh Junction (CDG)",
     "confidence_pct": 98,
@@ -177,8 +301,19 @@
     "state": "Kerala",
     "region": "south",
     "description": "Queen of the Arabian Sea, featuring historic spice routes, Chinese fishing nets, and colonial charm.",
-    "best_months": ["Oct", "Nov", "Dec", "Jan", "Feb"],
-    "tags": ["heritage", "coast", "culture", "spices"],
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb"
+    ],
+    "tags": [
+      "heritage",
+      "coast",
+      "culture",
+      "spices"
+    ],
     "nearest_airport": "Cochin International (COK)",
     "nearest_railway": "Ernakulam Junction (ERS)",
     "confidence_pct": 98,
@@ -194,8 +329,19 @@
     "state": "Goa",
     "region": "west",
     "description": "Famous for its sunny beaches, Portuguese heritage, seafood, water sports, and vibrant nightlife.",
-    "best_months": ["Nov", "Dec", "Jan", "Feb"],
-    "tags": ["beach", "nightlife", "water_sport", "seafood", "heritage"],
+    "best_months": [
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb"
+    ],
+    "tags": [
+      "beach",
+      "nightlife",
+      "water_sport",
+      "seafood",
+      "heritage"
+    ],
     "nearest_airport": "Manohar International Mopa (GOX) / Dabolim (GOI)",
     "nearest_railway": "Madgaon (MAO) / Thivim (THVM)",
     "confidence_pct": 99,
@@ -211,8 +357,21 @@
     "state": "Rajasthan",
     "region": "north",
     "description": "The Pink City of Rajasthan, famous for Amber Fort, palaces, bustling bazaars, and rich local crafts.",
-    "best_months": ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"],
-    "tags": ["heritage", "culture", "shopping", "food", "history"],
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar"
+    ],
+    "tags": [
+      "heritage",
+      "culture",
+      "shopping",
+      "food",
+      "history"
+    ],
     "nearest_airport": "Jaipur International (JAI)",
     "nearest_railway": "Jaipur Junction (JP)",
     "confidence_pct": 99,
@@ -228,8 +387,21 @@
     "state": "Uttar Pradesh",
     "region": "north",
     "description": "One of the oldest continuously inhabited cities in the world, sacred for Hindu pilgrims and famous for Ganga Ghats.",
-    "best_months": ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"],
-    "tags": ["spiritual", "heritage", "river", "culture", "textiles"],
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar"
+    ],
+    "tags": [
+      "spiritual",
+      "heritage",
+      "river",
+      "culture",
+      "textiles"
+    ],
     "nearest_airport": "Lal Bahadur Shastri (VNS)",
     "nearest_railway": "Varanasi Junction (BSB)",
     "confidence_pct": 99,
@@ -245,8 +417,24 @@
     "state": "Kerala",
     "region": "south",
     "description": "A picturesque hill station in the Western Ghats, famous for its lush tea plantations and misty peaks.",
-    "best_months": ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May"],
-    "tags": ["nature", "hill_station", "tea_gardens", "scenic", "trekking"],
+    "best_months": [
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May"
+    ],
+    "tags": [
+      "nature",
+      "hill_station",
+      "tea_gardens",
+      "scenic",
+      "trekking"
+    ],
     "nearest_airport": "Cochin International (COK)",
     "nearest_railway": "Aluva (AWY)",
     "confidence_pct": 98,
@@ -262,8 +450,19 @@
     "state": "Ladakh",
     "region": "north",
     "description": "High-altitude desert destination featuring breathtaking barren landscapes, high passes, and Buddhist monasteries.",
-    "best_months": ["Jun", "Jul", "Aug", "Sep"],
-    "tags": ["adventure", "mountains", "scenic", "buddhism", "offbeat"],
+    "best_months": [
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep"
+    ],
+    "tags": [
+      "adventure",
+      "mountains",
+      "scenic",
+      "buddhism",
+      "offbeat"
+    ],
     "nearest_airport": "Kushok Bakula Rimpochee (IXL)",
     "nearest_railway": "Jammu Tawi (JAT) - 680 km away",
     "confidence_pct": 98,
@@ -279,8 +478,24 @@
     "state": "Meghalaya",
     "region": "northeast",
     "description": "Scotland of the East, famous for beautiful waterfalls, clean lakes, pine hills, and a lively music scene.",
-    "best_months": ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May"],
-    "tags": ["hill_station", "nature", "waterfalls", "culture", "music"],
+    "best_months": [
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May"
+    ],
+    "tags": [
+      "hill_station",
+      "nature",
+      "waterfalls",
+      "culture",
+      "music"
+    ],
     "nearest_airport": "Shillong Airport (SHL) / Guwahati (GAU)",
     "nearest_railway": "Guwahati (GHY)",
     "confidence_pct": 97,
@@ -296,8 +511,24 @@
     "state": "Himachal Pradesh",
     "region": "north",
     "description": "A popular Himalayan resort town, offering adventure sports like paragliding, snowy passes, and cafe culture.",
-    "best_months": ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-    "tags": ["mountains", "adventure", "snow", "cafes", "trekking"],
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun"
+    ],
+    "tags": [
+      "mountains",
+      "adventure",
+      "snow",
+      "cafes",
+      "trekking"
+    ],
     "nearest_airport": "Kullu-Manali Airport Bhuntar (KUU)",
     "nearest_railway": "Joginder Nagar (JDNX) / Chandigarh (CDG)",
     "confidence_pct": 99,
@@ -313,8 +544,22 @@
     "state": "Uttarakhand",
     "region": "north",
     "description": "Yoga and adventure capital of India. River rafting, Ganga Aarti, riverside cafes, and Himalayan foothills.",
-    "best_months": ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"],
-    "tags": ["adventure", "mountains", "spiritual", "nature", "cafes", "rafting"],
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar"
+    ],
+    "tags": [
+      "adventure",
+      "mountains",
+      "spiritual",
+      "nature",
+      "cafes",
+      "rafting"
+    ],
     "nearest_airport": "Jolly Grant (DED)",
     "nearest_railway": "Yog Nagari Rishikesh (YNRK)",
     "confidence_pct": 99,
@@ -330,11 +575,557 @@
     "state": "Himachal Pradesh",
     "region": "north",
     "description": "Remote Himalayan valley in Himachal Pradesh, bordering the Great Himalayan National Park. Pristine rivers, trout fishing, and untouched nature.",
-    "best_months": ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"],
-    "tags": ["nature", "mountains", "trekking", "offbeat", "wildlife", "scenic"],
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar"
+    ],
+    "tags": [
+      "nature",
+      "mountains",
+      "trekking",
+      "offbeat",
+      "wildlife",
+      "scenic"
+    ],
     "nearest_airport": "Kullu-Manali Airport Bhuntar (KUU)",
     "nearest_railway": "Shimla (SML)",
     "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "name": "Udaipur",
+    "type": "heritage",
+    "lat": 24.5854,
+    "lng": 73.7125,
+    "state": "Rajasthan",
+    "region": "north",
+    "description": "The Lake City of Rajasthan, famous for romantic lakes, grand palaces, and royal history.",
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar"
+    ],
+    "tags": [
+      "lakes",
+      "palaces",
+      "heritage",
+      "romance"
+    ],
+    "nearest_airport": "Maharana Pratap (UDR)",
+    "nearest_railway": "Udaipur City (UDZ)",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "name": "Agra",
+    "type": "heritage",
+    "lat": 27.1767,
+    "lng": 78.0081,
+    "state": "Uttar Pradesh",
+    "region": "north",
+    "description": "Home of the world-famous Taj Mahal, Agra Fort, and rich Mughal heritage.",
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar"
+    ],
+    "tags": [
+      "heritage",
+      "taj_mahal",
+      "history"
+    ],
+    "nearest_airport": "Pandit Deen Dayal Upadhyay (AGR)",
+    "nearest_railway": "Agra Cantt (AGC)",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "name": "Amritsar",
+    "type": "spiritual",
+    "lat": 31.634,
+    "lng": 74.8723,
+    "state": "Punjab",
+    "region": "north",
+    "description": "The spiritual capital of Sikhism, famous for the magnificent Golden Temple and local cuisine.",
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar"
+    ],
+    "tags": [
+      "spiritual",
+      "golden_temple",
+      "food",
+      "history"
+    ],
+    "nearest_airport": "Sri Guru Ram Dass Jee (ATQ)",
+    "nearest_railway": "Amritsar Junction (ASR)",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "name": "Srinagar",
+    "type": "hill_station",
+    "lat": 34.0837,
+    "lng": 74.7973,
+    "state": "Jammu and Kashmir",
+    "region": "north",
+    "description": "The summer capital of J&K, famous for houseboats on Dal Lake and Mughal gardens.",
+    "best_months": [
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct"
+    ],
+    "tags": [
+      "lakes",
+      "houseboats",
+      "nature",
+      "shikara"
+    ],
+    "nearest_airport": "Srinagar Airport (SXR)",
+    "nearest_railway": "Srinagar (SINA)",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "name": "Dharamshala",
+    "type": "hill_station",
+    "lat": 32.219,
+    "lng": 76.3234,
+    "state": "Himachal Pradesh",
+    "region": "north",
+    "description": "Nestled in the Dhauladhar range, home of the Dalai Lama and vibrant Tibetan culture.",
+    "best_months": [
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Sep",
+      "Oct",
+      "Nov"
+    ],
+    "tags": [
+      "tibetan",
+      "mountains",
+      "buddhism",
+      "scenic"
+    ],
+    "nearest_airport": "Kangra Airport (DHM)",
+    "nearest_railway": "Pathankot Junction (PTK)",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "name": "Coorg",
+    "type": "hill_station",
+    "lat": 12.4244,
+    "lng": 75.7382,
+    "state": "Karnataka",
+    "region": "south",
+    "description": "The Scotland of India, famous for lush coffee plantations, waterfalls, and mist-clad hills.",
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar"
+    ],
+    "tags": [
+      "coffee",
+      "nature",
+      "hill_station",
+      "waterfalls"
+    ],
+    "nearest_airport": "Kannur International (CNN)",
+    "nearest_railway": "Mysore Junction (MYS)",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "name": "Hampi",
+    "type": "heritage",
+    "lat": 15.335,
+    "lng": 76.46,
+    "state": "Karnataka",
+    "region": "south",
+    "description": "UNESCO site featuring spectacular ruins of the medieval Vijayanagara Empire amidst boulder landscapes.",
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb"
+    ],
+    "tags": [
+      "heritage",
+      "ruins",
+      "history",
+      "boulders"
+    ],
+    "nearest_airport": "Jindal Vijayanagar Vidyanagar (VDY)",
+    "nearest_railway": "Hosapete Junction (HPT)",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "name": "Alleppey",
+    "type": "backwater",
+    "lat": 9.4981,
+    "lng": 76.3388,
+    "state": "Kerala",
+    "region": "south",
+    "description": "Venice of the East, famous for houseboat cruises along emerald Kerala backwaters.",
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb"
+    ],
+    "tags": [
+      "backwater",
+      "houseboats",
+      "nature",
+      "coast"
+    ],
+    "nearest_airport": "Cochin International (COK)",
+    "nearest_railway": "Alappuzha (ALLP)",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "name": "Gokarna",
+    "type": "beach",
+    "lat": 14.5479,
+    "lng": 74.3188,
+    "state": "Karnataka",
+    "region": "south",
+    "description": "A sacred temple town with pristine, offbeat beaches popular with backpackers.",
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb"
+    ],
+    "tags": [
+      "beach",
+      "spiritual",
+      "backpackers",
+      "coast"
+    ],
+    "nearest_airport": "Manohar International Mopa (GOX)",
+    "nearest_railway": "Gokarna Road (GOK)",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "name": "Pondicherry",
+    "type": "beach",
+    "lat": 11.9416,
+    "lng": 79.8083,
+    "state": "Union Territory",
+    "region": "south",
+    "description": "Former French colony blending French heritage architecture, beaches, and Auroville.",
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar"
+    ],
+    "tags": [
+      "french",
+      "beach",
+      "spiritual",
+      "cafes"
+    ],
+    "nearest_airport": "Pondicherry Airport (PNY)",
+    "nearest_railway": "Puducherry (PDY)",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "name": "Ooty",
+    "type": "hill_station",
+    "lat": 11.4102,
+    "lng": 76.695,
+    "state": "Tamil Nadu",
+    "region": "south",
+    "description": "Queen of Hill Stations, famous for tea gardens, lakes, and the historic toy train.",
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May"
+    ],
+    "tags": [
+      "tea",
+      "nature",
+      "hill_station",
+      "scenic"
+    ],
+    "nearest_airport": "Coimbatore International (CJB)",
+    "nearest_railway": "Udagamandalam (UAM)",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "name": "Lonavala",
+    "type": "hill_station",
+    "lat": 18.7557,
+    "lng": 73.4091,
+    "state": "Maharashtra",
+    "region": "west",
+    "description": "A popular Western Ghats hill escape known for dramatic green valleys, waterfalls, and caves.",
+    "best_months": [
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan"
+    ],
+    "tags": [
+      "nature",
+      "waterfalls",
+      "monsoon",
+      "weekend"
+    ],
+    "nearest_airport": "Pune Airport (PNQ)",
+    "nearest_railway": "Lonavala (LNL)",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "name": "Mahabaleshwar",
+    "type": "hill_station",
+    "lat": 17.9258,
+    "lng": 73.6477,
+    "state": "Maharashtra",
+    "region": "west",
+    "description": "Vibrant hill station famous for strawberry farms, dramatic valley viewpoints, and evergreen forests.",
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May"
+    ],
+    "tags": [
+      "nature",
+      "strawberries",
+      "views",
+      "forests"
+    ],
+    "nearest_airport": "Pune Airport (PNQ)",
+    "nearest_railway": "Satara (STR)",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "name": "Darjeeling",
+    "type": "hill_station",
+    "lat": 27.041,
+    "lng": 88.2627,
+    "state": "West Bengal",
+    "region": "east",
+    "description": "Lush Himalayan foothills known for world-class black tea and views of Mount Kanchenjunga.",
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May"
+    ],
+    "tags": [
+      "tea",
+      "mountains",
+      "scenic",
+      "heritage"
+    ],
+    "nearest_airport": "Bagdogra Airport (IXB)",
+    "nearest_railway": "Darjeeling (DJG)",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "name": "Gangtok",
+    "type": "hill_station",
+    "lat": 27.3314,
+    "lng": 88.6138,
+    "state": "Sikkim",
+    "region": "east",
+    "description": "Capital of Sikkim, showcasing Buddhist monasteries, clean streets, and snowy mountain vistas.",
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May"
+    ],
+    "tags": [
+      "buddhism",
+      "mountains",
+      "clean",
+      "scenic"
+    ],
+    "nearest_airport": "Pakyong Airport (PYG)",
+    "nearest_railway": "New Jalpaiguri (NJP)",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "name": "Cherrapunji",
+    "type": "nature",
+    "lat": 25.2702,
+    "lng": 91.7323,
+    "state": "Meghalaya",
+    "region": "northeast",
+    "description": "One of the wettest places on earth, famous for living root bridges and massive waterfalls.",
+    "best_months": [
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr"
+    ],
+    "tags": [
+      "nature",
+      "waterfalls",
+      "root_bridges",
+      "rain"
+    ],
+    "nearest_airport": "Shillong Airport (SHL)",
+    "nearest_railway": "Guwahati (GHY)",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "name": "Kaziranga",
+    "type": "wildlife",
+    "lat": 26.5775,
+    "lng": 93.1711,
+    "state": "Assam",
+    "region": "northeast",
+    "description": "UNESCO wildlife park hosting the world's largest population of great Indian one-horned rhinoceroses.",
+    "best_months": [
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr"
+    ],
+    "tags": [
+      "wildlife",
+      "safari",
+      "rhino",
+      "nature"
+    ],
+    "nearest_airport": "Jorhat Airport (JRH)",
+    "nearest_railway": "Furkating (FKG)",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "name": "Khajuraho",
+    "type": "heritage",
+    "lat": 24.8318,
+    "lng": 79.9199,
+    "state": "Madhya Pradesh",
+    "region": "central",
+    "description": "Famous for its stunning group of medieval Hindu and Jain temples adorned with intricate erotic sculptures.",
+    "best_months": [
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar"
+    ],
+    "tags": [
+      "heritage",
+      "sculpture",
+      "history",
+      "temples"
+    ],
+    "nearest_airport": "Khajuraho Airport (HJR)",
+    "nearest_railway": "Khajuraho (KURJ)",
+    "confidence_pct": 98,
     "verification_status": "verified",
     "data_source": "llm_knowledge",
     "last_verified": "2026-06-22"

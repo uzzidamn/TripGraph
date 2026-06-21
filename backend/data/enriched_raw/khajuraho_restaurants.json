@@ -1,0 +1,205 @@
+[
+  {
+    "restaurant_id": "bella_italia_khajuraho_01",
+    "destination": "Khajuraho",
+    "route_id": "khajuraho_main_01",
+    "name": "Bella Italia",
+    "cuisine": "Italian",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 800,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "romantic",
+      "cafe",
+      "vegetarian-friendly"
+    ],
+    "lat": 24.8512,
+    "lng": 79.9254,
+    "signature_dish": "Wood-fired Margherita Pizza",
+    "insider_tip": "Ask for a table in the garden area during the evening for a peaceful atmosphere away from the main street noise.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "raja_cafe_khajuraho_01",
+    "destination": "Khajuraho",
+    "route_id": "khajuraho_main_01",
+    "name": "Raja Cafe",
+    "cuisine": "Multi-cuisine",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 500,
+    "avg_duration_minutes": 45,
+    "tags": [
+      "view",
+      "tourist-friendly",
+      "breakfast"
+    ],
+    "lat": 24.8525,
+    "lng": 79.9248,
+    "signature_dish": "Masala Omelette with Toast",
+    "insider_tip": "The balcony seating offers the best view of the Western Group of Temples entrance.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "saffron_khajuraho_01",
+    "destination": "Khajuraho",
+    "route_id": "khajuraho_main_02",
+    "name": "Saffron Restaurant",
+    "cuisine": "Indian",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 1200,
+    "avg_duration_minutes": 75,
+    "tags": [
+      "fine-dining",
+      "upscale"
+    ],
+    "lat": 24.8489,
+    "lng": 79.9281,
+    "signature_dish": "Bundelkhandi Thali",
+    "insider_tip": "Try the local Bundelkhandi specialties which are often not listed on the standard menu; ask the server for the chef's daily special.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "madras_coffee_house_khajuraho_01",
+    "destination": "Khajuraho",
+    "route_id": "khajuraho_main_01",
+    "name": "Madras Coffee House",
+    "cuisine": "South Indian",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 300,
+    "avg_duration_minutes": 30,
+    "tags": [
+      "budget",
+      "quick-bite"
+    ],
+    "lat": 24.8531,
+    "lng": 79.9262,
+    "signature_dish": "Filter Coffee and Masala Dosa",
+    "insider_tip": "Perfect for a quick, authentic South Indian breakfast before heading out for temple sightseeing.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "ganga_cafe_khajuraho_01",
+    "destination": "Khajuraho",
+    "route_id": "khajuraho_main_01",
+    "name": "Ganga Cafe",
+    "cuisine": "Indian/Continental",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 400,
+    "avg_duration_minutes": 50,
+    "tags": [
+      "relaxed",
+      "backpacker-friendly"
+    ],
+    "lat": 24.8518,
+    "lng": 79.9259,
+    "signature_dish": "Vegetable Curry with Garlic Naan",
+    "insider_tip": "They have a great collection of books and a very laid-back vibe, ideal for spending a lazy afternoon.",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "street_food_corner_khajuraho_01",
+    "destination": "Khajuraho",
+    "route_id": "khajuraho_main_01",
+    "name": "Khajuraho Street Food Corner",
+    "cuisine": "Indian Street Food",
+    "meal_types": [
+      "lunch"
+    ],
+    "avg_cost_per_person": 150,
+    "avg_duration_minutes": 20,
+    "tags": [
+      "street-food",
+      "local"
+    ],
+    "lat": 24.854,
+    "lng": 79.927,
+    "signature_dish": "Aloo Tikki Chaat",
+    "insider_tip": "Look for the stall with the longest queue of locals; that is where you get the freshest chaat.",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "pizzeria_italia_khajuraho_01",
+    "destination": "Khajuraho",
+    "route_id": "khajuraho_main_02",
+    "name": "Pizzeria Italia",
+    "cuisine": "Italian",
+    "meal_types": [
+      "dinner"
+    ],
+    "avg_cost_per_person": 700,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "cozy",
+      "vegetarian"
+    ],
+    "lat": 24.8505,
+    "lng": 79.929,
+    "signature_dish": "Spinach and Ricotta Ravioli",
+    "insider_tip": "The pasta is handmade daily; arrive early as they often run out of popular varieties by 8 PM.",
+    "confidence_pct": 91,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "hotel_clarks_dining_khajuraho_01",
+    "destination": "Khajuraho",
+    "route_id": "khajuraho_main_02",
+    "name": "The Restaurant at Clarks",
+    "cuisine": "Multi-cuisine",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 1500,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "fine-dining",
+      "luxury"
+    ],
+    "lat": 24.8475,
+    "lng": 79.931,
+    "signature_dish": "Mughlai Biryani",
+    "insider_tip": "Ideal for a formal dinner; the service is impeccable and the ambiance is very quiet compared to the town center.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

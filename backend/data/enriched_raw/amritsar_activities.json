@@ -1,0 +1,739 @@
+[
+  {
+    "activity_id": "golden_temple_amritsar_01",
+    "destination": "Amritsar",
+    "name": "Harmandir Sahib",
+    "category": "spiritual",
+    "duration_minutes": 120,
+    "cost_per_person": 0,
+    "available_slots": [
+      "04:00",
+      "08:00",
+      "14:00",
+      "20:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "iconic",
+      "spiritual",
+      "heritage"
+    ],
+    "lat": 31.6199,
+    "lng": 74.8764,
+    "fatigue_score_base": 2,
+    "morale_score_base": 10,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Experience the profound serenity and golden brilliance of the holiest shrine in Sikhism.",
+    "opening_hours": [
+      "Monday-Sunday: 00:00-23:59"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Visit during the early morning 'Palki Sahib' ceremony for a deeply moving experience.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "wagah_border_amritsar_02",
+    "destination": "Amritsar",
+    "name": "Wagah Border Ceremony",
+    "category": "cultural",
+    "duration_minutes": 180,
+    "cost_per_person": 0,
+    "available_slots": [
+      "15:30"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "patriotic",
+      "spectacle",
+      "border"
+    ],
+    "lat": 31.6045,
+    "lng": 74.5665,
+    "fatigue_score_base": 4,
+    "morale_score_base": 9,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Witness the high-octane, synchronized military pageantry at the international border between India and Pakistan.",
+    "opening_hours": [
+      "Monday-Sunday: 15:30-17:30"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Arrive at least 90 minutes early to secure a seat near the front for the best view.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "jallianwala_bagh_amritsar_03",
+    "destination": "Amritsar",
+    "name": "Jallianwala Bagh",
+    "category": "cultural",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "11:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "history",
+      "memorial",
+      "monument"
+    ],
+    "lat": 31.6215,
+    "lng": 74.8785,
+    "fatigue_score_base": 1,
+    "morale_score_base": 3,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A somber and poignant memorial that stands as a testament to the resilience of the Indian freedom struggle.",
+    "opening_hours": [
+      "Monday-Sunday: 06:30-19:30"
+    ],
+    "skip_if": "Extreme heat",
+    "insider_tip": "Look for the bullet marks still visible on the walls of the narrow alleyway.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "kulcha_land_amritsar_04",
+    "destination": "Amritsar",
+    "name": "Amritsari Kulcha Trail",
+    "category": "food",
+    "duration_minutes": 45,
+    "cost_per_person": 150,
+    "available_slots": [
+      "09:00",
+      "13:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "streetfood",
+      "local",
+      "breakfast"
+    ],
+    "lat": 31.634,
+    "lng": 74.872,
+    "fatigue_score_base": 1,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Indulge in the legendary, crispy, butter-laden stuffed breads that define Amritsari breakfast culture.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-16:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Head to Kulcha Land or Kesar Da Dhaba for the most authentic experience.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "partition_museum_amritsar_05",
+    "destination": "Amritsar",
+    "name": "Partition Museum",
+    "category": "cultural",
+    "duration_minutes": 90,
+    "cost_per_person": 10,
+    "available_slots": [
+      "10:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "museum",
+      "history",
+      "education"
+    ],
+    "lat": 31.625,
+    "lng": 74.877,
+    "fatigue_score_base": 2,
+    "morale_score_base": 4,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "Any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A deeply moving repository of stories, artifacts, and memories from the 1947 Partition of India.",
+    "opening_hours": [
+      "Tuesday-Sunday: 10:00-18:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Allocate enough time to read the personal accounts; they are the heart of the museum.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "hall_bazaar_amritsar_06",
+    "destination": "Amritsar",
+    "name": "Hall Bazaar Shopping",
+    "category": "shopping",
+    "duration_minutes": 120,
+    "cost_per_person": 0,
+    "available_slots": [
+      "11:00",
+      "16:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "market",
+      "textiles",
+      "souvenirs"
+    ],
+    "lat": 31.628,
+    "lng": 74.875,
+    "fatigue_score_base": 3,
+    "morale_score_base": 7,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Any"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Navigate the bustling lanes of Amritsar's oldest market for vibrant phulkari embroidery and traditional juttis.",
+    "opening_hours": [
+      "Monday-Sunday: 10:00-21:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Haggling is expected; start at half the quoted price and work your way up.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "gobindgarh_fort_amritsar_07",
+    "destination": "Amritsar",
+    "name": "Gobindgarh Fort",
+    "category": "cultural",
+    "duration_minutes": 180,
+    "cost_per_person": 500,
+    "available_slots": [
+      "10:00",
+      "18:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "history",
+      "architecture",
+      "lightshow"
+    ],
+    "lat": 31.635,
+    "lng": 74.865,
+    "fatigue_score_base": 4,
+    "morale_score_base": 8,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Explore this historic military fort turned cultural hub, featuring immersive light and sound shows.",
+    "opening_hours": [
+      "Monday-Sunday: 10:00-22:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Don't miss the 'Whispering Walls' laser show in the evening.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "ram_tirath_amritsar_08",
+    "destination": "Amritsar",
+    "name": "Ram Tirath Temple",
+    "category": "spiritual",
+    "duration_minutes": 90,
+    "cost_per_person": 0,
+    "available_slots": [
+      "08:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "mythology",
+      "temple",
+      "peaceful"
+    ],
+    "lat": 31.68,
+    "lng": 74.75,
+    "fatigue_score_base": 2,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Visit the legendary birthplace of Luv and Kush, set in a tranquil complex away from the city chaos.",
+    "opening_hours": [
+      "Monday-Sunday: 06:00-20:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "It is located about 10km from the city center; hire a taxi for a comfortable trip.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "company_bagh_amritsar_09",
+    "destination": "Amritsar",
+    "name": "Company Bagh",
+    "category": "nature",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "07:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "park",
+      "nature",
+      "walk"
+    ],
+    "lat": 31.638,
+    "lng": 74.87,
+    "fatigue_score_base": 2,
+    "morale_score_base": 6,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A lush green oasis in the heart of the city, perfect for a leisurely morning stroll.",
+    "opening_hours": [
+      "Monday-Sunday: 06:00-20:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Great for birdwatching during the winter months.",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "langar_experience_amritsar_10",
+    "destination": "Amritsar",
+    "name": "Golden Temple Langar",
+    "category": "experience",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "12:00",
+      "19:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "community",
+      "service",
+      "food"
+    ],
+    "lat": 31.62,
+    "lng": 74.876,
+    "fatigue_score_base": 2,
+    "morale_score_base": 10,
+    "best_time_of_day": "any",
+    "best_season": [
+      "Any"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Participate in the world's largest community kitchen, serving thousands of free meals daily.",
+    "opening_hours": [
+      "Monday-Sunday: 00:00-23:59"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Volunteer to help wash dishes or serve food for a truly humbling experience.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "pul_kanjri_amritsar_11",
+    "destination": "Amritsar",
+    "name": "Pul Kanjri",
+    "category": "cultural",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "10:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "history",
+      "architecture",
+      "offbeat"
+    ],
+    "lat": 31.65,
+    "lng": 74.65,
+    "fatigue_score_base": 2,
+    "morale_score_base": 6,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Discover the historic summer retreat of Maharaja Ranjit Singh, featuring beautiful frescoes and a small temple.",
+    "opening_hours": [
+      "Monday-Sunday: 09:00-18:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Combine this with a trip to the Wagah Border as it is on the same route.",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "durgiana_temple_amritsar_12",
+    "destination": "Amritsar",
+    "name": "Durgiana Temple",
+    "category": "spiritual",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "06:00",
+      "18:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "temple",
+      "architecture",
+      "hindu"
+    ],
+    "lat": 31.635,
+    "lng": 74.868,
+    "fatigue_score_base": 1,
+    "morale_score_base": 8,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A stunning Hindu temple complex built in the middle of a sacred lake, mirroring the architecture of the Golden Temple.",
+    "opening_hours": [
+      "Monday-Sunday: 06:00-22:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Visit during the evening aarti for a mesmerizing visual experience.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "phulkari_workshop_amritsar_13",
+    "destination": "Amritsar",
+    "name": "Phulkari Embroidery Workshop",
+    "category": "experience",
+    "duration_minutes": 120,
+    "cost_per_person": 800,
+    "available_slots": [
+      "11:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "art",
+      "craft",
+      "culture"
+    ],
+    "lat": 31.63,
+    "lng": 74.87,
+    "fatigue_score_base": 2,
+    "morale_score_base": 7,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Learn the intricate art of traditional Punjabi embroidery from local master artisans.",
+    "opening_hours": [
+      "Monday-Saturday: 10:00-17:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Book through a local cultural center to ensure you are supporting authentic artisans.",
+    "confidence_pct": 80,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "beas_river_boating_amritsar_14",
+    "destination": "Amritsar",
+    "name": "Beas River Boating",
+    "category": "water_sport",
+    "duration_minutes": 120,
+    "cost_per_person": 500,
+    "available_slots": [
+      "10:00",
+      "15:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "nature",
+      "adventure",
+      "river"
+    ],
+    "lat": 31.5,
+    "lng": 75.3,
+    "fatigue_score_base": 3,
+    "morale_score_base": 7,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Enjoy a serene boat ride along the Beas River, offering a peaceful escape from the city's bustle.",
+    "opening_hours": [
+      "Monday-Sunday: 09:00-17:00"
+    ],
+    "skip_if": "Monsoon",
+    "insider_tip": "Check water levels before booking; best enjoyed in the cooler months.",
+    "confidence_pct": 75,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "street_food_walk_amritsar_15",
+    "destination": "Amritsar",
+    "name": "Old City Food Walk",
+    "category": "food",
+    "duration_minutes": 180,
+    "cost_per_person": 1200,
+    "available_slots": [
+      "18:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "food",
+      "walking",
+      "local"
+    ],
+    "lat": 31.625,
+    "lng": 74.875,
+    "fatigue_score_base": 4,
+    "morale_score_base": 10,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Embark on a culinary journey through the narrow lanes of the old city, tasting everything from lassi to spicy tikka.",
+    "opening_hours": [
+      "Monday-Sunday: 17:00-22:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Go with an empty stomach and a local guide to find the hidden gems.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "yoga_session_amritsar_16",
+    "destination": "Amritsar",
+    "name": "Morning Yoga Session",
+    "category": "wellness",
+    "duration_minutes": 60,
+    "cost_per_person": 300,
+    "available_slots": [
+      "06:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "wellness",
+      "health",
+      "yoga"
+    ],
+    "lat": 31.63,
+    "lng": 74.87,
+    "fatigue_score_base": 3,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Rejuvenate your body and mind with a traditional yoga session in a peaceful studio setting.",
+    "opening_hours": [
+      "Monday-Sunday: 06:00-08:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Many local community centers offer drop-in classes for tourists.",
+    "confidence_pct": 82,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "war_memorial_amritsar_17",
+    "destination": "Amritsar",
+    "name": "Punjab State War Heroes Memorial",
+    "category": "cultural",
+    "duration_minutes": 90,
+    "cost_per_person": 50,
+    "available_slots": [
+      "10:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "history",
+      "museum",
+      "patriotic"
+    ],
+    "lat": 31.64,
+    "lng": 74.82,
+    "fatigue_score_base": 2,
+    "morale_score_base": 6,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "Any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A grand tribute to the brave soldiers of Punjab, featuring a massive sword monument and an informative museum.",
+    "opening_hours": [
+      "Tuesday-Sunday: 10:00-18:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "The 7D movie experience inside is surprisingly well-made.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "katra_jaimal_singh_amritsar_18",
+    "destination": "Amritsar",
+    "name": "Katra Jaimal Singh Market",
+    "category": "shopping",
+    "duration_minutes": 90,
+    "cost_per_person": 0,
+    "available_slots": [
+      "11:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "shopping",
+      "textiles",
+      "wholesale"
+    ],
+    "lat": 31.627,
+    "lng": 74.873,
+    "fatigue_score_base": 3,
+    "morale_score_base": 7,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "Any"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "The ultimate destination for high-quality textiles, traditional suits, and vibrant Punjabi fabrics.",
+    "opening_hours": [
+      "Monday-Sunday: 10:00-20:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Best place to buy authentic Pashmina shawls and phulkari dupattas.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "harike_wetlands_amritsar_19",
+    "destination": "Amritsar",
+    "name": "Harike Wetlands Safari",
+    "category": "wildlife",
+    "duration_minutes": 240,
+    "cost_per_person": 1000,
+    "available_slots": [
+      "08:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "wildlife",
+      "nature",
+      "birdwatching"
+    ],
+    "lat": 31.13,
+    "lng": 75.2,
+    "fatigue_score_base": 5,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Nov-Feb"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Explore one of the largest wetlands in Northern India, a paradise for migratory birds and nature lovers.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-17:00"
+    ],
+    "skip_if": "Monsoon",
+    "insider_tip": "Bring high-quality binoculars and a camera with a zoom lens.",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "amritsar_heritage_walk_20",
+    "destination": "Amritsar",
+    "name": "Old City Heritage Walk",
+    "category": "cultural",
+    "duration_minutes": 120,
+    "cost_per_person": 200,
+    "available_slots": [
+      "08:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "walking",
+      "history",
+      "architecture"
+    ],
+    "lat": 31.62,
+    "lng": 74.87,
+    "fatigue_score_base": 4,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Uncover the hidden architectural gems and ancient havelis of Amritsar's historic walled city.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-10:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "The walk starts early to avoid the midday heat and traffic.",
+    "confidence_pct": 93,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

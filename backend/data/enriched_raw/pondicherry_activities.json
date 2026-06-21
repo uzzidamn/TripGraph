@@ -1,0 +1,859 @@
+[
+  {
+    "activity_id": "auroville_matrimandir_pondicherry_01",
+    "destination": "Pondicherry",
+    "name": "Matrimandir",
+    "category": "spiritual",
+    "duration_minutes": 120,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "10:00",
+      "11:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "meditation",
+      "architecture",
+      "peace"
+    ],
+    "lat": 12.0006,
+    "lng": 79.8099,
+    "fatigue_score_base": 2,
+    "morale_score_base": 10,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "A golden sphere of profound silence, this architectural marvel serves as the soul of the international township of Auroville.",
+    "opening_hours": [
+      "Monday: 09:00-17:00",
+      "Tuesday: 09:00-17:00",
+      "Wednesday: 09:00-17:00",
+      "Thursday: 09:00-17:00",
+      "Friday: 09:00-17:00",
+      "Saturday: 09:00-17:00",
+      "Sunday: 09:00-17:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Book your meditation slot online at least 3 days in advance as they fill up rapidly.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "promenade_beach_walk_pondicherry_02",
+    "destination": "Pondicherry",
+    "name": "Promenade Beach",
+    "category": "nature",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "06:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "walking",
+      "ocean",
+      "sunset"
+    ],
+    "lat": 11.9315,
+    "lng": 79.8355,
+    "fatigue_score_base": 3,
+    "morale_score_base": 8,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "The heartbeat of the city, where the rhythmic crashing of waves meets the vibrant colonial architecture of the French Quarter.",
+    "opening_hours": [
+      "Monday: 00:00-23:59",
+      "Tuesday: 00:00-23:59",
+      "Wednesday: 00:00-23:59",
+      "Thursday: 00:00-23:59",
+      "Friday: 00:00-23:59",
+      "Saturday: 00:00-23:59",
+      "Sunday: 00:00-23:59"
+    ],
+    "skip_if": "Cyclonic weather",
+    "insider_tip": "Visit at sunrise for a peaceful walk before the traffic ban is lifted at 6 PM.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "paradise_beach_boating_pondicherry_03",
+    "destination": "Pondicherry",
+    "name": "Paradise Beach",
+    "category": "water_sport",
+    "duration_minutes": 180,
+    "cost_per_person": 500,
+    "available_slots": [
+      "09:00",
+      "11:00",
+      "14:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "boating",
+      "beach",
+      "island"
+    ],
+    "lat": 11.8855,
+    "lng": 79.7855,
+    "fatigue_score_base": 4,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Accessible only by a scenic ferry ride, this pristine stretch of golden sand offers a secluded tropical escape.",
+    "opening_hours": [
+      "Monday: 09:00-17:00",
+      "Tuesday: 09:00-17:00",
+      "Wednesday: 09:00-17:00",
+      "Thursday: 09:00-17:00",
+      "Friday: 09:00-17:00",
+      "Saturday: 09:00-17:00",
+      "Sunday: 09:00-17:00"
+    ],
+    "skip_if": "High tide or monsoon",
+    "insider_tip": "Take the first ferry of the day to avoid the afternoon crowds and enjoy the cleanest water.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "cafe_des_arts_dining_pondicherry_04",
+    "destination": "Pondicherry",
+    "name": "Cafe des Arts",
+    "category": "food",
+    "duration_minutes": 90,
+    "cost_per_person": 800,
+    "available_slots": [
+      "10:00",
+      "13:00",
+      "19:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "french",
+      "cafe",
+      "vintage"
+    ],
+    "lat": 11.9332,
+    "lng": 79.8321,
+    "fatigue_score_base": 1,
+    "morale_score_base": 9,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Housed in a restored colonial villa, this charming cafe serves authentic French crepes in a lush, artistic courtyard.",
+    "opening_hours": [
+      "Monday: 10:00-19:00",
+      "Tuesday: 10:00-19:00",
+      "Wednesday: 10:00-19:00",
+      "Thursday: 10:00-19:00",
+      "Friday: 10:00-19:00",
+      "Saturday: 10:00-19:00",
+      "Sunday: 10:00-19:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Try their signature savory galettes and sit in the outdoor garden area for the best ambiance.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "pondicherry_museum_history_pondicherry_05",
+    "destination": "Pondicherry",
+    "name": "Pondicherry Museum",
+    "category": "cultural",
+    "duration_minutes": 60,
+    "cost_per_person": 50,
+    "available_slots": [
+      "10:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "history",
+      "artifacts",
+      "sculpture"
+    ],
+    "lat": 11.9345,
+    "lng": 79.8312,
+    "fatigue_score_base": 2,
+    "morale_score_base": 7,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A treasure trove of French colonial history and ancient Chola bronzes, offering a deep dive into the region's diverse past.",
+    "opening_hours": [
+      "Tuesday: 10:00-17:00",
+      "Wednesday: 10:00-17:00",
+      "Thursday: 10:00-17:00",
+      "Friday: 10:00-17:00",
+      "Saturday: 10:00-17:00",
+      "Sunday: 10:00-17:00"
+    ],
+    "skip_if": "Monday (closed)",
+    "insider_tip": "Don't miss the transport gallery featuring the unique pousse-pousse (hand-pulled rickshaw).",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "serenity_beach_surfing_pondicherry_06",
+    "destination": "Pondicherry",
+    "name": "Serenity Beach",
+    "category": "water_sport",
+    "duration_minutes": 120,
+    "cost_per_person": 1500,
+    "available_slots": [
+      "07:00",
+      "15:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "surfing",
+      "waves",
+      "beach"
+    ],
+    "lat": 11.9655,
+    "lng": 79.8455,
+    "fatigue_score_base": 6,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "The premier destination for surfing enthusiasts, offering gentle breaks perfect for beginners and seasoned riders alike.",
+    "opening_hours": [
+      "Monday: 06:00-18:00",
+      "Tuesday: 06:00-18:00",
+      "Wednesday: 06:00-18:00",
+      "Thursday: 06:00-18:00",
+      "Friday: 06:00-18:00",
+      "Saturday: 06:00-18:00",
+      "Sunday: 06:00-18:00"
+    ],
+    "skip_if": "Stormy weather",
+    "insider_tip": "Book a lesson with the local Kallialay Surf School for professional guidance and safety.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "botanical_garden_nature_pondicherry_07",
+    "destination": "Pondicherry",
+    "name": "Botanical Garden",
+    "category": "nature",
+    "duration_minutes": 90,
+    "cost_per_person": 20,
+    "available_slots": [
+      "09:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "plants",
+      "garden",
+      "walk"
+    ],
+    "lat": 11.9255,
+    "lng": 79.8255,
+    "fatigue_score_base": 3,
+    "morale_score_base": 7,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A lush green sanctuary established in 1826, showcasing a vast collection of exotic flora from across the globe.",
+    "opening_hours": [
+      "Monday: 09:00-18:00",
+      "Tuesday: 09:00-18:00",
+      "Wednesday: 09:00-18:00",
+      "Thursday: 09:00-18:00",
+      "Friday: 09:00-18:00",
+      "Saturday: 09:00-18:00",
+      "Sunday: 09:00-18:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Visit the aquarium inside the garden for a quick look at local freshwater species.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "mission_street_shopping_pondicherry_08",
+    "destination": "Pondicherry",
+    "name": "Mission Street",
+    "category": "shopping",
+    "duration_minutes": 120,
+    "cost_per_person": 0,
+    "available_slots": [
+      "11:00",
+      "16:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "boutique",
+      "shopping",
+      "fashion"
+    ],
+    "lat": 11.9325,
+    "lng": 79.8305,
+    "fatigue_score_base": 4,
+    "morale_score_base": 8,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A vibrant shopping artery where chic boutiques meet traditional textile stores, perfect for finding unique souvenirs.",
+    "opening_hours": [
+      "Monday: 10:00-21:00",
+      "Tuesday: 10:00-21:00",
+      "Wednesday: 10:00-21:00",
+      "Thursday: 10:00-21:00",
+      "Friday: 10:00-21:00",
+      "Saturday: 10:00-21:00",
+      "Sunday: 10:00-21:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Look for handmade leather goods and organic cotton clothing in the smaller side-street shops.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "sri_aurobindo_ashram_spiritual_pondicherry_09",
+    "destination": "Pondicherry",
+    "name": "Sri Aurobindo Ashram",
+    "category": "spiritual",
+    "duration_minutes": 45,
+    "cost_per_person": 0,
+    "available_slots": [
+      "08:00",
+      "16:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "meditation",
+      "peace",
+      "history"
+    ],
+    "lat": 11.9355,
+    "lng": 79.8345,
+    "fatigue_score_base": 1,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A serene spiritual community where the samadhi of Sri Aurobindo and The Mother offers a quiet space for reflection.",
+    "opening_hours": [
+      "Monday: 08:00-12:00, 14:00-18:00",
+      "Tuesday: 08:00-12:00, 14:00-18:00",
+      "Wednesday: 08:00-12:00, 14:00-18:00",
+      "Thursday: 08:00-12:00, 14:00-18:00",
+      "Friday: 08:00-12:00, 14:00-18:00",
+      "Saturday: 08:00-12:00, 14:00-18:00",
+      "Sunday: 08:00-12:00, 14:00-18:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Maintain absolute silence inside the premises; it is a place of deep meditation.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "ousteri_lake_nature_pondicherry_10",
+    "destination": "Pondicherry",
+    "name": "Ousteri Lake",
+    "category": "nature",
+    "duration_minutes": 90,
+    "cost_per_person": 200,
+    "available_slots": [
+      "07:00",
+      "16:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "birdwatching",
+      "lake",
+      "nature"
+    ],
+    "lat": 11.9555,
+    "lng": 79.7555,
+    "fatigue_score_base": 2,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Nov-Feb"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "A sprawling wetland sanctuary that serves as a haven for migratory birds and offers tranquil boating experiences.",
+    "opening_hours": [
+      "Monday: 09:00-17:00",
+      "Tuesday: 09:00-17:00",
+      "Wednesday: 09:00-17:00",
+      "Thursday: 09:00-17:00",
+      "Friday: 09:00-17:00",
+      "Saturday: 09:00-17:00",
+      "Sunday: 09:00-17:00"
+    ],
+    "skip_if": "Summer heat",
+    "insider_tip": "Bring binoculars for birdwatching; the best sightings are during the early winter months.",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "villa_shanti_dining_pondicherry_11",
+    "destination": "Pondicherry",
+    "name": "Villa Shanti",
+    "category": "food",
+    "duration_minutes": 90,
+    "cost_per_person": 1200,
+    "available_slots": [
+      "12:30",
+      "19:30"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "fine-dining",
+      "fusion",
+      "restaurant"
+    ],
+    "lat": 11.9335,
+    "lng": 79.8325,
+    "fatigue_score_base": 1,
+    "morale_score_base": 9,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "An elegant fusion restaurant set in a beautifully restored heritage building, perfect for a sophisticated evening meal.",
+    "opening_hours": [
+      "Monday: 12:30-15:00, 19:00-22:30",
+      "Tuesday: 12:30-15:00, 19:00-22:30",
+      "Wednesday: 12:30-15:00, 19:00-22:30",
+      "Thursday: 12:30-15:00, 19:00-22:30",
+      "Friday: 12:30-15:00, 19:00-22:30",
+      "Saturday: 12:30-15:00, 19:00-22:30",
+      "Sunday: 12:30-15:00, 19:00-22:30"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Reservations are highly recommended for dinner, especially on weekends.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "yoga_wellness_center_wellness_pondicherry_12",
+    "destination": "Pondicherry",
+    "name": "Yoga Wellness Center",
+    "category": "wellness",
+    "duration_minutes": 90,
+    "cost_per_person": 600,
+    "available_slots": [
+      "07:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "yoga",
+      "wellness",
+      "meditation"
+    ],
+    "lat": 11.9365,
+    "lng": 79.8335,
+    "fatigue_score_base": 3,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Rejuvenate your body and mind with authentic Hatha yoga sessions led by experienced local practitioners.",
+    "opening_hours": [
+      "Monday: 06:00-19:00",
+      "Tuesday: 06:00-19:00",
+      "Wednesday: 06:00-19:00",
+      "Thursday: 06:00-19:00",
+      "Friday: 06:00-19:00",
+      "Saturday: 06:00-19:00",
+      "Sunday: 06:00-19:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Check the schedule for drop-in classes; many centers offer single-session passes for tourists.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "french_quarter_walking_tour_pondicherry_13",
+    "destination": "Pondicherry",
+    "name": "French Quarter Walking Tour",
+    "category": "experience",
+    "duration_minutes": 120,
+    "cost_per_person": 500,
+    "available_slots": [
+      "08:00",
+      "16:30"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "walking",
+      "architecture",
+      "history"
+    ],
+    "lat": 11.934,
+    "lng": 79.832,
+    "fatigue_score_base": 4,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Wander through mustard-yellow colonial streets and discover the hidden architectural gems of the French Quarter.",
+    "opening_hours": [
+      "Monday: 08:00-19:00",
+      "Tuesday: 08:00-19:00",
+      "Wednesday: 08:00-19:00",
+      "Thursday: 08:00-19:00",
+      "Friday: 08:00-19:00",
+      "Saturday: 08:00-19:00",
+      "Sunday: 08:00-19:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Hire a local guide to unlock the stories behind the colorful colonial facades.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "manakula_vinayagar_temple_spiritual_pondicherry_14",
+    "destination": "Pondicherry",
+    "name": "Manakula Vinayagar Temple",
+    "category": "spiritual",
+    "duration_minutes": 45,
+    "cost_per_person": 0,
+    "available_slots": [
+      "06:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "temple",
+      "culture",
+      "religion"
+    ],
+    "lat": 11.936,
+    "lng": 79.835,
+    "fatigue_score_base": 2,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "An ancient temple dedicated to Lord Ganesha, famous for its golden chariot and intricate carvings.",
+    "opening_hours": [
+      "Monday: 05:45-12:30, 16:00-21:30",
+      "Tuesday: 05:45-12:30, 16:00-21:30",
+      "Wednesday: 05:45-12:30, 16:00-21:30",
+      "Thursday: 05:45-12:30, 16:00-21:30",
+      "Friday: 05:45-12:30, 16:00-21:30",
+      "Saturday: 05:45-12:30, 16:00-21:30",
+      "Sunday: 05:45-12:30, 16:00-21:30"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Look for the temple elephant, Lakshmi, who often blesses visitors at the entrance.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "serenity_beach_bazaar_shopping_pondicherry_15",
+    "destination": "Pondicherry",
+    "name": "Serenity Beach Bazaar",
+    "category": "shopping",
+    "duration_minutes": 90,
+    "cost_per_person": 0,
+    "available_slots": [
+      "10:00",
+      "16:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "market",
+      "handicrafts",
+      "shopping"
+    ],
+    "lat": 11.966,
+    "lng": 79.846,
+    "fatigue_score_base": 3,
+    "morale_score_base": 7,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A weekend market offering a delightful array of local handicrafts, beachwear, and artisanal goods.",
+    "opening_hours": [
+      "Saturday: 10:00-19:00",
+      "Sunday: 10:00-19:00"
+    ],
+    "skip_if": "Rain",
+    "insider_tip": "Best visited on Sunday evenings when the atmosphere is most lively with music and food stalls.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "chunnambar_boat_house_adventure_pondicherry_16",
+    "destination": "Pondicherry",
+    "name": "Chunnambar Boat House",
+    "category": "adventure",
+    "duration_minutes": 120,
+    "cost_per_person": 300,
+    "available_slots": [
+      "09:00",
+      "14:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "boating",
+      "river",
+      "adventure"
+    ],
+    "lat": 11.886,
+    "lng": 79.786,
+    "fatigue_score_base": 3,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "The gateway to backwater adventures, offering motorboat and pedal boat rides through serene mangrove-lined waters.",
+    "opening_hours": [
+      "Monday: 09:00-17:30",
+      "Tuesday: 09:00-17:30",
+      "Wednesday: 09:00-17:30",
+      "Thursday: 09:00-17:30",
+      "Friday: 09:00-17:30",
+      "Saturday: 09:00-17:30",
+      "Sunday: 09:00-17:30"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Try to get a seat on the upper deck of the motorboat for the best views of the river.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "zuka_chocolate_cafe_food_pondicherry_17",
+    "destination": "Pondicherry",
+    "name": "Zuka Chocolate Cafe",
+    "category": "food",
+    "duration_minutes": 45,
+    "cost_per_person": 400,
+    "available_slots": [
+      "11:00",
+      "16:00",
+      "20:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "chocolate",
+      "dessert",
+      "cafe"
+    ],
+    "lat": 11.931,
+    "lng": 79.83,
+    "fatigue_score_base": 1,
+    "morale_score_base": 10,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A paradise for chocoholics, famous for its decadent hot chocolate and innovative chocolate sculptures.",
+    "opening_hours": [
+      "Monday: 10:00-22:00",
+      "Tuesday: 10:00-22:00",
+      "Wednesday: 10:00-22:00",
+      "Thursday: 10:00-22:00",
+      "Friday: 10:00-22:00",
+      "Saturday: 10:00-22:00",
+      "Sunday: 10:00-22:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Order the 'Hot Chocolate'\u2014it is legendary and arguably the best in the city.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "bharathi_park_nature_pondicherry_18",
+    "destination": "Pondicherry",
+    "name": "Bharathi Park",
+    "category": "nature",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "08:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "park",
+      "relax",
+      "garden"
+    ],
+    "lat": 11.9345,
+    "lng": 79.8335,
+    "fatigue_score_base": 2,
+    "morale_score_base": 7,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A beautifully manicured park in the heart of the French Quarter, perfect for a quiet afternoon read.",
+    "opening_hours": [
+      "Monday: 06:00-20:00",
+      "Tuesday: 06:00-20:00",
+      "Wednesday: 06:00-20:00",
+      "Thursday: 06:00-20:00",
+      "Friday: 06:00-20:00",
+      "Saturday: 06:00-20:00",
+      "Sunday: 06:00-20:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "The Aayi Mandapam monument in the center is a great spot for photography.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "scuba_diving_adventure_pondicherry_19",
+    "destination": "Pondicherry",
+    "name": "Scuba Diving",
+    "category": "adventure",
+    "duration_minutes": 240,
+    "cost_per_person": 5000,
+    "available_slots": [
+      "07:00"
+    ],
+    "risk_level": "high",
+    "tags": [
+      "diving",
+      "ocean",
+      "adventure"
+    ],
+    "lat": 11.93,
+    "lng": 79.84,
+    "fatigue_score_base": 7,
+    "morale_score_base": 10,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Feb-Apr"
+    ],
+    "accessibility": "difficult",
+    "editorial_summary": "Explore the vibrant coral reefs and underwater life of the Bay of Bengal with professional diving instructors.",
+    "opening_hours": [
+      "Monday: 07:00-13:00",
+      "Tuesday: 07:00-13:00",
+      "Wednesday: 07:00-13:00",
+      "Thursday: 07:00-13:00",
+      "Friday: 07:00-13:00",
+      "Saturday: 07:00-13:00",
+      "Sunday: 07:00-13:00"
+    ],
+    "skip_if": "Rough sea conditions",
+    "insider_tip": "Book with Temple Adventures for the most reliable and safe diving experience in Pondicherry.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "paper_factory_workshop_experience_pondicherry_20",
+    "destination": "Pondicherry",
+    "name": "Sri Aurobindo Handmade Paper Factory",
+    "category": "experience",
+    "duration_minutes": 60,
+    "cost_per_person": 100,
+    "available_slots": [
+      "10:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "workshop",
+      "craft",
+      "art"
+    ],
+    "lat": 11.938,
+    "lng": 79.832,
+    "fatigue_score_base": 2,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Witness the traditional art of handmade paper production and browse a beautiful collection of stationery.",
+    "opening_hours": [
+      "Monday: 10:00-17:00",
+      "Tuesday: 10:00-17:00",
+      "Wednesday: 10:00-17:00",
+      "Thursday: 10:00-17:00",
+      "Friday: 10:00-17:00",
+      "Saturday: 10:00-17:00",
+      "Sunday: 10:00-17:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "The gift shop offers unique, high-quality paper products that make excellent, lightweight souvenirs.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

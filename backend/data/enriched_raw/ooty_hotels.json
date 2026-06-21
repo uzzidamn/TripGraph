@@ -1,0 +1,251 @@
+[
+  {
+    "hotel_id": "ooty_budget_01",
+    "destination": "Ooty",
+    "name": "Zostel Ooty",
+    "tier": "budget",
+    "price_per_night": 1200,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 7,
+    "lat": 11.4102,
+    "lng": 76.695,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "parking"
+    ],
+    "tags": [
+      "hostel",
+      "backpacker",
+      "social"
+    ],
+    "editorial_summary": "A vibrant hostel perfect for solo travelers looking to meet people in the heart of Ooty.",
+    "price_confidence": "high",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "ooty_budget_02",
+    "destination": "Ooty",
+    "name": "Green Valley Homestay",
+    "tier": "budget",
+    "price_per_night": 1800,
+    "rooms_required": 1,
+    "checkin_time": "12:00",
+    "checkout_time": "10:00",
+    "comfort_score": 6,
+    "lat": 11.405,
+    "lng": 76.701,
+    "amenities": [
+      "wifi",
+      "parking"
+    ],
+    "tags": [
+      "homestay",
+      "cozy",
+      "budget"
+    ],
+    "editorial_summary": "A simple, quiet homestay offering authentic local hospitality and mountain views.",
+    "price_confidence": "high",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "ooty_comfort_01",
+    "destination": "Ooty",
+    "name": "Sterling Ooty Fern Hill",
+    "tier": "comfort",
+    "price_per_night": 4500,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 8,
+    "lat": 11.425,
+    "lng": 76.685,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "gym",
+      "parking"
+    ],
+    "tags": [
+      "resort",
+      "family-friendly",
+      "scenic"
+    ],
+    "editorial_summary": "A well-established resort offering spacious rooms and excellent views of the Nilgiri hills.",
+    "price_confidence": "high",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "ooty_comfort_02",
+    "destination": "Ooty",
+    "name": "Hotel Lakeview",
+    "tier": "comfort",
+    "price_per_night": 3800,
+    "rooms_required": 1,
+    "checkin_time": "12:00",
+    "checkout_time": "11:00",
+    "comfort_score": 7,
+    "lat": 11.408,
+    "lng": 76.698,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "parking"
+    ],
+    "tags": [
+      "lake-view",
+      "classic",
+      "convenient"
+    ],
+    "editorial_summary": "Classic hotel located near the Ooty Lake, providing easy access to major tourist attractions.",
+    "price_confidence": "medium",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "ooty_comfort_03",
+    "destination": "Ooty",
+    "name": "Fortune Resort Sullivan Court",
+    "tier": "comfort",
+    "price_per_night": 6500,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 9,
+    "lat": 11.415,
+    "lng": 76.692,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "gym",
+      "bar",
+      "parking"
+    ],
+    "tags": [
+      "upscale",
+      "business",
+      "leisure"
+    ],
+    "editorial_summary": "A premium comfort stay with colonial architecture and modern amenities.",
+    "price_confidence": "high",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "ooty_expedition_01",
+    "destination": "Ooty",
+    "name": "Savoy - IHCL SeleQtions",
+    "tier": "expedition",
+    "price_per_night": 12000,
+    "rooms_required": 1,
+    "checkin_time": "15:00",
+    "checkout_time": "12:00",
+    "comfort_score": 10,
+    "lat": 11.412,
+    "lng": 76.688,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "spa",
+      "bar",
+      "parking",
+      "room_service"
+    ],
+    "tags": [
+      "heritage",
+      "luxury",
+      "colonial"
+    ],
+    "editorial_summary": "A historic heritage property offering an unparalleled luxury experience in the Nilgiris.",
+    "price_confidence": "high",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "ooty_expedition_02",
+    "destination": "Ooty",
+    "name": "WelcomHeritage Fernhills Royal Palace",
+    "tier": "expedition",
+    "price_per_night": 15000,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 10,
+    "lat": 11.43,
+    "lng": 76.68,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "spa",
+      "parking",
+      "room_service"
+    ],
+    "tags": [
+      "palace",
+      "royal",
+      "exclusive"
+    ],
+    "editorial_summary": "Stay in a former royal palace with sprawling gardens and opulent interiors.",
+    "price_confidence": "medium",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "ooty_expedition_03",
+    "destination": "Ooty",
+    "name": "The Tamara Kodai (Ooty Outpost)",
+    "tier": "expedition",
+    "price_per_night": 18000,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 10,
+    "lat": 11.42,
+    "lng": 76.71,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "spa",
+      "gym",
+      "bar",
+      "parking",
+      "ac"
+    ],
+    "tags": [
+      "eco-luxury",
+      "nature",
+      "secluded"
+    ],
+    "editorial_summary": "An exclusive eco-luxury retreat designed for those seeking privacy and high-end comfort.",
+    "price_confidence": "high",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

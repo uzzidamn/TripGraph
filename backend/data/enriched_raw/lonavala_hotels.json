@@ -1,0 +1,254 @@
+[
+  {
+    "hotel_id": "lonavala_budget_01",
+    "destination": "Lonavala",
+    "name": "Backpacker's Haven Hostel",
+    "tier": "budget",
+    "price_per_night": 950,
+    "rooms_required": 1,
+    "checkin_time": "12:00 PM",
+    "checkout_time": "11:00 AM",
+    "comfort_score": 6,
+    "lat": 18.7501,
+    "lng": 73.4082,
+    "amenities": [
+      "wifi",
+      "breakfast"
+    ],
+    "tags": [
+      "hostel",
+      "budget",
+      "social"
+    ],
+    "editorial_summary": "A vibrant hostel perfect for solo travelers looking to meet new people on a budget.",
+    "price_confidence": "high",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "lonavala_budget_02",
+    "destination": "Lonavala",
+    "name": "Green Valley Homestay",
+    "tier": "budget",
+    "price_per_night": 1800,
+    "rooms_required": 1,
+    "checkin_time": "1:00 PM",
+    "checkout_time": "10:00 AM",
+    "comfort_score": 7,
+    "lat": 18.7555,
+    "lng": 73.4121,
+    "amenities": [
+      "wifi",
+      "parking",
+      "breakfast"
+    ],
+    "tags": [
+      "homestay",
+      "family-friendly",
+      "quiet"
+    ],
+    "editorial_summary": "A cozy, family-run homestay offering authentic local hospitality and home-cooked meals.",
+    "price_confidence": "high",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "lonavala_comfort_01",
+    "destination": "Lonavala",
+    "name": "Hillside Comfort Resort",
+    "tier": "comfort",
+    "price_per_night": 3500,
+    "rooms_required": 1,
+    "checkin_time": "2:00 PM",
+    "checkout_time": "11:00 AM",
+    "comfort_score": 8,
+    "lat": 18.7489,
+    "lng": 73.4155,
+    "amenities": [
+      "wifi",
+      "pool",
+      "restaurant",
+      "ac"
+    ],
+    "tags": [
+      "resort",
+      "mid-range",
+      "scenic"
+    ],
+    "editorial_summary": "A reliable mid-range resort with a swimming pool and great views of the surrounding hills.",
+    "price_confidence": "high",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "lonavala_comfort_02",
+    "destination": "Lonavala",
+    "name": "The Lonavala Plaza",
+    "tier": "comfort",
+    "price_per_night": 4800,
+    "rooms_required": 1,
+    "checkin_time": "12:00 PM",
+    "checkout_time": "11:00 AM",
+    "comfort_score": 8,
+    "lat": 18.7522,
+    "lng": 73.4055,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "gym",
+      "restaurant",
+      "ac"
+    ],
+    "tags": [
+      "hotel",
+      "central",
+      "business"
+    ],
+    "editorial_summary": "Centrally located hotel offering modern amenities and easy access to the main market.",
+    "price_confidence": "medium",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "lonavala_comfort_03",
+    "destination": "Lonavala",
+    "name": "Mist Valley Retreat",
+    "tier": "comfort",
+    "price_per_night": 6500,
+    "rooms_required": 1,
+    "checkin_time": "2:00 PM",
+    "checkout_time": "12:00 PM",
+    "comfort_score": 9,
+    "lat": 18.7601,
+    "lng": 73.4201,
+    "amenities": [
+      "wifi",
+      "pool",
+      "restaurant",
+      "room_service",
+      "ac"
+    ],
+    "tags": [
+      "resort",
+      "nature",
+      "relaxing"
+    ],
+    "editorial_summary": "A peaceful retreat surrounded by greenery, perfect for a weekend getaway from the city.",
+    "price_confidence": "high",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "lonavala_expedition_01",
+    "destination": "Lonavala",
+    "name": "The Grand Heritage Manor",
+    "tier": "expedition",
+    "price_per_night": 12000,
+    "rooms_required": 1,
+    "checkin_time": "3:00 PM",
+    "checkout_time": "12:00 PM",
+    "comfort_score": 10,
+    "lat": 18.745,
+    "lng": 73.425,
+    "amenities": [
+      "wifi",
+      "pool",
+      "spa",
+      "restaurant",
+      "gym",
+      "room_service",
+      "ac",
+      "bar"
+    ],
+    "tags": [
+      "luxury",
+      "heritage",
+      "premium"
+    ],
+    "editorial_summary": "An opulent heritage property offering world-class service and historic charm.",
+    "price_confidence": "high",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "lonavala_expedition_02",
+    "destination": "Lonavala",
+    "name": "Skyline Luxury Villas",
+    "tier": "expedition",
+    "price_per_night": 15500,
+    "rooms_required": 1,
+    "checkin_time": "3:00 PM",
+    "checkout_time": "11:00 AM",
+    "comfort_score": 10,
+    "lat": 18.765,
+    "lng": 73.43,
+    "amenities": [
+      "wifi",
+      "pool",
+      "spa",
+      "restaurant",
+      "room_service",
+      "ac",
+      "bar"
+    ],
+    "tags": [
+      "villa",
+      "luxury",
+      "private"
+    ],
+    "editorial_summary": "Exclusive private villas with personal butler service and panoramic valley views.",
+    "price_confidence": "medium",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "lonavala_expedition_03",
+    "destination": "Lonavala",
+    "name": "Royal Cliff Resort & Spa",
+    "tier": "expedition",
+    "price_per_night": 18000,
+    "rooms_required": 1,
+    "checkin_time": "2:00 PM",
+    "checkout_time": "12:00 PM",
+    "comfort_score": 10,
+    "lat": 18.74,
+    "lng": 73.435,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "parking",
+      "pool",
+      "spa",
+      "restaurant",
+      "gym",
+      "room_service",
+      "ac",
+      "bar"
+    ],
+    "tags": [
+      "luxury",
+      "resort",
+      "spa"
+    ],
+    "editorial_summary": "The ultimate luxury destination in Lonavala, featuring an award-winning spa and fine dining.",
+    "price_confidence": "high",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

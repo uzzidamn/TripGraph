@@ -1,0 +1,251 @@
+[
+  {
+    "hotel_id": "mahabaleshwar_budget_01",
+    "destination": "Mahabaleshwar",
+    "name": "Green Valley Homestay",
+    "tier": "budget",
+    "price_per_night": 1200,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 6,
+    "lat": 17.9285,
+    "lng": 73.6582,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "parking"
+    ],
+    "tags": [
+      "homestay",
+      "budget",
+      "nature"
+    ],
+    "editorial_summary": "A cozy and affordable homestay nestled in the greenery, perfect for budget travelers.",
+    "price_confidence": "high",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "mahabaleshwar_budget_02",
+    "destination": "Mahabaleshwar",
+    "name": "Backpacker's Den Hostel",
+    "tier": "budget",
+    "price_per_night": 950,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 5,
+    "lat": 17.9312,
+    "lng": 73.6601,
+    "amenities": [
+      "wifi",
+      "parking"
+    ],
+    "tags": [
+      "hostel",
+      "budget",
+      "social"
+    ],
+    "editorial_summary": "Simple, clean, and social hostel ideal for solo travelers and backpackers.",
+    "price_confidence": "high",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "mahabaleshwar_comfort_01",
+    "destination": "Mahabaleshwar",
+    "name": "Valley View Resort",
+    "tier": "comfort",
+    "price_per_night": 4500,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 8,
+    "lat": 17.925,
+    "lng": 73.655,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "restaurant",
+      "ac"
+    ],
+    "tags": [
+      "resort",
+      "family",
+      "view"
+    ],
+    "editorial_summary": "A comfortable resort offering stunning valley views and essential amenities for families.",
+    "price_confidence": "high",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "mahabaleshwar_comfort_02",
+    "destination": "Mahabaleshwar",
+    "name": "Strawberry Hill Hotel",
+    "tier": "comfort",
+    "price_per_night": 3800,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 7,
+    "lat": 17.93,
+    "lng": 73.662,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "parking",
+      "restaurant"
+    ],
+    "tags": [
+      "hotel",
+      "mid-range",
+      "strawberry-farm"
+    ],
+    "editorial_summary": "A pleasant hotel located near local strawberry farms, offering a relaxing stay.",
+    "price_confidence": "medium",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "mahabaleshwar_comfort_03",
+    "destination": "Mahabaleshwar",
+    "name": "The Heritage Inn",
+    "tier": "comfort",
+    "price_per_night": 6200,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 8,
+    "lat": 17.927,
+    "lng": 73.6595,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "parking",
+      "room_service",
+      "ac"
+    ],
+    "tags": [
+      "boutique",
+      "comfort",
+      "central"
+    ],
+    "editorial_summary": "A charming boutique inn providing a blend of traditional architecture and modern comfort.",
+    "price_confidence": "high",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "mahabaleshwar_expedition_01",
+    "destination": "Mahabaleshwar",
+    "name": "The Grand Palace Resort",
+    "tier": "expedition",
+    "price_per_night": 12500,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 10,
+    "lat": 17.922,
+    "lng": 73.653,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "gym",
+      "room_service",
+      "ac",
+      "bar"
+    ],
+    "tags": [
+      "luxury",
+      "resort",
+      "premium"
+    ],
+    "editorial_summary": "An opulent resort offering world-class luxury, spa facilities, and impeccable service.",
+    "price_confidence": "high",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "mahabaleshwar_expedition_02",
+    "destination": "Mahabaleshwar",
+    "name": "Forest Canopy Retreat",
+    "tier": "expedition",
+    "price_per_night": 9800,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 9,
+    "lat": 17.935,
+    "lng": 73.67,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "ac"
+    ],
+    "tags": [
+      "nature",
+      "luxury",
+      "secluded"
+    ],
+    "editorial_summary": "A secluded luxury retreat surrounded by dense forest, perfect for a peaceful getaway.",
+    "price_confidence": "medium",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "mahabaleshwar_expedition_03",
+    "destination": "Mahabaleshwar",
+    "name": "Royal Heritage Manor",
+    "tier": "expedition",
+    "price_per_night": 15000,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 10,
+    "lat": 17.92,
+    "lng": 73.65,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "spa",
+      "restaurant",
+      "room_service",
+      "ac",
+      "bar"
+    ],
+    "tags": [
+      "heritage",
+      "luxury",
+      "historic"
+    ],
+    "editorial_summary": "A historic manor converted into a luxury hotel, offering a regal experience in the heart of the hills.",
+    "price_confidence": "high",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

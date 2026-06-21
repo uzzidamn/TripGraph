@@ -1,0 +1,252 @@
+[
+  {
+    "hotel_id": "alleppey_budget_01",
+    "destination": "Alleppey",
+    "name": "Zostel Alleppey",
+    "tier": "budget",
+    "price_per_night": 1200,
+    "rooms_required": 1,
+    "checkin_time": "13:00",
+    "checkout_time": "11:00",
+    "comfort_score": 7,
+    "lat": 9.4981,
+    "lng": 76.3388,
+    "amenities": [
+      "wifi",
+      "breakfast"
+    ],
+    "tags": [
+      "hostel",
+      "backpacker",
+      "social"
+    ],
+    "editorial_summary": "A vibrant hostel located right on the beach, perfect for solo travelers and backpackers.",
+    "price_confidence": "high",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "alleppey_budget_02",
+    "destination": "Alleppey",
+    "name": "Lemon Dew Homestay",
+    "tier": "budget",
+    "price_per_night": 1800,
+    "rooms_required": 1,
+    "checkin_time": "12:00",
+    "checkout_time": "11:00",
+    "comfort_score": 6,
+    "lat": 9.5012,
+    "lng": 76.3415,
+    "amenities": [
+      "wifi",
+      "ac"
+    ],
+    "tags": [
+      "homestay",
+      "local",
+      "cozy"
+    ],
+    "editorial_summary": "A quiet, family-run homestay offering authentic Keralan hospitality.",
+    "price_confidence": "high",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "alleppey_comfort_01",
+    "destination": "Alleppey",
+    "name": "Lemon Tree Vembanad Lake Resort",
+    "tier": "comfort",
+    "price_per_night": 5500,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 8,
+    "lat": 9.5521,
+    "lng": 76.3892,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "restaurant",
+      "gym"
+    ],
+    "tags": [
+      "resort",
+      "lakeview",
+      "family"
+    ],
+    "editorial_summary": "A comfortable resort overlooking the Vembanad lake with excellent amenities.",
+    "price_confidence": "high",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "alleppey_comfort_02",
+    "destination": "Alleppey",
+    "name": "Ramada by Wyndham Alleppey",
+    "tier": "comfort",
+    "price_per_night": 7200,
+    "rooms_required": 1,
+    "checkin_time": "15:00",
+    "checkout_time": "11:00",
+    "comfort_score": 9,
+    "lat": 9.4955,
+    "lng": 76.3356,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "gym",
+      "ac"
+    ],
+    "tags": [
+      "business",
+      "luxury-lite",
+      "modern"
+    ],
+    "editorial_summary": "A premium hotel offering modern amenities and great views of the backwaters.",
+    "price_confidence": "high",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "alleppey_comfort_03",
+    "destination": "Alleppey",
+    "name": "Punnamada Resort",
+    "tier": "comfort",
+    "price_per_night": 6800,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 8,
+    "lat": 9.5088,
+    "lng": 76.3621,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "restaurant",
+      "ac"
+    ],
+    "tags": [
+      "resort",
+      "traditional",
+      "scenic"
+    ],
+    "editorial_summary": "Traditional Keralan architecture meets modern comfort in this serene resort.",
+    "price_confidence": "medium",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "alleppey_expedition_01",
+    "destination": "Alleppey",
+    "name": "Marari Beach Resort",
+    "tier": "expedition",
+    "price_per_night": 14500,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 10,
+    "lat": 9.5678,
+    "lng": 76.3012,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "ac",
+      "bar"
+    ],
+    "tags": [
+      "luxury",
+      "beachfront",
+      "eco-friendly"
+    ],
+    "editorial_summary": "An exclusive, eco-conscious luxury resort located on the pristine Marari beach.",
+    "price_confidence": "high",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "alleppey_expedition_02",
+    "destination": "Alleppey",
+    "name": "Kumarakom Lake Resort",
+    "tier": "expedition",
+    "price_per_night": 18000,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 10,
+    "lat": 9.6015,
+    "lng": 76.4233,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "gym",
+      "ac",
+      "bar"
+    ],
+    "tags": [
+      "heritage",
+      "luxury",
+      "backwaters"
+    ],
+    "editorial_summary": "A world-class heritage resort offering private pool villas and authentic Ayurvedic treatments.",
+    "price_confidence": "high",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "alleppey_expedition_03",
+    "destination": "Alleppey",
+    "name": "Xandari Pearl",
+    "tier": "expedition",
+    "price_per_night": 12500,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 9,
+    "lat": 9.5722,
+    "lng": 76.3055,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "ac"
+    ],
+    "tags": [
+      "boutique",
+      "luxury",
+      "beach"
+    ],
+    "editorial_summary": "A sophisticated boutique resort that blends minimalist design with natural beauty.",
+    "price_confidence": "medium",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

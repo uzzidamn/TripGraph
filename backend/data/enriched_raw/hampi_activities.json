@@ -1,0 +1,736 @@
+[
+  {
+    "activity_id": "virupaksha_temple_hampi_01",
+    "destination": "Hampi",
+    "name": "Virupaksha Temple",
+    "category": "cultural",
+    "duration_minutes": 90,
+    "cost_per_person": 50,
+    "available_slots": [
+      "06:00",
+      "10:00",
+      "16:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "heritage",
+      "temple",
+      "architecture"
+    ],
+    "lat": 15.3325,
+    "lng": 76.4605,
+    "fatigue_score_base": 3,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Step into the living heart of Hampi, where centuries of devotion echo through the towering gopurams of this ancient Shiva temple.",
+    "opening_hours": [
+      "Monday-Sunday: 06:00-19:00"
+    ],
+    "skip_if": "Heavy monsoon rain",
+    "insider_tip": "Look for the pinhole camera effect on the temple wall inside the main hall.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "coracle_ride_tungabhadra_01",
+    "destination": "Hampi",
+    "name": "Coracle Ride on Tungabhadra",
+    "category": "water_sport",
+    "duration_minutes": 45,
+    "cost_per_person": 500,
+    "available_slots": [
+      "07:00",
+      "16:30"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "adventure",
+      "river",
+      "scenic"
+    ],
+    "lat": 15.335,
+    "lng": 76.462,
+    "fatigue_score_base": 2,
+    "morale_score_base": 8,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Drift peacefully across the boulder-strewn Tungabhadra river in a traditional circular boat, watching the sunset paint the ruins in gold.",
+    "opening_hours": [
+      "Monday-Sunday: 07:00-18:00"
+    ],
+    "skip_if": "High water levels during monsoon",
+    "insider_tip": "Ask the boatman to take you near the hidden rock carvings along the riverbank.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "matanga_hill_hampi_01",
+    "destination": "Hampi",
+    "name": "Matanga Hill Sunrise Trek",
+    "category": "adventure",
+    "duration_minutes": 120,
+    "cost_per_person": 0,
+    "available_slots": [
+      "05:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "trekking",
+      "viewpoint",
+      "nature"
+    ],
+    "lat": 15.338,
+    "lng": 76.468,
+    "fatigue_score_base": 7,
+    "morale_score_base": 10,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "difficult",
+    "editorial_summary": "Conquer the highest point in Hampi for a breathtaking panoramic view of the sprawling ruins bathed in the first light of dawn.",
+    "opening_hours": [
+      "Monday-Sunday: 05:00-19:00"
+    ],
+    "skip_if": "Heavy rain or slippery rocks",
+    "insider_tip": "Carry a flashlight as the climb is in the dark and the path is uneven.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "vittala_temple_hampi_01",
+    "destination": "Hampi",
+    "name": "Vittala Temple Complex",
+    "category": "cultural",
+    "duration_minutes": 120,
+    "cost_per_person": 40,
+    "available_slots": [
+      "08:30",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "heritage",
+      "architecture",
+      "iconic"
+    ],
+    "lat": 15.345,
+    "lng": 76.475,
+    "fatigue_score_base": 4,
+    "morale_score_base": 10,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Marvel at the architectural genius of the stone chariot and the musical pillars that define the pinnacle of Vijayanagara art.",
+    "opening_hours": [
+      "Monday-Sunday: 08:30-17:30"
+    ],
+    "skip_if": "Extreme heat",
+    "insider_tip": "Use the electric buggy service from the entrance to save energy for exploring the complex.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "mango_tree_restaurant_hampi_01",
+    "destination": "Hampi",
+    "name": "Mango Tree Restaurant",
+    "category": "food",
+    "duration_minutes": 60,
+    "cost_per_person": 400,
+    "available_slots": [
+      "12:00",
+      "19:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "localfood",
+      "vegetarian",
+      "authentic"
+    ],
+    "lat": 15.333,
+    "lng": 76.461,
+    "fatigue_score_base": 1,
+    "morale_score_base": 8,
+    "best_time_of_day": "any",
+    "best_season": [
+      "All"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Savor authentic South Indian thalis in a relaxed, garden-style setting that has become a legendary stop for travelers in Hampi.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-22:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Try their signature banana flower curry if it is on the daily specials menu.",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "hampi_bazaar_shopping_01",
+    "destination": "Hampi",
+    "name": "Hampi Bazaar",
+    "category": "shopping",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "10:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "souvenirs",
+      "localcrafts",
+      "market"
+    ],
+    "lat": 15.333,
+    "lng": 76.46,
+    "fatigue_score_base": 2,
+    "morale_score_base": 7,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "All"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Wander through the historic street market where modern trinkets meet the ancient stone remnants of a once-thriving trade hub.",
+    "opening_hours": [
+      "Monday-Sunday: 09:00-20:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Bargain politely for handmade stone carvings and embroidered textiles.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "lotus_mahal_hampi_01",
+    "destination": "Hampi",
+    "name": "Lotus Mahal",
+    "category": "cultural",
+    "duration_minutes": 45,
+    "cost_per_person": 40,
+    "available_slots": [
+      "09:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "heritage",
+      "architecture",
+      "photography"
+    ],
+    "lat": 15.328,
+    "lng": 76.472,
+    "fatigue_score_base": 2,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Admire the unique Indo-Islamic architecture of this elegant pavilion, once the private retreat of the royal ladies.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-18:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "The surrounding Zenana Enclosure is perfect for quiet, shaded walks.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "elephant_stables_hampi_01",
+    "destination": "Hampi",
+    "name": "Elephant Stables",
+    "category": "cultural",
+    "duration_minutes": 30,
+    "cost_per_person": 40,
+    "available_slots": [
+      "09:00",
+      "16:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "heritage",
+      "history",
+      "architecture"
+    ],
+    "lat": 15.329,
+    "lng": 76.473,
+    "fatigue_score_base": 1,
+    "morale_score_base": 7,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Witness the grand scale of the royal stables, a testament to the majesty and care afforded to the state's ceremonial elephants.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-18:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Visit early to avoid the large tour groups that arrive by midday.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "queen_bath_hampi_01",
+    "destination": "Hampi",
+    "name": "Queen's Bath",
+    "category": "cultural",
+    "duration_minutes": 30,
+    "cost_per_person": 0,
+    "available_slots": [
+      "08:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "heritage",
+      "history"
+    ],
+    "lat": 15.325,
+    "lng": 76.47,
+    "fatigue_score_base": 1,
+    "morale_score_base": 6,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Explore the ornate, sunken bathing complex that showcases the sophisticated water management systems of the Vijayanagara Empire.",
+    "opening_hours": [
+      "Monday-Sunday: 06:00-18:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Look closely at the intricate stucco work on the arches.",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "anjenaya_hill_hampi_01",
+    "destination": "Hampi",
+    "name": "Anjanadri Hill (Hanuman Temple)",
+    "category": "spiritual",
+    "duration_minutes": 90,
+    "cost_per_person": 0,
+    "available_slots": [
+      "06:00",
+      "16:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "spiritual",
+      "viewpoint",
+      "trekking"
+    ],
+    "lat": 15.355,
+    "lng": 76.455,
+    "fatigue_score_base": 6,
+    "morale_score_base": 9,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Climb the 500+ steps to the birthplace of Lord Hanuman, where the wind whispers stories of the Ramayana across the valley.",
+    "opening_hours": [
+      "Monday-Sunday: 06:00-19:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Beware of the monkeys; keep your food and shiny items securely tucked away.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "sanapur_lake_hampi_01",
+    "destination": "Hampi",
+    "name": "Sanapur Lake",
+    "category": "nature",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "07:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "nature",
+      "scenic",
+      "relaxation"
+    ],
+    "lat": 15.365,
+    "lng": 76.445,
+    "fatigue_score_base": 2,
+    "morale_score_base": 8,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Find serenity at this picturesque reservoir, surrounded by dramatic boulder landscapes that define the unique geography of Hampi.",
+    "opening_hours": [
+      "Monday-Sunday: 06:00-18:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Rent a moped to reach this spot; the ride through the paddy fields is incredibly scenic.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "yoga_hampi_wellness_01",
+    "destination": "Hampi",
+    "name": "Hampi Yoga Session",
+    "category": "wellness",
+    "duration_minutes": 90,
+    "cost_per_person": 600,
+    "available_slots": [
+      "07:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "wellness",
+      "yoga",
+      "experience"
+    ],
+    "lat": 15.334,
+    "lng": 76.462,
+    "fatigue_score_base": 3,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Align your body and spirit with a morning yoga session amidst the tranquil, ancient energy of the Hampi landscape.",
+    "opening_hours": [
+      "Monday-Sunday: 07:00-08:30"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Check with local guesthouses for daily drop-in class schedules.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "daroji_sloth_bear_sanctuary_01",
+    "destination": "Hampi",
+    "name": "Daroji Sloth Bear Sanctuary",
+    "category": "wildlife",
+    "duration_minutes": 180,
+    "cost_per_person": 500,
+    "available_slots": [
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "wildlife",
+      "nature",
+      "safari"
+    ],
+    "lat": 15.285,
+    "lng": 76.555,
+    "fatigue_score_base": 3,
+    "morale_score_base": 8,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Embark on a wildlife adventure to spot the elusive Indian sloth bear in its natural rocky habitat.",
+    "opening_hours": [
+      "Monday-Sunday: 15:00-18:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Bring binoculars and maintain silence to increase your chances of spotting the bears.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "hazara_rama_temple_01",
+    "destination": "Hampi",
+    "name": "Hazara Rama Temple",
+    "category": "cultural",
+    "duration_minutes": 45,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "heritage",
+      "history",
+      "sculpture"
+    ],
+    "lat": 15.331,
+    "lng": 76.471,
+    "fatigue_score_base": 2,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Discover the 'thousand Ramas' depicted in exquisite bas-reliefs on the walls of this royal chapel.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-18:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "The carvings are best viewed in the soft light of early morning.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "sasivekalu_ganesha_01",
+    "destination": "Hampi",
+    "name": "Sasivekalu Ganesha Temple",
+    "category": "cultural",
+    "duration_minutes": 20,
+    "cost_per_person": 0,
+    "available_slots": [
+      "08:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "heritage",
+      "temple"
+    ],
+    "lat": 15.334,
+    "lng": 76.458,
+    "fatigue_score_base": 1,
+    "morale_score_base": 7,
+    "best_time_of_day": "any",
+    "best_season": [
+      "All"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Stand in awe before the massive, monolithic statue of Lord Ganesha, carved from a single boulder.",
+    "opening_hours": [
+      "Monday-Sunday: 06:00-18:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "It is located right on the main road, making it an easy stop between other sites.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "badavilinga_temple_01",
+    "destination": "Hampi",
+    "name": "Badavilinga Temple",
+    "category": "cultural",
+    "duration_minutes": 20,
+    "cost_per_person": 0,
+    "available_slots": [
+      "08:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "heritage",
+      "spiritual"
+    ],
+    "lat": 15.333,
+    "lng": 76.459,
+    "fatigue_score_base": 1,
+    "morale_score_base": 7,
+    "best_time_of_day": "any",
+    "best_season": [
+      "All"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Witness the largest monolithic Shiva Linga in Hampi, permanently submerged in water within a small stone chamber.",
+    "opening_hours": [
+      "Monday-Sunday: 06:00-18:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "It is located just steps away from the Lakshmi Narasimha statue.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "lakshmi_narasimha_01",
+    "destination": "Hampi",
+    "name": "Lakshmi Narasimha Statue",
+    "category": "cultural",
+    "duration_minutes": 20,
+    "cost_per_person": 0,
+    "available_slots": [
+      "08:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "heritage",
+      "sculpture"
+    ],
+    "lat": 15.333,
+    "lng": 76.459,
+    "fatigue_score_base": 1,
+    "morale_score_base": 8,
+    "best_time_of_day": "any",
+    "best_season": [
+      "All"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Behold the imposing, larger-than-life statue of Lord Narasimha, a powerful symbol of the Vijayanagara era's artistic ambition.",
+    "opening_hours": [
+      "Monday-Sunday: 06:00-18:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "The statue is best photographed in the afternoon when the sun hits the front face.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "tungabhadra_dam_01",
+    "destination": "Hampi",
+    "name": "Tungabhadra Dam",
+    "category": "nature",
+    "duration_minutes": 120,
+    "cost_per_person": 50,
+    "available_slots": [
+      "10:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "nature",
+      "scenic",
+      "engineering"
+    ],
+    "lat": 15.265,
+    "lng": 76.375,
+    "fatigue_score_base": 2,
+    "morale_score_base": 7,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Aug-Oct"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Visit the massive dam structure, especially during the monsoon when the floodgates are open, creating a spectacular display of water power.",
+    "opening_hours": [
+      "Monday-Sunday: 09:00-18:00"
+    ],
+    "skip_if": "Dry season",
+    "insider_tip": "The gardens at the base of the dam are well-maintained and perfect for a picnic.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "malyavanta_raghunatha_01",
+    "destination": "Hampi",
+    "name": "Malyavanta Raghunatha Temple",
+    "category": "spiritual",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "spiritual",
+      "heritage",
+      "sunset"
+    ],
+    "lat": 15.342,
+    "lng": 76.485,
+    "fatigue_score_base": 2,
+    "morale_score_base": 9,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Experience the profound peace of this hilltop temple, a hidden gem known for its stunning sunset views and meditative atmosphere.",
+    "opening_hours": [
+      "Monday-Sunday: 06:00-20:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Stay for the evening aarti; the chanting in the stone hall is hauntingly beautiful.",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "archaeological_museum_01",
+    "destination": "Hampi",
+    "name": "Archaeological Museum, Kamalapura",
+    "category": "cultural",
+    "duration_minutes": 60,
+    "cost_per_person": 10,
+    "available_slots": [
+      "10:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "museum",
+      "history",
+      "education"
+    ],
+    "lat": 15.315,
+    "lng": 76.485,
+    "fatigue_score_base": 1,
+    "morale_score_base": 7,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "All"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Deepen your understanding of Hampi's history through the impressive collection of artifacts, sculptures, and scale models housed in this museum.",
+    "opening_hours": [
+      "Saturday-Thursday: 10:00-17:00"
+    ],
+    "skip_if": "Friday (Closed)",
+    "insider_tip": "The scale model of the Hampi ruins in the central hall is essential for visualizing the city's layout.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

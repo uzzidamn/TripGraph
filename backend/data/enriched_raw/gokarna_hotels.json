@@ -1,0 +1,253 @@
+[
+  {
+    "hotel_id": "gokarna_budget_01",
+    "destination": "Gokarna",
+    "name": "Zostel Gokarna",
+    "tier": "budget",
+    "price_per_night": 1200,
+    "rooms_required": 1,
+    "checkin_time": "13:00",
+    "checkout_time": "11:00",
+    "comfort_score": 7,
+    "lat": 14.5385,
+    "lng": 74.3121,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "parking"
+    ],
+    "tags": [
+      "hostel",
+      "social",
+      "beach-view"
+    ],
+    "editorial_summary": "A vibrant hostel perfect for backpackers looking to meet fellow travelers near the beach.",
+    "price_confidence": "high",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "gokarna_budget_02",
+    "destination": "Gokarna",
+    "name": "Namaste Yoga Farm",
+    "tier": "budget",
+    "price_per_night": 1800,
+    "rooms_required": 1,
+    "checkin_time": "12:00",
+    "checkout_time": "10:00",
+    "comfort_score": 6,
+    "lat": 14.5352,
+    "lng": 74.3105,
+    "amenities": [
+      "wifi",
+      "breakfast"
+    ],
+    "tags": [
+      "yoga",
+      "nature",
+      "rustic"
+    ],
+    "editorial_summary": "A peaceful, rustic retreat focused on yoga and meditation, ideal for budget-conscious travelers.",
+    "price_confidence": "high",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "gokarna_comfort_01",
+    "destination": "Gokarna",
+    "name": "Gokarna International Beach Resort",
+    "tier": "comfort",
+    "price_per_night": 4500,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 8,
+    "lat": 14.5412,
+    "lng": 74.3155,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "restaurant",
+      "ac"
+    ],
+    "tags": [
+      "family-friendly",
+      "beachfront",
+      "resort"
+    ],
+    "editorial_summary": "A reliable mid-range resort offering comfortable rooms and easy access to the main beach.",
+    "price_confidence": "high",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "gokarna_comfort_02",
+    "destination": "Gokarna",
+    "name": "Sanskruti Resort",
+    "tier": "comfort",
+    "price_per_night": 6000,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 8,
+    "lat": 14.5289,
+    "lng": 74.321,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "restaurant",
+      "gym",
+      "ac"
+    ],
+    "tags": [
+      "resort",
+      "garden",
+      "quiet"
+    ],
+    "editorial_summary": "Set in lush gardens, this resort provides a serene atmosphere with modern amenities.",
+    "price_confidence": "high",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "gokarna_comfort_03",
+    "destination": "Gokarna",
+    "name": "Kahani Paradise",
+    "tier": "comfort",
+    "price_per_night": 7500,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 9,
+    "lat": 14.5501,
+    "lng": 74.305,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "restaurant",
+      "ac",
+      "room_service"
+    ],
+    "tags": [
+      "boutique",
+      "scenic",
+      "luxury-lite"
+    ],
+    "editorial_summary": "A charming boutique property offering stunning views and personalized service.",
+    "price_confidence": "medium",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "gokarna_expedition_01",
+    "destination": "Gokarna",
+    "name": "SwaSwara Wellness Retreat",
+    "tier": "expedition",
+    "price_per_night": 22000,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 10,
+    "lat": 14.525,
+    "lng": 74.318,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "ac",
+      "yoga"
+    ],
+    "tags": [
+      "luxury",
+      "wellness",
+      "exclusive"
+    ],
+    "editorial_summary": "An ultra-premium wellness retreat offering a transformative experience with private villas.",
+    "price_confidence": "high",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "gokarna_expedition_02",
+    "destination": "Gokarna",
+    "name": "Stone Wood Nature Resort",
+    "tier": "expedition",
+    "price_per_night": 9500,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 9,
+    "lat": 14.532,
+    "lng": 74.314,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "restaurant",
+      "ac",
+      "bar"
+    ],
+    "tags": [
+      "nature",
+      "premium",
+      "beach-access"
+    ],
+    "editorial_summary": "High-end nature resort blending luxury with the raw beauty of Gokarna's coastline.",
+    "price_confidence": "high",
+    "confidence_pct": 93,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "gokarna_expedition_03",
+    "destination": "Gokarna",
+    "name": "Red Earth Gokarna",
+    "tier": "expedition",
+    "price_per_night": 15000,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 10,
+    "lat": 14.515,
+    "lng": 74.33,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "ac",
+      "bar",
+      "room_service"
+    ],
+    "tags": [
+      "luxury",
+      "secluded",
+      "ocean-view"
+    ],
+    "editorial_summary": "A secluded luxury escape offering private beach access and world-class hospitality.",
+    "price_confidence": "high",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

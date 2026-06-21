@@ -1,0 +1,247 @@
+[
+  {
+    "hotel_id": "srinagar_budget_01",
+    "destination": "Srinagar",
+    "name": "Zostel Srinagar",
+    "tier": "budget",
+    "price_per_night": 1200,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 7,
+    "lat": 34.0837,
+    "lng": 74.7973,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "parking"
+    ],
+    "tags": [
+      "hostel",
+      "backpacker",
+      "social"
+    ],
+    "editorial_summary": "A vibrant hostel perfect for solo travelers looking to meet others in a central location.",
+    "price_confidence": "high",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "srinagar_budget_02",
+    "destination": "Srinagar",
+    "name": "Backpacker's Nest Homestay",
+    "tier": "budget",
+    "price_per_night": 1500,
+    "rooms_required": 1,
+    "checkin_time": "12:00",
+    "checkout_time": "10:00",
+    "comfort_score": 6,
+    "lat": 34.0912,
+    "lng": 74.8011,
+    "amenities": [
+      "wifi",
+      "breakfast"
+    ],
+    "tags": [
+      "homestay",
+      "authentic",
+      "cozy"
+    ],
+    "editorial_summary": "A simple, clean homestay offering a glimpse into local Kashmiri hospitality.",
+    "price_confidence": "medium",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "srinagar_comfort_01",
+    "destination": "Srinagar",
+    "name": "Hotel Grand Mamta",
+    "tier": "comfort",
+    "price_per_night": 4500,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 8,
+    "lat": 34.0855,
+    "lng": 74.8122,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "ac"
+    ],
+    "tags": [
+      "family-friendly",
+      "central",
+      "business"
+    ],
+    "editorial_summary": "A reliable mid-range hotel with spacious rooms and proximity to major tourist attractions.",
+    "price_confidence": "high",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "srinagar_comfort_02",
+    "destination": "Srinagar",
+    "name": "Four Points by Sheraton Srinagar",
+    "tier": "comfort",
+    "price_per_night": 7500,
+    "rooms_required": 1,
+    "checkin_time": "15:00",
+    "checkout_time": "12:00",
+    "comfort_score": 9,
+    "lat": 34.0789,
+    "lng": 74.8055,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "gym",
+      "restaurant",
+      "ac"
+    ],
+    "tags": [
+      "modern",
+      "upscale",
+      "business"
+    ],
+    "editorial_summary": "Contemporary comfort with international standards, ideal for both leisure and business travelers.",
+    "price_confidence": "high",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "srinagar_comfort_03",
+    "destination": "Srinagar",
+    "name": "Blooming Dale Hotel",
+    "tier": "comfort",
+    "price_per_night": 3800,
+    "rooms_required": 1,
+    "checkin_time": "13:00",
+    "checkout_time": "11:00",
+    "comfort_score": 7,
+    "lat": 34.095,
+    "lng": 74.82,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "parking",
+      "room_service"
+    ],
+    "tags": [
+      "quiet",
+      "scenic",
+      "value"
+    ],
+    "editorial_summary": "A peaceful retreat offering great value for money with beautiful garden views.",
+    "price_confidence": "medium",
+    "confidence_pct": 80,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "srinagar_expedition_01",
+    "destination": "Srinagar",
+    "name": "The Lalit Grand Palace Srinagar",
+    "tier": "expedition",
+    "price_per_night": 18000,
+    "rooms_required": 1,
+    "checkin_time": "15:00",
+    "checkout_time": "12:00",
+    "comfort_score": 10,
+    "lat": 34.0988,
+    "lng": 74.8455,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "gym",
+      "bar"
+    ],
+    "tags": [
+      "luxury",
+      "heritage",
+      "palace"
+    ],
+    "editorial_summary": "A historic palace hotel offering unparalleled luxury and views of Dal Lake.",
+    "price_confidence": "high",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "srinagar_expedition_02",
+    "destination": "Srinagar",
+    "name": "Vivanta Dal View",
+    "tier": "expedition",
+    "price_per_night": 14000,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 10,
+    "lat": 34.105,
+    "lng": 74.85,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "gym",
+      "ac"
+    ],
+    "tags": [
+      "luxury",
+      "panoramic",
+      "resort"
+    ],
+    "editorial_summary": "Perched on a hill, this resort offers breathtaking views of the valley and premium amenities.",
+    "price_confidence": "high",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "srinagar_expedition_03",
+    "destination": "Srinagar",
+    "name": "Rah Bagh Srinagar",
+    "tier": "expedition",
+    "price_per_night": 12000,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 9,
+    "lat": 34.12,
+    "lng": 74.86,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "spa",
+      "restaurant",
+      "room_service"
+    ],
+    "tags": [
+      "boutique",
+      "serene",
+      "luxury"
+    ],
+    "editorial_summary": "A boutique luxury experience set in a serene environment, perfect for a relaxing getaway.",
+    "price_confidence": "medium",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

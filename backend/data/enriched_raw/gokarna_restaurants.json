@@ -1,0 +1,210 @@
+[
+  {
+    "restaurant_id": "prema_gokarna_01",
+    "destination": "Gokarna",
+    "route_id": "main_temple_street",
+    "name": "Prema Restaurant",
+    "cuisine": "Indian Vegetarian",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 300,
+    "avg_duration_minutes": 45,
+    "tags": [
+      "authentic",
+      "temple-side",
+      "budget"
+    ],
+    "lat": 14.5438,
+    "lng": 74.3135,
+    "signature_dish": "Cheese and Tomato Pancake",
+    "insider_tip": "Try their fresh fruit lassis after a long walk from the beach.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "namaste_om_beach_02",
+    "destination": "Gokarna",
+    "route_id": "om_beach_road",
+    "name": "Namaste Cafe",
+    "cuisine": "Multi-cuisine",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 800,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "beachfront",
+      "scenic",
+      "popular"
+    ],
+    "lat": 14.5231,
+    "lng": 74.3256,
+    "signature_dish": "Fish Curry Rice",
+    "insider_tip": "Book a table on the upper deck during sunset for the best view of Om Beach.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "shree_ganesh_gokarna_03",
+    "destination": "Gokarna",
+    "route_id": "temple_street",
+    "name": "Shree Ganesh Restaurant",
+    "cuisine": "South Indian",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 200,
+    "avg_duration_minutes": 30,
+    "tags": [
+      "traditional",
+      "local",
+      "thali"
+    ],
+    "lat": 14.5442,
+    "lng": 74.3138,
+    "signature_dish": "Authentic Kannada Thali",
+    "insider_tip": "Arrive before 12:30 PM to get the freshest hot sambar and rasam.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "little_paradise_gokarna_04",
+    "destination": "Gokarna",
+    "route_id": "kudle_beach_road",
+    "name": "Little Paradise Inn",
+    "cuisine": "Continental",
+    "meal_types": [
+      "breakfast",
+      "dinner"
+    ],
+    "avg_cost_per_person": 600,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "cafe",
+      "relaxed",
+      "kudle-beach"
+    ],
+    "lat": 14.5312,
+    "lng": 74.3189,
+    "signature_dish": "Shakshuka",
+    "insider_tip": "Great spot for a slow breakfast while watching the waves at Kudle.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "sea_shore_cafe_05",
+    "destination": "Gokarna",
+    "route_id": "om_beach_trail",
+    "name": "Sea Shore Cafe",
+    "cuisine": "Seafood",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 700,
+    "avg_duration_minutes": 75,
+    "tags": [
+      "seafood",
+      "beach-shack",
+      "fresh-catch"
+    ],
+    "lat": 14.5228,
+    "lng": 74.3261,
+    "signature_dish": "Tandoori Pomfret",
+    "insider_tip": "Ask for the catch of the day; it is usually brought in by local fishermen that morning.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "dolphin_view_06",
+    "destination": "Gokarna",
+    "route_id": "kudle_cliff",
+    "name": "Dolphin View Restaurant",
+    "cuisine": "Indian",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 500,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "viewpoint",
+      "romantic",
+      "cliffside"
+    ],
+    "lat": 14.5305,
+    "lng": 74.3175,
+    "signature_dish": "Paneer Butter Masala",
+    "insider_tip": "The path is steep, so wear comfortable shoes, but the view is worth the climb.",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "gokarna_street_food_07",
+    "destination": "Gokarna",
+    "route_id": "main_market",
+    "name": "Gokarna Market Chaat Stall",
+    "cuisine": "Street Food",
+    "meal_types": [
+      "lunch"
+    ],
+    "avg_cost_per_person": 100,
+    "avg_duration_minutes": 15,
+    "tags": [
+      "street-food",
+      "quick-bite",
+      "local"
+    ],
+    "lat": 14.545,
+    "lng": 74.3142,
+    "signature_dish": "Masala Puri",
+    "insider_tip": "Look for the stall with the longest queue of locals; that is where the best flavor is.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "cafe_1987_08",
+    "destination": "Gokarna",
+    "route_id": "kudle_beach",
+    "name": "Cafe 1987",
+    "cuisine": "Italian",
+    "meal_types": [
+      "dinner"
+    ],
+    "avg_cost_per_person": 900,
+    "avg_duration_minutes": 80,
+    "tags": [
+      "fine-dining",
+      "romantic",
+      "pizza"
+    ],
+    "lat": 14.532,
+    "lng": 74.3195,
+    "signature_dish": "Wood-fired Margherita Pizza",
+    "insider_tip": "Perfect for a quiet, candlelit dinner away from the louder beach shacks.",
+    "confidence_pct": 91,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

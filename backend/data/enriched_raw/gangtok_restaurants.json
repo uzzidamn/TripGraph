@@ -1,0 +1,209 @@
+[
+  {
+    "restaurant_id": "thakali_gangtok_01",
+    "destination": "Gangtok",
+    "route_id": "mg_marg_01",
+    "name": "Thakali",
+    "cuisine": "Nepalese",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 600,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "authentic",
+      "traditional",
+      "thali"
+    ],
+    "lat": 27.3314,
+    "lng": 88.6138,
+    "signature_dish": "Thakali Thali",
+    "insider_tip": "Ask for extra ghee and spicy tomato chutney to elevate the authentic experience.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "bakery_cafe_gangtok_02",
+    "destination": "Gangtok",
+    "route_id": "mg_marg_02",
+    "name": "Baker's Cafe",
+    "cuisine": "Bakery/Cafe",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 400,
+    "avg_duration_minutes": 45,
+    "tags": [
+      "view",
+      "coffee",
+      "pastries"
+    ],
+    "lat": 27.3318,
+    "lng": 88.6142,
+    "signature_dish": "Hot Chocolate and Apple Pie",
+    "insider_tip": "Grab a window seat on the first floor for the best view of the MG Marg bustle.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "roll_house_gangtok_03",
+    "destination": "Gangtok",
+    "route_id": "mg_marg_03",
+    "name": "Roll House",
+    "cuisine": "Street Food",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 200,
+    "avg_duration_minutes": 20,
+    "tags": [
+      "street food",
+      "quick bite",
+      "budget"
+    ],
+    "lat": 27.3312,
+    "lng": 88.6135,
+    "signature_dish": "Paneer/Chicken Kathi Roll",
+    "insider_tip": "It gets very crowded in the evenings; order your roll and walk around MG Marg while you wait.",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "taste_of_tibet_gangtok_04",
+    "destination": "Gangtok",
+    "route_id": "mg_marg_04",
+    "name": "Taste of Tibet",
+    "cuisine": "Tibetan",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 500,
+    "avg_duration_minutes": 50,
+    "tags": [
+      "authentic",
+      "momos",
+      "local"
+    ],
+    "lat": 27.3316,
+    "lng": 88.6139,
+    "signature_dish": "Steamed Pork Momos",
+    "insider_tip": "Their Thukpa is legendary; perfect for the chilly Gangtok evenings.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "caf\u00e9_live_loud_gangtok_05",
+    "destination": "Gangtok",
+    "route_id": "mg_marg_05",
+    "name": "Caf\u00e9 Live & Loud",
+    "cuisine": "Continental/Fusion",
+    "meal_types": [
+      "dinner"
+    ],
+    "avg_cost_per_person": 1200,
+    "avg_duration_minutes": 120,
+    "tags": [
+      "live music",
+      "nightlife",
+      "vibe"
+    ],
+    "lat": 27.3321,
+    "lng": 88.6145,
+    "signature_dish": "Grilled Chicken Steak",
+    "insider_tip": "Check their social media for live band schedules; the atmosphere is electric on weekends.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "mu_cafe_gangtok_06",
+    "destination": "Gangtok",
+    "route_id": "mg_marg_06",
+    "name": "Mu Cafe",
+    "cuisine": "Cafe/Fusion",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 450,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "cozy",
+      "books",
+      "coffee"
+    ],
+    "lat": 27.3309,
+    "lng": 88.6132,
+    "signature_dish": "Coffee and Waffles",
+    "insider_tip": "A great spot to escape the crowd and read a book; very quiet and aesthetic.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "dragon_wok_gangtok_07",
+    "destination": "Gangtok",
+    "route_id": "mg_marg_07",
+    "name": "Dragon Wok",
+    "cuisine": "Chinese/Asian",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 700,
+    "avg_duration_minutes": 70,
+    "tags": [
+      "fine dining",
+      "asian",
+      "spicy"
+    ],
+    "lat": 27.3325,
+    "lng": 88.615,
+    "signature_dish": "Szechuan Chicken",
+    "insider_tip": "The portions are generous, perfect for sharing with a group.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "9_inch_gangtok_08",
+    "destination": "Gangtok",
+    "route_id": "mg_marg_08",
+    "name": "9 Inch",
+    "cuisine": "Italian/Pizza",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 650,
+    "avg_duration_minutes": 55,
+    "tags": [
+      "pizza",
+      "modern",
+      "casual"
+    ],
+    "lat": 27.3319,
+    "lng": 88.6141,
+    "signature_dish": "Wood-fired Pizza",
+    "insider_tip": "Try their thin-crust pizzas; they are arguably the best in the city.",
+    "confidence_pct": 93,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

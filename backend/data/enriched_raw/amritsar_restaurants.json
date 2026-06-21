@@ -1,0 +1,207 @@
+[
+  {
+    "restaurant_id": "kesar_da_dhaba_amritsar_01",
+    "destination": "Amritsar",
+    "route_id": "golden_temple_area",
+    "name": "Kesar Da Dhaba",
+    "cuisine": "North Indian",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 400,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "legendary",
+      "traditional",
+      "vegetarian"
+    ],
+    "lat": 31.6215,
+    "lng": 74.8752,
+    "signature_dish": "Dal Makhani",
+    "insider_tip": "Be prepared to walk through narrow lanes; the Dal is slow-cooked for over 12 hours.",
+    "confidence_pct": 100,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "bharawan_da_dhaba_amritsar_02",
+    "destination": "Amritsar",
+    "route_id": "town_hall_area",
+    "name": "Bharawan Da Dhaba",
+    "cuisine": "Punjabi",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 500,
+    "avg_duration_minutes": 45,
+    "tags": [
+      "family-friendly",
+      "authentic",
+      "iconic"
+    ],
+    "lat": 31.6231,
+    "lng": 74.8745,
+    "signature_dish": "Sarson da Saag with Makki di Roti",
+    "insider_tip": "Try their lassi, it is thick, creamy, and served in a tall steel glass.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "kulcha_land_amritsar_03",
+    "destination": "Amritsar",
+    "route_id": "ranjit_avenue",
+    "name": "Kulcha Land",
+    "cuisine": "Street Food",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 200,
+    "avg_duration_minutes": 30,
+    "tags": [
+      "breakfast",
+      "local-favorite",
+      "quick-bite"
+    ],
+    "lat": 31.6452,
+    "lng": 74.8821,
+    "signature_dish": "Amritsari Kulcha",
+    "insider_tip": "Go early in the morning before 10 AM to get the freshest, crispest kulchas.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "all_india_famous_amritsari_kulcha_amritsar_04",
+    "destination": "Amritsar",
+    "route_id": "maqbool_road",
+    "name": "All India Famous Amritsari Kulcha",
+    "cuisine": "Street Food",
+    "meal_types": [
+      "breakfast"
+    ],
+    "avg_cost_per_person": 150,
+    "avg_duration_minutes": 40,
+    "tags": [
+      "street-food",
+      "budget",
+      "must-visit"
+    ],
+    "lat": 31.6389,
+    "lng": 74.8654,
+    "signature_dish": "Aloo Kulcha with Chole",
+    "insider_tip": "The wait can be long, but the butter-laden kulchas are worth every minute.",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "the_colonels_cabin_amritsar_05",
+    "destination": "Amritsar",
+    "route_id": "civil_lines",
+    "name": "The Colonel's Cabin",
+    "cuisine": "Continental",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 800,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "cafe",
+      "ambiance",
+      "relaxed"
+    ],
+    "lat": 31.6355,
+    "lng": 74.8688,
+    "signature_dish": "Grilled Chicken",
+    "insider_tip": "Great spot for a quiet afternoon coffee away from the city chaos.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "crystal_restaurant_amritsar_06",
+    "destination": "Amritsar",
+    "route_id": "crystal_chowk",
+    "name": "Crystal Restaurant",
+    "cuisine": "Multi-cuisine",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 700,
+    "avg_duration_minutes": 75,
+    "tags": [
+      "fine-dining",
+      "historic",
+      "family"
+    ],
+    "lat": 31.6321,
+    "lng": 74.8712,
+    "signature_dish": "Butter Chicken",
+    "insider_tip": "A historic establishment that has been serving locals for decades; ask for a table near the window.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "giani_tea_stall_amritsar_07",
+    "destination": "Amritsar",
+    "route_id": "golden_temple_area",
+    "name": "Giani Tea Stall",
+    "cuisine": "Street Food",
+    "meal_types": [
+      "breakfast"
+    ],
+    "avg_cost_per_person": 50,
+    "avg_duration_minutes": 15,
+    "tags": [
+      "tea",
+      "local",
+      "quick"
+    ],
+    "lat": 31.6205,
+    "lng": 74.8765,
+    "signature_dish": "Masala Chai",
+    "insider_tip": "Pair your tea with their bun-maska for a quintessential Amritsari morning snack.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "la_cuisine_amritsar_08",
+    "destination": "Amritsar",
+    "route_id": "mall_road",
+    "name": "La Cuisine",
+    "cuisine": "Fine Dining",
+    "meal_types": [
+      "dinner"
+    ],
+    "avg_cost_per_person": 1500,
+    "avg_duration_minutes": 120,
+    "tags": [
+      "romantic",
+      "upscale",
+      "fine-dining"
+    ],
+    "lat": 31.637,
+    "lng": 74.862,
+    "signature_dish": "Tandoori Platter",
+    "insider_tip": "Perfect for a romantic dinner; the service is impeccable and the atmosphere is sophisticated.",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

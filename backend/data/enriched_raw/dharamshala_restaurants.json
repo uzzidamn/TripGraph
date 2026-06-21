@@ -1,0 +1,211 @@
+[
+  {
+    "restaurant_id": "illiterati_dharamshala_01",
+    "destination": "Dharamshala",
+    "route_id": "mcleodganj_main",
+    "name": "Illiterati Books & Coffee",
+    "cuisine": "European/Cafe",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 800,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "cafe",
+      "views",
+      "books",
+      "wifi"
+    ],
+    "lat": 32.2426,
+    "lng": 76.3219,
+    "signature_dish": "Pesto Pasta",
+    "insider_tip": "Grab a seat on the balcony during sunset for the best view of the Dhauladhar range.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "tibet_kitchen_dharamshala_02",
+    "destination": "Dharamshala",
+    "route_id": "mcleodganj_main",
+    "name": "Tibet Kitchen",
+    "cuisine": "Tibetan",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 500,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "authentic",
+      "momos",
+      "local"
+    ],
+    "lat": 32.2435,
+    "lng": 76.3231,
+    "signature_dish": "Steamed Chicken Momos",
+    "insider_tip": "Try their Thukpa on a rainy day; it is the most comforting meal in the mountains.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "moonpeak_dharamshala_03",
+    "destination": "Dharamshala",
+    "route_id": "mcleodganj_main",
+    "name": "Moonpeak Espresso",
+    "cuisine": "Cafe/Himachali",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 600,
+    "avg_duration_minutes": 75,
+    "tags": [
+      "breakfast",
+      "coffee",
+      "local-thali"
+    ],
+    "lat": 32.2432,
+    "lng": 76.3225,
+    "signature_dish": "Himachali Thali",
+    "insider_tip": "Their Himachali Thali is a rare find in the cafe-heavy Mcleodganj; order it early as it sells out.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "jimmy_italian_dharamshala_04",
+    "destination": "Dharamshala",
+    "route_id": "mcleodganj_main",
+    "name": "Jimmy's Italian Kitchen",
+    "cuisine": "Italian",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 700,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "italian",
+      "popular",
+      "casual"
+    ],
+    "lat": 32.2438,
+    "lng": 76.3228,
+    "signature_dish": "Wood-fired Pizza",
+    "insider_tip": "It gets very crowded in the evenings, so try to visit for a late lunch to avoid the queue.",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "mcllo_dharamshala_05",
+    "destination": "Dharamshala",
+    "route_id": "mcleodganj_main",
+    "name": "Mcllo Beer Bar & Restaurant",
+    "cuisine": "Multi-cuisine",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 1000,
+    "avg_duration_minutes": 120,
+    "tags": [
+      "rooftop",
+      "music",
+      "vibe"
+    ],
+    "lat": 32.2431,
+    "lng": 76.3222,
+    "signature_dish": "Tandoori Platter",
+    "insider_tip": "The rooftop seating offers a great vantage point to watch the bustling street life below.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "street_momos_dharamshala_06",
+    "destination": "Dharamshala",
+    "route_id": "mcleodganj_market",
+    "name": "Jogiwara Road Street Stalls",
+    "cuisine": "Street Food",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 150,
+    "avg_duration_minutes": 20,
+    "tags": [
+      "street-food",
+      "budget",
+      "momos"
+    ],
+    "lat": 32.2428,
+    "lng": 76.3235,
+    "signature_dish": "Fried Veg Momos with Spicy Chutney",
+    "insider_tip": "Look for the stall with the longest queue of locals; that is where the freshest chutney is.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "shiva_cafe_dharamshala_07",
+    "destination": "Dharamshala",
+    "route_id": "bhagsunag_waterfall",
+    "name": "Shiva Cafe",
+    "cuisine": "Cafe",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 500,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "trekking",
+      "nature",
+      "bohemian"
+    ],
+    "lat": 32.2485,
+    "lng": 76.3312,
+    "signature_dish": "Honey Ginger Lemon Tea",
+    "insider_tip": "You have to hike up from the Bhagsu waterfall to reach this; wear comfortable shoes.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "norling_dharamshala_08",
+    "destination": "Dharamshala",
+    "route_id": "sidhpur",
+    "name": "Norling Restaurant",
+    "cuisine": "Tibetan/Chinese",
+    "meal_types": [
+      "lunch"
+    ],
+    "avg_cost_per_person": 400,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "peaceful",
+      "garden",
+      "authentic"
+    ],
+    "lat": 32.2155,
+    "lng": 76.3055,
+    "signature_dish": "Shaptak",
+    "insider_tip": "Located inside the Norbulingka Institute, it is the perfect quiet spot for a lunch break after exploring the crafts.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

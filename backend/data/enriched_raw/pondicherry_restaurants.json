@@ -1,0 +1,213 @@
+[
+  {
+    "restaurant_id": "villa_shanti_pondicherry_01",
+    "destination": "Pondicherry",
+    "route_id": "white_town_walk",
+    "name": "Villa Shanti",
+    "cuisine": "French-Indian Fusion",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 1500,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "fine-dining",
+      "romantic",
+      "courtyard"
+    ],
+    "lat": 11.9328,
+    "lng": 79.8321,
+    "signature_dish": "Grilled Fish with Lemon Butter Sauce",
+    "insider_tip": "Book a table in the central courtyard for the best ambiance during dinner.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "caf\u00e9_des_arts_pondicherry_02",
+    "destination": "Pondicherry",
+    "route_id": "white_town_walk",
+    "name": "Caf\u00e9 des Arts",
+    "cuisine": "French Cafe",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 600,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "cafe",
+      "vintage",
+      "breakfast"
+    ],
+    "lat": 11.9335,
+    "lng": 79.8332,
+    "signature_dish": "Croque Monsieur",
+    "insider_tip": "Arrive before 9 AM to snag the cozy corner seat in the garden area.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "surguru_pondicherry_03",
+    "destination": "Pondicherry",
+    "route_id": "heritage_town_tour",
+    "name": "Surguru Restaurant",
+    "cuisine": "South Indian Vegetarian",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 300,
+    "avg_duration_minutes": 45,
+    "tags": [
+      "traditional",
+      "budget",
+      "local-favorite"
+    ],
+    "lat": 11.9305,
+    "lng": 79.8278,
+    "signature_dish": "Pondicherry Masala Dosa",
+    "insider_tip": "Try their filter coffee; it is widely considered the best in the city.",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "coromandel_cafe_pondicherry_04",
+    "destination": "Pondicherry",
+    "route_id": "white_town_walk",
+    "name": "Coromandel Cafe",
+    "cuisine": "Continental",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 1200,
+    "avg_duration_minutes": 75,
+    "tags": [
+      "aesthetic",
+      "upscale",
+      "brunch"
+    ],
+    "lat": 11.9342,
+    "lng": 79.8345,
+    "signature_dish": "Eggs Benedict",
+    "insider_tip": "The interiors are stunning; perfect for photography enthusiasts.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "le_cafe_pondicherry_05",
+    "destination": "Pondicherry",
+    "route_id": "promenade_beach_walk",
+    "name": "Le Cafe",
+    "cuisine": "Cafe",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 500,
+    "avg_duration_minutes": 50,
+    "tags": [
+      "beachfront",
+      "24-hour",
+      "view"
+    ],
+    "lat": 11.9312,
+    "lng": 79.8365,
+    "signature_dish": "Cold Coffee",
+    "insider_tip": "Visit at sunrise to watch the ocean while sipping coffee right on the promenade.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "tanjore_tiffin_room_pondicherry_06",
+    "destination": "Pondicherry",
+    "route_id": "heritage_town_tour",
+    "name": "Tanjore Tiffin Room",
+    "cuisine": "Chettinad",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 900,
+    "avg_duration_minutes": 70,
+    "tags": [
+      "spicy",
+      "authentic",
+      "non-vegetarian"
+    ],
+    "lat": 11.9285,
+    "lng": 79.8295,
+    "signature_dish": "Mutton Chukka",
+    "insider_tip": "Ask for the spice level to be adjusted if you are not a fan of heavy heat.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "street_food_mission_street_07",
+    "destination": "Pondicherry",
+    "route_id": "mission_street_walk",
+    "name": "Mission Street Chaat Stall",
+    "cuisine": "Indian Street Food",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 100,
+    "avg_duration_minutes": 20,
+    "tags": [
+      "street-food",
+      "budget",
+      "quick-bite"
+    ],
+    "lat": 11.9301,
+    "lng": 79.8285,
+    "signature_dish": "Pani Puri",
+    "insider_tip": "Look for the stall with the longest queue of locals; that is where the freshest chutney is.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "bread_and_chocolate_pondicherry_08",
+    "destination": "Pondicherry",
+    "route_id": "auroville_road",
+    "name": "Bread & Chocolate",
+    "cuisine": "Bakery/Cafe",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 700,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "bakery",
+      "healthy",
+      "artisan"
+    ],
+    "lat": 11.985,
+    "lng": 79.805,
+    "signature_dish": "Sourdough Toast with Avocado",
+    "insider_tip": "Their artisanal breads sell out by noon, so go early for the best selection.",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

@@ -1,0 +1,209 @@
+[
+  {
+    "restaurant_id": "cherrapunji_holiday_resort_01",
+    "destination": "Cherrapunji",
+    "route_id": "sohra_circuit_01",
+    "name": "Cherrapunji Holiday Resort Restaurant",
+    "cuisine": "Khasi Traditional",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 600,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "authentic",
+      "scenic",
+      "local"
+    ],
+    "lat": 25.2645,
+    "lng": 91.6782,
+    "signature_dish": "Jadoh and Dohneiiong",
+    "insider_tip": "Request a table near the window for a view of the valley while enjoying authentic pork with black sesame.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "local_tourism_board",
+    "last_verified": "2023-10-15"
+  },
+  {
+    "restaurant_id": "seven_sisters_cafe_01",
+    "destination": "Cherrapunji",
+    "route_id": "sohra_circuit_01",
+    "name": "Seven Sisters Falls View Cafe",
+    "cuisine": "Cafe/Snacks",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 300,
+    "avg_duration_minutes": 45,
+    "tags": [
+      "viewpoint",
+      "quick_bite",
+      "tourist_spot"
+    ],
+    "lat": 25.2851,
+    "lng": 91.7154,
+    "signature_dish": "Masala Chai and Vegetable Pakoras",
+    "insider_tip": "Visit early in the morning to avoid the tourist rush and catch the falls before the mist rolls in.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "travel_guide",
+    "last_verified": "2023-11-02"
+  },
+  {
+    "restaurant_id": "d_sangkhi_01",
+    "destination": "Cherrapunji",
+    "route_id": "sohra_market_01",
+    "name": "D'Sangkhi Restaurant",
+    "cuisine": "Khasi/Indian",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 500,
+    "avg_duration_minutes": 50,
+    "tags": [
+      "family_friendly",
+      "local_favorite"
+    ],
+    "lat": 25.2756,
+    "lng": 91.7189,
+    "signature_dish": "Smoked Pork with Bamboo Shoot",
+    "insider_tip": "Try the local red rice which is a staple here and pairs perfectly with the spicy pork curry.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "local_reviews",
+    "last_verified": "2023-09-20"
+  },
+  {
+    "restaurant_id": "orange_roots_01",
+    "destination": "Cherrapunji",
+    "route_id": "sohra_market_01",
+    "name": "Orange Roots",
+    "cuisine": "Vegetarian/Indian",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 400,
+    "avg_duration_minutes": 40,
+    "tags": [
+      "vegetarian",
+      "clean",
+      "hygienic"
+    ],
+    "lat": 25.2742,
+    "lng": 91.7175,
+    "signature_dish": "Vegetarian Thali",
+    "insider_tip": "This is one of the few purely vegetarian spots in Sohra, perfect for a reliable and clean meal.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "travel_blog",
+    "last_verified": "2023-12-01"
+  },
+  {
+    "restaurant_id": "sohra_market_stalls_01",
+    "destination": "Cherrapunji",
+    "route_id": "sohra_market_01",
+    "name": "Sohra Market Street Food",
+    "cuisine": "Street Food",
+    "meal_types": [
+      "lunch"
+    ],
+    "avg_cost_per_person": 150,
+    "avg_duration_minutes": 30,
+    "tags": [
+      "street_food",
+      "authentic",
+      "budget"
+    ],
+    "lat": 25.2738,
+    "lng": 91.7192,
+    "signature_dish": "Pukhlein (Sweet Rice Bread)",
+    "insider_tip": "Visit on market day (every 8 days) to experience the most vibrant food stalls and local produce.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "local_observation",
+    "last_verified": "2023-10-30"
+  },
+  {
+    "restaurant_id": "sa_i_mica_01",
+    "destination": "Cherrapunji",
+    "route_id": "sohra_circuit_02",
+    "name": "Sa-i-Mika Resort Restaurant",
+    "cuisine": "Multi-cuisine",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 800,
+    "avg_duration_minutes": 75,
+    "tags": [
+      "romantic",
+      "upscale",
+      "nature"
+    ],
+    "lat": 25.2589,
+    "lng": 91.7021,
+    "signature_dish": "Grilled Chicken with Local Herbs",
+    "insider_tip": "The ambiance is perfect for a quiet dinner; the resort grounds are beautiful for a post-meal walk.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "hospitality_database",
+    "last_verified": "2023-11-15"
+  },
+  {
+    "restaurant_id": "cafe_cherrapunji_01",
+    "destination": "Cherrapunji",
+    "route_id": "sohra_circuit_01",
+    "name": "Cafe Cherrapunji",
+    "cuisine": "Continental/Cafe",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 450,
+    "avg_duration_minutes": 50,
+    "tags": [
+      "cozy",
+      "coffee",
+      "relaxing"
+    ],
+    "lat": 25.271,
+    "lng": 91.712,
+    "signature_dish": "Blueberry Pancakes",
+    "insider_tip": "Great spot to escape the rain with a hot coffee and a book.",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "user_reviews",
+    "last_verified": "2023-08-12"
+  },
+  {
+    "restaurant_id": "jain_food_stall_01",
+    "destination": "Cherrapunji",
+    "route_id": "sohra_market_01",
+    "name": "Jain Food Stall",
+    "cuisine": "Indian/Jain",
+    "meal_types": [
+      "lunch"
+    ],
+    "avg_cost_per_person": 250,
+    "avg_duration_minutes": 35,
+    "tags": [
+      "budget",
+      "quick",
+      "vegetarian"
+    ],
+    "lat": 25.2745,
+    "lng": 91.718,
+    "signature_dish": "Aloo Paratha",
+    "insider_tip": "Simple, no-frills spot that is very popular with budget travelers and pilgrims.",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "local_guide",
+    "last_verified": "2023-09-05"
+  }
+]

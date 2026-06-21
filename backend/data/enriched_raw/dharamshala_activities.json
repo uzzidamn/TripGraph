@@ -1,0 +1,762 @@
+[
+  {
+    "activity_id": "namgyal_monastery_dharamshala_01",
+    "destination": "Dharamshala",
+    "name": "Namgyal Monastery",
+    "category": "spiritual",
+    "duration_minutes": 90,
+    "cost_per_person": 0,
+    "available_slots": [
+      "08:00",
+      "10:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "buddhism",
+      "monastery",
+      "peaceful"
+    ],
+    "lat": 32.2445,
+    "lng": 76.3278,
+    "fatigue_score_base": 2,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Mar-Jun",
+      "Sep-Nov"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Experience the profound serenity of the Dalai Lama's personal monastery, a vibrant hub of Tibetan culture and spiritual practice.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-18:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Visit during the morning prayers to hear the rhythmic chanting of the monks.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "triund_trek_dharamshala_02",
+    "destination": "Dharamshala",
+    "name": "Triund Trek",
+    "category": "adventure",
+    "duration_minutes": 360,
+    "cost_per_person": 500,
+    "available_slots": [
+      "06:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "trekking",
+      "hiking",
+      "views"
+    ],
+    "lat": 32.2612,
+    "lng": 76.3541,
+    "fatigue_score_base": 8,
+    "morale_score_base": 10,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Mar-Jun",
+      "Sep-Dec"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Ascend through lush oak and rhododendron forests to reach the breathtaking ridge of Triund, offering panoramic views of the Dhauladhar range.",
+    "opening_hours": [
+      "Monday-Sunday: 06:00-18:00"
+    ],
+    "skip_if": "Snow or heavy rain",
+    "insider_tip": "Start as early as possible to avoid the midday sun and secure a good spot for the sunset.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "bhagsunag_waterfall_dharamshala_03",
+    "destination": "Dharamshala",
+    "name": "Bhagsunag Waterfall",
+    "category": "nature",
+    "duration_minutes": 120,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "11:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "waterfall",
+      "nature",
+      "hiking"
+    ],
+    "lat": 32.2489,
+    "lng": 76.3356,
+    "fatigue_score_base": 4,
+    "morale_score_base": 8,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "Mar-Jun",
+      "Sep-Nov"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "A refreshing cascade nestled in the mountains, perfect for a short hike and a moment of natural rejuvenation.",
+    "opening_hours": [
+      "Monday-Sunday: 07:00-19:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "The cafe near the waterfall is a great place to enjoy a lemon ginger tea while listening to the water.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "mcleodganj_market_dharamshala_04",
+    "destination": "Dharamshala",
+    "name": "McLeod Ganj Market",
+    "category": "shopping",
+    "duration_minutes": 120,
+    "cost_per_person": 0,
+    "available_slots": [
+      "10:00",
+      "14:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "shopping",
+      "souvenirs",
+      "local"
+    ],
+    "lat": 32.2426,
+    "lng": 76.3215,
+    "fatigue_score_base": 3,
+    "morale_score_base": 7,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "All year"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Dive into the bustling lanes of McLeod Ganj to discover exquisite Tibetan handicrafts, prayer wheels, and colorful woolens.",
+    "opening_hours": [
+      "Monday-Sunday: 10:00-20:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Haggling is expected, but keep it friendly and respectful.",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "tibet_museum_dharamshala_05",
+    "destination": "Dharamshala",
+    "name": "Tibet Museum",
+    "category": "cultural",
+    "duration_minutes": 60,
+    "cost_per_person": 20,
+    "available_slots": [
+      "09:00",
+      "11:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "history",
+      "museum",
+      "culture"
+    ],
+    "lat": 32.2448,
+    "lng": 76.3275,
+    "fatigue_score_base": 1,
+    "morale_score_base": 6,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "All year"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A poignant and educational journey through the history and struggle of the Tibetan people in exile.",
+    "opening_hours": [
+      "Tuesday-Sunday: 09:00-17:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Watch the documentary screened in the museum for a deeper understanding of the exhibits.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "yoga_class_dharamshala_06",
+    "destination": "Dharamshala",
+    "name": "Himalayan Yoga Class",
+    "category": "wellness",
+    "duration_minutes": 90,
+    "cost_per_person": 500,
+    "available_slots": [
+      "07:00",
+      "16:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "yoga",
+      "wellness",
+      "meditation"
+    ],
+    "lat": 32.245,
+    "lng": 76.325,
+    "fatigue_score_base": 3,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Mar-Jun",
+      "Sep-Nov"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Align your body and soul with a rejuvenating yoga session set against the backdrop of the majestic Dhauladhar mountains.",
+    "opening_hours": [
+      "Monday-Saturday: 07:00-18:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Book a drop-in class at Tushita Meditation Centre for a truly authentic experience.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "illiterati_cafe_dharamshala_07",
+    "destination": "Dharamshala",
+    "name": "Illiterati Cafe",
+    "category": "food",
+    "duration_minutes": 90,
+    "cost_per_person": 600,
+    "available_slots": [
+      "11:00",
+      "13:00",
+      "18:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "cafe",
+      "food",
+      "views"
+    ],
+    "lat": 32.241,
+    "lng": 76.323,
+    "fatigue_score_base": 1,
+    "morale_score_base": 10,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "All year"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Savor gourmet coffee and international cuisine while losing yourself in a book with a stunning mountain view.",
+    "opening_hours": [
+      "Monday-Sunday: 10:00-21:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "The balcony seating offers the best sunset views in the area.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "st_john_church_dharamshala_08",
+    "destination": "Dharamshala",
+    "name": "St. John in the Wilderness",
+    "category": "cultural",
+    "duration_minutes": 30,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "10:00",
+      "11:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "history",
+      "architecture",
+      "church"
+    ],
+    "lat": 32.2385,
+    "lng": 76.3245,
+    "fatigue_score_base": 1,
+    "morale_score_base": 7,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "All year"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A neo-Gothic architectural gem nestled in a quiet, deodar-forested setting, steeped in colonial history.",
+    "opening_hours": [
+      "Monday-Sunday: 09:00-18:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "The stained glass windows are particularly beautiful in the morning light.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "dal_lake_dharamshala_09",
+    "destination": "Dharamshala",
+    "name": "Dal Lake",
+    "category": "nature",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "12:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "lake",
+      "nature",
+      "picnic"
+    ],
+    "lat": 32.235,
+    "lng": 76.315,
+    "fatigue_score_base": 2,
+    "morale_score_base": 7,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "Mar-Jun",
+      "Sep-Nov"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A tranquil, emerald-green lake surrounded by ancient deodar trees, perfect for a quiet afternoon stroll.",
+    "opening_hours": [
+      "Monday-Sunday: 07:00-19:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Visit during the annual fair in September for a glimpse into local culture.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "norbulingka_institute_dharamshala_10",
+    "destination": "Dharamshala",
+    "name": "Norbulingka Institute",
+    "category": "experience",
+    "duration_minutes": 120,
+    "cost_per_person": 100,
+    "available_slots": [
+      "09:00",
+      "11:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "art",
+      "culture",
+      "workshop"
+    ],
+    "lat": 32.195,
+    "lng": 76.305,
+    "fatigue_score_base": 2,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "All year"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Witness the preservation of Tibetan arts and crafts in this beautifully landscaped institute dedicated to traditional culture.",
+    "opening_hours": [
+      "Monday-Saturday: 09:00-17:30"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Check out the workshop area to see artisans creating intricate thangka paintings.",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "dharamshala_cricket_stadium_11",
+    "destination": "Dharamshala",
+    "name": "HPCA Cricket Stadium",
+    "category": "experience",
+    "duration_minutes": 60,
+    "cost_per_person": 50,
+    "available_slots": [
+      "10:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "sports",
+      "views",
+      "architecture"
+    ],
+    "lat": 32.215,
+    "lng": 76.325,
+    "fatigue_score_base": 1,
+    "morale_score_base": 8,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "Mar-Jun",
+      "Sep-Nov"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "One of the highest cricket stadiums in the world, offering a surreal view of snow-capped peaks while you watch a match.",
+    "opening_hours": [
+      "Monday-Sunday: 09:00-18:00"
+    ],
+    "skip_if": "Match day (unless watching)",
+    "insider_tip": "Even if there is no match, the view from the stands is worth the entry fee.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "tibetan_cooking_class_dharamshala_12",
+    "destination": "Dharamshala",
+    "name": "Tibetan Cooking Class",
+    "category": "food",
+    "duration_minutes": 180,
+    "cost_per_person": 1500,
+    "available_slots": [
+      "11:00",
+      "16:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "food",
+      "cooking",
+      "culture"
+    ],
+    "lat": 32.243,
+    "lng": 76.322,
+    "fatigue_score_base": 2,
+    "morale_score_base": 10,
+    "best_time_of_day": "any",
+    "best_season": [
+      "All year"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Learn the art of making authentic momos and thukpa from local experts in a cozy, hands-on environment.",
+    "opening_hours": [
+      "Monday-Sunday: 10:00-19:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Book in advance as these classes are popular and often limited to small groups.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "war_memorial_dharamshala_13",
+    "destination": "Dharamshala",
+    "name": "War Memorial",
+    "category": "cultural",
+    "duration_minutes": 45,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "11:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "history",
+      "memorial",
+      "park"
+    ],
+    "lat": 32.225,
+    "lng": 76.315,
+    "fatigue_score_base": 1,
+    "morale_score_base": 5,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "All year"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A solemn tribute to the brave soldiers of Himachal Pradesh, set within a peaceful, pine-forested park.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-19:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "The surrounding forest walk is very refreshing and quiet.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "kareri_lake_trek_dharamshala_14",
+    "destination": "Dharamshala",
+    "name": "Kareri Lake Trek",
+    "category": "adventure",
+    "duration_minutes": 480,
+    "cost_per_person": 2000,
+    "available_slots": [
+      "06:00"
+    ],
+    "risk_level": "high",
+    "tags": [
+      "trekking",
+      "adventure",
+      "nature"
+    ],
+    "lat": 32.305,
+    "lng": 76.255,
+    "fatigue_score_base": 10,
+    "morale_score_base": 10,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "May-Jun",
+      "Sep-Oct"
+    ],
+    "accessibility": "difficult",
+    "editorial_summary": "A challenging but rewarding trek to a high-altitude glacial lake, surrounded by pristine alpine meadows.",
+    "opening_hours": [
+      "Monday-Sunday: 06:00-18:00"
+    ],
+    "skip_if": "Snow or monsoon",
+    "insider_tip": "Hire a local guide as the trail can be tricky to navigate in certain sections.",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "tsuglagkhang_complex_dharamshala_15",
+    "destination": "Dharamshala",
+    "name": "Tsuglagkhang Complex",
+    "category": "spiritual",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "08:00",
+      "10:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "spiritual",
+      "temple",
+      "culture"
+    ],
+    "lat": 32.2447,
+    "lng": 76.3277,
+    "fatigue_score_base": 1,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "All year"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "The spiritual heart of the Tibetan community in exile, housing the Dalai Lama's temple and a peaceful meditation space.",
+    "opening_hours": [
+      "Monday-Sunday: 05:00-20:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Walk the kora path around the complex for a meditative experience with locals.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "tea_garden_visit_dharamshala_16",
+    "destination": "Dharamshala",
+    "name": "Dharamshala Tea Gardens",
+    "category": "nature",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "11:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "nature",
+      "scenic",
+      "photography"
+    ],
+    "lat": 32.205,
+    "lng": 76.335,
+    "fatigue_score_base": 2,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Mar-Jun",
+      "Sep-Nov"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Wander through lush, terraced tea plantations that offer a serene escape and beautiful photo opportunities.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-18:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Visit early in the morning to see the tea pickers at work.",
+    "confidence_pct": 93,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "tushita_meditation_dharamshala_17",
+    "destination": "Dharamshala",
+    "name": "Tushita Meditation Centre",
+    "category": "spiritual",
+    "duration_minutes": 120,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "meditation",
+      "spiritual",
+      "wellness"
+    ],
+    "lat": 32.251,
+    "lng": 76.331,
+    "fatigue_score_base": 2,
+    "morale_score_base": 10,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Mar-Jun",
+      "Sep-Nov"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "A world-renowned center for the study and practice of Buddhism, offering a silent, peaceful environment for introspection.",
+    "opening_hours": [
+      "Monday-Sunday: 09:00-17:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Check their website for drop-in sessions, as they often have silent retreats.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "mcleod_ganj_cafe_hopping_dharamshala_18",
+    "destination": "Dharamshala",
+    "name": "McLeod Ganj Cafe Hopping",
+    "category": "food",
+    "duration_minutes": 180,
+    "cost_per_person": 1000,
+    "available_slots": [
+      "12:00",
+      "18:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "food",
+      "cafe",
+      "social"
+    ],
+    "lat": 32.242,
+    "lng": 76.321,
+    "fatigue_score_base": 2,
+    "morale_score_base": 9,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "All year"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Explore the vibrant cafe culture of McLeod Ganj, sampling everything from Tibetan momos to Israeli shakshuka.",
+    "opening_hours": [
+      "Monday-Sunday: 10:00-22:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Try the 'Jimmy's Italian Kitchen' for a change of pace from local cuisine.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "naddi_viewpoint_dharamshala_19",
+    "destination": "Dharamshala",
+    "name": "Naddi Viewpoint",
+    "category": "nature",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "12:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "views",
+      "nature",
+      "sunset"
+    ],
+    "lat": 32.255,
+    "lng": 76.315,
+    "fatigue_score_base": 1,
+    "morale_score_base": 9,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "All year"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A spectacular vantage point offering unobstructed views of the Dhauladhar range, especially magical at sunset.",
+    "opening_hours": [
+      "Monday-Sunday: 07:00-19:00"
+    ],
+    "skip_if": "Fog or heavy rain",
+    "insider_tip": "Take a local taxi from McLeod Ganj to reach here comfortably.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "library_of_tibetan_works_dharamshala_20",
+    "destination": "Dharamshala",
+    "name": "Library of Tibetan Works and Archives",
+    "category": "cultural",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "11:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "history",
+      "library",
+      "culture"
+    ],
+    "lat": 32.245,
+    "lng": 76.328,
+    "fatigue_score_base": 1,
+    "morale_score_base": 7,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "All year"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A treasure trove of Tibetan knowledge, housing thousands of manuscripts and artifacts of immense historical value.",
+    "opening_hours": [
+      "Monday-Saturday: 09:00-17:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "The museum section is small but contains some very rare and beautiful items.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

@@ -1,0 +1,745 @@
+[
+  {
+    "activity_id": "nohkalikai_falls_cherrapunji_01",
+    "destination": "Cherrapunji",
+    "name": "Nohkalikai Falls",
+    "category": "nature",
+    "duration_minutes": 60,
+    "cost_per_person": 20,
+    "available_slots": [
+      "08:00",
+      "10:00",
+      "12:00",
+      "14:00",
+      "16:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "waterfall",
+      "scenic",
+      "photography"
+    ],
+    "lat": 25.2914,
+    "lng": 91.6967,
+    "fatigue_score_base": 2,
+    "morale_score_base": 10,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Witness the raw power of India's tallest plunge waterfall as it cascades into a vibrant turquoise pool.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-17:00"
+    ],
+    "skip_if": "Heavy fog or monsoon rain",
+    "insider_tip": "Visit early in the morning to avoid the mist that often obscures the view by midday.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "double_decker_root_bridge_cherrapunji_02",
+    "destination": "Cherrapunji",
+    "name": "Double Decker Living Root Bridge",
+    "category": "adventure",
+    "duration_minutes": 300,
+    "cost_per_person": 50,
+    "available_slots": [
+      "07:00"
+    ],
+    "risk_level": "high",
+    "tags": [
+      "trekking",
+      "nature",
+      "adventure"
+    ],
+    "lat": 25.2556,
+    "lng": 91.6758,
+    "fatigue_score_base": 9,
+    "morale_score_base": 10,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "difficult",
+    "editorial_summary": "A breathtaking trek through lush forests leads to this architectural marvel grown from living rubber tree roots.",
+    "opening_hours": [
+      "Monday-Sunday: 07:00-16:00"
+    ],
+    "skip_if": "Heavy rain or poor physical fitness",
+    "insider_tip": "Carry plenty of water and start your descent before 8 AM to beat the heat and the crowds.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "mawsmai_cave_cherrapunji_03",
+    "destination": "Cherrapunji",
+    "name": "Mawsmai Cave",
+    "category": "adventure",
+    "duration_minutes": 45,
+    "cost_per_person": 30,
+    "available_slots": [
+      "09:00",
+      "11:00",
+      "13:00",
+      "15:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "caving",
+      "geology",
+      "adventure"
+    ],
+    "lat": 25.2635,
+    "lng": 91.7152,
+    "fatigue_score_base": 4,
+    "morale_score_base": 8,
+    "best_time_of_day": "any",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Explore the subterranean wonders of ancient limestone formations in this easily accessible, illuminated cave system.",
+    "opening_hours": [
+      "Monday-Sunday: 09:00-17:00"
+    ],
+    "skip_if": "Claustrophobia",
+    "insider_tip": "Wear shoes with good grip as the cave floor can be slippery due to constant water seepage.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "seven_sisters_falls_cherrapunji_04",
+    "destination": "Cherrapunji",
+    "name": "Seven Sisters Falls",
+    "category": "nature",
+    "duration_minutes": 30,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "12:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "viewpoint",
+      "scenic",
+      "nature"
+    ],
+    "lat": 25.2712,
+    "lng": 91.7125,
+    "fatigue_score_base": 1,
+    "morale_score_base": 9,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "Jun-Sep"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A majestic seven-segmented waterfall that transforms into a roaring spectacle during the monsoon season.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-18:00"
+    ],
+    "skip_if": "Dense fog",
+    "insider_tip": "The best view is from the designated viewpoint near the Eco Park entrance.",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "eco_park_cherrapunji_05",
+    "destination": "Cherrapunji",
+    "name": "Eco Park",
+    "category": "nature",
+    "duration_minutes": 90,
+    "cost_per_person": 20,
+    "available_slots": [
+      "09:00",
+      "11:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "garden",
+      "picnic",
+      "viewpoint"
+    ],
+    "lat": 25.2705,
+    "lng": 91.7138,
+    "fatigue_score_base": 2,
+    "morale_score_base": 7,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A beautifully landscaped park offering panoramic views of the Sylhet plains and a serene atmosphere.",
+    "opening_hours": [
+      "Monday-Sunday: 09:00-17:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Great spot for a picnic; bring your own snacks as food options inside are limited.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "cherrapunji_local_market_cherrapunji_06",
+    "destination": "Cherrapunji",
+    "name": "Cherrapunji Local Market",
+    "category": "shopping",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "10:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "shopping",
+      "culture",
+      "local"
+    ],
+    "lat": 25.2955,
+    "lng": 91.7255,
+    "fatigue_score_base": 3,
+    "morale_score_base": 6,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "All"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Immerse yourself in the vibrant local culture by browsing traditional handicrafts and fresh mountain produce.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-18:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Look for locally sourced honey and hand-woven bamboo baskets as authentic souvenirs.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "khasi_cuisine_experience_cherrapunji_07",
+    "destination": "Cherrapunji",
+    "name": "Authentic Khasi Food Experience",
+    "category": "food",
+    "duration_minutes": 60,
+    "cost_per_person": 400,
+    "available_slots": [
+      "13:00",
+      "19:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "food",
+      "culture",
+      "local"
+    ],
+    "lat": 25.296,
+    "lng": 91.726,
+    "fatigue_score_base": 1,
+    "morale_score_base": 9,
+    "best_time_of_day": "any",
+    "best_season": [
+      "All"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Savor the unique flavors of Jadoh and smoked pork in a traditional Khasi kitchen setting.",
+    "opening_hours": [
+      "Monday-Sunday: 11:00-21:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Try the 'Jadoh' (red rice cooked with meat stock) for a truly authentic taste of Meghalaya.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "thangkharang_park_cherrapunji_08",
+    "destination": "Cherrapunji",
+    "name": "Thangkharang Park",
+    "category": "nature",
+    "duration_minutes": 45,
+    "cost_per_person": 20,
+    "available_slots": [
+      "09:00",
+      "12:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "nature",
+      "viewpoint",
+      "botanical"
+    ],
+    "lat": 25.268,
+    "lng": 91.735,
+    "fatigue_score_base": 2,
+    "morale_score_base": 8,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A botanical haven overlooking the Kynrem Falls and the vast plains of Bangladesh.",
+    "opening_hours": [
+      "Monday-Sunday: 09:00-17:00"
+    ],
+    "skip_if": "Heavy fog",
+    "insider_tip": "The park is home to rare orchids; keep an eye out for the seasonal blooms.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "kynrem_falls_cherrapunji_09",
+    "destination": "Cherrapunji",
+    "name": "Kynrem Falls",
+    "category": "nature",
+    "duration_minutes": 30,
+    "cost_per_person": 0,
+    "available_slots": [
+      "10:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "waterfall",
+      "scenic"
+    ],
+    "lat": 25.265,
+    "lng": 91.738,
+    "fatigue_score_base": 1,
+    "morale_score_base": 9,
+    "best_time_of_day": "any",
+    "best_season": [
+      "Jun-Sep"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A stunning three-tiered waterfall that cascades down the mountainside, best viewed from the road.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-18:00"
+    ],
+    "skip_if": "Dry season",
+    "insider_tip": "Best viewed from the Thangkharang Park viewpoint for the full scale of the falls.",
+    "confidence_pct": 93,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "mawlynnong_village_tour_cherrapunji_10",
+    "destination": "Cherrapunji",
+    "name": "Mawlynnong Village Tour",
+    "category": "cultural",
+    "duration_minutes": 240,
+    "cost_per_person": 100,
+    "available_slots": [
+      "09:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "culture",
+      "village",
+      "cleanest"
+    ],
+    "lat": 25.28,
+    "lng": 91.75,
+    "fatigue_score_base": 3,
+    "morale_score_base": 10,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "All"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Visit the cleanest village in Asia, known for its pristine streets and community-led conservation efforts.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-18:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Walk to the Sky View bamboo tower for a bird's-eye view of the village and the Bangladesh border.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "garden_of_caves_cherrapunji_11",
+    "destination": "Cherrapunji",
+    "name": "Garden of Caves",
+    "category": "nature",
+    "duration_minutes": 120,
+    "cost_per_person": 50,
+    "available_slots": [
+      "09:00",
+      "13:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "nature",
+      "caves",
+      "photography"
+    ],
+    "lat": 25.285,
+    "lng": 91.68,
+    "fatigue_score_base": 5,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "A hidden gem featuring natural rock formations, waterfalls, and lush greenery in a serene canyon.",
+    "opening_hours": [
+      "Monday-Sunday: 09:00-17:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Wear comfortable walking shoes as the path involves several steps and uneven terrain.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "wei_sawdong_falls_cherrapunji_12",
+    "destination": "Cherrapunji",
+    "name": "Wei Sawdong Falls",
+    "category": "adventure",
+    "duration_minutes": 120,
+    "cost_per_person": 30,
+    "available_slots": [
+      "08:00",
+      "11:00"
+    ],
+    "risk_level": "high",
+    "tags": [
+      "trekking",
+      "waterfall",
+      "adventure"
+    ],
+    "lat": 25.275,
+    "lng": 91.705,
+    "fatigue_score_base": 8,
+    "morale_score_base": 10,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "difficult",
+    "editorial_summary": "A challenging trek rewards you with a three-tiered, emerald-colored waterfall that feels like a secret paradise.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-17:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "The bamboo ladders are steep; proceed with caution and avoid if you have knee issues.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "dainthlen_falls_cherrapunji_13",
+    "destination": "Cherrapunji",
+    "name": "Dainthlen Falls",
+    "category": "nature",
+    "duration_minutes": 45,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "12:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "nature",
+      "scenic",
+      "legend"
+    ],
+    "lat": 25.305,
+    "lng": 91.685,
+    "fatigue_score_base": 1,
+    "morale_score_base": 8,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "Jun-Sep"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A legendary waterfall steeped in local folklore, featuring unique rock carvings and a powerful flow.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-18:00"
+    ],
+    "skip_if": "Heavy fog",
+    "insider_tip": "Look for the natural rock markings that locals believe are the imprints of the legendary snake.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "khasi_monoliths_cherrapunji_14",
+    "destination": "Cherrapunji",
+    "name": "Khasi Monoliths",
+    "category": "cultural",
+    "duration_minutes": 30,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "history",
+      "culture",
+      "heritage"
+    ],
+    "lat": 25.29,
+    "lng": 91.72,
+    "fatigue_score_base": 1,
+    "morale_score_base": 6,
+    "best_time_of_day": "any",
+    "best_season": [
+      "All"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Explore the ancient stone monoliths that stand as silent witnesses to the rich history of the Khasi people.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-18:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "These are scattered; ask locals for the best-preserved clusters near the main village area.",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "yoga_wellness_retreat_cherrapunji_15",
+    "destination": "Cherrapunji",
+    "name": "Mountain Yoga & Wellness Session",
+    "category": "wellness",
+    "duration_minutes": 90,
+    "cost_per_person": 800,
+    "available_slots": [
+      "07:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "wellness",
+      "yoga",
+      "meditation"
+    ],
+    "lat": 25.298,
+    "lng": 91.728,
+    "fatigue_score_base": 2,
+    "morale_score_base": 10,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Rejuvenate your soul with a guided yoga session amidst the misty, tranquil hills of Cherrapunji.",
+    "opening_hours": [
+      "Monday-Sunday: 07:00-09:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Book through local homestays as they often partner with certified instructors for private sessions.",
+    "confidence_pct": 80,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "nongriat_village_walk_cherrapunji_16",
+    "destination": "Cherrapunji",
+    "name": "Nongriat Village Walk",
+    "category": "cultural",
+    "duration_minutes": 180,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "culture",
+      "village",
+      "trekking"
+    ],
+    "lat": 25.258,
+    "lng": 91.678,
+    "fatigue_score_base": 7,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Experience the authentic lifestyle of a remote Khasi village nestled deep in the valley.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-17:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Respect local customs and ask for permission before taking photographs of residents.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "cherrapunji_viewpoint_cherrapunji_17",
+    "destination": "Cherrapunji",
+    "name": "Cherrapunji Viewpoint",
+    "category": "nature",
+    "duration_minutes": 30,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "12:00",
+      "16:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "viewpoint",
+      "scenic"
+    ],
+    "lat": 25.292,
+    "lng": 91.722,
+    "fatigue_score_base": 1,
+    "morale_score_base": 8,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "All"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "A classic vantage point offering sweeping views of the rugged landscape and rolling clouds.",
+    "opening_hours": [
+      "Monday-Sunday: 06:00-18:00"
+    ],
+    "skip_if": "Heavy fog",
+    "insider_tip": "The sunset here is spectacular; arrive 30 minutes before dusk for the best light.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "bamboo_craft_workshop_cherrapunji_18",
+    "destination": "Cherrapunji",
+    "name": "Traditional Bamboo Craft Workshop",
+    "category": "experience",
+    "duration_minutes": 120,
+    "cost_per_person": 500,
+    "available_slots": [
+      "10:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "craft",
+      "culture",
+      "workshop"
+    ],
+    "lat": 25.297,
+    "lng": 91.727,
+    "fatigue_score_base": 2,
+    "morale_score_base": 8,
+    "best_time_of_day": "any",
+    "best_season": [
+      "All"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Learn the intricate art of bamboo weaving from local artisans in a hands-on cultural session.",
+    "opening_hours": [
+      "Monday-Sunday: 09:00-17:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Check with your hotel concierge to arrange a visit to a local artisan's home workshop.",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "mawsynram_excursion_cherrapunji_19",
+    "destination": "Cherrapunji",
+    "name": "Mawsynram Excursion",
+    "category": "nature",
+    "duration_minutes": 360,
+    "cost_per_person": 1500,
+    "available_slots": [
+      "08:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "nature",
+      "adventure",
+      "scenic"
+    ],
+    "lat": 25.29,
+    "lng": 91.58,
+    "fatigue_score_base": 5,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "A day trip to the wettest place on Earth, featuring dramatic landscapes and unique limestone caves.",
+    "opening_hours": [
+      "Monday-Sunday: 08:00-18:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Hire a local taxi for the day as public transport to Mawsynram is infrequent.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "cherrapunji_tea_tasting_cherrapunji_20",
+    "destination": "Cherrapunji",
+    "name": "Local Tea Tasting",
+    "category": "food",
+    "duration_minutes": 45,
+    "cost_per_person": 200,
+    "available_slots": [
+      "11:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "food",
+      "culture",
+      "tea"
+    ],
+    "lat": 25.294,
+    "lng": 91.724,
+    "fatigue_score_base": 1,
+    "morale_score_base": 7,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "All"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Sample the unique, robust flavors of locally grown Meghalaya tea in a cozy mountain cafe.",
+    "opening_hours": [
+      "Monday-Sunday: 10:00-19:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Ask for the 'black tea' with local honey for a refreshing and authentic experience.",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

@@ -1,0 +1,246 @@
+[
+  {
+    "hotel_id": "dharamshala_budget_01",
+    "destination": "Dharamshala",
+    "name": "Zostel Dharamshala",
+    "tier": "budget",
+    "price_per_night": 1200,
+    "rooms_required": 1,
+    "checkin_time": "13:00",
+    "checkout_time": "11:00",
+    "comfort_score": 7,
+    "lat": 32.2432,
+    "lng": 76.3251,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant"
+    ],
+    "tags": [
+      "backpacker",
+      "social",
+      "mountain-view"
+    ],
+    "editorial_summary": "A vibrant hostel perfect for solo travelers looking to meet people in the heart of Mcleodganj.",
+    "price_confidence": "high",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "internal_db",
+    "last_verified": "2023-10-01"
+  },
+  {
+    "hotel_id": "dharamshala_budget_02",
+    "destination": "Dharamshala",
+    "name": "Green View Homestay",
+    "tier": "budget",
+    "price_per_night": 1800,
+    "rooms_required": 1,
+    "checkin_time": "12:00",
+    "checkout_time": "10:00",
+    "comfort_score": 6,
+    "lat": 32.2385,
+    "lng": 76.3212,
+    "amenities": [
+      "wifi",
+      "parking"
+    ],
+    "tags": [
+      "homestay",
+      "quiet",
+      "local-experience"
+    ],
+    "editorial_summary": "A cozy, family-run homestay offering authentic Himachali hospitality and home-cooked meals.",
+    "price_confidence": "medium",
+    "confidence_pct": 85,
+    "verification_status": "pending",
+    "data_source": "user_submission",
+    "last_verified": "2023-09-15"
+  },
+  {
+    "hotel_id": "dharamshala_comfort_01",
+    "destination": "Dharamshala",
+    "name": "Hotel Mount View",
+    "tier": "comfort",
+    "price_per_night": 3500,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 8,
+    "lat": 32.2415,
+    "lng": 76.3289,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "ac"
+    ],
+    "tags": [
+      "family-friendly",
+      "central",
+      "reliable"
+    ],
+    "editorial_summary": "A reliable mid-range hotel offering comfortable rooms with easy access to the main market.",
+    "price_confidence": "high",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "partner_api",
+    "last_verified": "2023-10-05"
+  },
+  {
+    "hotel_id": "dharamshala_comfort_02",
+    "destination": "Dharamshala",
+    "name": "Snow Crest Inn",
+    "tier": "comfort",
+    "price_per_night": 4500,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 8,
+    "lat": 32.245,
+    "lng": 76.3301,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "parking",
+      "room_service"
+    ],
+    "tags": [
+      "scenic",
+      "mid-range",
+      "comfortable"
+    ],
+    "editorial_summary": "Well-appointed rooms with stunning views of the Dhauladhar range, perfect for a relaxing stay.",
+    "price_confidence": "high",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "partner_api",
+    "last_verified": "2023-09-28"
+  },
+  {
+    "hotel_id": "dharamshala_comfort_03",
+    "destination": "Dharamshala",
+    "name": "The Himalayan Retreat",
+    "tier": "comfort",
+    "price_per_night": 6500,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 9,
+    "lat": 32.2512,
+    "lng": 76.3155,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "gym",
+      "ac"
+    ],
+    "tags": [
+      "resort",
+      "nature",
+      "peaceful"
+    ],
+    "editorial_summary": "A serene retreat tucked away from the hustle, offering modern amenities and lush surroundings.",
+    "price_confidence": "medium",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "internal_db",
+    "last_verified": "2023-10-02"
+  },
+  {
+    "hotel_id": "dharamshala_expedition_01",
+    "destination": "Dharamshala",
+    "name": "Fortune Park Moksha",
+    "tier": "expedition",
+    "price_per_night": 9500,
+    "rooms_required": 1,
+    "checkin_time": "15:00",
+    "checkout_time": "12:00",
+    "comfort_score": 10,
+    "lat": 32.221,
+    "lng": 76.345,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "gym",
+      "bar"
+    ],
+    "tags": [
+      "luxury",
+      "premium",
+      "spa-resort"
+    ],
+    "editorial_summary": "A premier luxury destination offering world-class spa facilities and panoramic mountain views.",
+    "price_confidence": "high",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "partner_api",
+    "last_verified": "2023-10-06"
+  },
+  {
+    "hotel_id": "dharamshala_expedition_02",
+    "destination": "Dharamshala",
+    "name": "Rakkh Resort",
+    "tier": "expedition",
+    "price_per_night": 14000,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 10,
+    "lat": 32.185,
+    "lng": 76.412,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "bar"
+    ],
+    "tags": [
+      "boutique",
+      "luxury",
+      "eco-friendly"
+    ],
+    "editorial_summary": "An exclusive boutique resort focusing on sustainable luxury and immersive nature experiences.",
+    "price_confidence": "high",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "partner_api",
+    "last_verified": "2023-10-04"
+  },
+  {
+    "hotel_id": "dharamshala_expedition_03",
+    "destination": "Dharamshala",
+    "name": "Norbu The Montane",
+    "tier": "expedition",
+    "price_per_night": 11000,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 9,
+    "lat": 32.248,
+    "lng": 76.322,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "room_service",
+      "ac"
+    ],
+    "tags": [
+      "heritage",
+      "luxury",
+      "boutique"
+    ],
+    "editorial_summary": "A sophisticated heritage-style property blending traditional architecture with modern luxury comforts.",
+    "price_confidence": "medium",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "internal_db",
+    "last_verified": "2023-09-30"
+  }
+]

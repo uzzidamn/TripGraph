@@ -1,0 +1,211 @@
+[
+  {
+    "restaurant_id": "mango_tree_hampi_01",
+    "destination": "Hampi",
+    "route_id": "hampi_central_01",
+    "name": "Mango Tree Restaurant",
+    "cuisine": "Indian/Continental",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 600,
+    "avg_duration_minutes": 75,
+    "tags": [
+      "iconic",
+      "traditional",
+      "vegetarian"
+    ],
+    "lat": 15.3351,
+    "lng": 76.4619,
+    "signature_dish": "Mango Tree Special Thali",
+    "insider_tip": "Arrive before 7 PM to avoid the long waiting queue during peak tourist season.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "laughing_buddha_hampi_02",
+    "destination": "Hampi",
+    "route_id": "hampi_river_01",
+    "name": "Laughing Buddha",
+    "cuisine": "Multi-cuisine",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 500,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "river-view",
+      "relaxed",
+      "cafe"
+    ],
+    "lat": 15.3482,
+    "lng": 76.4655,
+    "signature_dish": "Shakshuka",
+    "insider_tip": "Request a floor-seating table overlooking the Tungabhadra river for the best sunset view.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "gopi_guest_house_hampi_03",
+    "destination": "Hampi",
+    "route_id": "hampi_temple_01",
+    "name": "Gopi Guest House & Roof Restaurant",
+    "cuisine": "Indian",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 400,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "rooftop",
+      "budget",
+      "local"
+    ],
+    "lat": 15.3348,
+    "lng": 76.4621,
+    "signature_dish": "Banana Pancake",
+    "insider_tip": "The rooftop offers a stunning view of the Virupaksha Temple gopuram at night.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "tamarind_tree_hampi_04",
+    "destination": "Hampi",
+    "route_id": "hampi_virupapur_01",
+    "name": "Tamarind Tree",
+    "cuisine": "Indian/Italian",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 700,
+    "avg_duration_minutes": 80,
+    "tags": [
+      "cozy",
+      "garden",
+      "romantic"
+    ],
+    "lat": 15.3512,
+    "lng": 76.4689,
+    "signature_dish": "Wood-fired Pizza",
+    "insider_tip": "Located on the 'Hippie Island' side, it is perfect for a quiet dinner away from the main temple crowds.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "sri_ram_cafe_hampi_05",
+    "destination": "Hampi",
+    "route_id": "hampi_bazaar_01",
+    "name": "Sri Ram Cafe",
+    "cuisine": "South Indian",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 200,
+    "avg_duration_minutes": 40,
+    "tags": [
+      "street-food",
+      "authentic",
+      "quick-bite"
+    ],
+    "lat": 15.3345,
+    "lng": 76.4615,
+    "signature_dish": "Masala Dosa",
+    "insider_tip": "Best place for a quick, authentic South Indian breakfast before starting your temple trail.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "hampi_bazaar_stalls_06",
+    "destination": "Hampi",
+    "route_id": "hampi_bazaar_01",
+    "name": "Hampi Bazaar Street Stalls",
+    "cuisine": "Street Food",
+    "meal_types": [
+      "lunch"
+    ],
+    "avg_cost_per_person": 150,
+    "avg_duration_minutes": 30,
+    "tags": [
+      "street-food",
+      "local",
+      "budget"
+    ],
+    "lat": 15.3342,
+    "lng": 76.4612,
+    "signature_dish": "Mirchi Bajji",
+    "insider_tip": "Look for the stalls crowded with locals for the freshest and spiciest snacks.",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "evergreen_cafe_hampi_07",
+    "destination": "Hampi",
+    "route_id": "hampi_virupapur_01",
+    "name": "Evergreen Cafe",
+    "cuisine": "International",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 550,
+    "avg_duration_minutes": 70,
+    "tags": [
+      "cafe",
+      "chill",
+      "popular"
+    ],
+    "lat": 15.3505,
+    "lng": 76.4675,
+    "signature_dish": "Falafel Platter",
+    "insider_tip": "Great spot to rent a scooter or get travel advice from fellow backpackers.",
+    "confidence_pct": 93,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "kalyani_restaurant_hampi_08",
+    "destination": "Hampi",
+    "route_id": "hampi_kamalapur_01",
+    "name": "Kalyani Restaurant",
+    "cuisine": "North Indian/South Indian",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 450,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "family-friendly",
+      "hygienic"
+    ],
+    "lat": 15.315,
+    "lng": 76.475,
+    "signature_dish": "North Indian Thali",
+    "insider_tip": "Located near Kamalapur, it is a reliable choice if you are visiting the Archaeological Museum.",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

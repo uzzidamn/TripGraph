@@ -1,0 +1,253 @@
+[
+  {
+    "hotel_id": "kaziranga_budget_01",
+    "destination": "Kaziranga",
+    "name": "Kaziranga Eco Camp",
+    "tier": "budget",
+    "price_per_night": 1200,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 5,
+    "lat": 26.5833,
+    "lng": 93.3333,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "parking"
+    ],
+    "tags": [
+      "eco-friendly",
+      "nature",
+      "backpacker"
+    ],
+    "editorial_summary": "A rustic and affordable eco-camp perfect for budget travelers looking to stay close to the park entrance.",
+    "price_confidence": "high",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "kaziranga_budget_02",
+    "destination": "Kaziranga",
+    "name": "Green View Homestay",
+    "tier": "budget",
+    "price_per_night": 1800,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 6,
+    "lat": 26.5912,
+    "lng": 93.3211,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "ac"
+    ],
+    "tags": [
+      "homestay",
+      "local-experience",
+      "family-run"
+    ],
+    "editorial_summary": "A cozy, family-run homestay offering authentic Assamese hospitality at a very reasonable price.",
+    "price_confidence": "high",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "kaziranga_comfort_01",
+    "destination": "Kaziranga",
+    "name": "Nature Hunt Eco Resort",
+    "tier": "comfort",
+    "price_per_night": 3500,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 7,
+    "lat": 26.5789,
+    "lng": 93.3456,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "ac",
+      "parking"
+    ],
+    "tags": [
+      "resort",
+      "mid-range",
+      "wildlife"
+    ],
+    "editorial_summary": "A comfortable resort offering well-maintained rooms and easy access to safari booking services.",
+    "price_confidence": "high",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "kaziranga_comfort_02",
+    "destination": "Kaziranga",
+    "name": "IORA - The Retreat",
+    "tier": "comfort",
+    "price_per_night": 6500,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 8,
+    "lat": 26.5855,
+    "lng": 93.3122,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "gym",
+      "ac"
+    ],
+    "tags": [
+      "luxury-comfort",
+      "resort",
+      "spa"
+    ],
+    "editorial_summary": "A premium comfort resort featuring a swimming pool and spa, ideal for families and leisure travelers.",
+    "price_confidence": "high",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "kaziranga_comfort_03",
+    "destination": "Kaziranga",
+    "name": "Borgos Resort",
+    "tier": "comfort",
+    "price_per_night": 5200,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 7,
+    "lat": 26.5901,
+    "lng": 93.3388,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "ac",
+      "parking",
+      "bar"
+    ],
+    "tags": [
+      "resort",
+      "convenient",
+      "safari-base"
+    ],
+    "editorial_summary": "Well-located resort with spacious rooms and a dedicated bar, perfect for relaxing after a long safari.",
+    "price_confidence": "medium",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "kaziranga_expedition_01",
+    "destination": "Kaziranga",
+    "name": "Diphlu River Lodge",
+    "tier": "expedition",
+    "price_per_night": 18000,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 10,
+    "lat": 26.5722,
+    "lng": 93.3567,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "ac",
+      "room_service",
+      "bar"
+    ],
+    "tags": [
+      "luxury",
+      "river-view",
+      "exclusive"
+    ],
+    "editorial_summary": "An ultra-exclusive lodge offering private cottages with stunning river views and personalized service.",
+    "price_confidence": "high",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "kaziranga_expedition_02",
+    "destination": "Kaziranga",
+    "name": "Brahmaputra Jungle Resort",
+    "tier": "expedition",
+    "price_per_night": 12000,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 9,
+    "lat": 26.6011,
+    "lng": 93.3055,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "gym",
+      "ac"
+    ],
+    "tags": [
+      "jungle",
+      "luxury",
+      "adventure"
+    ],
+    "editorial_summary": "Nestled in the lush greenery, this resort offers a perfect blend of luxury and wilderness adventure.",
+    "price_confidence": "high",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "kaziranga_expedition_03",
+    "destination": "Kaziranga",
+    "name": "Infinity Kaziranga Wilderness",
+    "tier": "expedition",
+    "price_per_night": 15000,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 9,
+    "lat": 26.5888,
+    "lng": 93.3299,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "restaurant",
+      "ac",
+      "room_service"
+    ],
+    "tags": [
+      "wilderness",
+      "premium",
+      "safari"
+    ],
+    "editorial_summary": "A high-end wilderness retreat designed for those seeking an immersive wildlife experience with premium amenities.",
+    "price_confidence": "medium",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

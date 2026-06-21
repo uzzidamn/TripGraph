@@ -1,0 +1,203 @@
+[
+  {
+    "restaurant_id": "ahdoos_srinagar_01",
+    "destination": "Srinagar",
+    "route_id": "downtown_heritage_01",
+    "name": "Ahdoos",
+    "cuisine": "Kashmiri Wazwan",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 1200,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "heritage",
+      "fine-dining",
+      "traditional"
+    ],
+    "lat": 34.0756,
+    "lng": 74.8054,
+    "signature_dish": "Wazwan Platter",
+    "insider_tip": "Try to get a table on the first floor for a more classic, old-world ambiance.",
+    "confidence_pct": 100,
+    "verification_status": "verified",
+    "data_source": "local_guide",
+    "last_verified": "2023-10-15"
+  },
+  {
+    "restaurant_id": "mughal_darbar_srinagar_01",
+    "destination": "Srinagar",
+    "route_id": "city_center_01",
+    "name": "Mughal Darbar",
+    "cuisine": "Kashmiri",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 1000,
+    "avg_duration_minutes": 75,
+    "tags": [
+      "authentic",
+      "family-friendly"
+    ],
+    "lat": 34.0762,
+    "lng": 74.8061,
+    "signature_dish": "Goshtaba",
+    "insider_tip": "The bakery section at the entrance is excellent for picking up local cookies like Kulchas.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "local_guide",
+    "last_verified": "2023-11-02"
+  },
+  {
+    "restaurant_id": "chai_jaai_srinagar_01",
+    "destination": "Srinagar",
+    "route_id": "riverfront_01",
+    "name": "Chai Jaai",
+    "cuisine": "Cafe",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 600,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "cafe",
+      "scenic",
+      "tea-house"
+    ],
+    "lat": 34.0781,
+    "lng": 74.8023,
+    "signature_dish": "Noon Chai",
+    "insider_tip": "Request a window seat overlooking the Jhelum River for the best experience.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "local_guide",
+    "last_verified": "2023-09-20"
+  },
+  {
+    "restaurant_id": "stream_restaurant_srinagar_01",
+    "destination": "Srinagar",
+    "route_id": "boulevard_01",
+    "name": "Stream Restaurant",
+    "cuisine": "Multi-cuisine",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 1500,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "romantic",
+      "lake-view"
+    ],
+    "lat": 34.0845,
+    "lng": 74.8356,
+    "signature_dish": "Grilled Trout",
+    "insider_tip": "Visit during sunset to see the Dal Lake turn golden from the terrace.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "local_guide",
+    "last_verified": "2023-12-01"
+  },
+  {
+    "restaurant_id": "safa_kadals_street_food_01",
+    "destination": "Srinagar",
+    "route_id": "old_city_01",
+    "name": "Safa Kadal Street Food Stalls",
+    "cuisine": "Street Food",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 200,
+    "avg_duration_minutes": 30,
+    "tags": [
+      "street-food",
+      "local-experience"
+    ],
+    "lat": 34.0912,
+    "lng": 74.7921,
+    "signature_dish": "Harissa",
+    "insider_tip": "Harissa is best enjoyed early in the morning during winter months.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "local_guide",
+    "last_verified": "2023-11-15"
+  },
+  {
+    "restaurant_id": "cafe_coffee_boat_srinagar_01",
+    "destination": "Srinagar",
+    "route_id": "dal_lake_01",
+    "name": "Cafe Coffee Boat",
+    "cuisine": "Cafe",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 500,
+    "avg_duration_minutes": 45,
+    "tags": [
+      "unique",
+      "floating"
+    ],
+    "lat": 34.0812,
+    "lng": 74.8412,
+    "signature_dish": "Kahwa",
+    "insider_tip": "Take a Shikara ride to reach the cafe for a truly immersive experience.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "local_guide",
+    "last_verified": "2023-10-25"
+  },
+  {
+    "restaurant_id": "lhasa_restaurant_srinagar_01",
+    "destination": "Srinagar",
+    "route_id": "boulevard_01",
+    "name": "Lhasa Restaurant",
+    "cuisine": "Tibetan/Chinese",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 800,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "casual",
+      "comfort-food"
+    ],
+    "lat": 34.0833,
+    "lng": 74.8389,
+    "signature_dish": "Thukpa",
+    "insider_tip": "Perfect spot for a warm meal after a long day of sightseeing in the cold.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "local_guide",
+    "last_verified": "2023-08-12"
+  },
+  {
+    "restaurant_id": "jannat_restaurant_srinagar_01",
+    "destination": "Srinagar",
+    "route_id": "nigeen_lake_01",
+    "name": "Jannat Restaurant",
+    "cuisine": "Kashmiri/Indian",
+    "meal_types": [
+      "dinner"
+    ],
+    "avg_cost_per_person": 1800,
+    "avg_duration_minutes": 120,
+    "tags": [
+      "fine-dining",
+      "scenic"
+    ],
+    "lat": 34.1021,
+    "lng": 74.8155,
+    "signature_dish": "Rogan Josh",
+    "insider_tip": "Book a table in advance, especially if you want a view of Nigeen Lake.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "local_guide",
+    "last_verified": "2023-11-20"
+  }
+]

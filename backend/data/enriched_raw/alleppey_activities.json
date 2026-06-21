@@ -1,0 +1,855 @@
+[
+  {
+    "activity_id": "houseboat_cruise_alleppey_01",
+    "destination": "Alleppey",
+    "name": "Backwater Houseboat Cruise",
+    "category": "experience",
+    "duration_minutes": 300,
+    "cost_per_person": 8000,
+    "available_slots": [
+      "11:00",
+      "12:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "backwaters",
+      "luxury",
+      "relaxing"
+    ],
+    "lat": 9.4981,
+    "lng": 76.3388,
+    "fatigue_score_base": 1,
+    "morale_score_base": 10,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Drift through the emerald labyrinth of Kerala's backwaters on a traditional kettuvallam for an unforgettable immersion in serene village life.",
+    "opening_hours": [
+      "Monday: 00:00-23:59",
+      "Tuesday: 00:00-23:59",
+      "Wednesday: 00:00-23:59",
+      "Thursday: 00:00-23:59",
+      "Friday: 00:00-23:59",
+      "Saturday: 00:00-23:59",
+      "Sunday: 00:00-23:59"
+    ],
+    "skip_if": "Heavy monsoon rain",
+    "insider_tip": "Book a boat that starts from the quieter Punnamada Lake area to avoid the initial traffic of tourist boats.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "alleppey_beach_sunset_02",
+    "destination": "Alleppey",
+    "name": "Alleppey Beach Sunset",
+    "category": "nature",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "beach",
+      "sunset",
+      "photography"
+    ],
+    "lat": 9.4955,
+    "lng": 76.3185,
+    "fatigue_score_base": 2,
+    "morale_score_base": 8,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Watch the Arabian Sea swallow the sun from the historic pier, where the crumbling ruins tell tales of a bygone colonial era.",
+    "opening_hours": [
+      "Monday: 06:00-20:00",
+      "Tuesday: 06:00-20:00",
+      "Wednesday: 06:00-20:00",
+      "Thursday: 06:00-20:00",
+      "Friday: 06:00-20:00",
+      "Saturday: 06:00-20:00",
+      "Sunday: 06:00-20:00"
+    ],
+    "skip_if": "Overcast weather",
+    "insider_tip": "Walk to the end of the old pier for the best unobstructed views of the horizon.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "krishnapuram_palace_03",
+    "destination": "Alleppey",
+    "name": "Krishnapuram Palace",
+    "category": "cultural",
+    "duration_minutes": 90,
+    "cost_per_person": 50,
+    "available_slots": [
+      "09:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "history",
+      "architecture",
+      "museum"
+    ],
+    "lat": 9.2745,
+    "lng": 76.4732,
+    "fatigue_score_base": 3,
+    "morale_score_base": 7,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Step back into the 18th century within this exquisite Travancore-style palace, home to the largest mural painting in Kerala.",
+    "opening_hours": [
+      "Tuesday: 09:00-16:30",
+      "Wednesday: 09:00-16:30",
+      "Thursday: 09:00-16:30",
+      "Friday: 09:00-16:30",
+      "Saturday: 09:00-16:30",
+      "Sunday: 09:00-16:30"
+    ],
+    "skip_if": "Monday (closed)",
+    "insider_tip": "The Gajendra Moksham mural is the highlight; take your time to appreciate the intricate details.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "kayaking_backwaters_04",
+    "destination": "Alleppey",
+    "name": "Village Kayaking Tour",
+    "category": "adventure",
+    "duration_minutes": 180,
+    "cost_per_person": 1500,
+    "available_slots": [
+      "07:00",
+      "15:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "adventure",
+      "nature",
+      "fitness"
+    ],
+    "lat": 9.485,
+    "lng": 76.35,
+    "fatigue_score_base": 6,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Navigate narrow, hidden canals inaccessible to houseboats, offering an intimate glimpse into the daily rhythms of backwater village life.",
+    "opening_hours": [
+      "Monday: 07:00-18:00",
+      "Tuesday: 07:00-18:00",
+      "Wednesday: 07:00-18:00",
+      "Thursday: 07:00-18:00",
+      "Friday: 07:00-18:00",
+      "Saturday: 07:00-18:00",
+      "Sunday: 07:00-18:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Go for the early morning slot to see the village come alive and avoid the midday heat.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "marari_beach_visit_05",
+    "destination": "Alleppey",
+    "name": "Marari Beach",
+    "category": "nature",
+    "duration_minutes": 120,
+    "cost_per_person": 0,
+    "available_slots": [
+      "08:00",
+      "16:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "beach",
+      "relaxation",
+      "nature"
+    ],
+    "lat": 9.565,
+    "lng": 76.305,
+    "fatigue_score_base": 2,
+    "morale_score_base": 9,
+    "best_time_of_day": "any",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Find pure tranquility on this pristine, white-sand beach fringed with coconut palms, far from the bustling city center.",
+    "opening_hours": [
+      "Monday: 06:00-19:00",
+      "Tuesday: 06:00-19:00",
+      "Wednesday: 06:00-19:00",
+      "Thursday: 06:00-19:00",
+      "Friday: 06:00-19:00",
+      "Saturday: 06:00-19:00",
+      "Sunday: 06:00-19:00"
+    ],
+    "skip_if": "Monsoon season",
+    "insider_tip": "Visit the local fishing village nearby to see the traditional boats returning with their catch.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "revi_karunakaran_museum_06",
+    "destination": "Alleppey",
+    "name": "Revi Karunakaran Memorial Museum",
+    "category": "cultural",
+    "duration_minutes": 60,
+    "cost_per_person": 200,
+    "available_slots": [
+      "09:00",
+      "11:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "art",
+      "history",
+      "museum"
+    ],
+    "lat": 9.492,
+    "lng": 76.325,
+    "fatigue_score_base": 2,
+    "morale_score_base": 7,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Marvel at an extraordinary private collection of Swarovski crystals, ivory, and antique furniture housed in a beautifully curated museum.",
+    "opening_hours": [
+      "Tuesday: 09:00-17:00",
+      "Wednesday: 09:00-17:00",
+      "Thursday: 09:00-17:00",
+      "Friday: 09:00-17:00",
+      "Saturday: 09:00-17:00",
+      "Sunday: 09:00-17:00"
+    ],
+    "skip_if": "Monday (closed)",
+    "insider_tip": "Photography is strictly prohibited inside, so focus on soaking in the details of the exquisite craftsmanship.",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "thottappally_spillway_07",
+    "destination": "Alleppey",
+    "name": "Thottappally Spillway",
+    "category": "nature",
+    "duration_minutes": 45,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "16:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "scenic",
+      "nature",
+      "photography"
+    ],
+    "lat": 9.355,
+    "lng": 76.385,
+    "fatigue_score_base": 2,
+    "morale_score_base": 6,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Witness the engineering marvel where the backwaters meet the sea, offering a unique landscape of water and sky.",
+    "opening_hours": [
+      "Monday: 06:00-18:00",
+      "Tuesday: 06:00-18:00",
+      "Wednesday: 06:00-18:00",
+      "Thursday: 06:00-18:00",
+      "Friday: 06:00-18:00",
+      "Saturday: 06:00-18:00",
+      "Sunday: 06:00-18:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "The bridge offers a great vantage point for sunset photography.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "mullakkal_temple_visit_08",
+    "destination": "Alleppey",
+    "name": "Mullakkal Rajarajeswari Temple",
+    "category": "spiritual",
+    "duration_minutes": 45,
+    "cost_per_person": 0,
+    "available_slots": [
+      "05:00",
+      "18:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "temple",
+      "culture",
+      "spirituality"
+    ],
+    "lat": 9.493,
+    "lng": 76.331,
+    "fatigue_score_base": 2,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Experience the divine energy of this ancient temple, famous for its open-roof sanctum and vibrant evening rituals.",
+    "opening_hours": [
+      "Monday: 04:30-20:00",
+      "Tuesday: 04:30-20:00",
+      "Wednesday: 04:30-20:00",
+      "Thursday: 04:30-20:00",
+      "Friday: 04:30-20:00",
+      "Saturday: 04:30-20:00",
+      "Sunday: 04:30-20:00"
+    ],
+    "skip_if": "Crowded festival days if you dislike crowds",
+    "insider_tip": "Dress modestly; men must remove shirts before entering the inner sanctum.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "kuttanad_paddy_fields_09",
+    "destination": "Alleppey",
+    "name": "Kuttanad Paddy Fields",
+    "category": "nature",
+    "duration_minutes": 120,
+    "cost_per_person": 0,
+    "available_slots": [
+      "08:00",
+      "16:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "nature",
+      "scenic",
+      "agriculture"
+    ],
+    "lat": 9.45,
+    "lng": 76.4,
+    "fatigue_score_base": 3,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Explore the 'Rice Bowl of Kerala,' where vast emerald paddy fields sit below sea level, creating a surreal, lush landscape.",
+    "opening_hours": [
+      "Monday: 00:00-23:59",
+      "Tuesday: 00:00-23:59",
+      "Wednesday: 00:00-23:59",
+      "Thursday: 00:00-23:59",
+      "Friday: 00:00-23:59",
+      "Saturday: 00:00-23:59",
+      "Sunday: 00:00-23:59"
+    ],
+    "skip_if": "Harvest season (fields might be dry)",
+    "insider_tip": "Rent a bicycle to ride along the narrow bunds between the fields for the best experience.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "coir_museum_visit_10",
+    "destination": "Alleppey",
+    "name": "International Coir Museum",
+    "category": "cultural",
+    "duration_minutes": 60,
+    "cost_per_person": 100,
+    "available_slots": [
+      "10:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "museum",
+      "craft",
+      "culture"
+    ],
+    "lat": 9.465,
+    "lng": 76.365,
+    "fatigue_score_base": 2,
+    "morale_score_base": 6,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Discover the fascinating history and intricate process of coir production, a vital part of Kerala's traditional economy.",
+    "opening_hours": [
+      "Tuesday: 09:30-17:00",
+      "Wednesday: 09:30-17:00",
+      "Thursday: 09:30-17:00",
+      "Friday: 09:30-17:00",
+      "Saturday: 09:30-17:00",
+      "Sunday: 09:30-17:00"
+    ],
+    "skip_if": "Monday (closed)",
+    "insider_tip": "Don't miss the live demonstration of coir spinning by local artisans.",
+    "confidence_pct": 93,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "alleppey_lighthouse_11",
+    "destination": "Alleppey",
+    "name": "Alleppey Lighthouse",
+    "category": "cultural",
+    "duration_minutes": 45,
+    "cost_per_person": 20,
+    "available_slots": [
+      "15:00",
+      "16:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "viewpoint",
+      "history",
+      "architecture"
+    ],
+    "lat": 9.494,
+    "lng": 76.319,
+    "fatigue_score_base": 4,
+    "morale_score_base": 7,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Climb the spiral staircase of this historic lighthouse for a breathtaking panoramic view of the coastline and the town.",
+    "opening_hours": [
+      "Monday: 15:00-16:30",
+      "Tuesday: 15:00-16:30",
+      "Wednesday: 15:00-16:30",
+      "Thursday: 15:00-16:30",
+      "Friday: 15:00-16:30",
+      "Saturday: 15:00-16:30",
+      "Sunday: 15:00-16:30"
+    ],
+    "skip_if": "Heavy rain or high winds",
+    "insider_tip": "The climb is steep; ensure you are comfortable with heights before starting.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "kerala_ayurveda_massage_12",
+    "destination": "Alleppey",
+    "name": "Authentic Ayurveda Wellness",
+    "category": "wellness",
+    "duration_minutes": 90,
+    "cost_per_person": 2500,
+    "available_slots": [
+      "10:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "wellness",
+      "spa",
+      "relaxation"
+    ],
+    "lat": 9.49,
+    "lng": 76.33,
+    "fatigue_score_base": 1,
+    "morale_score_base": 10,
+    "best_time_of_day": "any",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Rejuvenate your body and soul with a traditional Ayurvedic massage using herbal oils in the heart of Kerala.",
+    "opening_hours": [
+      "Monday: 09:00-19:00",
+      "Tuesday: 09:00-19:00",
+      "Wednesday: 09:00-19:00",
+      "Thursday: 09:00-19:00",
+      "Friday: 09:00-19:00",
+      "Saturday: 09:00-19:00",
+      "Sunday: 09:00-19:00"
+    ],
+    "skip_if": "Skin allergies",
+    "insider_tip": "Ask for a consultation with the resident doctor to customize the oil blend for your body type.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "local_fish_market_13",
+    "destination": "Alleppey",
+    "name": "Alleppey Fish Market",
+    "category": "food",
+    "duration_minutes": 45,
+    "cost_per_person": 0,
+    "available_slots": [
+      "07:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "food",
+      "culture",
+      "local"
+    ],
+    "lat": 9.496,
+    "lng": 76.335,
+    "fatigue_score_base": 3,
+    "morale_score_base": 6,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Experience the chaotic, vibrant energy of a traditional Keralan fish market, where the day's fresh catch is auctioned off.",
+    "opening_hours": [
+      "Monday: 06:00-10:00",
+      "Tuesday: 06:00-10:00",
+      "Wednesday: 06:00-10:00",
+      "Thursday: 06:00-10:00",
+      "Friday: 06:00-10:00",
+      "Saturday: 06:00-10:00",
+      "Sunday: 06:00-10:00"
+    ],
+    "skip_if": "Sensitive to strong smells",
+    "insider_tip": "Go early, around 7 AM, to see the most activity and the freshest variety of fish.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "kerala_cooking_class_14",
+    "destination": "Alleppey",
+    "name": "Traditional Kerala Cooking Class",
+    "category": "food",
+    "duration_minutes": 180,
+    "cost_per_person": 2000,
+    "available_slots": [
+      "11:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "food",
+      "experience",
+      "culture"
+    ],
+    "lat": 9.491,
+    "lng": 76.332,
+    "fatigue_score_base": 2,
+    "morale_score_base": 9,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Master the art of Keralan spices and coconut-based curries in a hands-on cooking session with a local family.",
+    "opening_hours": [
+      "Monday: 11:00-14:00",
+      "Tuesday: 11:00-14:00",
+      "Wednesday: 11:00-14:00",
+      "Thursday: 11:00-14:00",
+      "Friday: 11:00-14:00",
+      "Saturday: 11:00-14:00",
+      "Sunday: 11:00-14:00"
+    ],
+    "skip_if": "Food allergies",
+    "insider_tip": "Request to learn how to make 'Appam and Stew' for a truly authentic experience.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "mullakkal_street_shopping_15",
+    "destination": "Alleppey",
+    "name": "Mullakkal Street Shopping",
+    "category": "shopping",
+    "duration_minutes": 120,
+    "cost_per_person": 0,
+    "available_slots": [
+      "10:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "shopping",
+      "local",
+      "culture"
+    ],
+    "lat": 9.4935,
+    "lng": 76.3325,
+    "fatigue_score_base": 3,
+    "morale_score_base": 7,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Stroll through the bustling heart of Alleppey, where local shops offer everything from spices and coir products to traditional textiles.",
+    "opening_hours": [
+      "Monday: 09:00-21:00",
+      "Tuesday: 09:00-21:00",
+      "Wednesday: 09:00-21:00",
+      "Thursday: 09:00-21:00",
+      "Friday: 09:00-21:00",
+      "Saturday: 09:00-21:00",
+      "Sunday: 09:00-21:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Look for high-quality spices and hand-woven Kerala sarees at the smaller, family-run shops.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "punnamada_lake_visit_16",
+    "destination": "Alleppey",
+    "name": "Punnamada Lake",
+    "category": "nature",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "08:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "nature",
+      "scenic",
+      "boating"
+    ],
+    "lat": 9.505,
+    "lng": 76.36,
+    "fatigue_score_base": 1,
+    "morale_score_base": 8,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Visit the iconic venue of the Nehru Trophy Boat Race, a serene expanse of water that captures the true spirit of Alleppey.",
+    "opening_hours": [
+      "Monday: 00:00-23:59",
+      "Tuesday: 00:00-23:59",
+      "Wednesday: 00:00-23:59",
+      "Thursday: 00:00-23:59",
+      "Friday: 00:00-23:59",
+      "Saturday: 00:00-23:59",
+      "Sunday: 00:00-23:59"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "If you visit in August, you might catch the spectacular Nehru Trophy Boat Race.",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "pathiramanal_island_17",
+    "destination": "Alleppey",
+    "name": "Pathiramanal Island",
+    "category": "nature",
+    "duration_minutes": 120,
+    "cost_per_person": 500,
+    "available_slots": [
+      "09:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "nature",
+      "wildlife",
+      "birdwatching"
+    ],
+    "lat": 9.55,
+    "lng": 76.38,
+    "fatigue_score_base": 4,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Escape to this secluded island in the middle of Vembanad Lake, a paradise for birdwatchers and nature lovers.",
+    "opening_hours": [
+      "Monday: 08:00-17:00",
+      "Tuesday: 08:00-17:00",
+      "Wednesday: 08:00-17:00",
+      "Thursday: 08:00-17:00",
+      "Friday: 08:00-17:00",
+      "Saturday: 08:00-17:00",
+      "Sunday: 08:00-17:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Bring binoculars and plenty of water, as there are no shops on the island.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "kuttanad_duck_farm_18",
+    "destination": "Alleppey",
+    "name": "Kuttanad Duck Farming Experience",
+    "category": "experience",
+    "duration_minutes": 90,
+    "cost_per_person": 500,
+    "available_slots": [
+      "07:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "experience",
+      "local",
+      "nature"
+    ],
+    "lat": 9.44,
+    "lng": 76.41,
+    "fatigue_score_base": 3,
+    "morale_score_base": 7,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Witness the unique sight of thousands of ducks being herded through the backwater canals, a traditional Kuttanad farming practice.",
+    "opening_hours": [
+      "Monday: 06:00-09:00",
+      "Tuesday: 06:00-09:00",
+      "Wednesday: 06:00-09:00",
+      "Thursday: 06:00-09:00",
+      "Friday: 06:00-09:00",
+      "Saturday: 06:00-09:00",
+      "Sunday: 06:00-09:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "You need to hire a small country boat to follow the duck herders through the narrow canals.",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "st_andrews_basilica_19",
+    "destination": "Alleppey",
+    "name": "St. Andrews Basilica",
+    "category": "cultural",
+    "duration_minutes": 45,
+    "cost_per_person": 0,
+    "available_slots": [
+      "09:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "architecture",
+      "history",
+      "culture"
+    ],
+    "lat": 9.58,
+    "lng": 76.3,
+    "fatigue_score_base": 2,
+    "morale_score_base": 7,
+    "best_time_of_day": "any",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Admire the stunning architecture of this historic basilica, a testament to the colonial influence on Kerala's religious landscape.",
+    "opening_hours": [
+      "Monday: 06:00-20:00",
+      "Tuesday: 06:00-20:00",
+      "Wednesday: 06:00-20:00",
+      "Thursday: 06:00-20:00",
+      "Friday: 06:00-20:00",
+      "Saturday: 06:00-20:00",
+      "Sunday: 06:00-20:00"
+    ],
+    "skip_if": "During mass services",
+    "insider_tip": "The church is beautifully illuminated in the evenings, making it a great spot for photography.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "alleppey_toddy_shop_20",
+    "destination": "Alleppey",
+    "name": "Traditional Toddy Shop Experience",
+    "category": "food",
+    "duration_minutes": 90,
+    "cost_per_person": 600,
+    "available_slots": [
+      "12:00",
+      "18:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "food",
+      "local",
+      "experience"
+    ],
+    "lat": 9.48,
+    "lng": 76.34,
+    "fatigue_score_base": 2,
+    "morale_score_base": 9,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Savor spicy, authentic Keralan seafood curries paired with fresh palm toddy in a rustic, local setting.",
+    "opening_hours": [
+      "Monday: 10:00-21:00",
+      "Tuesday: 10:00-21:00",
+      "Wednesday: 10:00-21:00",
+      "Thursday: 10:00-21:00",
+      "Friday: 10:00-21:00",
+      "Saturday: 10:00-21:00",
+      "Sunday: 10:00-21:00"
+    ],
+    "skip_if": "If you dislike spicy food",
+    "insider_tip": "Ask for the 'Karimeen Pollichathu' (pearl spot fish) \u2013 it's the signature dish of the region.",
+    "confidence_pct": 91,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

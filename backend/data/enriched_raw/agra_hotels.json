@@ -1,0 +1,261 @@
+[
+  {
+    "hotel_id": "agra_budget_01",
+    "destination": "Agra",
+    "name": "Zostel Agra",
+    "tier": "budget",
+    "price_per_night": 950,
+    "rooms_required": 1,
+    "checkin_time": "13:00",
+    "checkout_time": "11:00",
+    "comfort_score": 7,
+    "lat": 27.1635,
+    "lng": 78.0395,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "ac"
+    ],
+    "tags": [
+      "hostel",
+      "backpacker",
+      "social"
+    ],
+    "editorial_summary": "A vibrant hostel perfect for solo travelers looking to meet people near the Taj Mahal.",
+    "price_confidence": "high",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "agra_budget_02",
+    "destination": "Agra",
+    "name": "Friends Guest House",
+    "tier": "budget",
+    "price_per_night": 1500,
+    "rooms_required": 1,
+    "checkin_time": "12:00",
+    "checkout_time": "11:00",
+    "comfort_score": 6,
+    "lat": 27.175,
+    "lng": 78.042,
+    "amenities": [
+      "wifi",
+      "breakfast"
+    ],
+    "tags": [
+      "homestay",
+      "budget",
+      "local"
+    ],
+    "editorial_summary": "A cozy, family-run homestay offering authentic hospitality and home-cooked meals.",
+    "price_confidence": "high",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "agra_comfort_01",
+    "destination": "Agra",
+    "name": "Hotel Clarks Shiraz",
+    "tier": "comfort",
+    "price_per_night": 4500,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 8,
+    "lat": 27.165,
+    "lng": 78.045,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "restaurant",
+      "gym",
+      "ac"
+    ],
+    "tags": [
+      "mid-range",
+      "classic",
+      "central"
+    ],
+    "editorial_summary": "A reliable, well-established hotel with great views and classic amenities.",
+    "price_confidence": "high",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "agra_comfort_02",
+    "destination": "Agra",
+    "name": "Crystal Sarovar Premiere",
+    "tier": "comfort",
+    "price_per_night": 6200,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 8,
+    "lat": 27.161,
+    "lng": 78.035,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "gym",
+      "ac"
+    ],
+    "tags": [
+      "modern",
+      "business",
+      "comfort"
+    ],
+    "editorial_summary": "Modern hotel featuring a rooftop pool with stunning views of the Taj Mahal.",
+    "price_confidence": "high",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "agra_comfort_03",
+    "destination": "Agra",
+    "name": "DoubleTree by Hilton Agra",
+    "tier": "comfort",
+    "price_per_night": 7500,
+    "rooms_required": 1,
+    "checkin_time": "15:00",
+    "checkout_time": "12:00",
+    "comfort_score": 9,
+    "lat": 27.158,
+    "lng": 78.052,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "gym",
+      "ac",
+      "bar"
+    ],
+    "tags": [
+      "upscale",
+      "international",
+      "service"
+    ],
+    "editorial_summary": "High-quality international service standards with excellent dining options.",
+    "price_confidence": "high",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "agra_expedition_01",
+    "destination": "Agra",
+    "name": "The Oberoi Amarvilas",
+    "tier": "expedition",
+    "price_per_night": 45000,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 10,
+    "lat": 27.168,
+    "lng": 78.041,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "gym",
+      "room_service",
+      "ac",
+      "bar"
+    ],
+    "tags": [
+      "luxury",
+      "iconic",
+      "heritage"
+    ],
+    "editorial_summary": "The pinnacle of luxury in Agra, every room offers an unobstructed view of the Taj Mahal.",
+    "price_confidence": "high",
+    "confidence_pct": 100,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "agra_expedition_02",
+    "destination": "Agra",
+    "name": "ITC Mughal",
+    "tier": "expedition",
+    "price_per_night": 12000,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 9,
+    "lat": 27.162,
+    "lng": 78.025,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "gym",
+      "ac",
+      "bar"
+    ],
+    "tags": [
+      "luxury",
+      "resort",
+      "spacious"
+    ],
+    "editorial_summary": "A sprawling resort inspired by Mughal architecture, offering world-class spa facilities.",
+    "price_confidence": "high",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "agra_expedition_03",
+    "destination": "Agra",
+    "name": "Taj Hotel & Convention Centre",
+    "tier": "expedition",
+    "price_per_night": 9500,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 9,
+    "lat": 27.164,
+    "lng": 78.055,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "gym",
+      "ac",
+      "bar"
+    ],
+    "tags": [
+      "luxury",
+      "modern",
+      "views"
+    ],
+    "editorial_summary": "A grand hotel offering sophisticated luxury and a massive infinity pool overlooking the city.",
+    "price_confidence": "high",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

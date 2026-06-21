@@ -2,7 +2,13 @@ routes = []
 transports = []
 
 origins = ["Delhi", "Mumbai", "Bangalore", "Kolkata", "Hyderabad", "Chennai", "Pune", "Ahmedabad", "Chandigarh", "Gurugram", "Kochi"]
-destinations = ["Goa", "Jaipur", "Varanasi", "Munnar", "Leh", "Mumbai", "Bangalore", "Kolkata", "Shillong", "Manali", "Rishikesh", "Tirthan Valley"]
+destinations = [
+    "Goa", "Jaipur", "Varanasi", "Munnar", "Leh", "Mumbai", "Bangalore", "Kolkata", 
+    "Shillong", "Manali", "Rishikesh", "Tirthan Valley", "Udaipur", "Agra", "Amritsar", 
+    "Srinagar", "Dharamshala", "Coorg", "Hampi", "Alleppey", "Gokarna", "Pondicherry", 
+    "Ooty", "Pune", "Lonavala", "Mahabaleshwar", "Darjeeling", "Gangtok", "Cherrapunji", 
+    "Kaziranga", "Khajuraho"
+]
 
 # Coordinates mapping for distance/time estimation
 coords = {
@@ -12,7 +18,13 @@ coords = {
     "Kochi": (9.9312, 76.2673), "Kolkata": (22.5726, 88.3639),
     "Goa": (15.4909, 73.8278), "Jaipur": (26.9124, 75.7873), "Varanasi": (25.3176, 82.9739),
     "Munnar": (10.0889, 77.0595), "Leh": (34.1526, 77.5771), "Shillong": (25.5788, 91.8933),
-    "Manali": (32.2396, 77.1887), "Rishikesh": (30.0869, 78.2676), "Tirthan Valley": (31.6381, 77.4511)
+    "Manali": (32.2396, 77.1887), "Rishikesh": (30.0869, 78.2676), "Tirthan Valley": (31.6381, 77.4511),
+    "Udaipur": (24.5854, 73.7125), "Agra": (27.1767, 78.0081), "Amritsar": (31.6340, 74.8723),
+    "Srinagar": (34.0837, 74.7973), "Dharamshala": (32.2190, 76.3234), "Coorg": (12.4244, 75.7382),
+    "Hampi": (15.3350, 76.4600), "Alleppey": (9.4981, 76.3388), "Gokarna": (14.5479, 74.3188),
+    "Pondicherry": (11.9416, 79.8083), "Ooty": (11.4102, 76.6950), "Lonavala": (18.7557, 73.4091),
+    "Mahabaleshwar": (17.9258, 73.6477), "Darjeeling": (27.0410, 88.2627), "Gangtok": (27.3314, 88.6138),
+    "Cherrapunji": (25.2702, 91.7323), "Kaziranga": (26.5775, 93.1711), "Khajuraho": (24.8318, 79.9199)
 }
 
 # Distance formula helper (Haversine approximation for seed generation)

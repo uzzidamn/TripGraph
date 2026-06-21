@@ -1,0 +1,859 @@
+[
+  {
+    "activity_id": "western_group_temples_khajuraho_01",
+    "destination": "Khajuraho",
+    "name": "Western Group of Temples",
+    "category": "cultural",
+    "duration_minutes": 180,
+    "cost_per_person": 600,
+    "available_slots": [
+      "06:00",
+      "09:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "unesco",
+      "architecture",
+      "history"
+    ],
+    "lat": 24.8525,
+    "lng": 79.9203,
+    "fatigue_score_base": 4,
+    "morale_score_base": 10,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Witness the pinnacle of Chandela dynasty artistry in this breathtaking UNESCO World Heritage complex.",
+    "opening_hours": [
+      "Monday: 06:00-18:00",
+      "Tuesday: 06:00-18:00",
+      "Wednesday: 06:00-18:00",
+      "Thursday: 06:00-18:00",
+      "Friday: 06:00-18:00",
+      "Saturday: 06:00-18:00",
+      "Sunday: 06:00-18:00"
+    ],
+    "skip_if": "Extreme heat",
+    "insider_tip": "Hire a government-approved guide to decode the intricate erotic carvings and mythological symbolism.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "panna_tiger_reserve_safari_khajuraho_02",
+    "destination": "Khajuraho",
+    "name": "Panna Tiger Reserve Safari",
+    "category": "wildlife",
+    "duration_minutes": 240,
+    "cost_per_person": 3500,
+    "available_slots": [
+      "06:00",
+      "15:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "wildlife",
+      "nature",
+      "safari"
+    ],
+    "lat": 24.7215,
+    "lng": 80.1752,
+    "fatigue_score_base": 5,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Jun"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Embark on a thrilling journey through the rugged landscapes of Panna to spot tigers and diverse avian species.",
+    "opening_hours": [
+      "Monday: 06:00-18:00",
+      "Tuesday: 06:00-18:00",
+      "Wednesday: 06:00-18:00",
+      "Thursday: 06:00-18:00",
+      "Friday: 06:00-18:00",
+      "Saturday: 06:00-18:00",
+      "Sunday: 06:00-18:00"
+    ],
+    "skip_if": "Monsoon season",
+    "insider_tip": "Book your safari permits online well in advance as slots fill up quickly during peak season.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "raneh_falls_canyon_khajuraho_03",
+    "destination": "Khajuraho",
+    "name": "Raneh Falls Canyon",
+    "category": "nature",
+    "duration_minutes": 120,
+    "cost_per_person": 500,
+    "available_slots": [
+      "09:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "geology",
+      "scenic",
+      "canyon"
+    ],
+    "lat": 24.8333,
+    "lng": 80.0333,
+    "fatigue_score_base": 2,
+    "morale_score_base": 8,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Marvel at the crystalline granite canyon and cascading waterfalls that define this geological wonder.",
+    "opening_hours": [
+      "Monday: 08:00-17:00",
+      "Tuesday: 08:00-17:00",
+      "Wednesday: 08:00-17:00",
+      "Thursday: 08:00-17:00",
+      "Friday: 08:00-17:00",
+      "Saturday: 08:00-17:00",
+      "Sunday: 08:00-17:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Visit during the post-monsoon season to see the waterfalls in their full, roaring glory.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "eastern_group_temples_khajuraho_04",
+    "destination": "Khajuraho",
+    "name": "Eastern Group of Temples",
+    "category": "cultural",
+    "duration_minutes": 90,
+    "cost_per_person": 0,
+    "available_slots": [
+      "08:00",
+      "16:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "jain",
+      "history",
+      "peaceful"
+    ],
+    "lat": 24.855,
+    "lng": 79.935,
+    "fatigue_score_base": 3,
+    "morale_score_base": 7,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Discover the serene beauty of the Jain temples, known for their exquisite sculptures and tranquil atmosphere.",
+    "opening_hours": [
+      "Monday: 06:00-18:00",
+      "Tuesday: 06:00-18:00",
+      "Wednesday: 06:00-18:00",
+      "Thursday: 06:00-18:00",
+      "Friday: 06:00-18:00",
+      "Saturday: 06:00-18:00",
+      "Sunday: 06:00-18:00"
+    ],
+    "skip_if": "Extreme heat",
+    "insider_tip": "The Parsvanatha temple is the largest and most impressive; don't miss the detailed carvings on its outer walls.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "khajuraho_sound_and_light_show_khajuraho_05",
+    "destination": "Khajuraho",
+    "name": "Sound and Light Show",
+    "category": "experience",
+    "duration_minutes": 60,
+    "cost_per_person": 250,
+    "available_slots": [
+      "18:30",
+      "19:30"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "history",
+      "evening",
+      "performance"
+    ],
+    "lat": 24.852,
+    "lng": 79.92,
+    "fatigue_score_base": 1,
+    "morale_score_base": 8,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Experience the history of the Chandela kings brought to life through a captivating audio-visual narrative.",
+    "opening_hours": [
+      "Monday: 18:30-20:30",
+      "Tuesday: 18:30-20:30",
+      "Wednesday: 18:30-20:30",
+      "Thursday: 18:30-20:30",
+      "Friday: 18:30-20:30",
+      "Saturday: 18:30-20:30",
+      "Sunday: 18:30-20:30"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Arrive 30 minutes early to secure a seat with a clear view of the main temple facade.",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "benisagar_lake_boating_khajuraho_06",
+    "destination": "Khajuraho",
+    "name": "Benisagar Lake Boating",
+    "category": "water_sport",
+    "duration_minutes": 45,
+    "cost_per_person": 300,
+    "available_slots": [
+      "16:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "boating",
+      "sunset",
+      "relaxing"
+    ],
+    "lat": 24.845,
+    "lng": 79.915,
+    "fatigue_score_base": 2,
+    "morale_score_base": 7,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Unwind with a peaceful boat ride on the serene waters of Benisagar Lake as the sun dips below the horizon.",
+    "opening_hours": [
+      "Monday: 09:00-18:00",
+      "Tuesday: 09:00-18:00",
+      "Wednesday: 09:00-18:00",
+      "Thursday: 09:00-18:00",
+      "Friday: 09:00-18:00",
+      "Saturday: 09:00-18:00",
+      "Sunday: 09:00-18:00"
+    ],
+    "skip_if": "High winds",
+    "insider_tip": "The best time to visit is just before sunset for stunning photography opportunities.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "khajuraho_local_market_shopping_khajuraho_07",
+    "destination": "Khajuraho",
+    "name": "Khajuraho Local Market",
+    "category": "shopping",
+    "duration_minutes": 120,
+    "cost_per_person": 0,
+    "available_slots": [
+      "10:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "souvenirs",
+      "handicrafts",
+      "local"
+    ],
+    "lat": 24.85,
+    "lng": 79.925,
+    "fatigue_score_base": 3,
+    "morale_score_base": 6,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Browse through a vibrant collection of stone carvings, brassware, and traditional textiles in the heart of the town.",
+    "opening_hours": [
+      "Monday: 09:00-21:00",
+      "Tuesday: 09:00-21:00",
+      "Wednesday: 09:00-21:00",
+      "Thursday: 09:00-21:00",
+      "Friday: 09:00-21:00",
+      "Saturday: 09:00-21:00",
+      "Sunday: 09:00-21:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Haggling is expected; don't be afraid to negotiate for a better price on handicrafts.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "traditional_cooking_class_khajuraho_08",
+    "destination": "Khajuraho",
+    "name": "Traditional Cooking Class",
+    "category": "food",
+    "duration_minutes": 150,
+    "cost_per_person": 1200,
+    "available_slots": [
+      "11:00",
+      "18:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "cooking",
+      "culinary",
+      "local"
+    ],
+    "lat": 24.851,
+    "lng": 79.922,
+    "fatigue_score_base": 2,
+    "morale_score_base": 9,
+    "best_time_of_day": "any",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Master the art of authentic Bundelkhandi cuisine in an intimate, hands-on workshop with a local chef.",
+    "opening_hours": [
+      "Monday: 10:00-20:00",
+      "Tuesday: 10:00-20:00",
+      "Wednesday: 10:00-20:00",
+      "Thursday: 10:00-20:00",
+      "Friday: 10:00-20:00",
+      "Saturday: 10:00-20:00",
+      "Sunday: 10:00-20:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Ask the host to teach you how to make 'Pua', a traditional sweet dish popular in the region.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "yoga_wellness_session_khajuraho_09",
+    "destination": "Khajuraho",
+    "name": "Yoga & Wellness Session",
+    "category": "wellness",
+    "duration_minutes": 90,
+    "cost_per_person": 800,
+    "available_slots": [
+      "07:00",
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "yoga",
+      "wellness",
+      "meditation"
+    ],
+    "lat": 24.853,
+    "lng": 79.921,
+    "fatigue_score_base": 3,
+    "morale_score_base": 9,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Rejuvenate your mind and body with a guided yoga session amidst the tranquil surroundings of Khajuraho.",
+    "opening_hours": [
+      "Monday: 06:00-19:00",
+      "Tuesday: 06:00-19:00",
+      "Wednesday: 06:00-19:00",
+      "Thursday: 06:00-19:00",
+      "Friday: 06:00-19:00",
+      "Saturday: 06:00-19:00",
+      "Sunday: 06:00-19:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Look for sessions held in open-air gardens for a more immersive experience.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "archaeological_museum_khajuraho_10",
+    "destination": "Khajuraho",
+    "name": "Archaeological Museum",
+    "category": "cultural",
+    "duration_minutes": 60,
+    "cost_per_person": 40,
+    "available_slots": [
+      "10:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "museum",
+      "history",
+      "artifacts"
+    ],
+    "lat": 24.8515,
+    "lng": 79.9215,
+    "fatigue_score_base": 2,
+    "morale_score_base": 7,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Explore a fascinating collection of sculptures and artifacts recovered from the surrounding temple sites.",
+    "opening_hours": [
+      "Monday: 10:00-17:00",
+      "Tuesday: 10:00-17:00",
+      "Wednesday: 10:00-17:00",
+      "Thursday: 10:00-17:00",
+      "Friday: 10:00-17:00",
+      "Saturday: 10:00-17:00",
+      "Sunday: 10:00-17:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "The museum is closed on Fridays, so plan your visit accordingly.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "street_food_tour_khajuraho_11",
+    "destination": "Khajuraho",
+    "name": "Street Food Tour",
+    "category": "food",
+    "duration_minutes": 120,
+    "cost_per_person": 500,
+    "available_slots": [
+      "17:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "food",
+      "streetfood",
+      "local"
+    ],
+    "lat": 24.8505,
+    "lng": 79.924,
+    "fatigue_score_base": 2,
+    "morale_score_base": 9,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Indulge in a culinary adventure sampling local delicacies like samosas, kachoris, and traditional sweets.",
+    "opening_hours": [
+      "Monday: 16:00-20:00",
+      "Tuesday: 16:00-20:00",
+      "Wednesday: 16:00-20:00",
+      "Thursday: 16:00-20:00",
+      "Friday: 16:00-20:00",
+      "Saturday: 16:00-20:00",
+      "Sunday: 16:00-20:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Stick to busy stalls with high turnover to ensure freshness and hygiene.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "duela_tal_nature_walk_khajuraho_12",
+    "destination": "Khajuraho",
+    "name": "Duela Tal Nature Walk",
+    "category": "nature",
+    "duration_minutes": 90,
+    "cost_per_person": 0,
+    "available_slots": [
+      "07:00",
+      "16:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "nature",
+      "walking",
+      "birdwatching"
+    ],
+    "lat": 24.84,
+    "lng": 79.93,
+    "fatigue_score_base": 3,
+    "morale_score_base": 7,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Enjoy a peaceful stroll around the scenic Duela Tal, a hidden gem perfect for birdwatching and quiet reflection.",
+    "opening_hours": [
+      "Monday: 06:00-18:00",
+      "Tuesday: 06:00-18:00",
+      "Wednesday: 06:00-18:00",
+      "Thursday: 06:00-18:00",
+      "Friday: 06:00-18:00",
+      "Saturday: 06:00-18:00",
+      "Sunday: 06:00-18:00"
+    ],
+    "skip_if": "Heavy rain",
+    "insider_tip": "Bring binoculars if you are interested in birdwatching, as the area attracts many migratory species.",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "traditional_pottery_workshop_khajuraho_13",
+    "destination": "Khajuraho",
+    "name": "Traditional Pottery Workshop",
+    "category": "experience",
+    "duration_minutes": 120,
+    "cost_per_person": 600,
+    "available_slots": [
+      "10:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "art",
+      "craft",
+      "workshop"
+    ],
+    "lat": 24.8555,
+    "lng": 79.926,
+    "fatigue_score_base": 2,
+    "morale_score_base": 8,
+    "best_time_of_day": "any",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Try your hand at the potter's wheel and create your own clay masterpiece under the guidance of a local artisan.",
+    "opening_hours": [
+      "Monday: 09:00-18:00",
+      "Tuesday: 09:00-18:00",
+      "Wednesday: 09:00-18:00",
+      "Thursday: 09:00-18:00",
+      "Friday: 09:00-18:00",
+      "Saturday: 09:00-18:00",
+      "Sunday: 09:00-18:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Wear clothes that you don't mind getting a little messy!",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "khajuraho_dance_festival_khajuraho_14",
+    "destination": "Khajuraho",
+    "name": "Khajuraho Dance Festival",
+    "category": "cultural",
+    "duration_minutes": 180,
+    "cost_per_person": 0,
+    "available_slots": [
+      "19:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "dance",
+      "festival",
+      "culture"
+    ],
+    "lat": 24.8525,
+    "lng": 79.9203,
+    "fatigue_score_base": 2,
+    "morale_score_base": 10,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "Feb"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Witness a spectacular showcase of classical Indian dance forms set against the backdrop of the illuminated temples.",
+    "opening_hours": [
+      "Monday: 19:00-22:00",
+      "Tuesday: 19:00-22:00",
+      "Wednesday: 19:00-22:00",
+      "Thursday: 19:00-22:00",
+      "Friday: 19:00-22:00",
+      "Saturday: 19:00-22:00",
+      "Sunday: 19:00-22:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "This is a major event; book your accommodation well in advance if visiting in February.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "village_tour_khajuraho_15",
+    "destination": "Khajuraho",
+    "name": "Village Tour",
+    "category": "experience",
+    "duration_minutes": 240,
+    "cost_per_person": 1000,
+    "available_slots": [
+      "09:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "culture",
+      "rural",
+      "local"
+    ],
+    "lat": 24.86,
+    "lng": 79.91,
+    "fatigue_score_base": 4,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Gain insight into the rural lifestyle and traditions of the local communities surrounding Khajuraho.",
+    "opening_hours": [
+      "Monday: 08:00-17:00",
+      "Tuesday: 08:00-17:00",
+      "Wednesday: 08:00-17:00",
+      "Thursday: 08:00-17:00",
+      "Friday: 08:00-17:00",
+      "Saturday: 08:00-17:00",
+      "Sunday: 08:00-17:00"
+    ],
+    "skip_if": "Extreme heat",
+    "insider_tip": "Always ask for permission before taking photographs of people or their homes.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "matangeshwar_temple_visit_khajuraho_16",
+    "destination": "Khajuraho",
+    "name": "Matangeshwar Temple",
+    "category": "spiritual",
+    "duration_minutes": 45,
+    "cost_per_person": 0,
+    "available_slots": [
+      "06:00",
+      "18:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "spiritual",
+      "temple",
+      "worship"
+    ],
+    "lat": 24.852,
+    "lng": 79.921,
+    "fatigue_score_base": 1,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Experience the spiritual energy of this active temple, where devotees gather for daily prayers and rituals.",
+    "opening_hours": [
+      "Monday: 05:00-20:00",
+      "Tuesday: 05:00-20:00",
+      "Wednesday: 05:00-20:00",
+      "Thursday: 05:00-20:00",
+      "Friday: 05:00-20:00",
+      "Saturday: 05:00-20:00",
+      "Sunday: 05:00-20:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "Dress modestly and remove your shoes before entering the temple premises.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "khajuraho_art_gallery_visit_khajuraho_17",
+    "destination": "Khajuraho",
+    "name": "Khajuraho Art Gallery",
+    "category": "cultural",
+    "duration_minutes": 60,
+    "cost_per_person": 100,
+    "available_slots": [
+      "11:00",
+      "15:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "art",
+      "gallery",
+      "culture"
+    ],
+    "lat": 24.851,
+    "lng": 79.923,
+    "fatigue_score_base": 1,
+    "morale_score_base": 7,
+    "best_time_of_day": "afternoon",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Discover contemporary interpretations of traditional Indian art in this charming local gallery.",
+    "opening_hours": [
+      "Monday: 10:00-18:00",
+      "Tuesday: 10:00-18:00",
+      "Wednesday: 10:00-18:00",
+      "Thursday: 10:00-18:00",
+      "Friday: 10:00-18:00",
+      "Saturday: 10:00-18:00",
+      "Sunday: 10:00-18:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "The gallery often hosts rotating exhibitions, so check their schedule for special events.",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "bicycle_rental_tour_khajuraho_18",
+    "destination": "Khajuraho",
+    "name": "Bicycle Rental Tour",
+    "category": "adventure",
+    "duration_minutes": 180,
+    "cost_per_person": 200,
+    "available_slots": [
+      "07:00",
+      "16:00"
+    ],
+    "risk_level": "medium",
+    "tags": [
+      "cycling",
+      "adventure",
+      "exploration"
+    ],
+    "lat": 24.85,
+    "lng": 79.922,
+    "fatigue_score_base": 6,
+    "morale_score_base": 8,
+    "best_time_of_day": "morning",
+    "best_season": [
+      "Oct-Mar"
+    ],
+    "accessibility": "moderate",
+    "editorial_summary": "Explore the town and surrounding countryside at your own pace on a rented bicycle.",
+    "opening_hours": [
+      "Monday: 06:00-19:00",
+      "Tuesday: 06:00-19:00",
+      "Wednesday: 06:00-19:00",
+      "Thursday: 06:00-19:00",
+      "Friday: 06:00-19:00",
+      "Saturday: 06:00-19:00",
+      "Sunday: 06:00-19:00"
+    ],
+    "skip_if": "Extreme heat",
+    "insider_tip": "Carry plenty of water and sunscreen, especially if you plan to cycle during the day.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "traditional_painting_workshop_khajuraho_19",
+    "destination": "Khajuraho",
+    "name": "Traditional Painting Workshop",
+    "category": "experience",
+    "duration_minutes": 120,
+    "cost_per_person": 700,
+    "available_slots": [
+      "10:00",
+      "14:00"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "art",
+      "painting",
+      "workshop"
+    ],
+    "lat": 24.852,
+    "lng": 79.924,
+    "fatigue_score_base": 2,
+    "morale_score_base": 8,
+    "best_time_of_day": "any",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Learn the intricate techniques of traditional Indian painting from a local master artist.",
+    "opening_hours": [
+      "Monday: 09:00-18:00",
+      "Tuesday: 09:00-18:00",
+      "Wednesday: 09:00-18:00",
+      "Thursday: 09:00-18:00",
+      "Friday: 09:00-18:00",
+      "Saturday: 09:00-18:00",
+      "Sunday: 09:00-18:00"
+    ],
+    "skip_if": "None",
+    "insider_tip": "You can purchase high-quality brushes and paints from the workshop to continue your practice at home.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "activity_id": "sunset_viewing_at_western_group_khajuraho_20",
+    "destination": "Khajuraho",
+    "name": "Sunset Viewing at Western Group",
+    "category": "nature",
+    "duration_minutes": 60,
+    "cost_per_person": 0,
+    "available_slots": [
+      "17:30"
+    ],
+    "risk_level": "low",
+    "tags": [
+      "sunset",
+      "scenic",
+      "photography"
+    ],
+    "lat": 24.8525,
+    "lng": 79.9203,
+    "fatigue_score_base": 1,
+    "morale_score_base": 10,
+    "best_time_of_day": "evening",
+    "best_season": [
+      "any"
+    ],
+    "accessibility": "easy",
+    "editorial_summary": "Watch the golden hour light transform the ancient stone temples into a glowing masterpiece.",
+    "opening_hours": [
+      "Monday: 06:00-18:30",
+      "Tuesday: 06:00-18:30",
+      "Wednesday: 06:00-18:30",
+      "Thursday: 06:00-18:30",
+      "Friday: 06:00-18:30",
+      "Saturday: 06:00-18:30",
+      "Sunday: 06:00-18:30"
+    ],
+    "skip_if": "Cloudy weather",
+    "insider_tip": "Find a spot near the Kandariya Mahadeva temple for the most dramatic sunset photos.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

@@ -1,0 +1,209 @@
+[
+  {
+    "restaurant_id": "chitale_bandhu_pune_01",
+    "destination": "Pune",
+    "route_id": "pune_city_tour",
+    "name": "Chitale Bandhu Mithaiwale",
+    "cuisine": "Maharashtrian Snacks",
+    "meal_types": [
+      "breakfast"
+    ],
+    "avg_cost_per_person": 150,
+    "avg_duration_minutes": 20,
+    "tags": [
+      "street food",
+      "iconic",
+      "quick bite"
+    ],
+    "lat": 18.5074,
+    "lng": 73.8512,
+    "signature_dish": "Bakarwadi",
+    "insider_tip": "Visit early in the morning to get the freshest batch of Bakarwadi and avoid the massive afternoon queues.",
+    "confidence_pct": 100,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "vaishali_pune_02",
+    "destination": "Pune",
+    "route_id": "fc_road_walk",
+    "name": "Vaishali",
+    "cuisine": "South Indian",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 300,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "cafe",
+      "student favorite",
+      "outdoor seating"
+    ],
+    "lat": 18.5236,
+    "lng": 73.8435,
+    "signature_dish": "Cheese Dosa",
+    "insider_tip": "The outdoor seating area is legendary; try to grab a table under the trees for the best atmosphere.",
+    "confidence_pct": 100,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "kayani_bakery_pune_03",
+    "destination": "Pune",
+    "route_id": "camp_heritage_walk",
+    "name": "Kayani Bakery",
+    "cuisine": "Bakery",
+    "meal_types": [
+      "breakfast"
+    ],
+    "avg_cost_per_person": 200,
+    "avg_duration_minutes": 30,
+    "tags": [
+      "bakery",
+      "historic",
+      "souvenirs"
+    ],
+    "lat": 18.5167,
+    "lng": 73.8775,
+    "signature_dish": "Shrewsbury Biscuits",
+    "insider_tip": "They sell out of Shrewsbury biscuits by noon, so arrive as soon as they open at 7:30 AM.",
+    "confidence_pct": 100,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "dorabjee_sons_pune_04",
+    "destination": "Pune",
+    "route_id": "camp_heritage_walk",
+    "name": "Dorabjee & Sons",
+    "cuisine": "Parsi",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 500,
+    "avg_duration_minutes": 45,
+    "tags": [
+      "traditional",
+      "authentic",
+      "meat-heavy"
+    ],
+    "lat": 18.5182,
+    "lng": 73.8791,
+    "signature_dish": "Dhansak",
+    "insider_tip": "Order the mutton dhansak and finish with their famous caramel custard for a true Parsi experience.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "malaka_spice_pune_05",
+    "destination": "Pune",
+    "route_id": "koregaon_park_tour",
+    "name": "Malaka Spice",
+    "cuisine": "Pan-Asian",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 1500,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "fine dining",
+      "romantic",
+      "artistic"
+    ],
+    "lat": 18.5335,
+    "lng": 73.8932,
+    "signature_dish": "Top Hat",
+    "insider_tip": "Request a table in the garden area for a more intimate and relaxed dining experience.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "shabree_pune_06",
+    "destination": "Pune",
+    "route_id": "fc_road_walk",
+    "name": "Shabree",
+    "cuisine": "Maharashtrian",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 700,
+    "avg_duration_minutes": 75,
+    "tags": [
+      "thali",
+      "traditional",
+      "family-friendly"
+    ],
+    "lat": 18.5251,
+    "lng": 73.8452,
+    "signature_dish": "Maharashtrian Thali",
+    "insider_tip": "Come hungry; the thali is unlimited and the staff will keep refilling your plate until you say stop.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "german_bakery_pune_07",
+    "destination": "Pune",
+    "route_id": "koregaon_park_tour",
+    "name": "German Bakery",
+    "cuisine": "Cafe",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 600,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "cafe",
+      "bohemian",
+      "popular"
+    ],
+    "lat": 18.5321,
+    "lng": 73.8915,
+    "signature_dish": "Chocolate Eclair",
+    "insider_tip": "It is a great spot for people-watching in the heart of Koregaon Park; perfect for a lazy Sunday brunch.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "sujata_mastani_pune_08",
+    "destination": "Pune",
+    "route_id": "sadashiv_peth_walk",
+    "name": "Sujata Mastani",
+    "cuisine": "Dessert",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 200,
+    "avg_duration_minutes": 15,
+    "tags": [
+      "street food",
+      "dessert",
+      "local specialty"
+    ],
+    "lat": 18.5125,
+    "lng": 73.8555,
+    "signature_dish": "Mango Mastani",
+    "insider_tip": "The Mango Mastani is seasonal; if it's not mango season, try the Sitaphal (custard apple) flavor instead.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

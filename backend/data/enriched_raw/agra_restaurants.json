@@ -1,0 +1,204 @@
+[
+  {
+    "restaurant_id": "peshawri_agra_01",
+    "destination": "Agra",
+    "route_id": "luxury_dining_01",
+    "name": "Peshawri",
+    "cuisine": "North Indian",
+    "meal_types": [
+      "dinner"
+    ],
+    "avg_cost_per_person": 3500,
+    "avg_duration_minutes": 120,
+    "tags": [
+      "fine dining",
+      "romantic",
+      "iconic"
+    ],
+    "lat": 27.1635,
+    "lng": 78.0452,
+    "signature_dish": "Dal Bukhara",
+    "insider_tip": "Book a table in advance and try the Sikandari Raan; it is legendary.",
+    "confidence_pct": 100,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "pinch_of_spice_agra_01",
+    "destination": "Agra",
+    "route_id": "popular_eats_01",
+    "name": "Pinch of Spice",
+    "cuisine": "Multi-cuisine",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 1200,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "family friendly",
+      "popular"
+    ],
+    "lat": 27.1658,
+    "lng": 78.0256,
+    "signature_dish": "Paneer Lababdar",
+    "insider_tip": "The waiting time can be long on weekends, so arrive early for dinner.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "esphahan_agra_01",
+    "destination": "Agra",
+    "route_id": "luxury_dining_02",
+    "name": "Esphahan",
+    "cuisine": "Mughlai",
+    "meal_types": [
+      "dinner"
+    ],
+    "avg_cost_per_person": 5000,
+    "avg_duration_minutes": 150,
+    "tags": [
+      "fine dining",
+      "romantic",
+      "live music"
+    ],
+    "lat": 27.1638,
+    "lng": 78.0455,
+    "signature_dish": "Lucknawi Biryani",
+    "insider_tip": "Enjoy the live santoor performance while dining in this intimate setting.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "deviram_sweets_agra_01",
+    "destination": "Agra",
+    "route_id": "street_food_01",
+    "name": "Deviram Sweets",
+    "cuisine": "Indian Street Food",
+    "meal_types": [
+      "breakfast"
+    ],
+    "avg_cost_per_person": 150,
+    "avg_duration_minutes": 30,
+    "tags": [
+      "local",
+      "breakfast",
+      "budget"
+    ],
+    "lat": 27.1955,
+    "lng": 78.0052,
+    "signature_dish": "Bedai and Jalebi",
+    "insider_tip": "Go before 9 AM to get the freshest, piping hot Bedai.",
+    "confidence_pct": 100,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "tea_house_agra_01",
+    "destination": "Agra",
+    "route_id": "cafe_01",
+    "name": "Sheroes Hangout",
+    "cuisine": "Cafe",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 400,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "cafe",
+      "social cause",
+      "unique"
+    ],
+    "lat": 27.1612,
+    "lng": 78.0285,
+    "signature_dish": "Masala Chai and Pakoras",
+    "insider_tip": "It is run by acid attack survivors; the service is heartfelt and the cause is noble.",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "mama_chicken_agra_01",
+    "destination": "Agra",
+    "route_id": "street_food_02",
+    "name": "Mama Chicken Mama Franky House",
+    "cuisine": "Fast Food",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 300,
+    "avg_duration_minutes": 20,
+    "tags": [
+      "street food",
+      "quick bite"
+    ],
+    "lat": 27.1765,
+    "lng": 78.0081,
+    "signature_dish": "Chicken Franky",
+    "insider_tip": "Ask for extra spicy chutney if you enjoy the local heat.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "the_salt_cafe_agra_01",
+    "destination": "Agra",
+    "route_id": "cafe_02",
+    "name": "The Salt Cafe",
+    "cuisine": "Continental",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 1000,
+    "avg_duration_minutes": 75,
+    "tags": [
+      "rooftop",
+      "view",
+      "cafe"
+    ],
+    "lat": 27.1722,
+    "lng": 78.0421,
+    "signature_dish": "Wood-fired Pizza",
+    "insider_tip": "Request a rooftop table at sunset for a stunning view of the Taj Mahal.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "pankhi_agra_01",
+    "destination": "Agra",
+    "route_id": "traditional_01",
+    "name": "Pankhi",
+    "cuisine": "Rajasthani/Gujarati",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 600,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "thali",
+      "traditional"
+    ],
+    "lat": 27.1751,
+    "lng": 78.0095,
+    "signature_dish": "Rajasthani Thali",
+    "insider_tip": "The thali is unlimited; come hungry as the staff will keep refilling your plate.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

@@ -1,0 +1,254 @@
+[
+  {
+    "hotel_id": "khajuraho_budget_01",
+    "destination": "Khajuraho",
+    "name": "Zostel Khajuraho",
+    "tier": "budget",
+    "price_per_night": 950,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 7,
+    "lat": 24.8512,
+    "lng": 79.9254,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "parking"
+    ],
+    "tags": [
+      "backpacker",
+      "social",
+      "hostel"
+    ],
+    "editorial_summary": "A vibrant hostel perfect for solo travelers looking to meet others while exploring the temples.",
+    "price_confidence": "high",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "khajuraho_budget_02",
+    "destination": "Khajuraho",
+    "name": "Green House Homestay",
+    "tier": "budget",
+    "price_per_night": 1500,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 6,
+    "lat": 24.8489,
+    "lng": 79.9281,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "ac"
+    ],
+    "tags": [
+      "homestay",
+      "local",
+      "quiet"
+    ],
+    "editorial_summary": "A cozy, family-run homestay offering authentic local hospitality and home-cooked meals.",
+    "price_confidence": "high",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "khajuraho_comfort_01",
+    "destination": "Khajuraho",
+    "name": "Hotel Chandela",
+    "tier": "comfort",
+    "price_per_night": 4500,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 8,
+    "lat": 24.8533,
+    "lng": 79.9295,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "restaurant",
+      "ac"
+    ],
+    "tags": [
+      "resort",
+      "family-friendly",
+      "central"
+    ],
+    "editorial_summary": "A well-established hotel offering comfortable rooms and a refreshing pool near the main temple complex.",
+    "price_confidence": "high",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "khajuraho_comfort_02",
+    "destination": "Khajuraho",
+    "name": "Clarks Khajuraho",
+    "tier": "comfort",
+    "price_per_night": 6200,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 8,
+    "lat": 24.855,
+    "lng": 79.931,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "gym",
+      "restaurant",
+      "bar"
+    ],
+    "tags": [
+      "business",
+      "modern",
+      "spacious"
+    ],
+    "editorial_summary": "A reliable choice for travelers seeking modern amenities and consistent service standards.",
+    "price_confidence": "high",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "khajuraho_comfort_03",
+    "destination": "Khajuraho",
+    "name": "Ramada by Wyndham Khajuraho",
+    "tier": "comfort",
+    "price_per_night": 7500,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 9,
+    "lat": 24.8565,
+    "lng": 79.9325,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "gym",
+      "restaurant",
+      "room_service"
+    ],
+    "tags": [
+      "upscale",
+      "reliable",
+      "convenient"
+    ],
+    "editorial_summary": "High-quality service and comfortable rooms located just a short drive from the Western Group of Temples.",
+    "price_confidence": "high",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "khajuraho_expedition_01",
+    "destination": "Khajuraho",
+    "name": "The Lalit Temple View",
+    "tier": "expedition",
+    "price_per_night": 12000,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 10,
+    "lat": 24.8495,
+    "lng": 79.926,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "gym",
+      "bar"
+    ],
+    "tags": [
+      "luxury",
+      "heritage",
+      "views"
+    ],
+    "editorial_summary": "The premier luxury destination in Khajuraho, offering stunning views of the ancient temples and world-class service.",
+    "price_confidence": "high",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "khajuraho_expedition_02",
+    "destination": "Khajuraho",
+    "name": "Syna Heritage Hotel",
+    "tier": "expedition",
+    "price_per_night": 9500,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 9,
+    "lat": 24.858,
+    "lng": 79.935,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "ac"
+    ],
+    "tags": [
+      "heritage",
+      "boutique",
+      "elegant"
+    ],
+    "editorial_summary": "A beautifully restored heritage property that blends traditional architecture with modern luxury.",
+    "price_confidence": "medium",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "khajuraho_expedition_03",
+    "destination": "Khajuraho",
+    "name": "Taj Chandela Khajuraho",
+    "tier": "expedition",
+    "price_per_night": 14500,
+    "rooms_required": 2,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 10,
+    "lat": 24.852,
+    "lng": 79.9275,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "gym",
+      "bar",
+      "room_service"
+    ],
+    "tags": [
+      "luxury",
+      "premium",
+      "iconic"
+    ],
+    "editorial_summary": "Experience unparalleled luxury and hospitality at this iconic property, known for its lush gardens and exquisite dining.",
+    "price_confidence": "high",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

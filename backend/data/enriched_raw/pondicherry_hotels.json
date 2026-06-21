@@ -1,0 +1,251 @@
+[
+  {
+    "hotel_id": "pondicherry_budget_01",
+    "destination": "Pondicherry",
+    "name": "Zostel Pondicherry",
+    "tier": "budget",
+    "price_per_night": 1200,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 7,
+    "lat": 11.9265,
+    "lng": 79.8315,
+    "amenities": [
+      "wifi",
+      "ac"
+    ],
+    "tags": [
+      "hostel",
+      "social",
+      "beach-access"
+    ],
+    "editorial_summary": "A vibrant hostel perfect for backpackers looking to meet fellow travelers near the promenade.",
+    "price_confidence": "high",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "pondicherry_budget_02",
+    "destination": "Pondicherry",
+    "name": "Maison Perumal Homestay",
+    "tier": "budget",
+    "price_per_night": 1800,
+    "rooms_required": 1,
+    "checkin_time": "12:00",
+    "checkout_time": "10:00",
+    "comfort_score": 6,
+    "lat": 11.9312,
+    "lng": 79.8288,
+    "amenities": [
+      "wifi",
+      "breakfast"
+    ],
+    "tags": [
+      "homestay",
+      "authentic",
+      "quiet"
+    ],
+    "editorial_summary": "A cozy, budget-friendly homestay offering a glimpse into local Tamil culture.",
+    "price_confidence": "medium",
+    "confidence_pct": 85,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "pondicherry_comfort_01",
+    "destination": "Pondicherry",
+    "name": "Palais de Mahe",
+    "tier": "comfort",
+    "price_per_night": 6500,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 8,
+    "lat": 11.9325,
+    "lng": 79.8321,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "restaurant",
+      "ac"
+    ],
+    "tags": [
+      "boutique",
+      "french-quarter",
+      "central"
+    ],
+    "editorial_summary": "Elegant French-style architecture in the heart of the White Town.",
+    "price_confidence": "high",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "pondicherry_comfort_02",
+    "destination": "Pondicherry",
+    "name": "Accord Puducherry",
+    "tier": "comfort",
+    "price_per_night": 5500,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 8,
+    "lat": 11.9412,
+    "lng": 79.8085,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "gym",
+      "restaurant",
+      "bar",
+      "ac"
+    ],
+    "tags": [
+      "business",
+      "family-friendly",
+      "spacious"
+    ],
+    "editorial_summary": "A reliable, full-service hotel offering modern amenities and a large swimming pool.",
+    "price_confidence": "high",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "pondicherry_comfort_03",
+    "destination": "Pondicherry",
+    "name": "Villa Shanti",
+    "tier": "comfort",
+    "price_per_night": 7200,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "11:00",
+    "comfort_score": 9,
+    "lat": 11.9305,
+    "lng": 79.8302,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "ac"
+    ],
+    "tags": [
+      "design",
+      "chic",
+      "central"
+    ],
+    "editorial_summary": "A beautifully restored colonial house with a contemporary design aesthetic.",
+    "price_confidence": "high",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "pondicherry_expedition_01",
+    "destination": "Pondicherry",
+    "name": "Palais de Mahe Heritage",
+    "tier": "expedition",
+    "price_per_night": 12000,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 10,
+    "lat": 11.9328,
+    "lng": 79.8325,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "ac"
+    ],
+    "tags": [
+      "luxury",
+      "heritage",
+      "premium"
+    ],
+    "editorial_summary": "An exquisite heritage property offering unparalleled luxury and historical charm.",
+    "price_confidence": "high",
+    "confidence_pct": 99,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "pondicherry_expedition_02",
+    "destination": "Pondicherry",
+    "name": "Radisson Resort Pondicherry Bay",
+    "tier": "expedition",
+    "price_per_night": 15000,
+    "rooms_required": 1,
+    "checkin_time": "15:00",
+    "checkout_time": "11:00",
+    "comfort_score": 10,
+    "lat": 11.965,
+    "lng": 79.845,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "gym",
+      "bar",
+      "ac"
+    ],
+    "tags": [
+      "resort",
+      "beachfront",
+      "luxury"
+    ],
+    "editorial_summary": "A sprawling beachfront resort providing a serene escape with world-class facilities.",
+    "price_confidence": "high",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "hotel_id": "pondicherry_expedition_03",
+    "destination": "Pondicherry",
+    "name": "Palais de Pondicherry Suites",
+    "tier": "expedition",
+    "price_per_night": 18500,
+    "rooms_required": 1,
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "comfort_score": 10,
+    "lat": 11.933,
+    "lng": 79.833,
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pool",
+      "spa",
+      "restaurant",
+      "room_service",
+      "ac"
+    ],
+    "tags": [
+      "exclusive",
+      "suites",
+      "luxury"
+    ],
+    "editorial_summary": "Ultra-premium suites offering personalized service and private amenities in the heart of the city.",
+    "price_confidence": "medium",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]

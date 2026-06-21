@@ -1,0 +1,210 @@
+[
+  {
+    "restaurant_id": "shinkows_ooty_01",
+    "destination": "Ooty",
+    "route_id": "central_ooty_01",
+    "name": "Shinkows Chinese Restaurant",
+    "cuisine": "Chinese",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 600,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "authentic",
+      "legendary",
+      "family-friendly"
+    ],
+    "lat": 11.4065,
+    "lng": 76.6952,
+    "signature_dish": "Chilli Chicken",
+    "insider_tip": "It is a local institution; arrive early as they often run out of popular dishes by late evening.",
+    "confidence_pct": 98,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "place_to_bee_ooty_02",
+    "destination": "Ooty",
+    "route_id": "heritage_walk_01",
+    "name": "Place to Bee",
+    "cuisine": "Italian",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 800,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "romantic",
+      "cozy",
+      "slow-food"
+    ],
+    "lat": 11.4082,
+    "lng": 76.6985,
+    "signature_dish": "Homemade Ravioli",
+    "insider_tip": "The restaurant is run by a non-profit; check out the bee museum upstairs while waiting for your table.",
+    "confidence_pct": 95,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "sidewalk_cafe_ooty_03",
+    "destination": "Ooty",
+    "route_id": "market_road_01",
+    "name": "Sidewalk Cafe",
+    "cuisine": "Continental",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 400,
+    "avg_duration_minutes": 45,
+    "tags": [
+      "cafe",
+      "breakfast",
+      "casual"
+    ],
+    "lat": 11.4071,
+    "lng": 76.6948,
+    "signature_dish": "Ooty Varkey with Coffee",
+    "insider_tip": "Perfect spot for people-watching near the main market area.",
+    "confidence_pct": 90,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "earls_secret_ooty_04",
+    "destination": "Ooty",
+    "route_id": "luxury_stay_01",
+    "name": "Earl's Secret",
+    "cuisine": "Multi-cuisine",
+    "meal_types": [
+      "dinner"
+    ],
+    "avg_cost_per_person": 1500,
+    "avg_duration_minutes": 120,
+    "tags": [
+      "fine-dining",
+      "romantic",
+      "heritage"
+    ],
+    "lat": 11.4125,
+    "lng": 76.7012,
+    "signature_dish": "Grilled Trout",
+    "insider_tip": "Located inside Kings Cliff hotel, book a table in the glass conservatory for the best ambiance.",
+    "confidence_pct": 97,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "nahar_sidewalk_ooty_05",
+    "destination": "Ooty",
+    "route_id": "central_ooty_02",
+    "name": "Nahar's Sidewalk Cafe",
+    "cuisine": "Vegetarian",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 350,
+    "avg_duration_minutes": 50,
+    "tags": [
+      "vegetarian",
+      "popular",
+      "quick-bite"
+    ],
+    "lat": 11.4068,
+    "lng": 76.6955,
+    "signature_dish": "Vegetable Pizza",
+    "insider_tip": "The pizza here is surprisingly famous among locals and tourists alike.",
+    "confidence_pct": 96,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "hotel_blue_bird_ooty_06",
+    "destination": "Ooty",
+    "route_id": "local_eats_01",
+    "name": "Hotel Blue Bird",
+    "cuisine": "South Indian",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 200,
+    "avg_duration_minutes": 30,
+    "tags": [
+      "budget",
+      "authentic",
+      "local"
+    ],
+    "lat": 11.4055,
+    "lng": 76.6932,
+    "signature_dish": "Masala Dosa",
+    "insider_tip": "Go here for a no-frills, authentic breakfast experience before heading out for sightseeing.",
+    "confidence_pct": 92,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "lyndhurst_cottage_ooty_07",
+    "destination": "Ooty",
+    "route_id": "tea_garden_01",
+    "name": "Lyndhurst Cottage Cafe",
+    "cuisine": "Cafe",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 500,
+    "avg_duration_minutes": 70,
+    "tags": [
+      "scenic",
+      "tea-garden",
+      "relaxing"
+    ],
+    "lat": 11.421,
+    "lng": 76.715,
+    "signature_dish": "Nilgiri Tea and Scones",
+    "insider_tip": "Visit during the late afternoon to enjoy the mist rolling over the tea gardens.",
+    "confidence_pct": 88,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "street_food_market_ooty_08",
+    "destination": "Ooty",
+    "route_id": "market_street_02",
+    "name": "Ooty Market Street Food Stalls",
+    "cuisine": "Street Food",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 150,
+    "avg_duration_minutes": 20,
+    "tags": [
+      "street-food",
+      "local",
+      "cheap-eats"
+    ],
+    "lat": 11.404,
+    "lng": 76.696,
+    "signature_dish": "Hot Corn and Fried Snacks",
+    "insider_tip": "Look for the stalls selling fresh carrots and local produce; the steamed corn is a must-try in the cold weather.",
+    "confidence_pct": 94,
+    "verification_status": "verified",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  }
+]
