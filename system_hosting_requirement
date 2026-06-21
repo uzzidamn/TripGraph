@@ -1,0 +1,68 @@
+TripGraph system hosting requirements (validated on this host)
+
+Host baseline
+- OS: Ubuntu 20.10 (Groovy)
+- CPU arch: x86_64
+- Java: OpenJDK 17 (required by Neo4j 5/2026.x)
+- Python runtime: Python 3.9.x (project virtualenv at .venv)
+- Node runtime: Node.js 20.x via nvm
+- npm: 10.x
+
+Installed system-level dependencies
+1. Docker engine (already present on host)
+2. Docker Compose v2 CLI (docker compose)
+3. OpenJDK 17 JRE (openjdk-17-jre-headless)
+4. Neo4j Community from official apt repository
+5. Python 3.9 + venv tooling
+6. nvm + Node.js 20 LTS
+
+Why local hosting (non-container) was used
+- Docker Hub pull is blocked on this network path, so docker compose cannot pull neo4j:5-community image.
+- Local apt/pip/npm channels are reachable and were used successfully.
+
+Required runtime configuration
+- Create .env from .env.example
+- Minimum required secret: GOOGLE_API_KEY
+- For local Neo4j service, use:
+  NEO4J_URI=bolt://localhost:7687
+- For frontend to hit backend on port 8000, use:
+  VITE_API_URL=http://localhost:8000
+
+Corporate proxy note
+- This host routes HTTP requests through a proxy chain.
+- Always bypass proxy for loopback service calls:
+  no_proxy=localhost,127.0.0.1
+
+Local launch commands (recommended for this host)
+1) Start Neo4j service
+   sudo systemctl start neo4j
+
+2) Start backend API
+   cd /workspace/sw/siddaraj/iisc/deep_learning/TripGraph
+   source .venv/bin/activate
+   no_proxy=localhost,127.0.0.1 uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
+
+3) Start frontend
+   export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh"
+   cd /workspace/sw/siddaraj/iisc/deep_learning/TripGraph/frontend
+   npm run dev -- --host 0.0.0.0
+
+Connection endpoints
+- Frontend UI: http://localhost:5173
+- Backend API root/test console: http://localhost:8000/
+- Backend Swagger docs: http://localhost:8000/docs
+- Backend health: http://localhost:8000/health
+- Neo4j Browser: http://localhost:7474
+- Neo4j Bolt: bolt://localhost:7687
+
+Operational checks
+- Neo4j service status:
+  sudo systemctl status neo4j --no-pager
+- Backend health:
+  no_proxy=localhost,127.0.0.1 curl -s http://localhost:8000/health
+- Frontend dev server output:
+  watch Vite terminal for Local/Network URLs
+
+Optional container path (works only if Docker Hub access is available)
+- docker compose up -d neo4j backend
+- If using compose networking, set NEO4J_URI=bolt://neo4j:7687 in .env
