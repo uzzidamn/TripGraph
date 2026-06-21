@@ -124,25 +124,79 @@ def run_workflow(chat_messages: list[str]) -> TripState:
 def run_workflow_from_constraints(constraints: dict) -> TripState:
     """Run the planning pipeline with pre-extracted constraints, skipping LLM re-parse.
 
-    Used by /api/generate-itinerary when the frontend already holds a parsed
-    constraints dict. Injecting directly avoids a second LLM extraction pass
-    where destination / destination_type can drift (e.g. "heritage" → "cultural").
-
-    Steps run: data_retriever → planner_orchestrator → explainer  (no chat_parser, no validator)
+    Pipeline order (post-pivot 2026-06-21):
+        data_retriever (2-pass KG↔API↔cache) → planner_orchestrator →
+        itinerary_enricher → weather_agent → fatigue_adjuster →
+        flights_agent + deals_agent + traffic_agent (silent stubs) → explainer
     """
     print("\n🚀 Starting TripGraph workflow (from constraints)")
     state = initialize_state([])
     state["extracted_constraints"] = constraints
     state["is_ready_to_plan"] = True
 
+    from backend.agents.nodes.weather_agent import weather_agent_node
+    from backend.agents.nodes.flights_agent import flights_agent_node
+    from backend.agents.nodes.train_agent import train_agent_node
+    from backend.agents.nodes.mode_planner import mode_planner_node
+    from backend.agents.nodes.terminal_resolver import terminal_resolver_node
+    from backend.agents.nodes.deals_agent import deals_agent_node
+    from backend.agents.nodes.traffic_agent import traffic_agent_node
+    from backend.agents.nodes.insights_agent import insights_agent_node
+    from backend.agents.nodes.architect import architect_node
+    from backend.agents.nodes.review_agent import review_agent_node
+
+    # 1) Retrieve candidate data (2-pass KG↔API)
     state.update(data_retriever_node(state))
-    state.update(planner_orchestrator_node(state))
-    from backend.agents.nodes.itinerary_enricher import itinerary_enricher_node
-    state.update(itinerary_enricher_node(state))
-    state.update(explainer_node(state))
+
+    # 2) Context the architect needs upstream:
+    #    - flight/train advisories (with DDG-grounded prices)
+    #    - mode_planner injects a flight transport option for long hauls
+    #    - terminal_resolver finds airports/stations + first/last mile times
+    #    - weather forecast (drives gear checklist)
+    #    - DDG insights (Wikipedia-style abstracts per place)
+    state.update(flights_agent_node(state))
+    state.update(train_agent_node(state))
+    state.update(mode_planner_node(state))
+    state.update(planner_orchestrator_node(state))   # picks route/transport/hotel shell
+    state.update(terminal_resolver_node(state))
+    state.update(weather_agent_node(state))
+    state.update(insights_agent_node(state))
+
+    # 3) The Architect + Reviewer critic loop (up to 2 iterations)
+    max_iterations = 2
+    for iteration in range(max_iterations):
+        print(f"\n🧠 Planner iteration {iteration + 1}/{max_iterations}...")
+        state.update(architect_node(state))
+
+        # 4) Side-channel pending-API agents (silent stubs)
+        state.update(deals_agent_node(state))
+        state.update(traffic_agent_node(state))
+
+        # 5) Final AI sanity-review
+        state.update(review_agent_node(state))
+        
+        review = state.get("review") or {}
+        if review.get("verdict") != "needs_attention" or iteration == max_iterations - 1:
+            break
+            
+        print(f"  🔄 Critic loop: Plan needs attention. Re-running architect with review feedback...")
+        state["last_review_feedback"] = review
+
+    _fold_review_into_explanation(state)
 
     print("✅ Workflow complete\n")
     return state
+
+
+def _fold_review_into_explanation(state: TripState) -> None:
+    """Prepend a short AI-review caveat to the explanation when the plan is flawed."""
+    review = state.get("review") or {}
+    verdict = review.get("verdict")
+    if verdict == "needs_attention":
+        notes = review.get("notes") or []
+        top = notes[0].get("issue") if notes else review.get("summary", "")
+        caveat = f"⚠️ AI review flagged this plan: {top} "
+        state["explanation"] = caveat + (state.get("explanation") or "")
 
 
 def run_replan_workflow(state: TripState, delay_event: dict) -> TripState:

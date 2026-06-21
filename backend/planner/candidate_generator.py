@@ -1,7 +1,22 @@
 """
 Generate candidate itineraries by combining routes × transport × hotels × activities.
 """
+import re
+
 from backend.planner.trip_graph_builder import build_trip_graph
+
+
+def _parse_days(trip_duration) -> int:
+    """Coerce trip_duration ('4 days', '3D2N', 'weekend') into a day count."""
+    if isinstance(trip_duration, int):
+        return max(1, trip_duration)
+    text = str(trip_duration or "").strip().lower()
+    if "long" in text and "weekend" in text:
+        return 3
+    if "weekend" in text:
+        return 2
+    m = re.search(r"(\d+)\s*d", text) or re.search(r"(\d+)\s*(?:day|night)", text) or re.search(r"\b(\d+)\b", text)
+    return max(1, int(m.group(1))) if m else 2
 
 
 def generate_candidates(constraints: dict, data: dict) -> list[dict]:
@@ -52,13 +67,29 @@ def generate_candidates(constraints: dict, data: dict) -> list[dict]:
                 )
                 candidate["trip_graph"] = trip_graph
 
-                # Calculate totals
-                group_size = constraints.get("group_size", 4)
-                transport_cost_pp = transport.get("cost_total", 0) / group_size
-                hotel_cost_pp = hotel.get("price_per_night", 0) / group_size
-                activity_cost = sum(a.get("cost_per_person", 0) for a in activities)
-                food_cost = sum(r.get("avg_cost_per_person", 0) for r in restaurants)
-                misc = 2000  # buffer
+                # Calculate totals (per person). Estimate missing costs so the
+                # breakdown is never a misleading ₹0 — Google/ORS-discovered
+                # activities and restaurants often lack a price.
+                group_size = max(int(constraints.get("group_size", 4) or 4), 1)
+                n_days = _parse_days(constraints.get("trip_duration"))
+                nights = max(n_days - 1, 1)
+
+                transport_cost_pp = (transport.get("cost_total", 0) or 0) / group_size
+
+                # Hotel: nightly price is for the whole room/group → per person × nights
+                hotel_cost_pp = ((hotel.get("price_per_night", 0) or 0) * nights) / group_size
+
+                # Activities: use real cost when present, else estimate ₹400 each
+                act_costs = [(a.get("cost_per_person") or 400) for a in activities]
+                activity_cost = sum(act_costs[:max(n_days, 2)])  # don't overcount
+
+                # Food: real restaurant costs, else estimate ₹500/day
+                if restaurants:
+                    food_cost = sum((r.get("avg_cost_per_person") or 500) for r in restaurants[:n_days])
+                else:
+                    food_cost = 500 * n_days
+
+                misc = 1500 * n_days  # local transport, entry fees, buffer
 
                 candidate["cost_breakdown"] = {
                     "transport": round(transport_cost_pp),

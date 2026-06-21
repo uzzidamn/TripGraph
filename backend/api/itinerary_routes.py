@@ -97,8 +97,14 @@ async def generate_itinerary(request: GenerateItineraryRequest) -> ItineraryResp
         # )
 
         from backend.agents.workflow import run_workflow_from_constraints
+        from backend.agents.nodes.refinement_questioner import apply_refinement_answers
 
-        result = run_workflow_from_constraints(request.constraints)
+        constraints = apply_refinement_answers(
+            request.constraints,
+            request.refinement_answers or {},
+        )
+
+        result = run_workflow_from_constraints(constraints)
 
         return ItineraryResponse(
             recommended_itinerary=result.get("selected_itinerary"),
@@ -109,6 +115,18 @@ async def generate_itinerary(request: GenerateItineraryRequest) -> ItineraryResp
             map_points=result.get("map_points", []),
             cost_breakdown=result.get("cost_breakdown", {}),
             explanation=result.get("explanation", ""),
+            retrieval_passes=result.get("retrieval_passes", 0),
+            retrieval_source=result.get("retrieval_source", {}),
+            flights=result.get("flights"),
+            trains=result.get("trains"),
+            hotel_deals=result.get("hotel_deals"),
+            traffic=result.get("traffic"),
+            weather_forecast=result.get("weather_forecast", {}),
+            fatigue_per_event=result.get("fatigue_per_event", {}),
+            insights_per_place=result.get("insights_per_place", {}),
+            review=result.get("review"),
+            architect_plan=result.get("architect_plan"),
+            terminal_info=result.get("terminal_info"),
         )
 
     except Exception as e:

@@ -26,10 +26,14 @@ def get_llm() -> BaseChatModel:
 
     if provider == "gemini":
         from langchain_google_genai import ChatGoogleGenerativeAI
+        # max_retries gives automatic exponential backoff on 429 (free-tier
+        # rate limits) — important since the pipeline now makes ~7 LLM calls
+        # per trip (parser, refine, enricher, fatigue, flights, trains, review).
         return ChatGoogleGenerativeAI(
             model=model,
             temperature=temperature,
             google_api_key=os.getenv("GOOGLE_API_KEY"),
+            max_retries=4,
         )
     elif provider == "anthropic":
         from langchain_anthropic import ChatAnthropic

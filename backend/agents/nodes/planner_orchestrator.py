@@ -11,16 +11,38 @@ from backend.planner.scorer import score_itinerary
 from backend.planner.timeline_generator import generate_timeline
 from backend.planner.validator import validate_itinerary
 
-# Gurugram origin coordinates (hardcoded — it is the only origin in scope)
-_GURUGRAM_LAT = 28.4595
-_GURUGRAM_LNG = 77.0266
+# Last-resort fallback if neither the KG nor ORS can resolve the origin city.
+# Gurugram is the most common origin in the seed data but no longer assumed.
+_FALLBACK_ORIGIN_LAT = 28.4595
+_FALLBACK_ORIGIN_LNG = 77.0266
 
 
-def _extract_map_points(itinerary: dict) -> list[dict]:
+def _origin_coords(route: dict, constraints: dict) -> tuple[float, float]:
+    """Resolve origin lat/lng, in priority order:
+       1. route.origin_lat / route.origin_lng  (set by data_retriever from KG)
+       2. ORS geocode of the named origin city
+       3. Hardcoded fallback (Gurugram)
+    Caches geocode hits implicitly via the KG-write path inside route_tool.
+    """
+    if route.get("origin_lat") is not None and route.get("origin_lng") is not None:
+        return float(route["origin_lat"]), float(route["origin_lng"])
+    origin_name = route.get("origin") or constraints.get("origin")
+    if origin_name:
+        try:
+            from backend.api_clients.ors_client import ORSClient
+            geo = ORSClient.geocode(origin_name)
+            if geo:
+                return float(geo["lat"]), float(geo["lng"])
+        except Exception as e:
+            print(f"  ⚠️  ORS geocode for origin '{origin_name}' failed: {e}")
+    return _FALLBACK_ORIGIN_LAT, _FALLBACK_ORIGIN_LNG
+
+
+def _extract_map_points(itinerary: dict, constraints: dict | None = None) -> list[dict]:
     """Extract lat/lng points from an itinerary for Leaflet map rendering.
 
-    Returns list of {lat, lng, label, type} dicts.
-    Types: "origin", "waypoint", "destination", "hotel", "activity"
+    Each point carries a stable `id` (e.g. "origin:Chandigarh", "hotel:<id>")
+    so the frontend can sync map markers ↔ timeline cards by id.
     """
     points: list[dict] = []
     route = itinerary.get("route") or {}
@@ -28,18 +50,22 @@ def _extract_map_points(itinerary: dict) -> list[dict]:
     activities = itinerary.get("activities") or []
     waypoints = itinerary.get("waypoints") or []
 
-    # Origin — always Gurugram
+    olat, olng = _origin_coords(route, constraints or {})
+    origin_label = route.get("origin") or (constraints or {}).get("origin") or "Origin"
     points.append({
-        "lat": _GURUGRAM_LAT,
-        "lng": _GURUGRAM_LNG,
-        "label": route.get("origin", "Gurugram"),
+        "id": f"origin:{origin_label}",
+        "lat": olat,
+        "lng": olng,
+        "label": origin_label,
         "type": "origin",
     })
 
     # Waypoints — ordered stops on the route
     for wp in sorted(waypoints, key=lambda w: w.get("order", 0)):
         if wp.get("lat") and wp.get("lng"):
+            wid = wp.get("waypoint_id") or wp.get("name") or "wp"
             points.append({
+                "id": f"waypoint:{wid}",
                 "lat": wp["lat"],
                 "lng": wp["lng"],
                 "label": wp.get("name", "Waypoint"),
@@ -48,16 +74,19 @@ def _extract_map_points(itinerary: dict) -> list[dict]:
 
     # Destination city
     if route.get("dest_lat") and route.get("dest_lng"):
+        dest_label = route.get("destination", "Destination")
         points.append({
+            "id": f"destination:{dest_label}",
             "lat": route["dest_lat"],
             "lng": route["dest_lng"],
-            "label": route.get("destination", "Destination"),
+            "label": dest_label,
             "type": "destination",
         })
 
     # Hotel
     if hotel.get("lat") and hotel.get("lng"):
         points.append({
+            "id": f"hotel:{hotel.get('hotel_id') or hotel.get('name', 'hotel')}",
             "lat": hotel["lat"],
             "lng": hotel["lng"],
             "label": hotel.get("name", "Hotel"),
@@ -67,7 +96,9 @@ def _extract_map_points(itinerary: dict) -> list[dict]:
     # Activities
     for act in activities:
         if act.get("lat") and act.get("lng"):
+            aid = act.get("activity_id") or act.get("name", "activity")
             points.append({
+                "id": f"activity:{aid}",
                 "lat": act["lat"],
                 "lng": act["lng"],
                 "label": act.get("name", "Activity"),
@@ -134,8 +165,18 @@ def planner_orchestrator_node(state: TripState) -> dict:
     alternatives = sorted_candidates[1:4]  # up to 3 alternatives
 
     # Build timeline and map points for the selected itinerary
-    timeline = generate_timeline(selected)
-    map_points = _extract_map_points(selected)
+    timeline = generate_timeline(selected, constraints)
+    map_points = _extract_map_points(selected, constraints)
+
+    # Stamp each timeline event with the matching map point_id so the
+    # frontend can sync timeline ↔ map by a single key.
+    point_by_label = {p.get("label"): p.get("id") for p in map_points if p.get("id")}
+    for ev in timeline:
+        title = ev.get("title") or ""
+        for label, pid in point_by_label.items():
+            if label and label.lower() in title.lower():
+                ev["point_id"] = pid
+                break
 
     # Strip internal scoring keys from the selected itinerary before storing
     score_breakdown = selected.pop("_score_breakdown", {})

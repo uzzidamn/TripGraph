@@ -10,21 +10,24 @@ from backend.agents.llm_client import get_llm
 from backend.agents.prompts import CHAT_PARSER_HUMAN, CHAT_PARSER_SYSTEM
 from backend.agents.state import TripState
 
-# Defaults applied when LLM does not extract a value
+# Defaults applied when LLM does not extract a value.
+# Notably no `origin` default — we surface a missing_fields warning instead,
+# so the user (or geocoder) decides. Hard-defaulting origin caused the
+# "Chandigarh → Manali" bug where it silently became "Gurugram".
 _DEFAULTS: Dict[str, Any] = {
-    "origin": "Gurugram",
     "group_size": 4,
     "hotel_tier": "comfort",
     "risk_tolerance": "medium",
-    "trip_duration": "2D1N",
     "avoid_night_driving": False,
     "transport_preference": [],
     "must_include": [],
     "special_requirements": [],
 }
 
-# Fields that must be non-null for planning to proceed
-_REQUIRED_FIELDS = ["origin", "budget_per_person", "destination_type"]
+# Fields that must be non-null for planning to proceed.
+# destination_type is no longer required — the LLM can plan from
+# `destination` alone via ORS geocoding + KG-then-API enrichment.
+_REQUIRED_FIELDS = ["origin"]
 
 
 def _parse_llm_json(text: Any) -> Dict[str, Any]:

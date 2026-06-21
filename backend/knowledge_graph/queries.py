@@ -150,7 +150,12 @@ class TravelQueries:
         )
 
 class IngestionQueries:
-    """Cypher queries for inserting/merging new API data into the KG."""
+    """Cypher queries for inserting/merging new API data into the KG.
+
+    All merges are symmetric: on both create *and* match, caller-supplied fields
+    overwrite existing values when they are non-null. This means a refreshed API
+    call will correct stale data instead of being silently dropped.
+    """
 
     @staticmethod
     def merge_city(name: str, lat: float, lng: float, city_type: str = "generic") -> tuple[str, dict]:
@@ -158,21 +163,32 @@ class IngestionQueries:
             """
             MERGE (c:City {name: $name})
             ON CREATE SET c.lat = $lat, c.lng = $lng, c.type = $type
-            ON MATCH SET c.lat = coalesce(c.lat, $lat), c.lng = coalesce(c.lng, $lng), c.type = case when c.type is null then $type else c.type end
+            ON MATCH SET  c.lat = coalesce($lat, c.lat),
+                          c.lng = coalesce($lng, c.lng),
+                          c.type = case when $type is null or $type = 'generic' then c.type else $type end
             RETURN c {.*} AS city
             """,
             {"name": name, "lat": lat, "lng": lng, "type": city_type}
         )
 
     @staticmethod
-    def merge_route(origin: str, dest: str, route_id: str, distance_km: float, duration_hours: float, driving_distance: str, driving_time: str) -> tuple[str, dict]:
+    def merge_route(origin: str, dest: str, route_id: str, distance_km: float, duration_hours: float,
+                    driving_distance: str, driving_time: str, polyline: list | None = None) -> tuple[str, dict]:
         return (
             """
             MATCH (orig:City {name: $origin})
             MATCH (dest:City {name: $dest})
             MERGE (r:Route {route_id: $route_id})
             ON CREATE SET r.distance_km = $distance_km, r.duration_hours = $duration_hours,
-                          r.driving_distance = $driving_distance, r.driving_time = $driving_time
+                          r.driving_distance = $driving_distance, r.driving_time = $driving_time,
+                          r.base_drive_minutes = toInteger($duration_hours * 60),
+                          r.polyline = $polyline
+            ON MATCH SET  r.distance_km = coalesce($distance_km, r.distance_km),
+                          r.duration_hours = coalesce($duration_hours, r.duration_hours),
+                          r.driving_distance = coalesce($driving_distance, r.driving_distance),
+                          r.driving_time = coalesce($driving_time, r.driving_time),
+                          r.base_drive_minutes = coalesce(toInteger($duration_hours * 60), r.base_drive_minutes),
+                          r.polyline = coalesce($polyline, r.polyline)
             MERGE (orig)-[:ORIGIN_OF]->(r)
             MERGE (r)-[:ARRIVES_AT]->(dest)
             RETURN r {.*} AS route
@@ -180,18 +196,27 @@ class IngestionQueries:
             {
                 "origin": origin, "dest": dest, "route_id": route_id,
                 "distance_km": distance_km, "duration_hours": duration_hours,
-                "driving_distance": driving_distance, "driving_time": driving_time
+                "driving_distance": driving_distance, "driving_time": driving_time,
+                "polyline": polyline,
             }
         )
 
     @staticmethod
-    def merge_hotel(destination: str, hotel_id: str, name: str, lat: float, lng: float, tier: str = "comfort", price: int = 5000, address: str = "") -> tuple[str, dict]:
+    def merge_hotel(destination: str, hotel_id: str, name: str, lat: float, lng: float,
+                    tier: str = "comfort", price: int = 5000, address: str = "") -> tuple[str, dict]:
         return (
             """
             MATCH (c:City {name: $destination})
             MERGE (h:Hotel {hotel_id: $hotel_id})
-            ON CREATE SET h.name = $name, h.lat = $lat, h.lng = $lng, h.tier = $tier, 
+            ON CREATE SET h.name = $name, h.lat = $lat, h.lng = $lng, h.tier = $tier,
                           h.price_per_night = $price, h.address = $address, h.destination = $destination
+            ON MATCH SET  h.name = coalesce($name, h.name),
+                          h.lat = coalesce($lat, h.lat),
+                          h.lng = coalesce($lng, h.lng),
+                          h.tier = coalesce($tier, h.tier),
+                          h.price_per_night = coalesce($price, h.price_per_night),
+                          h.address = coalesce($address, h.address),
+                          h.destination = coalesce($destination, h.destination)
             MERGE (c)-[:HAS_HOTEL]->(h)
             RETURN h {.*} AS hotel
             """,
@@ -202,19 +227,30 @@ class IngestionQueries:
         )
 
     @staticmethod
-    def merge_activity(destination: str, activity_id: str, name: str, lat: float, lng: float, category: str, address: str = "") -> tuple[str, dict]:
+    def merge_activity(destination: str, activity_id: str, name: str, lat: float, lng: float,
+                       category: str, address: str = "", tags: list[str] | None = None) -> tuple[str, dict]:
+        """Caller may pass an explicit `tags` list to preserve richer Geoapify
+        subcategories — falls back to [category] when omitted."""
         return (
             """
             MATCH (c:City {name: $destination})
             MERGE (a:Activity {activity_id: $activity_id})
             ON CREATE SET a.name = $name, a.lat = $lat, a.lng = $lng, a.category = $category,
-                          a.address = $address, a.tags = [$category]
+                          a.address = $address, a.tags = $tags, a.destination = $destination
+            ON MATCH SET  a.name = coalesce($name, a.name),
+                          a.lat = coalesce($lat, a.lat),
+                          a.lng = coalesce($lng, a.lng),
+                          a.category = coalesce($category, a.category),
+                          a.address = coalesce($address, a.address),
+                          a.destination = coalesce($destination, a.destination),
+                          a.tags = coalesce(a.tags, []) + [t IN $tags WHERE NOT t IN coalesce(a.tags, []) | t]
             MERGE (c)-[:HAS_ACTIVITY]->(a)
             RETURN a {.*} AS activity
             """,
             {
                 "destination": destination, "activity_id": activity_id, "name": name,
-                "lat": lat, "lng": lng, "category": category, "address": address
+                "lat": lat, "lng": lng, "category": category, "address": address,
+                "tags": tags if tags else ([category] if category else []),
             }
         )
 

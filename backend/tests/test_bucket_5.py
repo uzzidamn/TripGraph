@@ -177,14 +177,14 @@ _CANDIDATE = {
     "restaurants": _RESTAURANTS,
     "waypoints": _WAYPOINTS,
     "destination": "Rishikesh",
-    "total_cost_per_person": 9450,  # 2375+1050+(1800+0+500)+1725+2000 = 9450
+    "total_cost_per_person": 10450,  # 2375+1050+(1800+0+500)+1725+3000 = 10450
     "cost_breakdown": {
         "transport": 2375,
         "hotel": 1050,
         "activities": 2300,  # 1800 + 0 + 500
         "food": 1725,
-        "miscellaneous": 2000,
-        "total": 9450,
+        "miscellaneous": 3000,
+        "total": 10450,
         "budget_limit": 15000,
     },
 }
@@ -403,7 +403,7 @@ def test_candidate_generator():
     check("total_cost_per_person" in c, "candidate has 'total_cost_per_person'")
     check("trip_graph" in c, "candidate has 'trip_graph' (TripGraph object)")
     check(c["cost_breakdown"]["transport"] == 9500 // 4, "transport cost_per_person = cost_total / group_size")
-    check(c["cost_breakdown"]["miscellaneous"] == 2000, "miscellaneous is fixed ₹2000")
+    check(c["cost_breakdown"]["miscellaneous"] == 3000, "miscellaneous is dynamic and based on duration (3000 for 2 days)")
 
     # Multiple routes
     route_jaipur = {**_ROUTE, "route_id": "gurugram_jaipur_2d1n", "destination": "Jaipur", "destination_type": "heritage"}

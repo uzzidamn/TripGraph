@@ -1,29 +1,35 @@
-import { useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Navigation, RefreshCw, Loader2, AlertTriangle, X } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
+
 import { useItinerary } from "./hooks/useItinerary";
+import { SelectionProvider } from "./hooks/useSelection";
+
 import { ChatRoom } from "./components/chat/ChatRoom";
 import { ExtractedPreferences } from "./components/preferences/ExtractedPreferences";
-import { ItineraryOptions } from "./components/itinerary/ItineraryOptions";
+import { RefineQuestions } from "./components/refine/RefineQuestions";
 import { CalendarView } from "./components/itinerary/CalendarView";
+import { EventPopover } from "./components/itinerary/EventPopover";
+import { ReviewCard } from "./components/itinerary/ReviewCard";
+import { TripBrief } from "./components/itinerary/TripBrief";
 import { MapView } from "./components/map/MapView";
 import { CostBreakdown } from "./components/cost/CostBreakdown";
 import { DelaySimulator } from "./components/delay/DelaySimulator";
+import { DayStrip } from "./components/timeline/DayStrip";
 import { ToastContainer } from "./components/ui/Toast";
-import {
-  Map,
-  RefreshCw,
-  ChevronLeft,
-  ChevronRight,
-  Navigation,
-  Loader2,
-} from "lucide-react";
+import { GlassPanel, MetalText, Pill, GhostButton } from "./components/ui/Glass";
 
-// ─── Floating minimal header ─────────────────────────────────────────────────
+const LEFT_W = 340;
+const RIGHT_W = 320;
+const BOTTOM_LEFT_H = 240; // Cost + delay panel
+
+// ─── Floating header ─────────────────────────────────────────────────────────
 function FloatingHeader({ step, onReset }) {
-  const stepIdx = ["chat", "preferences", "itinerary"].indexOf(step);
+  const stepIdx = ["chat", "preferences", "refine", "itinerary"].indexOf(step);
   const steps = [
     { id: "chat",        label: "Plan" },
     { id: "preferences", label: "Review" },
+    { id: "refine",      label: "Refine" },
     { id: "itinerary",   label: "Explore" },
   ];
 
@@ -31,103 +37,72 @@ function FloatingHeader({ step, onReset }) {
     <div
       style={{
         position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
+        top: 0, left: 0, right: 0,
         zIndex: 60,
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: "10px 20px",
-        background: "linear-gradient(180deg, rgba(8,12,24,0.85) 0%, transparent 100%)",
+        padding: "12px 20px",
+        background: "linear-gradient(180deg, rgba(245,245,247,0.78) 0%, transparent 100%)",
         pointerEvents: "none",
       }}
     >
-      {/* Logo */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "8px",
-          pointerEvents: "auto",
-        }}
-      >
+      <div style={{ display: "flex", alignItems: "center", gap: 10, pointerEvents: "auto" }}>
         <div
           style={{
-            width: "30px",
-            height: "30px",
-            borderRadius: "8px",
-            background: "linear-gradient(135deg, #6c5ce7, #00cec9)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            width: 30, height: 30,
+            borderRadius: 8,
+            background: "linear-gradient(135deg, #2a2d33, #0a0c10)",
+            display: "grid",
+            placeItems: "center",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.18), 0 4px 12px rgba(20,22,28,0.18)",
           }}
         >
-          <Navigation size={15} style={{ color: "white" }} />
+          <Navigation size={14} style={{ color: "#f5f5f7" }} />
         </div>
-        <span
-          style={{
-            fontWeight: 700,
-            fontSize: "14px",
-            color: "#e2e8f0",
-            letterSpacing: "-0.02em",
-          }}
-        >
-          TripGraph <span style={{ color: "#7c6df7" }}>AI</span>
-        </span>
+        <MetalText style={{ fontWeight: 700, fontSize: 14 }}>
+          TripGraph <span style={{ color: "var(--silver)", fontWeight: 500 }}>AI</span>
+        </MetalText>
       </div>
 
-      {/* Step indicators */}
-      <div
+      <GlassPanel
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "4px",
-          background: "rgba(8,12,26,0.7)",
-          backdropFilter: "blur(16px)",
-          border: "1px solid rgba(255,255,255,0.07)",
-          borderRadius: "999px",
+          gap: 4,
           padding: "4px 8px",
-          pointerEvents: "none",
+          borderRadius: 999,
+          pointerEvents: "auto",
         }}
       >
         {steps.map(({ id, label }, i) => {
           const done = i < stepIdx;
           const active = id === step;
           return (
-            <div key={id} style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <div key={id} style={{ display: "flex", alignItems: "center", gap: 4 }}>
               {i > 0 && (
                 <div
                   style={{
-                    width: "18px",
-                    height: "1px",
-                    background: done
-                      ? "rgba(124,109,247,0.6)"
-                      : "rgba(255,255,255,0.1)",
+                    width: 14, height: 1,
+                    background: done ? "var(--chrome)" : "var(--rim)",
                     transition: "background 0.4s",
                   }}
                 />
               )}
               <span
                 style={{
-                  fontSize: "10px",
+                  fontSize: 10,
                   fontWeight: 700,
-                  letterSpacing: "0.05em",
+                  letterSpacing: "0.06em",
                   textTransform: "uppercase",
                   padding: "3px 10px",
-                  borderRadius: "999px",
+                  borderRadius: 999,
                   transition: "all 0.3s",
                   background: active
-                    ? "rgba(124,109,247,0.25)"
+                    ? "linear-gradient(180deg, #3a3d44, #1d1f25)"
                     : "transparent",
-                  color: active
-                    ? "#7c6df7"
-                    : done
-                    ? "rgba(124,109,247,0.6)"
-                    : "rgba(255,255,255,0.3)",
-                  border: active
-                    ? "1px solid rgba(124,109,247,0.35)"
-                    : "1px solid transparent",
+                  color: active ? "#f5f5f7" : done ? "var(--chrome)" : "var(--silver)",
+                  border: active ? "1px solid rgba(0,0,0,0.35)" : "1px solid transparent",
                 }}
               >
                 {label}
@@ -135,17 +110,16 @@ function FloatingHeader({ step, onReset }) {
             </div>
           );
         })}
-      </div>
+      </GlassPanel>
 
-      {/* Reset */}
       <button
         onClick={onReset}
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "5px",
-          fontSize: "11px",
-          color: "rgba(255,255,255,0.4)",
+          gap: 5,
+          fontSize: 11,
+          color: "var(--silver)",
           background: "none",
           border: "none",
           cursor: "pointer",
@@ -153,8 +127,8 @@ function FloatingHeader({ step, onReset }) {
           pointerEvents: "auto",
           transition: "color 0.2s",
         }}
-        onMouseEnter={(e) => (e.currentTarget.style.color = "#e2e8f0")}
-        onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.4)")}
+        onMouseEnter={(e) => (e.currentTarget.style.color = "var(--platinum)")}
+        onMouseLeave={(e) => (e.currentTarget.style.color = "var(--silver)")}
       >
         <RefreshCw size={12} />
         Start over
@@ -163,400 +137,446 @@ function FloatingHeader({ step, onReset }) {
   );
 }
 
-// ─── Left Sliding Panel ───────────────────────────────────────────────────────
-const LEFT_PANEL_W = 340;
+// ─── Integrations banner — warns when API keys are missing ──────────────────
+function IntegrationsBanner() {
+  const [status, setStatus] = useState(null);
+  const [dismissed, setDismissed] = useState(false);
+  const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:8001";
 
-function LeftPanel({ itinerary, alternatives, scoreBreakdown, costBreakdown, onSimulate, loading, delayResult, explanation }) {
+  useEffect(() => {
+    fetch(`${baseUrl}/api/integrations`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then(setStatus)
+      .catch(() => {});
+  }, [baseUrl]);
+
+  if (!status || dismissed) return null;
+  const critical = ["ors", "geoapify", "openweather"].filter((k) => !status[k]?.configured);
+  if (critical.length === 0) return null;
+
   return (
     <motion.div
-      initial={{ x: -LEFT_PANEL_W - 20 }}
-      animate={{ x: 0 }}
-      exit={{ x: -LEFT_PANEL_W - 20 }}
-      transition={{ type: "spring", stiffness: 280, damping: 30 }}
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ delay: 0.4 }}
       style={{
         position: "absolute",
-        top: 0,
-        left: 0,
-        width: LEFT_PANEL_W,
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        zIndex: 30,
+        top: 60,
+        left: "50%",
+        transform: "translateX(-50%)",
+        zIndex: 70,
         pointerEvents: "auto",
+        maxWidth: 540,
+        width: "calc(100% - 48px)",
       }}
     >
-      <div
-        className="side-panel-left"
-        style={{
-          flex: 1,
-          overflowY: "auto",
-          overflowX: "hidden",
-          paddingTop: "64px",
-          paddingBottom: "24px",
-        }}
-      >
-        {/* Recommended Plan */}
-        <div style={{ padding: "0 14px 8px" }}>
-          <p
-            style={{
-              fontSize: "10px",
-              fontWeight: 700,
-              color: "#7c6df7",
-              textTransform: "uppercase",
-              letterSpacing: "0.08em",
-              padding: "10px 0 6px",
-            }}
-          >
-            Itinerary
-          </p>
-          <ItineraryOptions
-            itinerary={itinerary}
-            alternatives={alternatives}
-            scoreBreakdown={scoreBreakdown}
-          />
-        </div>
-
-        {/* Divider */}
-        <div className="section-sep" style={{ margin: "4px 14px" }} />
-
-        {/* Explanation */}
-        {explanation && (
-          <div style={{ padding: "4px 14px 10px" }}>
-            <p
-              style={{
-                fontSize: "11px",
-                color: "#64748b",
-                lineHeight: 1.65,
-                fontStyle: "italic",
-                background: "rgba(124,109,247,0.06)",
-                border: "1px solid rgba(124,109,247,0.12)",
-                borderRadius: "10px",
-                padding: "10px 12px",
-              }}
-            >
-              {explanation}
-            </p>
+      <GlassPanel strong style={{ padding: "10px 14px", display: "flex", alignItems: "flex-start", gap: 10 }}>
+        <AlertTriangle size={14} style={{ color: "var(--chrome)", marginTop: 2, flexShrink: 0 }} />
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: 11.5, fontWeight: 700, color: "var(--platinum)", marginBottom: 2 }}>
+            Planner running in degraded mode
           </div>
-        )}
-
-        {/* Cost Breakdown */}
-        {costBreakdown && (
-          <div style={{ padding: "0 14px 10px" }}>
-            <p
-              style={{
-                fontSize: "10px",
-                fontWeight: 700,
-                color: "#7c6df7",
-                textTransform: "uppercase",
-                letterSpacing: "0.08em",
-                padding: "6px 0",
-              }}
-            >
-              Cost Breakdown
-            </p>
-            <CostBreakdown costBreakdown={costBreakdown} />
+          <div style={{ fontSize: 10.5, color: "var(--silver)", lineHeight: 1.5 }}>
+            {critical.length} API key{critical.length > 1 ? "s" : ""} missing —{" "}
+            {critical.map((k) => k.toUpperCase()).join(", ")}.{" "}
+            Trips outside Gurugram → Jaipur / Rishikesh / Tirthan fall back to seeded routes.
+            Add keys to <code style={{ color: "var(--chrome)" }}>.env</code> and restart.
           </div>
-        )}
-
-        {/* Delay Simulator */}
-        <div style={{ padding: "0 14px 10px" }}>
-          <p
-            style={{
-              fontSize: "10px",
-              fontWeight: 700,
-              color: "#7c6df7",
-              textTransform: "uppercase",
-              letterSpacing: "0.08em",
-              padding: "6px 0",
-            }}
-          >
-            Delay Simulator
-          </p>
-          <DelaySimulator
-            onSimulate={onSimulate}
-            loading={loading}
-            delayResult={delayResult}
-          />
         </div>
-      </div>
+        <button
+          onClick={() => setDismissed(true)}
+          style={{
+            background: "transparent",
+            border: "none",
+            color: "var(--silver)",
+            cursor: "pointer",
+            padding: 2,
+          }}
+        >
+          <X size={12} />
+        </button>
+      </GlassPanel>
     </motion.div>
   );
 }
 
-// ─── Right Sliding Panel ──────────────────────────────────────────────────────
-const RIGHT_PANEL_W = 360;
-
-function RightPanel({ timeline, itinerary }) {
+// ─── Itinerary summary chip (top-center on map) ──────────────────────────────
+function ItinerarySummaryOverlay({ itinerary, retrievalSource }) {
+  if (!itinerary) return null;
+  const route = itinerary.route || {};
+  const transport = itinerary.transport || {};
+  const cost = itinerary.total_cost_per_person;
   return (
     <motion.div
-      initial={{ x: RIGHT_PANEL_W + 20 }}
-      animate={{ x: 0 }}
-      exit={{ x: RIGHT_PANEL_W + 20 }}
-      transition={{ type: "spring", stiffness: 280, damping: 30 }}
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ delay: 0.3, type: "spring", stiffness: 280, damping: 30 }}
       style={{
         position: "absolute",
-        top: 0,
-        right: 0,
-        width: RIGHT_PANEL_W,
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        zIndex: 30,
+        top: 64,
+        left: "50%",
+        transform: "translateX(-50%)",
+        zIndex: 35,
         pointerEvents: "auto",
+        maxWidth: 460,
       }}
     >
-      <div
-        className="side-panel-right"
+      <GlassPanel
+        strong
         style={{
-          flex: 1,
+          padding: "10px 18px",
           display: "flex",
-          flexDirection: "column",
-          paddingTop: "52px",
-          minHeight: 0,
-          overflow: "hidden",
+          alignItems: "center",
+          gap: 14,
+          borderRadius: 999,
         }}
       >
-        <CalendarView
-          timeline={timeline}
-          tripName={`${itinerary?.route?.origin} → ${itinerary?.route?.destination || itinerary?.destination}`}
-        />
-      </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
+          <div style={{ fontSize: 9.5, fontWeight: 700, letterSpacing: "0.12em", color: "var(--silver)", textTransform: "uppercase" }}>
+            Recommended
+          </div>
+          <div style={{ fontSize: 13, fontWeight: 600, color: "var(--platinum)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+            {route.origin || "Origin"} → {route.destination || itinerary.destination}
+          </div>
+        </div>
+        <div style={{ width: 1, height: 28, background: "var(--rim)" }} />
+        {transport.mode && (
+          <Pill tone="muted">{String(transport.mode).replace(/_/g, " ")}</Pill>
+        )}
+        {cost != null && (
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
+            <div style={{ fontSize: 9.5, color: "var(--silver)", letterSpacing: "0.08em" }}>P.P.</div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: "var(--chrome)" }}>
+              ₹{Number(cost).toLocaleString()}
+            </div>
+          </div>
+        )}
+        {retrievalSource && Object.values(retrievalSource).some((s) => s === "api+kg") && (
+          <Pill tone="default" title="Live API data enriched the KG for this trip">Live</Pill>
+        )}
+      </GlassPanel>
     </motion.div>
   );
 }
 
-// ─── Chat step center card ────────────────────────────────────────────────────
+// ─── Delay panel (bottom-left, slim — cost now lives in TripBrief) ────────────
+function BottomLeftPanel({ onSimulate, loading, delayResult }) {
+  return (
+    <motion.div
+      initial={{ y: 80 }}
+      animate={{ y: 0 }}
+      exit={{ y: 80 }}
+      transition={{ type: "spring", stiffness: 260, damping: 28 }}
+      style={{
+        position: "absolute",
+        left: 16,
+        bottom: 16,
+        width: LEFT_W - 32,
+        zIndex: 32,
+        pointerEvents: "auto",
+      }}
+    >
+      <GlassPanel style={{ padding: 0, overflow: "hidden" }}>
+        <DelaySimulator onSimulate={onSimulate} loading={loading} delayResult={delayResult} />
+      </GlassPanel>
+    </motion.div>
+  );
+}
+
 const centerCardVariants = {
   initial: { opacity: 0, scale: 0.94, y: 20 },
   animate: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
   exit:    { opacity: 0, scale: 0.9, y: -24, transition: { duration: 0.3 } },
 };
 
-// ─── App root ─────────────────────────────────────────────────────────────────
 export default function App() {
   const {
     step, loading,
     constraints, assumptions, missingFields, conflictReport,
-    itinerary, alternatives, timeline, mapPoints,
+    refinementQuestions,
+    itinerary, alternatives, timeline, mapPoints, routePolyline,
     costBreakdown, scoreBreakdown, explanation, delayResult,
+    fatiguePerEvent, weatherForecast, traffic, hotelDeals, insightsPerPlace, retrievalSource, flights, trains, review, architectPlan,
     toasts,
-    submitChat, generatePlan, runDelaySimulation, resetToChat,
+    submitChat, confirmPreferences, submitRefinements, skipRefinements,
+    runDelaySimulation, resetToChat,
   } = useItinerary();
 
+  const [mapEngine, setMapEngine] = useState("uber"); // prefer Google Uber-style tiles; falls back to CartoDB
+  const [fitTick, setFitTick] = useState(0);     // bump to ask MapView to fit-all
+  const [selectedDay, setSelectedDay] = useState(1);
+
+  // Reset selected day whenever a new plan loads
+  useEffect(() => {
+    if (architectPlan?.days?.length) {
+      setSelectedDay(architectPlan.days[0].day);
+    }
+  }, [architectPlan]);
+
   const isItinerary = step === "itinerary";
+  const showLanding = step !== "itinerary";
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        overflow: "hidden",
-        background: "#080c18",
-        userSelect: "none",
-      }}
-    >
-      {/* ── Full-screen map (always behind) ────── */}
-      <MapView
-        mapPoints={mapPoints || []}
-        interactive={isItinerary}
-      />
-
-      {/* ── Vignette overlay on landing/preferences ── */}
-      <AnimatePresence>
-        {!isItinerary && (
-          <motion.div
-            key="vignette"
-            className="map-vignette"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            style={{ zIndex: 2, pointerEvents: "none" }}
-          />
-        )}
-      </AnimatePresence>
-
-      {/* ── Floating header ─────────────────────── */}
-      <FloatingHeader step={step} onReset={resetToChat} />
-
-      {/* ── Main UI overlay ─────────────────────── */}
+    <SelectionProvider>
       <div
         style={{
-          position: "absolute",
+          position: "fixed",
           inset: 0,
-          zIndex: 20,
-          pointerEvents: "none",
+          overflow: "hidden",
+          background: "var(--ink)",
+          userSelect: "none",
         }}
       >
-        <AnimatePresence mode="wait">
-          {/* CHAT step */}
-          {step === "chat" && (
-            <motion.div
-              key="chat"
-              variants={centerCardVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              style={{
-                position: "absolute",
-                inset: 0,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "80px 24px 40px",
-                pointerEvents: "none",
-                zIndex: 25,
-              }}
-            >
-              <div
-                className="hero-card"
-                style={{
-                  width: "100%",
-                  maxWidth: "580px",
-                  padding: "40px 36px 32px",
-                  pointerEvents: "auto",
-                  userSelect: "text",
-                }}
-              >
-                <ChatRoom onSubmit={submitChat} loading={loading} />
-              </div>
-            </motion.div>
-          )}
+        <MapView
+          mapPoints={mapPoints || []}
+          routePolyline={routePolyline}
+          interactive={isItinerary}
+          panning={showLanding}
+          engine={mapEngine}
+          onEngineChange={setMapEngine}
+          fitAllTick={fitTick}
+          selectedDay={isItinerary ? selectedDay : null}
+          transportMode={itinerary?.transport?.mode}
+          timeline={timeline}
+          costBreakdown={costBreakdown}
+        />
 
-          {/* PREFERENCES step */}
-          {step === "preferences" && (
-            <motion.div
-              key="preferences"
-              variants={centerCardVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              style={{
-                position: "absolute",
-                inset: 0,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "80px 24px 40px",
-                pointerEvents: "none",
-                zIndex: 25,
-                overflowY: "auto",
-              }}
-            >
-              <div
-                className="hero-card"
-                style={{
-                  width: "100%",
-                  maxWidth: "580px",
-                  padding: "40px 36px 32px",
-                  pointerEvents: "auto",
-                  userSelect: "text",
-                }}
+        <AnimatePresence>
+          {showLanding && (
+            <>
+              <motion.div
+                key="veil"
+                className="landing-blur-veil"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.6 }}
+              />
+              <motion.div
+                key="vignette"
+                className="map-vignette"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.6 }}
+                style={{ zIndex: 2 }}
+              />
+            </>
+          )}
+        </AnimatePresence>
+
+        <FloatingHeader step={step} onReset={resetToChat} />
+
+        {/* API-key warning banner — shown on every step until dismissed */}
+        <IntegrationsBanner />
+
+        <div style={{ position: "absolute", inset: 0, zIndex: 20, pointerEvents: "none" }}>
+          <AnimatePresence mode="wait">
+            {step === "chat" && (
+              <motion.div key="chat" variants={centerCardVariants} initial="initial" animate="animate" exit="exit" style={centerStageStyle}>
+                <div className="hero-card" style={heroBoxStyle}>
+                  <ChatRoom onSubmit={submitChat} loading={loading} />
+                </div>
+              </motion.div>
+            )}
+
+            {step === "preferences" && (
+              <motion.div key="preferences" variants={centerCardVariants} initial="initial" animate="animate" exit="exit" style={centerStageStyle}>
+                <div className="hero-card" style={heroBoxStyle}>
+                  <ExtractedPreferences
+                    constraints={constraints}
+                    assumptions={assumptions}
+                    missingFields={missingFields}
+                    conflictReport={conflictReport}
+                    onConfirm={confirmPreferences}
+                    loading={loading}
+                  />
+                </div>
+              </motion.div>
+            )}
+
+            {step === "refine" && (
+              <motion.div key="refine" variants={centerCardVariants} initial="initial" animate="animate" exit="exit" style={centerStageStyle}>
+                <div className="hero-card" style={heroBoxStyle}>
+                  <RefineQuestions
+                    questions={refinementQuestions}
+                    onSubmit={submitRefinements}
+                    onSkip={skipRefinements}
+                    loading={loading}
+                  />
+                </div>
+              </motion.div>
+            )}
+
+            {step === "itinerary" && (
+              <motion.div
+                key="itinerary"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
               >
-                <ExtractedPreferences
-                  constraints={constraints}
-                  assumptions={assumptions}
-                  missingFields={missingFields}
-                  conflictReport={conflictReport}
-                  onConfirm={generatePlan}
-                  loading={loading}
+                {/* LEFT: compact TripBrief (headline + gear + book-ahead + tips) */}
+                <TripBrief
+                  headline={itinerary?.headline || architectPlan?.headline}
+                  costBreakdown={costBreakdown}
+                  gearChecklist={itinerary?.gear_checklist || architectPlan?.gear_checklist || []}
+                  bookingLeadTimes={itinerary?.booking_lead_times || architectPlan?.booking_lead_times || []}
+                  localTips={itinerary?.local_tips || architectPlan?.local_tips || []}
+                  excluded={itinerary?.excluded_places || architectPlan?.excluded || []}
                 />
-              </div>
-            </motion.div>
-          )}
 
-          {/* ITINERARY step — map-centric with side panels */}
-          {step === "itinerary" && (
+                {/* BOTTOM-LEFT: Delay simulator (cost lives inside TripBrief now) */}
+                <BottomLeftPanel
+                  onSimulate={runDelaySimulation}
+                  loading={loading}
+                  delayResult={delayResult}
+                />
+
+                {/* BOTTOM-CENTER: Day strip — switches focus day on the map */}
+                <DayStrip
+                  dayThemes={architectPlan?.days?.map(d => ({
+                    day: d.day, theme: d.theme,
+                    summary: d.day_summary, weather_note: d.weather_note,
+                  })) || itinerary?.day_themes || []}
+                  weatherForecast={weatherForecast}
+                  selectedDay={selectedDay}
+                  onSelectDay={(d) => { setSelectedDay(d); setFitTick(t => t + 1); }}
+                  totalEvents={timeline.length}
+                  costBreakdown={costBreakdown}
+                  timeline={timeline}
+                />
+
+                {/* RIGHT: Calendar */}
+                <motion.div
+                  initial={{ x: RIGHT_W + 20 }}
+                  animate={{ x: 0 }}
+                  exit={{ x: RIGHT_W + 20 }}
+                  transition={{ type: "spring", stiffness: 280, damping: 30 }}
+                  style={{
+                    position: "absolute",
+                    top: 60,
+                    right: 16,
+                    width: RIGHT_W - 32,
+                    bottom: 16,
+                    zIndex: 30,
+                    pointerEvents: "auto",
+                  }}
+                >
+                  <GlassPanel strong style={{ height: "100%", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+                    <CalendarView
+                      timeline={timeline}
+                      tripName={`${itinerary?.route?.origin} → ${itinerary?.route?.destination || itinerary?.destination}`}
+                    />
+                  </GlassPanel>
+                </motion.div>
+
+                {/* Floating itinerary summary chip (top-center) */}
+                <ItinerarySummaryOverlay itinerary={itinerary} retrievalSource={retrievalSource} />
+
+                {/* Map-anchored popover for the active event */}
+                <EventPopover
+                  timeline={timeline}
+                  itinerary={itinerary}
+                  hotelCandidates={itinerary?.hotel_candidates || []}
+                  fatiguePerEvent={fatiguePerEvent}
+                  weatherForecast={weatherForecast}
+                  hotelDeals={hotelDeals}
+                  insightsPerPlace={insightsPerPlace}
+                  flights={flights}
+                  trains={trains}
+                />
+
+                {/* (Architect headline lives in TripBrief; no separate chip needed) */}
+                {false && explanation && (
+                  <motion.div
+                    initial={{ y: 16, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.55 }}
+                    style={{
+                      position: "absolute",
+                      top: 124,
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      maxWidth: 540,
+                      width: "calc(100% - 48px)",
+                      zIndex: 34,
+                      pointerEvents: "auto",
+                    }}
+                  >
+                    <GlassPanel style={{ padding: "8px 14px" }}>
+                      <p style={{ fontSize: 11, color: "var(--chrome)", lineHeight: 1.55, fontStyle: "italic", margin: 0 }}>
+                        {explanation}
+                      </p>
+                    </GlassPanel>
+                  </motion.div>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        <AnimatePresence>
+          {loading && (step === "itinerary" || step === "refine") && (
             <motion.div
-              key="itinerary"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               style={{
                 position: "absolute",
                 inset: 0,
-                pointerEvents: "none",
+                zIndex: 80,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "rgba(245,245,247,0.65)",
+                backdropFilter: "blur(6px)",
+                pointerEvents: "auto",
               }}
             >
-              <LeftPanel
-                itinerary={itinerary}
-                alternatives={alternatives}
-                scoreBreakdown={scoreBreakdown}
-                costBreakdown={costBreakdown}
-                onSimulate={runDelaySimulation}
-                loading={loading}
-                delayResult={delayResult}
-                explanation={explanation}
-              />
-              <RightPanel
-                timeline={timeline}
-                itinerary={itinerary}
-              />
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
+                <Loader2 size={36} style={{ color: "var(--chrome)", animation: "spin 1s linear infinite" }} />
+                <p style={{ color: "var(--silver)", fontSize: 13, fontWeight: 500 }}>
+                  {step === "refine" ? "Planning…" : "Replanning…"}
+                </p>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
+
+        <div
+          style={{
+            position: "absolute",
+            bottom: 24,
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 100,
+            pointerEvents: "auto",
+          }}
+        >
+          <ToastContainer toasts={toasts} />
+        </div>
+
+        <style>{`
+          @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        `}</style>
       </div>
-
-      {/* ── Loading overlay when generating ────── */}
-      <AnimatePresence>
-        {loading && step === "itinerary" && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            style={{
-              position: "absolute",
-              inset: 0,
-              zIndex: 80,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "rgba(8,12,24,0.5)",
-              backdropFilter: "blur(4px)",
-              pointerEvents: "auto",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: "12px",
-              }}
-            >
-              <Loader2
-                size={40}
-                style={{
-                  color: "#7c6df7",
-                  animation: "spin 1s linear infinite",
-                }}
-              />
-              <p style={{ color: "#94a3b8", fontSize: "13px", fontWeight: 500 }}>
-                Replanning…
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ── Toast notifications ──────────────────── */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: "24px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 100,
-          pointerEvents: "auto",
-        }}
-      >
-        <ToastContainer toasts={toasts} />
-      </div>
-
-      {/* Spin keyframe via inline style */}
-      <style>{`
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-      `}</style>
-    </div>
+    </SelectionProvider>
   );
 }
+
+const centerStageStyle = {
+  position: "absolute",
+  inset: 0,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  padding: "80px 24px 40px",
+  pointerEvents: "none",
+  zIndex: 25,
+  overflowY: "auto",
+};
+
+const heroBoxStyle = {
+  width: "100%",
+  maxWidth: 580,
+  padding: "40px 36px 32px",
+  pointerEvents: "auto",
+  userSelect: "text",
+};

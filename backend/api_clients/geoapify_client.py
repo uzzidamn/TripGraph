@@ -27,9 +27,34 @@ class GeoapifyClient:
             if "features" in data:
                 for feature in data["features"]:
                     props = feature["properties"]
+                    # Skip features without a real name — they show up in the UI as
+                    # "Unknown Place" pins floating in the middle of nowhere otherwise.
+                    raw_name = (props.get("name") or "").strip()
+                    if not raw_name:
+                        # Fall back to a street/address if Geoapify provides one,
+                        # else drop the entry entirely.
+                        fallback = (props.get("street") or props.get("address_line1") or "").strip()
+                        if not fallback or len(fallback) < 3:
+                            continue
+                        raw_name = fallback
+                    # Geoapify returns a `categories` array like
+                    #   ["tourism", "tourism.attraction", "tourism.attraction.themed_park"]
+                    # Flatten that into a clean tag list (e.g. ["tourism", "attraction", "themed_park"])
+                    # and de-dup, preserving order.
+                    raw_cats = props.get("categories") or [categories]
+                    tags: list[str] = []
+                    seen = set()
+                    for raw in raw_cats:
+                        for part in str(raw).split("."):
+                            part = part.strip()
+                            if part and part not in seen:
+                                seen.add(part)
+                                tags.append(part)
+                    primary = categories.split(".")[0]
                     places.append({
-                        "name": props.get("name", "Unknown Place"),
-                        "category": categories.split(".")[0],
+                        "name": raw_name,
+                        "category": primary,
+                        "tags": tags,
                         "lat": props.get("lat"),
                         "lng": props.get("lon"),
                         "address": props.get("address_line2", "")

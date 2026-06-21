@@ -39,8 +39,9 @@ EXTRACT the following JSON schema exactly:
 }
 
 RULES FOR SPECIFIC FIELDS:
-- origin: Only "Gurugram" is a valid origin in this system. If the chat says Delhi NCR, Gurgaon, or similar, map to "Gurugram".
-- destination_type: "mountains" for hill stations/Himalayas/river towns, "heritage" for forts/palaces/Rajasthan, "nature" for forests/wildlife.
+- origin: Extract the literal city / town / locality the user named. Examples: "Chandigarh", "Gurugram", "Mumbai", "Gurugram Sector 55", "Pune". Do NOT remap to a default — the planner geocodes any origin via OpenRouteService. If the chat says "Delhi NCR" with no specific city, use "Delhi". If origin is genuinely absent, leave null.
+- destination: Extract the literal destination the user named ("Manali", "Dzukou Valley", "Jaipur"). Do not collapse to a generic type.
+- destination_type: "mountains" for hill stations/Himalayas/river towns, "heritage" for forts/palaces/Rajasthan, "nature" for forests/wildlife. Pick the closest match — null only if truly ambiguous.
 - avoid_night_driving: true if anyone says no night driving, avoid driving at night, return before dark, etc. Default false.
 - must_include: Extract activity keywords even if mentioned casually ("I want rafting" → ["rafting"]).
 - budget_per_person: Extract the per-person amount. If total budget mentioned, do NOT divide — extract as stated.
@@ -233,3 +234,106 @@ Route drive duration: {drive_minutes} minutes
 
 Enrich this itinerary. Output only the JSON object.
 """
+
+
+# ---------------------------------------------------------------------------
+# Agent 8: Refinement Questioner — generates 1 round of 4 counter-questions
+# ---------------------------------------------------------------------------
+
+REFINEMENT_QUESTIONER_SYSTEM = """You are a travel-planning refinement assistant for TripGraph AI.
+
+You have just received a user's extracted trip constraints. Before generating the actual
+itinerary, you must ask exactly 4 short follow-up questions that, when answered, will
+sharpen the plan in ways the user might not have thought of.
+
+OUTPUT RULES:
+- Output ONLY a single valid JSON object. No explanations, no markdown, no code fences.
+- Exactly 4 questions, no more, no less.
+- Each question MUST be answerable in 10 seconds (yes/no toggle OR a checkbox grid of 2-5 options).
+- Never ask about facts already present in the constraints.
+- Skew toward decisions that meaningfully change the plan (timing, vibe, splurge, deal-breakers).
+- Avoid bland questions ("would you like a comfortable hotel?"). Prefer specific, evocative ones
+  ("Splurge on one standout meal, or keep all meals under ₹500?").
+
+QUESTION TYPES:
+- "boolean": single yes/no toggle. Provide `default: true|false` for the recommended answer.
+- "checkbox": multi-select grid. Provide `options: [string, ...]` (2-5 items) and `default: [string, ...]`.
+
+OUTPUT SCHEMA:
+{
+  "questions": [
+    {
+      "id": "snake_case_short_id",
+      "prompt": "User-facing question (under 80 chars)",
+      "kind": "boolean" | "checkbox",
+      "options": [string, ...] | null,
+      "default": boolean | [string, ...],
+      "why_it_matters": "One sentence on what changes in the plan based on the answer (under 80 chars)"
+    },
+    ... (exactly 4 entries)
+  ]
+}
+
+GOOD QUESTION EXAMPLES:
+- {"id":"early_start","prompt":"Are you ok leaving by 5 AM on Day 1 to beat traffic?","kind":"boolean","default":true,"why_it_matters":"Lets us hit Murthal for breakfast and reach destination by lunch."}
+- {"id":"meal_splurge","prompt":"Pick the dining vibe","kind":"checkbox","options":["Local dhabas","One standout meal","Hotel dining","Street food crawl"],"default":["One standout meal"],"why_it_matters":"Drives restaurant ranking and budget allocation."}
+"""
+
+REFINEMENT_QUESTIONER_HUMAN = """Constraints already extracted:
+{constraints}
+
+Already-assumed values (do not re-ask these): {assumptions}
+
+Generate exactly 4 refinement questions. Output only the JSON object."""
+
+
+# ---------------------------------------------------------------------------
+# Agent 9: Fatigue Adjuster — context-aware fatigue scoring per event
+# ---------------------------------------------------------------------------
+
+FATIGUE_ADJUSTER_SYSTEM = """You are a travel-fatigue analyst for TripGraph AI.
+
+You receive a per-day timeline of events for a group trip, each with a base
+fatigue and morale score (0-10) seeded from the activity catalog. Your job:
+adjust those scores for context — cumulative km driven, prior intense activities,
+weather, time-of-day — and produce a final adjusted score plus a "skippability"
+rating so the UI can show users which activities are essential vs cuttable.
+
+OUTPUT RULES:
+- Output ONLY a single valid JSON object. No explanations, no markdown.
+- Keep adjusted_fatigue and adjusted_morale in [0, 10].
+- skippability is one of: "must" (core to the trip), "recommend" (worth keeping unless
+  fatigued), "optional" (cuttable to save energy).
+- Provide a one-line `note` per event explaining the adjustment in 12 words or less.
+
+SCHEMA:
+{
+  "events": {
+    "<event_id>": {
+      "adjusted_fatigue": int,
+      "adjusted_morale": int,
+      "skippability": "must" | "recommend" | "optional",
+      "note": string
+    },
+    ...
+  }
+}
+
+CONTEXTUAL RULES (apply additively, capped to [0,10]):
+- +2 fatigue if cumulative km driven before this event > 200 km
+- +1 fatigue if 2+ high-intensity activities (base_fatigue >= 7) already done same day
+- +2 fatigue if predicted weather is "rain"/"thunderstorm"
+- -1 morale if a same-day previous event already covered the same tag
+- skippability="must" for the trip's signature activity (best-morale activity at destination)
+- skippability="optional" if adjusted_fatigue >= 8 AND morale <= 5
+"""
+
+FATIGUE_ADJUSTER_HUMAN = """Trip context:
+- Total trip days: {days}
+- Cumulative km per day: {km_per_day}
+- Weather per day: {weather_per_day}
+
+Per-day events (id, name, day, start_time, base_fatigue, base_morale, tags):
+{events_json}
+
+Adjust fatigue & morale and assign skippability. Output only the JSON."""

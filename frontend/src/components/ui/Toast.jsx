@@ -4,7 +4,7 @@ import { CheckCircle, AlertCircle, Info } from "lucide-react";
 const TYPE_CONFIG = {
   success: { icon: CheckCircle, color: "#00b894", bg: "rgba(0,184,148,0.12)", border: "rgba(0,184,148,0.25)" },
   error:   { icon: AlertCircle, color: "#e17055", bg: "rgba(225,112,85,0.12)", border: "rgba(225,112,85,0.25)" },
-  info:    { icon: Info,        color: "#7c6df7", bg: "rgba(124,109,247,0.12)", border: "rgba(124,109,247,0.25)" },
+  info:    { icon: Info,        color: "#cfd6e0", bg: "rgba(207,214,224,0.12)", border: "rgba(207,214,224,0.25)" },
 };
 
 function ToastItem({ toast }) {

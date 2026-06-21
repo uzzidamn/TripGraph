@@ -47,6 +47,39 @@ class TripState(TypedDict):
     replanned_itinerary: Optional[Dict[str, Any]]
     replanning_explanation: Optional[str]
 
+    # Refinement (1-round LLM counter-questions answered by the user)
+    refinement_questions: List[Dict[str, Any]]
+    refinement_answers: Dict[str, Any]
+
+    # Planning loop telemetry — used by /api/generate-itinerary to debug 2-pass loop
+    retrieval_passes: int
+    retrieval_source: Dict[str, str]   # bucket -> 'kg' | 'api+kg' | 'empty'
+
+    # Pending-API agent payloads (scaffolded; silent until keys configured)
+    flights: Optional[Dict[str, Any]]
+    trains: Optional[Dict[str, Any]]
+    hotel_deals: Optional[Dict[str, Any]]
+    traffic: Optional[Dict[str, Any]]
+    weather_forecast: Dict[str, Any]   # keyed by lat,lng tuple-as-string
+
+    # Final AI review of the assembled itinerary
+    review: Optional[Dict[str, Any]]
+
+    # Fatigue model
+    fatigue_per_event: Dict[str, Any]   # event_id -> {base, adjusted, skippability}
+
+    # DuckDuckGo insights — place_id -> {abstract, source_url, related_topics, ...}
+    insights_per_place: Dict[str, Any]
+
+    # Architect critic loop — review feedback from the previous iteration
+    last_review_feedback: Optional[Dict[str, Any]]
+
+    # Architect's full structured plan (persisted for frontend)
+    architect_plan: Optional[Dict[str, Any]]
+
+    # Terminal info — airports/stations for origin + destination with first/last mile times
+    terminal_info: Optional[Dict[str, Any]]
+
 
 def initialize_state(raw_chat: List[str]) -> TripState:
     """Return a fully initialized TripState with all fields set to safe defaults.
@@ -80,4 +113,19 @@ def initialize_state(raw_chat: List[str]) -> TripState:
         delay_event=None,
         replanned_itinerary=None,
         replanning_explanation=None,
+        refinement_questions=[],
+        refinement_answers={},
+        retrieval_passes=0,
+        retrieval_source={},
+        flights=None,
+        trains=None,
+        hotel_deals=None,
+        traffic=None,
+        weather_forecast={},
+        fatigue_per_event={},
+        insights_per_place={},
+        review=None,
+        last_review_feedback=None,
+        architect_plan=None,
+        terminal_info=None,
     )

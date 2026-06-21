@@ -13,8 +13,8 @@ Constraint defaults (use these if not explicitly stated by the user):
 - group_size: 4
 - hotel_tier: "comfort"
 - risk_tolerance: "medium"
-- origin: "Gurugram"
 - trip_duration: "2D1N"
+(Origin must be extracted verbatim from the user — do NOT default to any city.)
 
 Location names: always use title case (e.g. "Gurugram", "Rishikesh", "Jaipur").
 

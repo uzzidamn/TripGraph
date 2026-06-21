@@ -35,12 +35,18 @@ def seed_cities(tx) -> None:
         tx.run(
             "MERGE (c:City {name: $name}) "
             "SET c.type = $type, c.lat = $lat, c.lng = $lng, "
-            "c.description = $description",
+            "c.description = $description, c.confidence_pct = $confidence_pct, "
+            "c.verification_status = $verification_status, c.data_source = $data_source, "
+            "c.last_verified = $last_verified",
             name=city["name"],
             type=city["type"],
             lat=city["lat"],
             lng=city["lng"],
             description=city["description"],
+            confidence_pct=city.get("confidence_pct", 100),
+            verification_status=city.get("verification_status", "verified"),
+            data_source=city.get("data_source", "manual"),
+            last_verified=city.get("last_verified", "2026-06-22"),
         )
         for tag in city.get("tags", []):
             tx.run(
@@ -68,13 +74,31 @@ def seed_routes(tx) -> None:
             "r.base_drive_minutes = $base_drive_minutes, "
             "r.risk_level = $risk_level, "
             "r.scenic_score = $scenic_score, "
-            "r.recommended_for = $recommended_for",
+            "r.recommended_for = $recommended_for, "
+            "r.highway = $highway, "
+            "r.flight_available = $flight_available, "
+            "r.flight_duration_minutes = $flight_duration_minutes, "
+            "r.train_available = $train_available, "
+            "r.train_duration_minutes = $train_duration_minutes, "
+            "r.confidence_pct = $confidence_pct, "
+            "r.verification_status = $verification_status, "
+            "r.data_source = $data_source, "
+            "r.last_verified = $last_verified",
             route_id=route["route_id"],
             distance_km=route["distance_km"],
             base_drive_minutes=route["base_drive_minutes"],
             risk_level=route["risk_level"],
             scenic_score=route["scenic_score"],
             recommended_for=route["recommended_for"],
+            highway=route.get("highway"),
+            flight_available=route.get("flight_available", False),
+            flight_duration_minutes=route.get("flight_duration_minutes", 0),
+            train_available=route.get("train_available", False),
+            train_duration_minutes=route.get("train_duration_minutes", 0),
+            confidence_pct=route.get("confidence_pct", 100),
+            verification_status=route.get("verification_status", "verified"),
+            data_source=route.get("data_source", "manual"),
+            last_verified=route.get("last_verified", "2026-06-22"),
         )
         tx.run(
             "MATCH (origin:City {name: $origin}), (r:Route {route_id: $route_id}) "
@@ -104,7 +128,13 @@ def seed_hotels(tx) -> None:
             "h.checkout_time = $checkout_time, "
             "h.comfort_score = $comfort_score, "
             "h.lat = $lat, h.lng = $lng, "
-            "h.amenities = $amenities, h.tags = $tags",
+            "h.amenities = $amenities, h.tags = $tags, "
+            "h.editorial_summary = $editorial_summary, "
+            "h.price_confidence = $price_confidence, "
+            "h.confidence_pct = $confidence_pct, "
+            "h.verification_status = $verification_status, "
+            "h.data_source = $data_source, "
+            "h.last_verified = $last_verified",
             hotel_id=hotel["hotel_id"],
             name=hotel["name"],
             tier=hotel["tier"],
@@ -117,6 +147,12 @@ def seed_hotels(tx) -> None:
             lng=hotel["lng"],
             amenities=hotel["amenities"],
             tags=hotel["tags"],
+            editorial_summary=hotel.get("editorial_summary", ""),
+            price_confidence=hotel.get("price_confidence", "medium"),
+            confidence_pct=hotel.get("confidence_pct", 100),
+            verification_status=hotel.get("verification_status", "verified"),
+            data_source=hotel.get("data_source", "manual"),
+            last_verified=hotel.get("last_verified", "2026-06-22"),
         )
         tx.run(
             "MATCH (c:City {name: $destination}), (h:Hotel {hotel_id: $hotel_id}) "
@@ -138,7 +174,17 @@ def seed_activities(tx) -> None:
             "a.cost_per_person = $cost_per_person, "
             "a.available_slots = $available_slots, "
             "a.risk_level = $risk_level, "
-            "a.tags = $tags, a.lat = $lat, a.lng = $lng",
+            "a.tags = $tags, a.lat = $lat, a.lng = $lng, "
+            "a.fatigue_score_base = $fatigue_score_base, "
+            "a.morale_score_base = $morale_score_base, "
+            "a.editorial_summary = $editorial_summary, "
+            "a.opening_hours = $opening_hours, "
+            "a.skip_if = $skip_if, "
+            "a.insider_tip = $insider_tip, "
+            "a.confidence_pct = $confidence_pct, "
+            "a.verification_status = $verification_status, "
+            "a.data_source = $data_source, "
+            "a.last_verified = $last_verified",
             activity_id=act["activity_id"],
             name=act["name"],
             category=act["category"],
@@ -149,6 +195,16 @@ def seed_activities(tx) -> None:
             tags=act["tags"],
             lat=act["lat"],
             lng=act["lng"],
+            fatigue_score_base=act.get("fatigue_score_base", 5),
+            morale_score_base=act.get("morale_score_base", 5),
+            editorial_summary=act.get("editorial_summary", ""),
+            opening_hours=act.get("opening_hours", []),
+            skip_if=act.get("skip_if", ""),
+            insider_tip=act.get("insider_tip", ""),
+            confidence_pct=act.get("confidence_pct", 100),
+            verification_status=act.get("verification_status", "verified"),
+            data_source=act.get("data_source", "manual"),
+            last_verified=act.get("last_verified", "2026-06-22"),
         )
         tx.run(
             "MATCH (c:City {name: $destination}), (a:Activity {activity_id: $activity_id}) "
@@ -183,7 +239,13 @@ def seed_restaurants(tx) -> None:
             "SET r.name = $name, r.meal_types = $meal_types, "
             "r.avg_cost_per_person = $avg_cost_per_person, "
             "r.avg_duration_minutes = $avg_duration_minutes, "
-            "r.tags = $tags, r.lat = $lat, r.lng = $lng",
+            "r.tags = $tags, r.lat = $lat, r.lng = $lng, "
+            "r.signature_dish = $signature_dish, "
+            "r.insider_tip = $insider_tip, "
+            "r.confidence_pct = $confidence_pct, "
+            "r.verification_status = $verification_status, "
+            "r.data_source = $data_source, "
+            "r.last_verified = $last_verified",
             restaurant_id=rest["restaurant_id"],
             name=rest["name"],
             meal_types=rest["meal_types"],
@@ -192,6 +254,12 @@ def seed_restaurants(tx) -> None:
             tags=rest["tags"],
             lat=rest["lat"],
             lng=rest["lng"],
+            signature_dish=rest.get("signature_dish", ""),
+            insider_tip=rest.get("insider_tip", ""),
+            confidence_pct=rest.get("confidence_pct", 100),
+            verification_status=rest.get("verification_status", "verified"),
+            data_source=rest.get("data_source", "manual"),
+            last_verified=rest.get("last_verified", "2026-06-22"),
         )
         if rest.get("destination"):
             tx.run(
@@ -233,7 +301,11 @@ def seed_transport(tx) -> None:
             "to.night_driving_allowed = $night_driving_allowed, "
             "to.comfort_score = $comfort_score, "
             "to.fatigue_score = $fatigue_score, "
-            "to.tags = $tags",
+            "to.tags = $tags, "
+            "to.confidence_pct = $confidence_pct, "
+            "to.verification_status = $verification_status, "
+            "to.data_source = $data_source, "
+            "to.last_verified = $last_verified",
             transport_id=t["transport_id"],
             mode=t["mode"],
             tier=t["tier"],
@@ -244,6 +316,10 @@ def seed_transport(tx) -> None:
             comfort_score=t["comfort_score"],
             fatigue_score=t["fatigue_score"],
             tags=t["tags"],
+            confidence_pct=t.get("confidence_pct", 100),
+            verification_status=t.get("verification_status", "verified"),
+            data_source=t.get("data_source", "manual"),
+            last_verified=t.get("last_verified", "2026-06-22"),
         )
         tx.run(
             "MATCH (r:Route {route_id: $route_id}), "

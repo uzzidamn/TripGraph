@@ -7,13 +7,48 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --panel-bg: rgba(8, 12, 26, 0.9);
-  --glass-border: rgba(255, 255, 255, 0.07);
-  --glass-blur: 24px;
-  --primary: #7c6df7;
-  --accent: #00cec9;
-  --text: #e2e8f0;
-  --muted: #64748b;
+  /* ── Apple light-aluminum design tokens ──────────────────────────
+   * Inverted from the v1 dark theme so the app reads as a clean,
+   * cool light-grey product — no dark backgrounds anywhere. Names
+   * preserved so existing utility classes still work.
+   */
+  --ink:        #f5f5f7;   /* app background — Apple's classic UI grey */
+  --graphite:   #ececef;   /* lifted surface */
+  --steel:      #e3e4ea;   /* primary surface */
+  --aluminum:   #cccdd4;   /* raised / darker surface */
+  --silver:     #6e7382;   /* secondary text / dim */
+  --chrome:     #2a2d33;   /* primary text */
+  --platinum:   #0a0c10;   /* highest-contrast text */
+  --rim:        rgba(0, 0, 0, 0.10);
+  --rim-bright: rgba(0, 0, 0, 0.18);
+  --hush:       rgba(0, 0, 0, 0.04);
+  --whisper:    rgba(255, 255, 255, 0.65);
+
+  --glass-blur:   24px;
+  --glass-blur-xl: 36px;
+
+  /* Brushed-metal gradient — light tier */
+  --brushed-metal: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.85) 0%,
+    rgba(236, 236, 239, 0.78) 50%,
+    rgba(204, 205, 212, 0.62) 100%
+  );
+
+  /* Apple-logo etched-into-aluminum text — pulled darker so it reads on the
+   * lighter hero card. The gradient still gives a subtle mirror feel. */
+  --mirror-text: linear-gradient(
+    180deg,
+    #1d1f25 0%,
+    #2e333d 40%,
+    #0a0c10 70%,
+    #1d1f25 100%
+  );
+
+  --card-bevel:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    0 1px 2px rgba(20, 22, 28, 0.06);
 }
 
 html, body, #root {
@@ -24,34 +59,43 @@ html, body, #root {
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
-  background: #080c18;
-  color: #e2e8f0;
-  line-height: 1.6;
+  background: var(--ink);
+  color: var(--chrome);
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.005em;
 }
 
-/* Thin dark scrollbar */
-::-webkit-scrollbar { width: 4px; height: 4px; }
+/* Thin grey scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 999px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }
+::-webkit-scrollbar-thumb { background: rgba(110, 115, 130, 0.30); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(110, 115, 130, 0.55); }
 
-/* ── Leaflet dark theme ────────────────────────────────── */
+/* ── Leaflet light-skin ─────────────────────────────────────────── */
 .leaflet-container {
-  background: #080c18;
+  background: var(--ink);
   font-family: 'Inter', sans-serif;
 }
+/* Light-mode tile filter — keep CartoDB tiles legible without going dark */
+.leaflet-tile {
+  filter: grayscale(0.85) brightness(1.02) contrast(0.95);
+}
+/* Google styled tiles are already Uber-grey — don't double-filter them */
+.map-google .leaflet-tile {
+  filter: none;
+}
 .leaflet-control-zoom {
-  border: 1px solid rgba(255,255,255,0.1) !important;
+  border: 1px solid var(--rim) !important;
   border-radius: 12px !important;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+  box-shadow: 0 4px 14px rgba(20, 22, 28, 0.12) !important;
 }
 .leaflet-control-zoom a {
-  background: rgba(8, 12, 26, 0.94) !important;
-  color: #e2e8f0 !important;
-  border-color: rgba(255,255,255,0.06) !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+  color: var(--chrome) !important;
+  border-color: var(--rim) !important;
   backdrop-filter: blur(16px);
   font-size: 18px !important;
   line-height: 30px !important;
@@ -60,41 +104,37 @@ body {
   transition: background 0.2s;
 }
 .leaflet-control-zoom a:hover {
-  background: rgba(124, 109, 247, 0.25) !important;
-  color: #7c6df7 !important;
+  background: rgba(255, 255, 255, 0.98) !important;
+  color: var(--platinum) !important;
 }
 .leaflet-control-attribution {
-  background: rgba(8, 12, 26, 0.65) !important;
-  color: rgba(255,255,255,0.35) !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  color: var(--silver) !important;
   font-size: 9px;
   backdrop-filter: blur(8px);
   border-top-left-radius: 6px;
 }
 .leaflet-popup-content-wrapper {
-  background: rgba(8, 12, 26, 0.97) !important;
-  color: #e2e8f0 !important;
-  border: 1px solid rgba(255,255,255,0.1) !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  color: var(--chrome) !important;
+  border: 1px solid var(--rim) !important;
   border-radius: 14px !important;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 0 0 1px rgba(124,109,247,0.15) !important;
-  backdrop-filter: blur(24px) !important;
+  box-shadow:
+    0 16px 36px rgba(20, 22, 28, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(20px) !important;
   padding: 4px !important;
 }
-.leaflet-popup-content { 
-  margin: 10px 14px !important;
-}
-.leaflet-popup-tip {
-  background: rgba(8, 12, 26, 0.97) !important;
-}
+.leaflet-popup-content { margin: 10px 14px !important; }
+.leaflet-popup-tip { background: rgba(255, 255, 255, 0.96) !important; }
 .leaflet-popup-close-button {
-  color: #64748b !important;
+  color: var(--silver) !important;
   font-size: 18px !important;
   top: 6px !important;
   right: 8px !important;
 }
 
-/* ── Utility Classes ───────────────────────────────────── */
-
-/* Full-screen map (no 3D tilt — prevents black corner artifacts) */
+/* ── Utility classes ────────────────────────────────────────────── */
 .map-fullscreen {
   position: absolute;
   inset: 0;
@@ -103,148 +143,261 @@ body {
   z-index: 0;
 }
 
-/* Dark radial vignette for landing mode */
+/* Subtle light vignette */
 .map-vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    ellipse 80% 80% at 50% 50%,
-    transparent 15%,
-    rgba(8, 12, 24, 0.55) 60%,
-    rgba(4, 6, 14, 0.88) 100%
-  );
+  background:
+    radial-gradient(
+      ellipse 80% 75% at 50% 50%,
+      transparent 30%,
+      rgba(245, 245, 247, 0.45) 75%,
+      rgba(245, 245, 247, 0.78) 100%
+    );
   pointer-events: none;
   z-index: 1;
 }
 
-/* Hero card — gradient edges bleeding into map, no hard border */
+/* Light landing blur — masks pan seams without going dark */
+.landing-blur-veil {
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(4px) saturate(0.9);
+  -webkit-backdrop-filter: blur(4px) saturate(0.9);
+  background: linear-gradient(180deg, rgba(245,245,247,0.18), rgba(245,245,247,0.45));
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Hero card — Apple soft halo. Slightly muted so text/chips read clearly. */
 .hero-card {
-  background: radial-gradient(
-    ellipse 100% 90% at 50% 50%,
-    rgba(10, 14, 32, 0.96) 30%,
-    rgba(8, 12, 24, 0.82) 65%,
-    rgba(4, 6, 14, 0.0) 100%
-  );
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+  background:
+    radial-gradient(
+      ellipse 100% 90% at 50% 50%,
+      rgba(232, 234, 240, 0.85) 30%,
+      rgba(220, 224, 232, 0.70) 65%,
+      rgba(245, 245, 247, 0.0) 100%
+    );
+  backdrop-filter: blur(var(--glass-blur-xl));
+  -webkit-backdrop-filter: blur(var(--glass-blur-xl));
+  border: 1px solid var(--rim);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.055) inset,
-    0 0 80px 48px rgba(4, 6, 14, 0.82),
-    0 24px 64px rgba(0, 0, 0, 0.5);
+    var(--card-bevel),
+    0 0 60px 28px rgba(220, 224, 232, 0.55),
+    0 24px 64px rgba(20, 22, 28, 0.14);
+  border-radius: 22px;
 }
 
-/* Side panels */
-.side-panel-left {
-  background: var(--panel-bg);
+/* Glass primitive */
+.glass {
+  background: var(--whisper);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
-  border-right: 1px solid var(--glass-border);
+  border: 1px solid var(--rim);
+  box-shadow: var(--card-bevel);
+  border-radius: 14px;
+  color: var(--chrome);
 }
-.side-panel-right {
-  background: var(--panel-bg);
+.glass-strong {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(248, 249, 251, 0.78));
+  backdrop-filter: blur(var(--glass-blur-xl));
+  -webkit-backdrop-filter: blur(var(--glass-blur-xl));
+  border: 1px solid var(--rim);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 14px 32px rgba(20, 22, 28, 0.10);
+  border-radius: 14px;
+  color: var(--chrome);
+}
+
+/* Brushed-aluminum panel — for side rails */
+.metal-panel {
+  background: var(--brushed-metal);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
-  border-left: 1px solid var(--glass-border);
+  border: 1px solid var(--rim);
+  box-shadow: var(--card-bevel);
+  color: var(--chrome);
 }
 
-/* Generic glass surface */
-.glass-panel {
-  background: rgba(14, 18, 38, 0.82);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+/* Mirror text — etched-into-aluminum look on light bg.
+   text-shadow uses transparent for the body and reveals via background-clip. */
+.metal-text {
+  background: var(--mirror-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
-/* Card hover */
-.card-hover {
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-}
-.card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
-  border-color: rgba(124, 109, 247, 0.28) !important;
-}
-
-/* Primary button */
+/* Primary pill button — dark on light */
 .btn-primary {
-  background: linear-gradient(135deg, #6c5ce7 0%, #7c6df7 100%);
-  box-shadow: 0 4px 20px rgba(124, 109, 247, 0.38);
-  transition: box-shadow 0.25s, transform 0.2s, opacity 0.2s;
+  background: linear-gradient(180deg, #3a3d44, #1d1f25);
+  color: #f5f5f7;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 6px 16px rgba(20, 22, 28, 0.20);
+  transition: filter 0.2s, transform 0.15s, opacity 0.2s;
 }
 .btn-primary:hover:not(:disabled) {
-  box-shadow: 0 6px 28px rgba(124, 109, 247, 0.58);
+  filter: brightness(1.12);
   transform: translateY(-1px);
 }
-.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-primary:active:not(:disabled) { transform: translateY(0); filter: brightness(0.95); }
+.btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
 
-/* Skeleton shimmer (dark) */
+/* Secondary ghost button */
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--chrome);
+  border: 1px solid var(--rim);
+  transition: background 0.2s, border-color 0.2s;
+}
+.btn-ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--rim-bright);
+}
+
+/* Chip / pill */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--chrome);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--rim);
+  text-transform: uppercase;
+}
+.chip-muted {
+  color: var(--silver);
+  background: rgba(255, 255, 255, 0.55);
+}
+.chip-warning { color: #8a5a00; border-color: rgba(138, 90, 0, 0.32); background: rgba(255, 224, 168, 0.55); }
+.chip-rain    { color: #1e4d76; border-color: rgba(30, 77, 118, 0.32); background: rgba(199, 222, 240, 0.55); }
+.chip-must    { color: #fff; background: #1d1f25; border-color: rgba(0,0,0,0.35); }
+
+/* Hairline separator */
+.section-sep {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rim), transparent);
+  margin: 12px 0;
+}
+
+/* Skeleton shimmer (light) */
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
 }
 .skeleton {
   background: linear-gradient(90deg,
-    rgba(255,255,255,0.04) 25%,
-    rgba(255,255,255,0.09) 50%,
-    rgba(255,255,255,0.04) 75%);
+    rgba(0, 0, 0, 0.04) 25%,
+    rgba(0, 0, 0, 0.09) 50%,
+    rgba(0, 0, 0, 0.04) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.6s infinite;
   border-radius: 6px;
 }
 
-/* Range input (dark purple) */
+/* Range input (dark thumb on light) */
 input[type="range"] {
   -webkit-appearance: none;
   width: 100%;
   height: 3px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(0, 0, 0, 0.10);
   border-radius: 999px;
   outline: none;
 }
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 15px;
-  height: 15px;
-  background: #7c6df7;
+  width: 14px;
+  height: 14px;
+  background: var(--chrome);
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 0 8px rgba(124,109,247,0.55);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 2px 5px rgba(20, 22, 28, 0.25);
   transition: background 0.2s, transform 0.15s;
 }
 input[type="range"]::-webkit-slider-thumb:hover {
-  background: #9080ff;
+  background: var(--platinum);
   transform: scale(1.15);
 }
 
-/* Google Calendar-style horizontal calendar */
-.cal-grid {
+/* Animated route polyline */
+@keyframes routeDraw {
+  from { stroke-dashoffset: var(--route-length, 6000); }
+  to   { stroke-dashoffset: 0; }
+}
+.route-polyline {
+  stroke-dasharray: var(--route-length, 6000);
+  animation: routeDraw 1.6s ease-out forwards;
+}
+
+/* Pulse halo on selected map marker */
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0   rgba(42, 45, 51, 0.45); }
+  100% { box-shadow: 0 0 0 16px rgba(42, 45, 51, 0);   }
+}
+.marker-pulse {
+  border-radius: 50%;
+  animation: pulse 1.6s ease-out infinite;
+}
+.segment-label {
+  background: transparent !important;
+  border: none !important;
+  pointer-events: none;
+}
+
+/* Timeline deck */
+.timeline-deck {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  pointer-events: auto;
+}
+
+/* Timeline event card */
+.tl-event {
+  min-width: 168px;
+  max-width: 220px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.tl-event:hover { transform: translateY(-2px); border-color: var(--rim-bright); }
+.tl-event.is-active {
+  border-color: var(--chrome);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 12px 28px rgba(20, 22, 28, 0.14);
+}
+
+/* Radial fatigue/morale gauge */
+.gauge-ring {
+  --pct: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background:
+    conic-gradient(var(--chrome) calc(var(--pct) * 1%), rgba(0,0,0,0.08) 0);
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(90px, 1fr);
-  overflow-x: auto;
+  place-items: center;
 }
-
-/* Animated route pulse on map */
-@keyframes routeDash {
-  from { stroke-dashoffset: 0; }
-  to { stroke-dashoffset: -40; }
-}
-
-/* Badge / chip */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-}
-
-/* Section separator */
-.section-sep {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
-  margin: 12px 0;
+.gauge-ring::after {
+  content: "";
+  width: 20px;
+  height: 20px;
+  background: var(--steel);
+  border-radius: 50%;
+  border: 1px solid var(--rim);
 }

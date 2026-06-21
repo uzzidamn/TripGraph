@@ -43,7 +43,7 @@ print("=" * 60)
 # --- Cities ---
 print("\n📍 Cities:")
 cities = load("seed_cities.json")
-check(len(cities) == 4, f"Exactly 4 cities (found {len(cities)})")
+check(len(cities) >= 4, f"At least 4 cities (found {len(cities)})")
 check(
     all("name" in c and "type" in c and "lat" in c and "lng" in c and "description" in c for c in cities),
     "All cities have required fields (name, type, lat, lng, description)",
@@ -62,7 +62,7 @@ city_names = {c["name"] for c in cities}
 # --- Routes ---
 print("\n🛣️  Routes:")
 routes = load("seed_routes.json")
-check(len(routes) == 3, f"Exactly 3 routes (found {len(routes)})")
+check(len(routes) >= 3, f"At least 3 routes (found {len(routes)})")
 check(
     all("route_id" in r and "origin" in r and "destination" in r and
         "distance_km" in r and "base_drive_minutes" in r and
@@ -129,7 +129,7 @@ check(
     "All activities have non-empty available_slots",
 )
 check(
-    all(a["destination"] in {"Jaipur", "Rishikesh", "Tirthan Valley"} for a in activities),
+    all(a["destination"] in city_names for a in activities),
     "All activities belong to a valid destination",
 )
 for dest in ["Jaipur", "Rishikesh", "Tirthan Valley"]:

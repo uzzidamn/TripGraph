@@ -25,19 +25,37 @@ def itinerary_enricher_node(state: TripState) -> dict:
         "risk_tolerance": constraints.get("risk_tolerance", "medium")
     }
 
-    response = llm.invoke([
-        SystemMessage(content=ENRICHER_SYSTEM),
-        HumanMessage(content=ENRICHER_HUMAN.format(
-            destination=itinerary.get("route", {}).get("destination"),
-            group_profile=json.dumps(group_profile),
-            itinerary_skeleton=json.dumps(itinerary, indent=2),
-            hotel_candidates=json.dumps(state.get("hotel_candidates", []), indent=2),
-            time_gaps=json.dumps(time_gaps),
-            drive_minutes=itinerary.get("route", {}).get("base_drive_minutes", 0)
-        ))
-    ])
+    # Keep the prompt compact to stay under the Gemini free-tier token/min limit:
+    # only send the hotel fields the LLM needs, capped to the top 5 candidates,
+    # and a slim itinerary skeleton.
+    slim_hotels = [
+        {k: h.get(k) for k in ("hotel_id", "name", "tier", "price_per_night", "rating")}
+        for h in (state.get("hotel_candidates") or [])[:5]
+    ]
+    slim_itin = {
+        "destination": itinerary.get("route", {}).get("destination"),
+        "transport": itinerary.get("transport", {}).get("mode"),
+        "hotel": (itinerary.get("hotel") or {}).get("name"),
+        "activities": [a.get("name") for a in (itinerary.get("activities") or [])[:6]],
+    }
 
-    content_str = extract_text_content(response.content)
+    try:
+        response = llm.invoke([
+            SystemMessage(content=ENRICHER_SYSTEM),
+            HumanMessage(content=ENRICHER_HUMAN.format(
+                destination=itinerary.get("route", {}).get("destination"),
+                group_profile=json.dumps(group_profile),
+                itinerary_skeleton=json.dumps(slim_itin),
+                hotel_candidates=json.dumps(slim_hotels),
+                time_gaps=json.dumps(time_gaps),
+                drive_minutes=itinerary.get("route", {}).get("base_drive_minutes", 0)
+            ))
+        ])
+        content_str = extract_text_content(response.content)
+    except Exception as e:
+        print(f"  ⚠️  Enricher LLM failed ({e}) — skipping enrichment")
+        return {"selected_itinerary": itinerary, "enrichment_applied": False}
+
     try:
         enrichment = json.loads(content_str)
     except json.JSONDecodeError:

@@ -117,8 +117,17 @@ def explainer_node(state: TripState) -> dict:
         else:
             explanation = str(content).strip()
     except Exception as e:
-        print(f"  ❌ LLM call failed in explainer: {e}")
-        raise
+        # Degrade gracefully (e.g. Gemini free-tier 429) — build a deterministic
+        # explanation so the whole trip doesn't fail on one rate-limited call.
+        print(f"  ⚠️  Explainer LLM failed ({e}) — using templated explanation")
+        mode = summary["transport_mode"]
+        mode_phrase = "flying" if mode == "flight" else f"travelling by {mode.replace('_', ' ')}"
+        explanation = (
+            f"We selected {summary['destination']} for your trip, {mode_phrase} and staying at "
+            f"{summary['hotel_name']}. The plan comes to ₹{summary['total_cost']:,} per person"
+            + (f", within your ₹{summary['budget_limit']:,} budget" if summary['budget_limit'] else "")
+            + f". Highlights: {summary['activities']}."
+        )
 
-    print(f"  ✅ Explainer: generated {len(explanation)} char explanation")
+    print(f"  ✅ Explainer: {len(explanation)} char explanation")
     return {"explanation": explanation}

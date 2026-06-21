@@ -15,7 +15,7 @@ import {
   Info,
 } from "lucide-react";
 
-function ScoreBar({ label, value, max = 30, color = "#7c6df7" }) {
+function ScoreBar({ label, value, max = 30, color = "#cfd6e0" }) {
   const pct = Math.min(100, (value / max) * 100);
   return (
     <div style={{ marginBottom: "8px" }}>
@@ -74,7 +74,7 @@ function Collapsible({ title, icon: Icon, iconColor, children, defaultOpen = fal
           fontFamily: "Inter, sans-serif",
         }}
       >
-        {Icon && <Icon size={13} style={{ color: iconColor ?? "#7c6df7", flexShrink: 0 }} />}
+        {Icon && <Icon size={13} style={{ color: iconColor ?? "#cfd6e0", flexShrink: 0 }} />}
         <span
           style={{
             fontSize: "11px",
@@ -92,8 +92,8 @@ function Collapsible({ title, icon: Icon, iconColor, children, defaultOpen = fal
             style={{
               fontSize: "10px",
               fontWeight: 700,
-              color: "#7c6df7",
-              background: "rgba(124,109,247,0.15)",
+              color: "#cfd6e0",
+              background: "rgba(207,214,224,0.15)",
               padding: "1px 7px",
               borderRadius: "999px",
             }}
@@ -173,8 +173,8 @@ export function ItineraryOptions({ itinerary, alternatives, scoreBreakdown }) {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         style={{
-          background: "linear-gradient(135deg, rgba(124,109,247,0.15) 0%, rgba(0,206,201,0.08) 100%)",
-          border: "1px solid rgba(124,109,247,0.25)",
+          background: "linear-gradient(135deg, rgba(207,214,224,0.15) 0%, rgba(0,206,201,0.08) 100%)",
+          border: "1px solid rgba(207,214,224,0.25)",
           borderRadius: "14px",
           padding: "16px",
           marginBottom: "10px",
@@ -189,7 +189,7 @@ export function ItineraryOptions({ itinerary, alternatives, scoreBreakdown }) {
         >
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px" }}>
-              <MapPin size={14} style={{ color: "#7c6df7" }} />
+              <MapPin size={14} style={{ color: "#cfd6e0" }} />
               <span style={{ fontWeight: 700, fontSize: "14px", color: "#e2e8f0" }}>
                 {route?.origin} → {destination ?? route?.destination}
               </span>
@@ -199,7 +199,7 @@ export function ItineraryOptions({ itinerary, alternatives, scoreBreakdown }) {
             </p>
           </div>
           <div style={{ textAlign: "right", flexShrink: 0 }}>
-            <p style={{ fontSize: "18px", fontWeight: 800, color: "#7c6df7", lineHeight: 1 }}>
+            <p style={{ fontSize: "18px", fontWeight: 800, color: "#cfd6e0", lineHeight: 1 }}>
               ₹{total_cost_per_person?.toLocaleString()}
             </p>
             <p style={{ fontSize: "10px", color: "#64748b", marginTop: "2px" }}>per person</p>
@@ -257,7 +257,7 @@ export function ItineraryOptions({ itinerary, alternatives, scoreBreakdown }) {
           iconColor="#00cec9"
           defaultOpen
         >
-          <ScoreBar label="Preference match" value={scoreBreakdown.preference_match} max={30} color="#7c6df7" />
+          <ScoreBar label="Preference match" value={scoreBreakdown.preference_match} max={30} color="#cfd6e0" />
           <ScoreBar label="Comfort" value={scoreBreakdown.comfort} max={20} color="#00b894" />
           <ScoreBar label="Fatigue management" value={scoreBreakdown.fatigue} max={15} color="#00cec9" />
           {scoreBreakdown.scenic != null && (
@@ -308,7 +308,7 @@ export function ItineraryOptions({ itinerary, alternatives, scoreBreakdown }) {
 
       {/* Hotel note */}
       {hotel_selection_reason && (
-        <Collapsible title="Why this hotel?" icon={Info} iconColor="#7c6df7">
+        <Collapsible title="Why this hotel?" icon={Info} iconColor="#cfd6e0">
           <p
             style={{
               fontSize: "12px",

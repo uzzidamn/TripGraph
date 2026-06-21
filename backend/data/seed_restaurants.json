@@ -1,176 +1,1326 @@
 [
   {
-    "restaurant_id": "lmb_jaipur_01",
+    "restaurant_id": "curlies_beach_shack_001",
+    "destination": "Goa",
+    "route_id": null,
+    "name": "Curlies Beach Shack",
+    "cuisine": "Goan Seafood",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 800,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "shack",
+      "beachfront",
+      "seafood",
+      "alcohol"
+    ],
+    "lat": 15.5714,
+    "lng": 73.7428,
+    "signature_dish": "Pork Vindaloo, Butter Garlic Calamari",
+    "insider_tip": "Get a table on the upper deck around 5:30 PM for a spectacular sunset view with your dinner.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "the_fisherman's_wharf_cavelossim_00",
+    "destination": "Goa",
+    "route_id": null,
+    "name": "The Fisherman's Wharf (Cavelossim)",
+    "cuisine": "Seafood",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 1200,
+    "avg_duration_minutes": 100,
+    "tags": [
+      "riverside",
+      "seafood",
+      "live_music"
+    ],
+    "lat": 15.1764,
+    "lng": 73.9422,
+    "signature_dish": "Tandoori Red Snapper, Goan Fish Curry",
+    "insider_tip": "Ask for a river-facing deck table; they have live bands playing retro English pop on weekends.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "gunpowder_assagao_003",
+    "destination": "Goa",
+    "route_id": null,
+    "name": "Gunpowder (Assagao)",
+    "cuisine": "South Indian Fusion",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 1000,
+    "avg_duration_minutes": 80,
+    "tags": [
+      "boutique_garden",
+      "fusion",
+      "cocktails"
+    ],
+    "lat": 15.5942,
+    "lng": 73.7915,
+    "signature_dish": "Kerala Beef Fry, Malabar Parotta",
+    "insider_tip": "It is located inside a beautiful old heritage villa courtyard. Reservations are mandatory for dinner.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "mum's_kitchen_panaji_004",
+    "destination": "Goa",
+    "route_id": null,
+    "name": "Mum's Kitchen (Panaji)",
+    "cuisine": "Traditional Goan",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 1400,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "heritage",
+      "traditional",
+      "family"
+    ],
+    "lat": 15.4955,
+    "lng": 73.818,
+    "signature_dish": "Prawn Curry Rice, Bebinca",
+    "insider_tip": "This place preserves traditional family recipes from Hindu and Catholic Goan homes. Try the lobster curry.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "vinayak_family_restaurant_anjuna_00",
+    "destination": "Goa",
+    "route_id": null,
+    "name": "Vinayak Family Restaurant (Anjuna)",
+    "cuisine": "Goan Local",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 450,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "local",
+      "budget",
+      "fish_thali"
+    ],
+    "lat": 15.5788,
+    "lng": 73.7553,
+    "signature_dish": "Goan Special Fish Thali",
+    "insider_tip": "Expect long queues during lunch hours. The fish thali is incredibly fresh and is the cheapest in North Goa.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "lmb_laxmi_misthan_bhandar_006",
     "destination": "Jaipur",
     "route_id": null,
     "name": "LMB (Laxmi Misthan Bhandar)",
-    "meal_types": ["breakfast", "lunch", "dinner"],
+    "cuisine": "Rajasthani Vegetarian",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
     "avg_cost_per_person": 500,
     "avg_duration_minutes": 60,
-    "tags": ["rajasthani_cuisine", "vegetarian", "heritage", "famous"],
+    "tags": [
+      "vegetarian",
+      "heritage",
+      "famous",
+      "must_visit"
+    ],
     "lat": 26.9234,
-    "lng": 75.8260
+    "lng": 75.826,
+    "signature_dish": "Dal Baati Churma, Special Ghevar",
+    "insider_tip": "Skip the busy ground floor sweet counter and go upstairs to the AC restaurant for their grand Rajasthani Thali.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
   },
   {
-    "restaurant_id": "chokhi_dhani_jaipur_01",
+    "restaurant_id": "chokhi_dhani_dining_007",
     "destination": "Jaipur",
     "route_id": null,
-    "name": "Chokhi Dhani Village Resort Dining",
-    "meal_types": ["dinner"],
+    "name": "Chokhi Dhani Dining",
+    "cuisine": "Traditional Rajasthani",
+    "meal_types": [
+      "dinner"
+    ],
     "avg_cost_per_person": 900,
     "avg_duration_minutes": 90,
-    "tags": ["rajasthani_cuisine", "cultural_experience", "family", "thali"],
-    "lat": 26.7910,
-    "lng": 75.7573
+    "tags": [
+      "rajasthani_cuisine",
+      "thali",
+      "cultural_experience"
+    ],
+    "lat": 26.791,
+    "lng": 75.7573,
+    "signature_dish": "Sangri Ki Sabzi, Bajra Roti with Ghee",
+    "insider_tip": "Go early (by 6:30 PM) to explore the cultural village show before sitting down for the massive thali meal.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
   },
   {
-    "restaurant_id": "tapri_jaipur_01",
+    "restaurant_id": "tapri_central_008",
     "destination": "Jaipur",
     "route_id": null,
     "name": "Tapri Central",
-    "meal_types": ["breakfast", "lunch"],
+    "cuisine": "Modern Cafe & Chai",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
     "avg_cost_per_person": 300,
     "avg_duration_minutes": 45,
-    "tags": ["cafe", "chai", "quick_bite", "youth_favourite"],
+    "tags": [
+      "cafe",
+      "chai",
+      "rooftop",
+      "youth_favourite"
+    ],
     "lat": 26.9156,
-    "lng": 75.7890
+    "lng": 75.789,
+    "signature_dish": "Cutting Chai, Maggi, Garlic Bread",
+    "insider_tip": "Snag a seat on the rooftop balcony looking over Central Park around sunset; their hibiscus tea is lovely.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
   },
   {
-    "restaurant_id": "little_buddha_rishikesh_01",
+    "restaurant_id": "rawat_mishthan_bhandar_009",
+    "destination": "Jaipur",
+    "route_id": null,
+    "name": "Rawat Mishthan Bhandar",
+    "cuisine": "Indian Fast Food",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 200,
+    "avg_duration_minutes": 30,
+    "tags": [
+      "street_food",
+      "kachori",
+      "famous"
+    ],
+    "lat": 26.9205,
+    "lng": 75.7953,
+    "signature_dish": "Pyaaz Kachori, Mawa Kachori",
+    "insider_tip": "Perfect spot for a heavy local breakfast. The Pyaaz Kachoris are fried fresh every 15 minutes; eat them piping hot.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "baradari_restaurant_city_palace_010",
+    "destination": "Jaipur",
+    "route_id": null,
+    "name": "Baradari Restaurant (City Palace)",
+    "cuisine": "Royal Fusion",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 1500,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "luxury",
+      "palace_dining",
+      "fusion"
+    ],
+    "lat": 26.9262,
+    "lng": 75.8239,
+    "signature_dish": "Laal Maas, Smoked Lal Maas Pizza",
+    "insider_tip": "Beautifully designed contemporary restaurant inside the City Palace courtyard; spectacular under soft evening lights.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "kashi_chat_bhandar_011",
+    "destination": "Varanasi",
+    "route_id": null,
+    "name": "Kashi Chat Bhandar",
+    "cuisine": "Banarasi Street Food",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 150,
+    "avg_duration_minutes": 40,
+    "tags": [
+      "street_food",
+      "local",
+      "famous"
+    ],
+    "lat": 25.3085,
+    "lng": 83.0088,
+    "signature_dish": "Tamatar Chaat, Palak Patta Chaat",
+    "insider_tip": "The tamatar chaat is served in small clay pots with thick sugar syrup and ghee. Be ready to eat while standing.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "deena_chat_bhandar_012",
+    "destination": "Varanasi",
+    "route_id": null,
+    "name": "Deena Chat Bhandar",
+    "cuisine": "Banarasi Street Food",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 150,
+    "avg_duration_minutes": 40,
+    "tags": [
+      "street_food",
+      "local",
+      "budget"
+    ],
+    "lat": 25.3122,
+    "lng": 83.0065,
+    "signature_dish": "Gol Gappe, Dahi Bhalla",
+    "insider_tip": "A clean and historic street food outlet. Their Kulfi Falooda is the perfect way to end a spicy chaat tasting.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "pizzeria_vaatika_cafe_assi_ghat_013",
+    "destination": "Varanasi",
+    "route_id": null,
+    "name": "Pizzeria Vaatika Cafe (Assi Ghat)",
+    "cuisine": "Italian & Bakery",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 550,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "cafe",
+      "river_view",
+      "woodfire",
+      "must_visit"
+    ],
+    "lat": 25.2902,
+    "lng": 83.0072,
+    "signature_dish": "Woodfire Margherita Pizza, Apple Pie with Ice Cream",
+    "insider_tip": "Kolkata and Banaras travellers love their outdoor garden seating facing the Ganges. The apple pie is freshly baked daily.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "blue_lassi_shop_014",
+    "destination": "Varanasi",
+    "route_id": null,
+    "name": "Blue Lassi Shop",
+    "cuisine": "Sweet Yogurt Drinks",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 120,
+    "avg_duration_minutes": 30,
+    "tags": [
+      "lassi",
+      "famous",
+      "street_stall"
+    ],
+    "lat": 25.3115,
+    "lng": 83.0118,
+    "signature_dish": "Pomegranate-Chocolate Lassi, Mango Rabri Lassi",
+    "insider_tip": "Sit on the tiny wooden benches inside this 100-year-old shop and look at the hundreds of passport photos pasted on the walls.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "brown_bread_bakery_015",
+    "destination": "Varanasi",
+    "route_id": null,
+    "name": "Brown Bread Bakery",
+    "cuisine": "Organic & German Bakery",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 450,
+    "avg_duration_minutes": 75,
+    "tags": [
+      "bakery",
+      "rooftop",
+      "organic",
+      "western_food"
+    ],
+    "lat": 25.309,
+    "lng": 83.011,
+    "signature_dish": "German Rye Bread, Organic Cheese Platter",
+    "insider_tip": "Great rooftop cafe for western travelers looking for a clean, organic breakfast. They have live classical music every night.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "rapsy_restaurant_munnar_bazaar_016",
+    "destination": "Munnar",
+    "route_id": null,
+    "name": "Rapsy Restaurant (Munnar Bazaar)",
+    "cuisine": "Kerala Local & Biryani",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 250,
+    "avg_duration_minutes": 45,
+    "tags": [
+      "budget",
+      "local",
+      "famous"
+    ],
+    "lat": 10.0885,
+    "lng": 77.06,
+    "signature_dish": "Spanish Omelette, Beef Fry with Parotta",
+    "insider_tip": "This is Munnar's most famous budget joint. Try their unique Kerala beef fry or chicken biryani.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "saravana_bhavan_munnar_017",
+    "destination": "Munnar",
+    "route_id": null,
+    "name": "Saravana Bhavan (Munnar)",
+    "cuisine": "South Indian Vegetarian",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 200,
+    "avg_duration_minutes": 30,
+    "tags": [
+      "vegetarian",
+      "south_indian",
+      "budget"
+    ],
+    "lat": 10.089,
+    "lng": 77.0602,
+    "signature_dish": "Ghee Roast Dosa, Filter Coffee",
+    "insider_tip": "Go here for a reliable and quick vegetarian breakfast. The filter coffee is strong and authentic.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "tea_valley_restaurant_018",
+    "destination": "Munnar",
+    "route_id": null,
+    "name": "Tea Valley Restaurant",
+    "cuisine": "Indian & Continental",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 600,
+    "avg_duration_minutes": 70,
+    "tags": [
+      "hill_view",
+      "resort_dining"
+    ],
+    "lat": 10.0535,
+    "lng": 77.061,
+    "signature_dish": "Malabar Fish Curry, Tandoori Chicken Platter",
+    "insider_tip": "Perched inside a resort on a tea hill, offering wide dining room windows looking out over misty valleys.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "the_tibetan_kitchen_019",
+    "destination": "Leh",
+    "route_id": null,
+    "name": "The Tibetan Kitchen",
+    "cuisine": "Tibetan & Ladakhi",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 600,
+    "avg_duration_minutes": 80,
+    "tags": [
+      "garden",
+      "traditional",
+      "must_visit"
+    ],
+    "lat": 34.1595,
+    "lng": 77.583,
+    "signature_dish": "Mutton Gyakok (Tibetan Hot Pot), Thenthuk",
+    "insider_tip": "The outdoor garden tables are beautiful. The Gyakok pot requires ordering 4 hours in advance as it is slow-cooked.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "chopsticks_noodle_bar_020",
+    "destination": "Leh",
+    "route_id": null,
+    "name": "Chopsticks Noodle Bar",
+    "cuisine": "Asian Fusion",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 700,
+    "avg_duration_minutes": 75,
+    "tags": [
+      "asian",
+      "modern",
+      "balcony"
+    ],
+    "lat": 34.1588,
+    "lng": 77.5828,
+    "signature_dish": "Phad Thai Noodles, Momos Platter",
+    "insider_tip": "A clean and modern restaurant on Fort Road. Sit on the balcony for a view of the street while dining.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "gesmo_restaurant_german_bakery_021",
+    "destination": "Leh",
+    "route_id": null,
+    "name": "Gesmo Restaurant (German Bakery)",
+    "cuisine": "Western & Bakery",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 350,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "bakery",
+      "western",
+      "yak_cheese"
+    ],
+    "lat": 34.159,
+    "lng": 77.5815,
+    "signature_dish": "Yak Cheese Pizza, Apple Pie, Yak Burgers",
+    "insider_tip": "Affectionately known as the traveler's hub in Leh. Try their fresh yak cheese pizzas and walnut pies.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "britannia_and_co._ballard_estate_02",
+    "destination": "Mumbai",
+    "route_id": null,
+    "name": "Britannia & Co. (Ballard Estate)",
+    "cuisine": "Parsi & Iranian",
+    "meal_types": [
+      "lunch"
+    ],
+    "avg_cost_per_person": 800,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "parsi",
+      "heritage",
+      "famous",
+      "must_visit"
+    ],
+    "lat": 18.9328,
+    "lng": 72.839,
+    "signature_dish": "Berry Pulav, Sali Boti, Caramel Custard",
+    "insider_tip": "They are open only for lunch (11 AM to 4 PM) and are closed on Sundays. Cash only.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "bademiya_colaba_023",
+    "destination": "Mumbai",
+    "route_id": null,
+    "name": "Bademiya (Colaba)",
+    "cuisine": "Mughlai Kababs",
+    "meal_types": [
+      "dinner"
+    ],
+    "avg_cost_per_person": 450,
+    "avg_duration_minutes": 45,
+    "tags": [
+      "street_food",
+      "kababs",
+      "nightlife",
+      "famous"
+    ],
+    "lat": 18.9228,
+    "lng": 72.8335,
+    "signature_dish": "Chicken Reshmi Kabab, Baida Roti",
+    "insider_tip": "A legendary open-air midnight eating street spot. Eat directly off your car bonnet for the true Mumbai experience.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "shree_thaker_bhojanalay_kalbadevi_0",
+    "destination": "Mumbai",
+    "route_id": null,
+    "name": "Shree Thaker Bhojanalay (Kalbadevi)",
+    "cuisine": "Gujarati Thali",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 700,
+    "avg_duration_minutes": 75,
+    "tags": [
+      "vegetarian",
+      "thali",
+      "famous"
+    ],
+    "lat": 18.9488,
+    "lng": 72.8288,
+    "signature_dish": "Unlimited Gujarati Thali",
+    "insider_tip": "Tucked away in the narrow lanes of Kalbadevi, this is widely considered the absolute best Gujarati Thali in India.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "vidyarthi_bhavan_gandhi_bazaar_025",
+    "destination": "Bangalore",
+    "route_id": null,
+    "name": "Vidyarthi Bhavan (Gandhi Bazaar)",
+    "cuisine": "South Indian Tiffin",
+    "meal_types": [
+      "breakfast"
+    ],
+    "avg_cost_per_person": 150,
+    "avg_duration_minutes": 30,
+    "tags": [
+      "heritage",
+      "dosa",
+      "budget",
+      "famous"
+    ],
+    "lat": 12.9439,
+    "lng": 77.5683,
+    "signature_dish": "Masala Dosa, Filter Coffee",
+    "insider_tip": "Expect massive queues on weekends (wait times up to 1 hour). The crispy, ghee-soaked dosas are worth the wait.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "mavalli_tiffin_room_mtr_-_lalbagh_0",
+    "destination": "Bangalore",
+    "route_id": null,
+    "name": "Mavalli Tiffin Room (MTR - Lalbagh)",
+    "cuisine": "South Indian Heritage",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 300,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "heritage",
+      "vegetarian",
+      "must_visit"
+    ],
+    "lat": 12.954,
+    "lng": 77.585,
+    "signature_dish": "Rava Idli, Silver Cup Filter Coffee",
+    "insider_tip": "The birthplace of Rava Idli during WWII wheat shortages. The interior preserves a 1920s dining club feel.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "karavalli_gateway_hotel_027",
+    "destination": "Bangalore",
+    "route_id": null,
+    "name": "Karavalli (Gateway Hotel)",
+    "cuisine": "Coastal South Indian",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 1800,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "luxury",
+      "coastal",
+      "fine_dining"
+    ],
+    "lat": 12.9733,
+    "lng": 77.608,
+    "signature_dish": "Tiger Prawns Roast, Kori Gassi",
+    "insider_tip": "Dine under a beautiful old tamarind canopy tree. A premium, award-winning venue showcasing coastal food.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "peter_cat_park_street_028",
+    "destination": "Kolkata",
+    "route_id": null,
+    "name": "Peter Cat (Park Street)",
+    "cuisine": "Continental & Indian",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 800,
+    "avg_duration_minutes": 75,
+    "tags": [
+      "heritage",
+      "famous",
+      "fusion",
+      "must_visit"
+    ],
+    "lat": 22.5488,
+    "lng": 88.3533,
+    "signature_dish": "Chelo Kabab, Chicken Peach Melba",
+    "insider_tip": "Famous for its unique Chelom kababs served with a dollop of butter and egg yolk on rice. Long queues are standard.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "6_ballygunge_place_029",
+    "destination": "Kolkata",
+    "route_id": null,
+    "name": "6 Ballygunge Place",
+    "cuisine": "Authentic Bengali",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 900,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "bengali_cuisine",
+      "traditional",
+      "family"
+    ],
+    "lat": 22.529,
+    "lng": 88.3712,
+    "signature_dish": "Kosha Mangsho (Mutton), Daab Chingri (Prawns in Coconut)",
+    "insider_tip": "Set inside a beautiful 100-year-old heritage bungalow. Opt for the buffet during festivals to sample 20+ local dishes.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "arsalan_park_circus_030",
+    "destination": "Kolkata",
+    "route_id": null,
+    "name": "Arsalan (Park Circus)",
+    "cuisine": "Mughlai Biryani",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 550,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "biryani",
+      "famous",
+      "meat"
+    ],
+    "lat": 22.5435,
+    "lng": 88.3653,
+    "signature_dish": "Kolkata Mutton Biryani (with Potato and Egg)",
+    "insider_tip": "Kolkata Biryani is famous for its slow-cooked soft potato. Arsalan is widely considered the king of this style.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "trattoria_police_bazar_031",
+    "destination": "Shillong",
+    "route_id": null,
+    "name": "Trattoria (Police Bazar)",
+    "cuisine": "Local Khasi",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 200,
+    "avg_duration_minutes": 45,
+    "tags": [
+      "local",
+      "budget",
+      "pork",
+      "offbeat"
+    ],
+    "lat": 25.5785,
+    "lng": 91.8828,
+    "signature_dish": "Jadoh (Rice cooked in pork blood), Dohkhlieh",
+    "insider_tip": "A tiny, basic stall serving authentic Khasi tribal food. Not for the faint-hearted; try the pork salad.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "cafe_shillong_laitumkhrah_032",
+    "destination": "Shillong",
+    "route_id": null,
+    "name": "Cafe Shillong (Laitumkhrah)",
+    "cuisine": "Cafe & Western",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 500,
+    "avg_duration_minutes": 60,
+    "tags": [
+      "cafe",
+      "live_music",
+      "youth",
+      "burgers"
+    ],
+    "lat": 25.5722,
+    "lng": 91.905,
+    "signature_dish": "Smoked Pork Burgers, Irish Coffee",
+    "insider_tip": "A cool hangout space featuring local musicians playing acoustic guitar. Great English breakfasts.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "city_hut_family_dhaba_033",
+    "destination": "Shillong",
+    "route_id": null,
+    "name": "City Hut Family Dhaba",
+    "cuisine": "Multi-Cuisine",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 600,
+    "avg_duration_minutes": 80,
+    "tags": [
+      "family",
+      "spacious",
+      "indian"
+    ],
+    "lat": 25.5795,
+    "lng": 91.8842,
+    "signature_dish": "Tandoori Platters, Chinese Noodles",
+    "insider_tip": "The most popular family restaurant in Shillong, featuring a nice indoor thatch courtyard layout.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "cafe_1947_old_manali_034",
+    "destination": "Manali",
+    "route_id": null,
+    "name": "Cafe 1947 (Old Manali)",
+    "cuisine": "Italian & Cafe",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 700,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "riverside",
+      "cafe",
+      "live_music",
+      "must_visit"
+    ],
+    "lat": 32.2542,
+    "lng": 77.177,
+    "signature_dish": "Firewood Pizza, Trout Fish with Lemon Butter",
+    "insider_tip": "Manali's first music cafe, situated directly on the banks of the rushing Manalsu River. Great acoustic gig nights.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "il_forno_035",
+    "destination": "Manali",
+    "route_id": null,
+    "name": "Il Forno",
+    "cuisine": "Italian Woodfire",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 800,
+    "avg_duration_minutes": 80,
+    "tags": [
+      "heritage",
+      "italian",
+      "views"
+    ],
+    "lat": 32.249,
+    "lng": 77.185,
+    "signature_dish": "Woodfire Margherita Pizza, Lasagne",
+    "insider_tip": "Set in an old rustic wooden house on a hill road, offering amazing views of snowy peaks from the garden tables.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "johnson's_cafe_036",
+    "destination": "Manali",
+    "route_id": null,
+    "name": "Johnson's Cafe",
+    "cuisine": "Multi-Cuisine & Bar",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "avg_cost_per_person": 900,
+    "avg_duration_minutes": 90,
+    "tags": [
+      "trout",
+      "bar",
+      "garden"
+    ],
+    "lat": 32.246,
+    "lng": 77.189,
+    "signature_dish": "Pan-Fried Mustard Trout Fish",
+    "insider_tip": "Famous for its preparation of fresh local river trout. They have a lovely green lawn and a cozy indoor fireplace.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "little_buddha_cafe_037",
     "destination": "Rishikesh",
     "route_id": null,
     "name": "Little Buddha Cafe",
-    "meal_types": ["lunch", "dinner"],
+    "cuisine": "Cafe & Italian",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
     "avg_cost_per_person": 600,
     "avg_duration_minutes": 75,
-    "tags": ["cafe", "river_view", "vegetarian_options", "instagram"],
+    "tags": [
+      "cafe",
+      "river_view",
+      "vegetarian_options",
+      "instagram"
+    ],
     "lat": 30.1256,
-    "lng": 78.3152
+    "lng": 78.3152,
+    "signature_dish": "Pesto Pizza, Mixed Fruit Lassi",
+    "insider_tip": "Get there early around sunset; seats overlooking the river are highly popular and fill up fast.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
   },
   {
-    "restaurant_id": "beatrice_cafe_rishikesh_01",
+    "restaurant_id": "beatrice_cafe_038",
     "destination": "Rishikesh",
     "route_id": null,
     "name": "Beatrice Cafe",
-    "meal_types": ["breakfast", "lunch"],
+    "cuisine": "Continental Cafe",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
     "avg_cost_per_person": 450,
     "avg_duration_minutes": 60,
-    "tags": ["cafe", "hippie", "continental", "quick_bite", "backpacker"],
+    "tags": [
+      "cafe",
+      "hippie",
+      "continental",
+      "quick_bite",
+      "backpacker"
+    ],
     "lat": 30.1271,
-    "lng": 78.3168
+    "lng": 78.3168,
+    "signature_dish": "Avocado Toast, Hummus Platter",
+    "insider_tip": "Very popular with long-stay foreign backpackers. Relaxed, hippie ambiance.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
   },
   {
-    "restaurant_id": "freedom_cafe_rishikesh_01",
+    "restaurant_id": "freedom_cafe_039",
     "destination": "Rishikesh",
     "route_id": null,
     "name": "Freedom Cafe",
-    "meal_types": ["breakfast", "lunch", "dinner"],
+    "cuisine": "Riverside Cafe",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
     "avg_cost_per_person": 500,
     "avg_duration_minutes": 60,
-    "tags": ["cafe", "river_view", "healthy_food", "yoga_crowd"],
-    "lat": 30.1240,
-    "lng": 78.3140
+    "tags": [
+      "cafe",
+      "river_view",
+      "healthy_food",
+      "yoga_crowd"
+    ],
+    "lat": 30.124,
+    "lng": 78.314,
+    "signature_dish": "Ginger Lemon Honey Tea, Pancakes",
+    "insider_tip": "Great views of Lakshman Jhula bridge from their balcony cushions.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
   },
   {
-    "restaurant_id": "village_dhaba_tirthan_01",
+    "restaurant_id": "gushaini_village_dhaba_040",
     "destination": "Tirthan Valley",
     "route_id": null,
     "name": "Gushaini Village Dhaba",
-    "meal_types": ["breakfast", "lunch", "dinner"],
+    "cuisine": "Himachali Cuisine",
+    "meal_types": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
     "avg_cost_per_person": 300,
     "avg_duration_minutes": 45,
-    "tags": ["himachali_cuisine", "local", "simple", "homely"],
-    "lat": 31.6100,
-    "lng": 77.4300
+    "tags": [
+      "himachali_cuisine",
+      "local",
+      "simple",
+      "homely"
+    ],
+    "lat": 31.61,
+    "lng": 77.43,
+    "signature_dish": "Siddu with ghee, Local dal rice",
+    "insider_tip": "Simple, roadside wooden dhaba serving hot and fresh local food.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
   },
   {
-    "restaurant_id": "trout_kitchen_tirthan_01",
+    "restaurant_id": "tirthan_trout_kitchen_041",
     "destination": "Tirthan Valley",
     "route_id": null,
     "name": "Tirthan Trout Kitchen",
-    "meal_types": ["lunch", "dinner"],
+    "cuisine": "Local Fish Specialty",
+    "meal_types": [
+      "lunch",
+      "dinner"
+    ],
     "avg_cost_per_person": 550,
     "avg_duration_minutes": 60,
-    "tags": ["trout_fish", "local_specialty", "river_view", "himachali_cuisine"],
+    "tags": [
+      "trout_fish",
+      "local_specialty",
+      "river_view",
+      "himachali_cuisine"
+    ],
     "lat": 31.6381,
-    "lng": 77.4511
+    "lng": 77.4511,
+    "signature_dish": "Trout Fish Tawa Fry",
+    "insider_tip": "The fish is caught fresh from the river daily. Highly recommended for dinner after a day trek.",
+    "km_from_origin": null,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
   },
   {
-    "restaurant_id": "highway_amrik_sukhdev_01",
+    "restaurant_id": "amrik_sukhdev_dhaba_042",
     "destination": null,
-    "route_id": "gurugram_rishikesh_2d1n",
+    "route_id": "gurugram_manali_routes",
     "name": "Amrik Sukhdev Dhaba",
-    "meal_types": ["breakfast", "lunch"],
+    "cuisine": "North Indian",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
     "avg_cost_per_person": 250,
     "avg_duration_minutes": 45,
-    "km_from_origin": 35,
-    "tags": ["dhaba", "highway", "parking", "famous", "quick_stop"],
+    "tags": [
+      "dhaba",
+      "highway",
+      "famous",
+      "parking"
+    ],
     "lat": 29.0281,
-    "lng": 77.0474
+    "lng": 77.0474,
+    "signature_dish": "Aloo Pyaaz Tandoori Paratha with White Butter",
+    "insider_tip": "Located 60km from Delhi on NH-44. It is a massive, clean highway food station with parking.",
+    "km_from_origin": 60,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
   },
   {
-    "restaurant_id": "highway_cheetal_grand_01",
-    "destination": null,
-    "route_id": "gurugram_rishikesh_2d1n",
-    "name": "Cheetal Grand Restaurant",
-    "meal_types": ["breakfast", "lunch"],
-    "avg_cost_per_person": 350,
-    "avg_duration_minutes": 40,
-    "km_from_origin": 90,
-    "tags": ["highway", "restaurant", "parking", "family", "ac"],
-    "lat": 29.5833,
-    "lng": 77.7700
-  },
-  {
-    "restaurant_id": "highway_murthal_dhaba_01",
+    "restaurant_id": "surjit_dhaba_neemrana_043",
     "destination": null,
     "route_id": "gurugram_jaipur_2d1n",
     "name": "Surjit Dhaba Neemrana",
-    "meal_types": ["breakfast", "lunch"],
+    "cuisine": "Rajasthani & Punjabi",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
     "avg_cost_per_person": 220,
     "avg_duration_minutes": 40,
-    "km_from_origin": 78,
-    "tags": ["dhaba", "highway", "rajasthani", "quick_stop", "parking"],
+    "tags": [
+      "dhaba",
+      "highway",
+      "parking"
+    ],
     "lat": 27.9899,
-    "lng": 76.3865
+    "lng": 76.3865,
+    "signature_dish": "Paneer Butter Masala, Missi Roti",
+    "insider_tip": "NH-48 highway dhaba, popular for quick lunch stops on the road to Jaipur.",
+    "km_from_origin": 85,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
   },
   {
-    "restaurant_id": "highway_shakumbari_01",
+    "restaurant_id": "bilaspur_lakeview_cafe_044",
+    "destination": null,
+    "route_id": "gurugram_manali_routes",
+    "name": "Bilaspur Lakeview Cafe",
+    "cuisine": "Himachali & Fast Food",
+    "meal_types": [
+      "lunch"
+    ],
+    "avg_cost_per_person": 350,
+    "avg_duration_minutes": 40,
+    "tags": [
+      "highway",
+      "scenic",
+      "lake_view"
+    ],
+    "lat": 31.34,
+    "lng": 76.76,
+    "signature_dish": "Maggi, Hot Chai, Kadhi Chawal",
+    "insider_tip": "NH-21 highway stop overlooking the massive Gobind Sagar lake reservoir.",
+    "km_from_origin": 360,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "cheetal_grand_restaurant_045",
+    "destination": null,
+    "route_id": "gurugram_rishikesh_2d1n",
+    "name": "Cheetal Grand Restaurant",
+    "cuisine": "North Indian & Continental",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 350,
+    "avg_duration_minutes": 40,
+    "tags": [
+      "highway",
+      "restaurant",
+      "parking",
+      "family",
+      "ac"
+    ],
+    "lat": 29.5833,
+    "lng": 77.77,
+    "signature_dish": "Paneer Pakoda, Filter Coffee",
+    "insider_tip": "Popular AC highway rest stop on the route from Delhi to Rishikesh.",
+    "km_from_origin": 90,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
+  },
+  {
+    "restaurant_id": "shakumbari_dhaba_and_restaurant_046",
     "destination": null,
     "route_id": "gurugram_jaipur_2d1n",
     "name": "Shakumbari Dhaba & Restaurant",
-    "meal_types": ["lunch"],
+    "cuisine": "Rajasthani & North Indian",
+    "meal_types": [
+      "lunch"
+    ],
     "avg_cost_per_person": 300,
     "avg_duration_minutes": 45,
+    "tags": [
+      "dhaba",
+      "highway",
+      "lunch_stop",
+      "parking",
+      "famous"
+    ],
+    "lat": 27.22,
+    "lng": 75.89,
+    "signature_dish": "Veg Jaipuri, Butter Naan",
+    "insider_tip": "Popular lunch stop on NH-48 between Neemrana and Jaipur.",
     "km_from_origin": 160,
-    "tags": ["dhaba", "highway", "lunch_stop", "parking", "famous"],
-    "lat": 27.2200,
-    "lng": 75.8900
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
   },
   {
-    "restaurant_id": "highway_brar_dhaba_01",
+    "restaurant_id": "brar_dhaba_chandigarh_bypass_047",
     "destination": null,
-    "route_id": "gurugram_tirthan_3d2n",
+    "route_id": "gurugram_manali_routes",
     "name": "Brar Dhaba Chandigarh Bypass",
-    "meal_types": ["breakfast", "lunch"],
+    "cuisine": "Punjabi",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
     "avg_cost_per_person": 280,
     "avg_duration_minutes": 45,
-    "km_from_origin": 250,
-    "tags": ["dhaba", "highway", "punjabi", "parking", "quick_stop"],
+    "tags": [
+      "dhaba",
+      "highway",
+      "punjabi",
+      "parking",
+      "quick_stop"
+    ],
     "lat": 30.7333,
-    "lng": 76.7794
+    "lng": 76.7794,
+    "signature_dish": "Dal Makhani, Stuffed Naan",
+    "insider_tip": "High-volume highway stop on the Chandigarh bypass road.",
+    "km_from_origin": 250,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
   },
   {
-    "restaurant_id": "highway_bilaspur_cafe_01",
+    "restaurant_id": "amrik_sukhdev_rishikesh_stop_048",
     "destination": null,
-    "route_id": "gurugram_tirthan_3d2n",
-    "name": "Gobind Sagar Lake Viewpoint Cafe",
-    "meal_types": ["lunch"],
-    "avg_cost_per_person": 350,
-    "avg_duration_minutes": 40,
-    "km_from_origin": 380,
-    "tags": ["cafe", "lake_view", "scenic", "highway", "rest_stop"],
-    "lat": 31.3400,
-    "lng": 76.7600
+    "route_id": "gurugram_rishikesh_2d1n",
+    "name": "Amrik Sukhdev Rishikesh Stop",
+    "cuisine": "North Indian",
+    "meal_types": [
+      "breakfast",
+      "lunch"
+    ],
+    "avg_cost_per_person": 250,
+    "avg_duration_minutes": 45,
+    "tags": [
+      "dhaba",
+      "highway",
+      "famous",
+      "parking"
+    ],
+    "lat": 29.0281,
+    "lng": 77.0474,
+    "signature_dish": "Tandoori Gobhi Paratha",
+    "insider_tip": "Same Murthal dhaba, also mapped to the Rishikesh route for testing.",
+    "km_from_origin": 35,
+    "confidence_pct": 90,
+    "verification_status": "llm_generated",
+    "data_source": "llm_knowledge",
+    "last_verified": "2026-06-22"
   }
 ]

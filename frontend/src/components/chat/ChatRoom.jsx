@@ -25,7 +25,7 @@ const EXAMPLE_CHATS = [
 const AVATARS = ["A", "B", "C", "D"];
 
 const AVATAR_COLORS = [
-  "rgba(124,109,247,0.3)",
+  "rgba(207,214,224,0.3)",
   "rgba(0,206,201,0.3)",
   "rgba(253,203,110,0.3)",
   "rgba(0,184,148,0.3)",
@@ -66,20 +66,20 @@ export function ChatRoom({ onSubmit, loading }) {
               width: "38px",
               height: "38px",
               borderRadius: "10px",
-              background: "linear-gradient(135deg, #6c5ce7, #00cec9)",
+              background: "linear-gradient(135deg, #9aa3b2, #00cec9)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
             }}
           >
-            <Navigation size={18} style={{ color: "white" }} />
+            <Navigation size={18} style={{ color: "#f5f5f7" }} />
           </div>
         </div>
         <h1
           style={{
             fontSize: "24px",
             fontWeight: 800,
-            color: "#e2e8f0",
+            color: "var(--platinum)",
             letterSpacing: "-0.03em",
             lineHeight: 1.1,
             marginBottom: "6px",
@@ -87,7 +87,7 @@ export function ChatRoom({ onSubmit, loading }) {
         >
           Plan your group trip
         </h1>
-        <p style={{ fontSize: "13px", color: "#64748b", lineHeight: 1.5 }}>
+        <p style={{ fontSize: "13px", color: "var(--silver)", lineHeight: 1.5 }}>
           Paste your WhatsApp conversation — AI extracts preferences instantly
         </p>
       </div>
@@ -101,9 +101,9 @@ export function ChatRoom({ onSubmit, loading }) {
             style={{
               padding: "5px 14px",
               borderRadius: "999px",
-              border: "1px solid rgba(255,255,255,0.1)",
-              background: "rgba(255,255,255,0.04)",
-              color: "#94a3b8",
+              border: "1px solid var(--rim)",
+              background: "rgba(0,0,0,0.04)",
+              color: "var(--silver)",
               fontSize: "11px",
               fontWeight: 600,
               cursor: "pointer",
@@ -111,14 +111,14 @@ export function ChatRoom({ onSubmit, loading }) {
               transition: "all 0.2s",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(124,109,247,0.15)";
-              e.currentTarget.style.color = "#7c6df7";
-              e.currentTarget.style.borderColor = "rgba(124,109,247,0.3)";
+              e.currentTarget.style.background = "rgba(207,214,224,0.15)";
+              e.currentTarget.style.color = "#cfd6e0";
+              e.currentTarget.style.borderColor = "rgba(207,214,224,0.3)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = "rgba(255,255,255,0.04)";
+              e.currentTarget.style.background = "rgba(0,0,0,0.04)";
               e.currentTarget.style.color = "#94a3b8";
-              e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
+              e.currentTarget.style.borderColor = "rgba(0,0,0,0.10)";
             }}
           >
             Try: {label}
@@ -129,8 +129,8 @@ export function ChatRoom({ onSubmit, loading }) {
       {/* Chat window */}
       <div
         style={{
-          background: "rgba(255,255,255,0.03)",
-          border: "1px solid rgba(255,255,255,0.07)",
+          background: "rgba(0,0,0,0.03)",
+          border: "1px solid var(--rim)",
           borderRadius: "14px",
           overflow: "hidden",
         }}
@@ -139,18 +139,18 @@ export function ChatRoom({ onSubmit, loading }) {
         <div
           style={{
             padding: "10px 14px",
-            borderBottom: "1px solid rgba(255,255,255,0.06)",
+            borderBottom: "1px solid var(--rim)",
             display: "flex",
             alignItems: "center",
             gap: "6px",
           }}
         >
-          <MessageCircle size={13} style={{ color: "#7c6df7" }} />
+          <MessageCircle size={13} style={{ color: "#cfd6e0" }} />
           <span
             style={{
               fontSize: "10px",
               fontWeight: 700,
-              color: "#64748b",
+              color: "var(--silver)",
               textTransform: "uppercase",
               letterSpacing: "0.08em",
             }}
@@ -158,7 +158,7 @@ export function ChatRoom({ onSubmit, loading }) {
             Group Chat
           </span>
           {messages.length > 0 && (
-            <span style={{ marginLeft: "auto", fontSize: "10px", color: "#64748b" }}>
+            <span style={{ marginLeft: "auto", fontSize: "10px", color: "var(--silver)" }}>
               {messages.length} message{messages.length !== 1 ? "s" : ""}
             </span>
           )}
@@ -180,7 +180,7 @@ export function ChatRoom({ onSubmit, loading }) {
             <p
               style={{
                 textAlign: "center",
-                color: "#64748b",
+                color: "var(--silver)",
                 fontSize: "12px",
                 marginTop: "40px",
                 fontStyle: "italic",
@@ -209,19 +209,19 @@ export function ChatRoom({ onSubmit, loading }) {
                     justifyContent: "center",
                     fontSize: "10px",
                     fontWeight: 700,
-                    color: "#e2e8f0",
+                    color: "var(--platinum)",
                   }}
                 >
                   {AVATARS[i % 4]}
                 </div>
                 <div
                   style={{
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.07)",
+                    background: "rgba(0,0,0,0.04)",
+                    border: "1px solid var(--rim)",
                     borderRadius: "10px",
                     padding: "7px 12px",
                     fontSize: "12px",
-                    color: "#e2e8f0",
+                    color: "var(--platinum)",
                     lineHeight: 1.5,
                     maxWidth: "85%",
                   }}
@@ -237,7 +237,7 @@ export function ChatRoom({ onSubmit, loading }) {
         <div
           style={{
             padding: "10px 14px",
-            borderTop: "1px solid rgba(255,255,255,0.06)",
+            borderTop: "1px solid var(--rim)",
             display: "flex",
             gap: "8px",
             alignItems: "center",
@@ -253,9 +253,10 @@ export function ChatRoom({ onSubmit, loading }) {
               background: "transparent",
               border: "none",
               outline: "none",
-              fontSize: "12px",
-              color: "#e2e8f0",
+              fontSize: "13px",
+              color: "var(--platinum)",
               fontFamily: "Inter, sans-serif",
+              fontWeight: 500,
             }}
           />
           <button
@@ -266,7 +267,7 @@ export function ChatRoom({ onSubmit, loading }) {
               border: "none",
               cursor: draft.trim() ? "pointer" : "not-allowed",
               opacity: draft.trim() ? 1 : 0.3,
-              color: "#7c6df7",
+              color: "#cfd6e0",
               display: "flex",
               alignItems: "center",
               transition: "opacity 0.2s",
@@ -287,7 +288,7 @@ export function ChatRoom({ onSubmit, loading }) {
           padding: "13px 0",
           borderRadius: "12px",
           border: "none",
-          color: "white",
+          color: "#f5f5f7",
           fontSize: "13px",
           fontWeight: 700,
           cursor: messages.length === 0 || loading ? "not-allowed" : "pointer",

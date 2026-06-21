@@ -39,6 +39,24 @@ class GenerateItineraryRequest(BaseModel):
             }]
         },
     )
+    refinement_answers: Optional[Dict[str, Any]] = Field(
+        None,
+        description="Answers to the 4 LLM-generated refinement questions, "
+                    "keyed by question id. Merged into constraints before planning.",
+    )
+
+
+class RefinementQuestionsRequest(BaseModel):
+    """Request body for POST /api/refinement-questions."""
+
+    constraints: Dict[str, Any] = Field(
+        ...,
+        description="Constraints dict from /api/parse-chat",
+    )
+    assumptions: Optional[Dict[str, Any]] = Field(
+        None,
+        description="Already-assumed values so the LLM doesn't re-ask",
+    )
 
 
 class SimulateDelayRequest(BaseModel):
