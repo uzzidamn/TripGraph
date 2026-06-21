@@ -46,9 +46,9 @@ async def parse_chat(request: ParseChatRequest) -> ParseChatResponse:
         #     conflict_report={"has_conflicts": False, "conflicts": []},
         # )
 
-        from backend.agents.workflow import run_workflow
+        from backend.agents.workflow import run_parse_only
 
-        result = run_workflow(request.chat_messages)
+        result = run_parse_only(request.chat_messages)
         return ParseChatResponse(
             extracted_constraints=result.get("extracted_constraints", {}),
             missing_fields=result.get("missing_fields", []),

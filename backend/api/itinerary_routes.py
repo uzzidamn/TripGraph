@@ -97,8 +97,43 @@ async def generate_itinerary(request: GenerateItineraryRequest) -> ItineraryResp
         # )
 
         from backend.agents.workflow import run_workflow_from_constraints
+        from backend.utils.currency import get_currency
+
+        # Reject non-Earth, fictional, or metaphysical origins/destinations
+        _INVALID = {
+            # Planets / space
+            "mars","moon","lunar","pluto","jupiter","saturn","venus","mercury",
+            "uranus","neptune","space","orbit","iss","asteroid","milky way",
+            # Fictional / metaphysical
+            "heaven","hell","paradise","purgatory","nirvana","elysium","valhalla",
+            "narnia","hogwarts","mordor","westeros","wakanda","gotham","metropolis",
+            "atlantis","shangri-la","oz","neverland","asgard","olympus",
+        }
+        origin_raw = (request.constraints.get("origin") or "").lower().strip()
+        dest_raw   = (request.constraints.get("destination") or "").lower().strip()
+        if origin_raw in _INVALID:
+            raise HTTPException(
+                status_code=422,
+                detail=f"'{request.constraints['origin']}' is not a valid travel origin. Please enter a real city."
+            )
+        if dest_raw in _INVALID:
+            raise HTTPException(
+                status_code=422,
+                detail=f"'{request.constraints['destination']}' is not a valid travel destination. Please enter a real city."
+            )
 
         result = run_workflow_from_constraints(request.constraints)
+
+        if not result.get("selected_itinerary"):
+            destination = request.constraints.get("destination", "the requested destination")
+            raise HTTPException(
+                status_code=422,
+                detail=f"No travel itinerary could be generated for '{destination}'. "
+                       f"Please check that the destination is a real, reachable place and try again."
+            )
+
+        origin = request.constraints.get("origin", "Gurugram")
+        currency_code, currency_symbol, _ = get_currency(origin)
 
         return ItineraryResponse(
             recommended_itinerary=result.get("selected_itinerary"),
@@ -109,8 +144,14 @@ async def generate_itinerary(request: GenerateItineraryRequest) -> ItineraryResp
             map_points=result.get("map_points", []),
             cost_breakdown=result.get("cost_breakdown", {}),
             explanation=result.get("explanation", ""),
+            web_enriched=result.get("web_enriched", False),
+            web_context=result.get("web_context", {}),
+            currency_code=currency_code,
+            currency_symbol=currency_symbol,
         )
 
+    except HTTPException:
+        raise
     except Exception as e:
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))

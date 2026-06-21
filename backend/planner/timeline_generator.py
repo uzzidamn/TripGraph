@@ -1,130 +1,273 @@
 """
-Generate a sequential timeline of events from a trip graph.
-Places events in chronological order with calculated start/end times.
+Generate a sequential timeline of events from a trip itinerary.
+Supports multi-day trips by parsing trip_duration from constraints.
 """
+import re
 from datetime import datetime, timedelta
 
 
-def generate_timeline(itinerary: dict) -> list[dict]:
-    """
-    Create a chronological list of timeline events from the itinerary.
-    Each event has: day, start_time, end_time, title, type, cost (optional).
-    """
-    events = []
-    route = itinerary.get("route") or {}
-    transport = itinerary.get("transport") or {}
-    hotel = itinerary.get("hotel") or {}
-    activities = itinerary.get("activities") or []
-    restaurants = itinerary.get("restaurants") or []
-    waypoints = itinerary.get("waypoints") or []
+# ---------------------------------------------------------------------------
+# Duration parsing
+# ---------------------------------------------------------------------------
 
-    drive_minutes_raw = transport.get("base_duration_minutes") or route.get("base_drive_minutes") or 300
+def _parse_days(trip_duration) -> int:
+    """Return number of trip days from a trip_duration string.
+
+    Handles: "2D1N", "3D2N", "7D6N", "weekend", "1 week", "10 days", int, None.
+    """
+    if not trip_duration:
+        return 2
+    if isinstance(trip_duration, int):
+        return max(1, trip_duration)
+
+    s = str(trip_duration).lower().strip()
+
+    # "XD(Y)N" format  e.g. "3D2N", "7D6N"
+    m = re.match(r"(\d+)\s*d", s)
+    if m:
+        return max(1, int(m.group(1)))
+
+    # "X week(s)"
+    m = re.match(r"(\d+)\s*week", s)
+    if m:
+        return int(m.group(1)) * 7
+
+    # "X day(s)"
+    m = re.match(r"(\d+)\s*day", s)
+    if m:
+        return max(1, int(m.group(1)))
+
+    # "weekend"
+    if "weekend" in s:
+        return 2
+
+    return 2
+
+
+# ---------------------------------------------------------------------------
+# Public API
+# ---------------------------------------------------------------------------
+
+def generate_timeline(itinerary: dict, constraints: dict | None = None) -> list[dict]:
+    """Create a chronological list of timeline events for the full trip duration.
+
+    Args:
+        itinerary:   Selected itinerary dict (route, transport, hotel, activities…).
+        constraints: Extracted constraint dict; used for trip_duration and group_size.
+    """
+    if constraints is None:
+        constraints = {}
+
+    events: list[dict] = []
+    route      = itinerary.get("route")      or {}
+    transport  = itinerary.get("transport")  or {}
+    hotel      = itinerary.get("hotel")      or {}
+    activities = list(itinerary.get("activities") or [])
+    restaurants= list(itinerary.get("restaurants") or [])
+    waypoints  = list(itinerary.get("waypoints")  or [])
+
+    n_days = _parse_days(constraints.get("trip_duration") or itinerary.get("trip_duration"))
+
+    travel_minutes_raw = (
+        transport.get("base_duration_minutes")
+        or transport.get("duration_hours", 0) * 60
+        or route.get("base_drive_minutes")
+        or route.get("duration_hours", 0) * 60
+        or 300
+    )
     try:
-        drive_minutes = int(drive_minutes_raw)
+        travel_minutes = int(travel_minutes_raw)
     except (ValueError, TypeError):
-        drive_minutes = 300
-        
-    group_size = 4
+        travel_minutes = 300
 
-    # Day 1
-    current = datetime(2026, 1, 1, 6, 0)  # 06:00 departure
+    mode        = (transport.get("mode") or "cab").lower()
+    is_flight   = mode == "flight"
+    is_train    = mode in ("train", "bus")
 
-    # Departure
-    depart_end = current + timedelta(minutes=drive_minutes // 2)
-    events.append(_event(1, current, depart_end, f"Drive from {route.get('origin', 'Origin')}", "travel"))
-
-    # Breakfast waypoint
-    current = depart_end
-    breakfast_end = current + timedelta(minutes=45)
-    if waypoints:
-        wp = waypoints[0]
-        events.append(_event(1, current, breakfast_end, f"Breakfast at {wp.get('name', 'Highway Stop')}", "meal"))
-    current = breakfast_end
-
-    # Continue drive
-    arrive_time = current + timedelta(minutes=drive_minutes // 2)
-    events.append(_event(1, current, arrive_time, f"Continue drive to {route.get('destination', 'Destination')}", "travel"))
-    current = arrive_time
-
-    # Lunch
-    if restaurants:
-        dest_restaurants = [r for r in restaurants if r.get("destination") == route.get("destination")]
-        if dest_restaurants:
-            lunch_dur_raw = dest_restaurants[0].get("avg_duration_minutes") or 60
-            try:
-                lunch_dur = int(lunch_dur_raw)
-            except (ValueError, TypeError):
-                lunch_dur = 60
-            lunch_end = current + timedelta(minutes=lunch_dur)
-            events.append(_event(1, current, lunch_end, f"Lunch at {dest_restaurants[0].get('name', 'Restaurant')}", "meal",
-                                 cost=dest_restaurants[0].get("avg_cost_per_person", 0)))
-            current = lunch_end
-
-    # Hotel check-in
-    checkin = current + timedelta(minutes=30)
-    rest_end = checkin + timedelta(minutes=90)
+    origin      = route.get("origin", "Origin")
+    destination = route.get("destination", "Destination")
+    group_size  = constraints.get("group_size") or 4
     price_night = hotel.get("price_per_night") or 0
-    events.append(_event(1, checkin, rest_end, f"Check-in at {hotel.get('name', 'Hotel')}", "hotel",
-                         cost=price_night // group_size))
-    current = rest_end
 
-    # Evening activities (Day 1)
-    evening_acts = [a for a in activities if "evening" in (a.get("tags") or []) or "cultural" == a.get("category")]
-    for act in evening_acts[:1]:
-        act_dur_raw = act.get("duration_minutes") or 90
-        try:
-            act_dur = int(act_dur_raw)
-        except (ValueError, TypeError):
-            act_dur = 90
-        act_end = current + timedelta(minutes=act_dur)
-        events.append(_event(1, current, act_end, act.get("name", "Activity"), "activity",
-                             cost=act.get("cost_per_person", 0)))
-        current = act_end
+    # Mode-specific verbs
+    if is_flight:
+        depart_verb = f"Fly from {origin} to {destination}"
+        return_verb = f"Return flight to {origin}"
+    elif is_train:
+        depart_verb = f"{mode.capitalize()} from {origin} to {destination}"
+        return_verb = f"Return {mode} to {origin}"
+    else:
+        depart_verb = f"Drive from {origin}"
+        return_verb = f"Return drive to {origin}"
 
-    # Dinner
-    events.append(_event(1, current, current + timedelta(minutes=60), "Dinner", "meal"))
+    dest_restaurants = [r for r in restaurants if r.get("destination") == destination]
 
-    # Day 2
-    current = datetime(2026, 1, 2, 7, 30)
-    events.append(_event(2, current, current + timedelta(minutes=45), "Breakfast", "meal"))
-    current += timedelta(minutes=45)
+    # ---------------------------------------------------------------------------
+    # DAY 1 — Travel day
+    # ---------------------------------------------------------------------------
+    cur = datetime(2026, 1, 1, 6, 0)
 
-    # Morning activities (Day 2)
-    morning_acts = [a for a in activities if a not in evening_acts]
-    for act in morning_acts[:1]:
-        act_dur_raw = act.get("duration_minutes") or 180
-        try:
-            act_dur = int(act_dur_raw)
-        except (ValueError, TypeError):
-            act_dur = 180
-        act_end = current + timedelta(minutes=act_dur)
-        events.append(_event(2, current, act_end, act.get("name", "Activity"), "activity",
-                             cost=act.get("cost_per_person", 0)))
-        current = act_end
+    if is_flight or is_train:
+        # Point-to-point: single journey event
+        arrive = cur + timedelta(minutes=travel_minutes)
+        events.append(_ev(1, cur, arrive, depart_verb, "travel"))
+        cur = arrive
+    else:
+        # Road trip: two legs with optional waypoint breakfast stop
+        half = travel_minutes // 2
+        mid  = cur + timedelta(minutes=half)
+        events.append(_ev(1, cur, mid, depart_verb, "travel"))
+        cur = mid
 
-    # Rest + lunch
-    events.append(_event(2, current, current + timedelta(minutes=60), "Freshen up", "rest"))
-    current += timedelta(minutes=60)
-    events.append(_event(2, current, current + timedelta(minutes=60), "Lunch", "meal"))
-    current += timedelta(minutes=60)
+        if waypoints:
+            wp_end = cur + timedelta(minutes=45)
+            events.append(_ev(1, cur, wp_end, f"Breakfast at {waypoints[0].get('name','Stop')}", "meal"))
+            cur = wp_end
+
+        arrive = cur + timedelta(minutes=half)
+        events.append(_ev(1, cur, arrive, f"Continue drive to {destination}", "travel"))
+        cur = arrive
+
+    # Lunch on arrival
+    if dest_restaurants:
+        r = dest_restaurants[0]
+        dur = _int(r.get("avg_duration_minutes"), 60)
+        end = cur + timedelta(minutes=dur)
+        events.append(_ev(1, cur, end, f"Lunch at {r.get('name','Restaurant')}", "meal",
+                          cost=r.get("avg_cost_per_person", 0)))
+        cur = end
+
+    # Check-in
+    ci = cur + timedelta(minutes=30)
+    ci_end = ci + timedelta(minutes=60)
+    events.append(_ev(1, ci, ci_end, f"Check-in: {hotel.get('name','Hotel')}", "hotel",
+                      cost=price_night // group_size))
+    cur = ci_end
+
+    # Day 1 evening activity — only if we arrive early enough to enjoy it
+    _ACTIVITY_CUTOFF = datetime(2026, 1, 1, 17, 0)
+    if activities and cur <= _ACTIVITY_CUTOFF:
+        act = activities[0]
+        dur = _int(act.get("duration_minutes"), 90)
+        end = cur + timedelta(minutes=dur)
+        events.append(_ev(1, cur, end, act.get("name","Activity"), "activity",
+                          cost=act.get("cost_per_person", 0)))
+        cur = end
+
+    # Dinner window: 19:00–21:00. Fill gap with free time if we finish early;
+    # cap at 21:00 so late arrivals never show an unreasonable dinner slot.
+    _DINNER_MIN = datetime(2026, 1, 1, 19, 0)
+    _DINNER_CAP = datetime(2026, 1, 1, 21, 0)
+    dinner_start = max(min(cur, _DINNER_CAP), _DINNER_MIN)
+    if dinner_start > cur + timedelta(minutes=30):
+        events.append(_ev(1, cur, dinner_start, f"Free time — explore {destination}", "activity"))
+    events.append(_ev(1, dinner_start, dinner_start + timedelta(minutes=60), "Dinner", "meal"))
+
+    # ---------------------------------------------------------------------------
+    # MIDDLE DAYS (2 … N-1)  — Full activity days
+    # Real activities are used once. When the pool is exhausted, generic
+    # free-time fillers rotate so days are never meals-only.
+    # ---------------------------------------------------------------------------
+    day1_act_name = activities[0].get("name") if activities else None
+    pool = [a for a in activities if a.get("name") != day1_act_name]
+    used_names = {day1_act_name} if day1_act_name else set()
+
+    _FILLERS = [
+        {"name": f"Explore {destination} on foot",       "duration_minutes": 120, "cost_per_person": 0},
+        {"name": "Visit local market & souvenirs",        "duration_minutes": 90,  "cost_per_person": 0},
+        {"name": f"Leisure time at {hotel.get('name','hotel')}", "duration_minutes": 90, "cost_per_person": 0},
+        {"name": "Day trip to nearby attractions",         "duration_minutes": 180, "cost_per_person": 0},
+        {"name": "Photography walk around the city",       "duration_minutes": 120, "cost_per_person": 0},
+        {"name": "Café hopping & local cuisine tasting",   "duration_minutes": 90,  "cost_per_person": 0},
+        {"name": "Relaxation & spa / pool time",           "duration_minutes": 120, "cost_per_person": 0},
+    ]
+    filler_index = 0
+
+    def _next_act():
+        """Return next unused real activity, or a rotating filler if pool exhausted."""
+        nonlocal filler_index
+        for act in pool:
+            name = act.get("name")
+            if name not in used_names:
+                used_names.add(name)
+                return act
+        # Pool exhausted — use a filler (rotate through, never repeat consecutively)
+        filler = _FILLERS[filler_index % len(_FILLERS)]
+        filler_index += 1
+        return filler
+
+    for day in range(2, n_days):          # days 2, 3, … N-1
+        cur = datetime(2026, 1, day, 7, 30)
+        events.append(_ev(day, cur, cur + timedelta(minutes=45), "Breakfast", "meal"))
+        cur += timedelta(minutes=45)
+
+        # Morning block — up to 3 activities
+        for _ in range(3):
+            act = _next_act()
+            dur = _int(act.get("duration_minutes"), 150)
+            end = cur + timedelta(minutes=dur)
+            events.append(_ev(day, cur, end, act.get("name", "Activity"), "activity",
+                              cost=act.get("cost_per_person", 0)))
+            cur = end
+
+        events.append(_ev(day, cur, cur + timedelta(minutes=90), "Lunch & rest", "meal"))
+        cur += timedelta(minutes=90)
+
+        # Afternoon activity
+        act = _next_act()
+        dur = _int(act.get("duration_minutes"), 120)
+        end = cur + timedelta(minutes=dur)
+        events.append(_ev(day, cur, end, act.get("name", "Activity"), "activity",
+                          cost=act.get("cost_per_person", 0)))
+        cur = end
+
+        events.append(_ev(day, cur, cur + timedelta(minutes=60), "Dinner", "meal"))
+
+    # ---------------------------------------------------------------------------
+    # LAST DAY (Day N) — Checkout + return
+    # ---------------------------------------------------------------------------
+    last = n_days
+    cur  = datetime(2026, 1, last, 7, 0)
+    events.append(_ev(last, cur, cur + timedelta(minutes=45), "Breakfast", "meal"))
+    cur += timedelta(minutes=45)
+
+    # One final morning activity before checkout
+    act = _next_act()
+    if act:
+        dur = _int(act.get("duration_minutes"), 120)
+        end = cur + timedelta(minutes=dur)
+        events.append(_ev(last, cur, end, act.get("name", "Activity"), "activity",
+                          cost=act.get("cost_per_person", 0)))
+        cur = end
+
+    events.append(_ev(last, cur, cur + timedelta(minutes=30), f"Checkout: {hotel.get('name','Hotel')}", "hotel"))
+    cur += timedelta(minutes=30)
 
     # Return journey
-    return_end = current + timedelta(minutes=drive_minutes)
-    events.append(_event(2, current, return_end, f"Return to {route.get('origin', 'Origin')}", "travel"))
+    return_end = cur + timedelta(minutes=travel_minutes)
+    events.append(_ev(last, cur, return_end, return_verb, "travel"))
 
     return events
 
 
-def _event(day: int, start: datetime, end: datetime, title: str, event_type: str, cost: int = 0) -> dict:
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+def _int(val, default: int) -> int:
     try:
-        cost = int(cost)
-    except (ValueError, TypeError):
-        cost = 0
+        return int(val)
+    except (TypeError, ValueError):
+        return default
+
+
+def _ev(day: int, start: datetime, end: datetime,
+        title: str, event_type: str, cost: int = 0) -> dict:
     return {
         "day": day,
         "start_time": start.strftime("%H:%M"),
         "end_time": end.strftime("%H:%M"),
         "title": title,
         "type": event_type,
-        **({"cost": cost} if cost else {}),
+        **({"cost": _int(cost, 0)} if cost else {}),
     }

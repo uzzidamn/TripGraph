@@ -5,7 +5,7 @@ const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 const client = axios.create({
   baseURL: BASE_URL,
-  timeout: 60000,
+  timeout: 180000,  // 3 min — web search + LLM can take ~90s for unseeded destinations
   headers: { "Content-Type": "application/json" },
 });
 
@@ -14,7 +14,13 @@ async function withMockFallback(apiFn, mockValue) {
     const res = await apiFn();
     return res.data;
   } catch (err) {
-    console.warn("[TripGraph] API unavailable — using mock data", err?.response?.status, err?.message);
+    // If the server responded with an error status, surface it — don't hide behind mock data
+    if (err?.response) {
+      const detail = err.response.data?.detail ?? err.message;
+      throw new Error(detail);
+    }
+    // Network / CORS / timeout — backend unreachable, fall back to mock
+    console.warn("[TripGraph] API unavailable — using mock data", err?.message);
     return mockValue;
   }
 }

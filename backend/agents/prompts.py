@@ -24,26 +24,32 @@ EXTRACT the following JSON schema exactly:
 {
   "origin": string or null,
   "destination": string or null,
-  "destination_type": "mountains" | "heritage" | "nature" | null,
+  "destination_type": "mountains" | "heritage" | "nature" | "beach" | "wildlife" | "pilgrimage" | null,
   "budget_per_person": integer (INR) or null,
   "dates": string or null,
   "trip_duration": "2D1N" | "3D2N" | "weekend" | string or null,
-  "transport_preference": list of strings (e.g. ["cab_with_driver", "self_drive"]),
+  "transport_preference": list of strings (e.g. ["cab_with_driver", "self_drive", "flight", "train"]),
   "avoid_night_driving": boolean,
   "must_include": list of strings (activities, experiences e.g. ["rafting", "cafes"]),
   "return_deadline": string or null,
-  "hotel_tier": "budget" | "comfort" | "expedition" | null,
+  "hotel_tier": "budget" | "comfort" | "luxury" | null,
   "risk_tolerance": "low" | "medium" | "high" | null,
   "group_size": integer or null,
   "special_requirements": list of strings
 }
 
 RULES FOR SPECIFIC FIELDS:
-- origin: Only "Gurugram" is a valid origin in this system. If the chat says Delhi NCR, Gurgaon, or similar, map to "Gurugram".
-- destination_type: "mountains" for hill stations/Himalayas/river towns, "heritage" for forts/palaces/Rajasthan, "nature" for forests/wildlife.
+- origin: Extract exactly as mentioned (e.g. "Pune", "Mumbai", "Delhi", "Bangalore"). If no origin city is mentioned at all, set to null — do NOT default to any city.
+- destination: Extract the exact destination city/place mentioned (e.g. "Goa", "Leh", "Manali", "Coorg").
+- destination_type: "mountains" for hill stations/Himalayas, "heritage" for forts/palaces/Rajasthan, "beach" for coastal/sea destinations, "nature" for forests/wildlife, "pilgrimage" for temples/religious sites.
 - avoid_night_driving: true if anyone says no night driving, avoid driving at night, return before dark, etc. Default false.
 - must_include: Extract activity keywords even if mentioned casually ("I want rafting" → ["rafting"]).
 - budget_per_person: Extract the per-person amount. If total budget mentioned, do NOT divide — extract as stated.
+- hotel_tier: ONLY set if explicitly mentioned ("budget hotel", "luxury stay", "comfortable hotel", etc.). Otherwise null.
+- group_size: ONLY set if an explicit count is mentioned ("4 of us", "group of 6", "me and my wife" → 2). Otherwise null.
+- risk_tolerance: ONLY set if explicitly mentioned. Otherwise null.
+- trip_duration: ONLY set if mentioned ("3 days", "a week", "weekend trip", "7D6N", etc.). Otherwise null.
+- transport_preference: ONLY set if travel mode is explicitly mentioned. Otherwise empty list [].
 """
 
 CHAT_PARSER_HUMAN = """Extract travel constraints from this group chat:
@@ -60,40 +66,45 @@ Output ONLY the JSON object."""
 CONSTRAINT_VALIDATOR_SYSTEM = """You are a travel planning constraint validator for TripGraph AI.
 
 You receive extracted travel constraints and must:
-1. Check for logical conflicts between constraints
+1. Check for DIRECT logical contradictions between two explicitly stated values
 2. Make reasonable assumptions for missing non-critical fields
-3. Determine if enough information exists to plan a trip
 
 OUTPUT RULES:
 - Output ONLY a single valid JSON object. No explanations, no markdown, no code fences.
 
 OUTPUT SCHEMA:
 {
-  "is_ready_to_plan": boolean,
   "conflict_report": {
     "has_conflicts": boolean,
-    "conflicts": list of strings describing each conflict
+    "conflicts": list of strings (ONLY genuine contradictions — see rules below)
   },
   "assumptions": {
     "field_name": "assumed value and reason"
-  },
-  "missing_fields": list of field names that are required but missing
+  }
 }
 
-CONFLICT EXAMPLES:
-- hotel_tier is "expedition" but budget_per_person is under 3000 INR → conflict
-- avoid_night_driving is true but transport_preference includes "self_drive" on a 500+ km route → warn
-- must_include has activities that contradict risk_tolerance (e.g. bungee jumping + risk_tolerance=low) → warn
+WHAT IS A GENUINE CONFLICT (flag these):
+- budget_per_person is specified AND hotel_tier is specified AND budget is mathematically impossible for that tier
+  (e.g. budget ₹3,000 + hotel_tier "luxury" → luxury hotels cost ₹8,000+/night)
+- avoid_night_driving is true AND transport_preference explicitly includes "self_drive" AND distance > 500 km
+- must_include contains an activity that directly contradicts risk_tolerance
+  (e.g. must_include "bungee jumping" + risk_tolerance "low")
+- return_deadline makes the trip_duration mathematically impossible given travel time
+
+WHAT IS NOT A CONFLICT (never flag these):
+- Missing fields (budget, group_size, duration, hotel_tier) — these will be collected separately
+- Trip duration that seems short for a destination — user decides their schedule
+- No budget specified — budget is optional at this stage
+- International destination with domestic budget assumptions — we don't know the budget yet
+- Any concern phrased as "typically", "usually", "minimum", "recommended" — these are opinions, not conflicts
 
 ASSUMPTION EXAMPLES:
-- dates not mentioned → assume "next available weekend"
-- group_size not mentioned → assume 4
-- trip_duration not mentioned for a weekend trip → assume "2D1N"
+- dates not mentioned → "next available weekend"
+- risk_tolerance not mentioned → "medium"
+- return_deadline not mentioned → "end of trip"
 
-REQUIRED FIELDS TO PROCEED:
-- origin must be present
-- At least one of: budget_per_person OR trip_duration
-- At least one preference: destination_type OR must_include OR destination
+Keep assumptions brief. Do not assume values for budget, group_size, hotel_tier, trip_duration, or transport —
+those will be collected via the UI if missing.
 """
 
 CONSTRAINT_VALIDATOR_HUMAN = """Validate these extracted travel constraints:
@@ -124,17 +135,18 @@ RULES:
 EXPLAINER_HUMAN = """Selected itinerary:
 - Destination: {destination}
 - Transport: {transport_mode} ({transport_tier} tier)
-- Hotel: {hotel_name} at ₹{hotel_price}/night
-- Total cost per person: ₹{total_cost}
-- Budget limit: ₹{budget_limit}
+- Hotel: {hotel_name} at {currency_symbol}{hotel_price}/night
+- Total cost per person: {currency_symbol}{total_cost}
+- Budget limit: {currency_symbol}{budget_limit}
 - Activities included: {activities}
 - Validation: {validation_summary}
 - Score: {final_score}/100
 
 User constraints: {constraints_summary}
+Currency: {currency_code} ({currency_symbol}) — use this symbol for all monetary values in your explanation.
 
 Alternatives considered: {alternatives_summary}
-
+{web_context_block}
 Write the explanation."""
 
 

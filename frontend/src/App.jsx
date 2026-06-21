@@ -30,7 +30,7 @@ export default function App() {
     step, loading,
     constraints, assumptions, missingFields, conflictReport,
     itinerary, alternatives, timeline, mapPoints,
-    costBreakdown, scoreBreakdown, explanation, delayResult,
+    costBreakdown, scoreBreakdown, explanation, webEnriched, webContext, currencySymbol, delayResult,
     toasts,
     submitChat, generatePlan, runDelaySimulation, resetToChat,
   } = useItinerary();
@@ -67,8 +67,9 @@ export default function App() {
                   itinerary={itinerary}
                   alternatives={alternatives}
                   scoreBreakdown={scoreBreakdown}
+                  currencySymbol={currencySymbol}
                 />
-                <CostBreakdown costBreakdown={costBreakdown} />
+                <CostBreakdown costBreakdown={costBreakdown} currencySymbol={currencySymbol} />
                 <DelaySimulator
                   onSimulate={runDelaySimulation}
                   loading={loading}
@@ -78,6 +79,30 @@ export default function App() {
 
               <div className="lg:col-span-2 space-y-6">
                 <MapView mapPoints={mapPoints} />
+
+                {webEnriched && webContext && (
+                  <div className="bg-surface border border-teal-500/40 rounded-xl p-4 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-teal-400 bg-teal-400/10 px-2.5 py-1 rounded-full">
+                        <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse" />
+                        Live data
+                      </span>
+                      <span className="text-xs text-text-muted">Enriched with real-time web search</span>
+                    </div>
+                    {webContext.weather && (
+                      <p className="text-xs text-text-secondary">
+                        <span className="font-medium text-text-primary">Weather: </span>
+                        {webContext.weather}
+                      </p>
+                    )}
+                    {webContext.events && webContext.events.length > 0 && (
+                      <p className="text-xs text-text-secondary">
+                        <span className="font-medium text-text-primary">Upcoming: </span>
+                        {webContext.events.slice(0, 3).join(" · ")}
+                      </p>
+                    )}
+                  </div>
+                )}
 
                 {explanation && (
                   <div className="bg-surface border border-border rounded-xl p-5">
@@ -92,7 +117,7 @@ export default function App() {
 
                 <div className="bg-surface border border-border rounded-xl p-5 space-y-4">
                   <h3 className="text-sm font-semibold text-text-primary">Timeline</h3>
-                  <ItineraryTimeline timeline={timeline} />
+                  <ItineraryTimeline timeline={timeline} currencySymbol={currencySymbol} />
                 </div>
               </div>
             </div>

@@ -22,6 +22,7 @@ from backend.agents.nodes.data_retriever import data_retriever_node
 from backend.agents.nodes.explainer import explainer_node
 from backend.agents.nodes.planner_orchestrator import planner_orchestrator_node
 from backend.agents.nodes.replanner_agent import replanner_agent_node
+from backend.agents.nodes.web_enricher import web_enricher_node
 from backend.agents.state import TripState, initialize_state
 
 
@@ -39,6 +40,7 @@ def build_main_workflow() -> StateGraph:
     graph.add_node("parse_chat", chat_parser_node)
     graph.add_node("validate_constraints", constraint_validator_node)
     graph.add_node("retrieve_data", data_retriever_node)
+    graph.add_node("web_enrich", web_enricher_node)
     graph.add_node("plan_itinerary", planner_orchestrator_node)
     graph.add_node("explain_plan", explainer_node)
 
@@ -49,7 +51,8 @@ def build_main_workflow() -> StateGraph:
         _route_after_validation,
         {"retrieve_data": "retrieve_data", END: END},
     )
-    graph.add_edge("retrieve_data", "plan_itinerary")
+    graph.add_edge("retrieve_data", "web_enrich")
+    graph.add_edge("web_enrich", "plan_itinerary")
     graph.add_edge("plan_itinerary", "explain_plan")
     graph.add_edge("explain_plan", END)
 
@@ -68,6 +71,20 @@ def build_replan_workflow() -> StateGraph:
 # Compiled graphs — built once at module load time
 _main_app = build_main_workflow()
 _replan_app = build_replan_workflow()
+
+
+def run_parse_only(chat_messages: list[str]) -> TripState:
+    """Run only chat_parser + constraint_validator — no data retrieval, no web search, no planning.
+
+    Used by /api/parse-chat so it doesn't consume LLM tokens on planning before
+    the user has confirmed their constraints.
+    """
+    print("\n🔍 Parsing chat (parse-only mode)")
+    state = initialize_state(chat_messages)
+    state.update(chat_parser_node(state))
+    state.update(constraint_validator_node(state))
+    print("✅ Parse complete\n")
+    return state
 
 
 def run_workflow(chat_messages: list[str]) -> TripState:
@@ -105,6 +122,7 @@ def run_workflow_from_constraints(constraints: dict) -> TripState:
     state["is_ready_to_plan"] = True
 
     state.update(data_retriever_node(state))
+    state.update(web_enricher_node(state))
     state.update(planner_orchestrator_node(state))
     state.update(explainer_node(state))
 

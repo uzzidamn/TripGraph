@@ -24,6 +24,10 @@ class ItineraryResponse(BaseModel):
     map_points: List[Dict[str, Any]] = Field(default_factory=list)
     cost_breakdown: Dict[str, Any] = Field(default_factory=dict)
     explanation: str = ""
+    web_enriched: bool = False
+    web_context: Dict[str, Any] = Field(default_factory=dict)
+    currency_code: str = "INR"
+    currency_symbol: str = "₹"
 
 
 class DelaySimulationResponse(BaseModel):

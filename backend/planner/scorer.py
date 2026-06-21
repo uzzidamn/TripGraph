@@ -11,18 +11,21 @@ def score_itinerary(itinerary: dict, constraints: dict) -> dict:
     scores = {}
 
     # 1. Preference match (0-25 points)
+    # Full marks when no must_include specified — absence of preference is not a mismatch.
     raw_must_include = constraints.get("must_include") or []
     must_include = {str(x).lower() for x in raw_must_include if x}
-    
-    activity_tags = set()
-    for act in itinerary.get("activities", []):
-        for tag in (act.get("tags") or []):
-            activity_tags.add(str(tag).lower())
-        if act.get("name"):
-            activity_tags.add(act.get("name").lower())
-            
-    matched = must_include & activity_tags
-    scores["preference_match"] = (len(matched) / max(len(must_include), 1)) * 25
+
+    if not must_include:
+        scores["preference_match"] = 25
+    else:
+        activity_tags = set()
+        for act in itinerary.get("activities", []):
+            for tag in (act.get("tags") or []):
+                activity_tags.add(str(tag).lower())
+            if act.get("name"):
+                activity_tags.add(act.get("name").lower())
+        matched = must_include & activity_tags
+        scores["preference_match"] = (len(matched) / len(must_include)) * 25
 
     # 2. Budget efficiency (0-20 points)
     budget = constraints.get("budget_per_person", 15000)

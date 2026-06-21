@@ -36,6 +36,10 @@ class TripState(TypedDict):
     map_points: List[Dict[str, Any]]
     cost_breakdown: Dict[str, Any]
 
+    # Web enrichment (live search for destinations not in seed data)
+    web_enriched: bool
+    web_context: Dict[str, Any]  # weather, events, source
+
     # Explanation
     explanation: str
 
@@ -72,6 +76,8 @@ def initialize_state(raw_chat: List[str]) -> TripState:
         timeline=[],
         map_points=[],
         cost_breakdown={},
+        web_enriched=False,
+        web_context={},
         explanation="",
         delay_event=None,
         replanned_itinerary=None,

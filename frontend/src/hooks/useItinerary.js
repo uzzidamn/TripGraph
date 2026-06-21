@@ -17,6 +17,10 @@ const INITIAL = {
   costBreakdown: null,
   scoreBreakdown: null,
   explanation: "",
+  webEnriched: false,
+  webContext: {},
+  currencyCode: "INR",
+  currencySymbol: "₹",
   delayResult: null,
   toasts: [],
 };
@@ -73,11 +77,15 @@ export function useItinerary() {
         costBreakdown: data.cost_breakdown,
         scoreBreakdown: data.score_breakdown,
         explanation: data.explanation ?? "",
+        webEnriched: data.web_enriched ?? false,
+        webContext: data.web_context ?? {},
+        currencyCode: data.currency_code ?? "INR",
+        currencySymbol: data.currency_symbol ?? "₹",
         delayResult: null,
       });
     } catch (err) {
-      patch({ loading: false, error: err.message });
-      addToast("Failed to generate itinerary. Please try again.", "error");
+      patch({ loading: false, error: err.message, step: "preferences" });
+      addToast(err.message || "Failed to generate itinerary. Please try again.", "error");
     }
   }, [patch, addToast]);
 

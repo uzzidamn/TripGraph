@@ -1,17 +1,27 @@
 import { motion } from "framer-motion";
-import { Car, Bed, Zap, Utensils, Coffee, Clock } from "lucide-react";
+import { Car, Bed, Zap, Utensils, Coffee, Clock, Plane, Train, Bus } from "lucide-react";
 
 const TYPE_META = {
-  travel:   { icon: Car,      color: "text-accent",   bg: "bg-accent/10"   },
   hotel:    { icon: Bed,      color: "text-primary",  bg: "bg-primary/10"  },
   activity: { icon: Zap,      color: "text-warning",  bg: "bg-warning/10"  },
   meal:     { icon: Utensils, color: "text-success",  bg: "bg-success/10"  },
   rest:     { icon: Coffee,   color: "text-text-muted", bg: "bg-surface-hover" },
 };
 
-function TimelineEvent({ event, idx }) {
+function getTravelIcon(title = "") {
+  const t = title.toLowerCase();
+  if (t.includes("fly") || t.includes("flight")) return Plane;
+  if (t.includes("train"))  return Train;
+  if (t.includes("bus"))    return Bus;
+  return Car;
+}
+
+function TimelineEvent({ event, idx, currencySymbol }) {
+  const isTravel = event.type === "travel";
   const meta = TYPE_META[event.type] ?? TYPE_META.rest;
-  const Icon = meta.icon;
+  const Icon = isTravel ? getTravelIcon(event.title) : meta.icon;
+  const color = isTravel ? "text-accent" : meta.color;
+  const bg    = isTravel ? "bg-accent/10" : meta.bg;
 
   return (
     <motion.div
@@ -21,8 +31,8 @@ function TimelineEvent({ event, idx }) {
       className="flex gap-3 items-start"
     >
       <div className="flex flex-col items-center">
-        <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${meta.bg}`}>
-          <Icon size={14} className={meta.color} />
+        <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${bg}`}>
+          <Icon size={14} className={color} />
         </div>
         <div className="w-px flex-1 bg-border mt-1 min-h-[16px]" />
       </div>
@@ -38,7 +48,7 @@ function TimelineEvent({ event, idx }) {
           </div>
           {event.cost !== undefined && (
             <span className="text-xs text-text-muted flex-shrink-0">
-              {event.cost === 0 ? "Free" : `₹${event.cost.toLocaleString()}`}
+              {event.cost === 0 ? "Free" : `${currencySymbol}${event.cost.toLocaleString()}`}
             </span>
           )}
         </div>
@@ -47,7 +57,7 @@ function TimelineEvent({ event, idx }) {
   );
 }
 
-export function ItineraryTimeline({ timeline }) {
+export function ItineraryTimeline({ timeline, currencySymbol = "₹" }) {
   if (!timeline?.length) return null;
 
   const byDay = timeline.reduce((acc, ev) => {
@@ -68,7 +78,7 @@ export function ItineraryTimeline({ timeline }) {
           </div>
           <div>
             {events.map((ev, i) => (
-              <TimelineEvent key={i} event={ev} idx={i} />
+              <TimelineEvent key={i} event={ev} idx={i} currencySymbol={currencySymbol} />
             ))}
           </div>
         </div>

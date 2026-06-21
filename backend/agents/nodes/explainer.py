@@ -9,6 +9,7 @@ non-serializable fields and excessive prompt length.
 from backend.agents.llm_client import get_llm
 from backend.agents.prompts import EXPLAINER_HUMAN, EXPLAINER_SYSTEM
 from backend.agents.state import TripState
+from backend.utils.currency import get_currency
 
 
 def _summarise_itinerary(itinerary: dict) -> dict:
@@ -62,6 +63,19 @@ def _summarise_constraints(constraints: dict) -> str:
     return "; ".join(parts) if parts else "No specific constraints"
 
 
+def _build_web_context_block(web_context: dict) -> str:
+    """Format live weather/events from web enrichment for the LLM prompt."""
+    if not web_context or not web_context.get("source") == "live_web_search":
+        return ""
+    parts = ["\nLive data from web search:"]
+    if web_context.get("weather"):
+        parts.append(f"- Current weather: {web_context['weather']}")
+    if web_context.get("events"):
+        events = "; ".join(web_context["events"][:3])
+        parts.append(f"- Local events: {events}")
+    return "\n".join(parts) + "\n"
+
+
 def explainer_node(state: TripState) -> dict:
     """Generate a plain-English explanation of the selected itinerary.
 
@@ -73,6 +87,10 @@ def explainer_node(state: TripState) -> dict:
     constraints = state.get("extracted_constraints") or {}
     score = state.get("score_breakdown") or {}
     validation = state.get("validation_report") or {}
+    web_context = state.get("web_context") or {}
+
+    origin = constraints.get("origin", "Gurugram")
+    currency_code, currency_symbol, _ = get_currency(origin)
 
     if not selected:
         return {"explanation": "No itinerary was generated."}
@@ -100,6 +118,9 @@ def explainer_node(state: TripState) -> dict:
             final_score=round(score.get("final_score", 0), 1),
             constraints_summary=_summarise_constraints(constraints),
             alternatives_summary=_summarise_alternatives(alternatives),
+            web_context_block=_build_web_context_block(web_context),
+            currency_code=currency_code,
+            currency_symbol=currency_symbol,
         )),
     ]
 

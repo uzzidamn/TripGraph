@@ -11,7 +11,7 @@ const LABELS = {
 
 const COLORS = ["#6c5ce7", "#00cec9", "#fdcb6e", "#00b894", "#e17055"];
 
-export function CostBreakdown({ costBreakdown }) {
+export function CostBreakdown({ costBreakdown, currencySymbol = "{currencySymbol}" }) {
   if (!costBreakdown) return null;
 
   const { budget_limit, total, ...items } = costBreakdown;
@@ -34,7 +34,7 @@ export function CostBreakdown({ costBreakdown }) {
             <div key={key} className="space-y-1">
               <div className="flex justify-between text-xs">
                 <span className="text-text-muted">{label}</span>
-                <span className="text-text-primary">₹{val.toLocaleString()}</span>
+                <span className="text-text-primary">{currencySymbol}{val.toLocaleString()}</span>
               </div>
               <div className="h-1.5 bg-border rounded-full overflow-hidden">
                 <motion.div
@@ -53,7 +53,7 @@ export function CostBreakdown({ costBreakdown }) {
       <div className="border-t border-border pt-3">
         <div className="flex justify-between font-semibold">
           <span className="text-sm text-text-primary">Total</span>
-          <span className="text-base text-primary">₹{total?.toLocaleString()}</span>
+          <span className="text-base text-primary">{currencySymbol}{total?.toLocaleString()}</span>
         </div>
 
         {budget_limit && (
@@ -61,7 +61,7 @@ export function CostBreakdown({ costBreakdown }) {
             <div className="flex justify-between text-xs text-text-muted">
               <span>Budget utilization</span>
               <span className={usagePct > 90 ? "text-warning" : "text-success"}>
-                {usagePct?.toFixed(0)}% of ₹{budget_limit.toLocaleString()}
+                {usagePct?.toFixed(0)}% of {currencySymbol}{budget_limit.toLocaleString()}
               </span>
             </div>
             <div className="h-1.5 bg-border rounded-full overflow-hidden">

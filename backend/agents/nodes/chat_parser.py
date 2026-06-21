@@ -10,13 +10,10 @@ from backend.agents.llm_client import get_llm
 from backend.agents.prompts import CHAT_PARSER_HUMAN, CHAT_PARSER_SYSTEM
 from backend.agents.state import TripState
 
-# Defaults applied when LLM does not extract a value
+# Only apply defaults for boolean/list fields that must not be null.
+# origin, group_size, hotel_tier, risk_tolerance, trip_duration, budget_per_person are
+# intentionally left null so the clarification panel in the frontend can ask the user.
 _DEFAULTS: Dict[str, Any] = {
-    "origin": "Gurugram",
-    "group_size": 4,
-    "hotel_tier": "comfort",
-    "risk_tolerance": "medium",
-    "trip_duration": "2D1N",
     "avoid_night_driving": False,
     "transport_preference": [],
     "must_include": [],

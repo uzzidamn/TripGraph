@@ -19,7 +19,7 @@ function ScoreBar({ label, value, max = 30 }) {
   );
 }
 
-export function ItineraryOptions({ itinerary, alternatives, scoreBreakdown }) {
+export function ItineraryOptions({ itinerary, alternatives, scoreBreakdown, currencySymbol = "₹" }) {
   if (!itinerary) return null;
 
   const { route, hotel, transport, activities, total_cost_per_person, destination } = itinerary;
@@ -49,7 +49,7 @@ export function ItineraryOptions({ itinerary, alternatives, scoreBreakdown }) {
           </div>
           <div className="text-right">
             <p className="text-lg font-bold text-primary">
-              ₹{total_cost_per_person?.toLocaleString()}
+              {currencySymbol}{total_cost_per_person?.toLocaleString()}
             </p>
             <p className="text-xs text-text-muted">per person</p>
           </div>
@@ -59,7 +59,7 @@ export function ItineraryOptions({ itinerary, alternatives, scoreBreakdown }) {
           <div className="bg-surface-hover rounded-lg p-3 space-y-0.5">
             <p className="text-text-muted">Hotel</p>
             <p className="text-text-primary font-medium">{hotel?.name}</p>
-            <p className="text-text-muted">₹{hotel?.price_per_night?.toLocaleString()}/night</p>
+            <p className="text-text-muted">{currencySymbol}{hotel?.price_per_night?.toLocaleString()}/night</p>
           </div>
           <div className="bg-surface-hover rounded-lg p-3 space-y-0.5">
             <p className="text-text-muted">Transport</p>
@@ -77,7 +77,7 @@ export function ItineraryOptions({ itinerary, alternatives, scoreBreakdown }) {
               <div key={i} className="flex justify-between text-xs">
                 <span className="text-text-primary">{a.name}</span>
                 <span className="text-text-muted">
-                  {a.cost_per_person === 0 ? "Free" : `₹${a.cost_per_person?.toLocaleString()}`}
+                  {a.cost_per_person === 0 ? "Free" : `${currencySymbol}${a.cost_per_person?.toLocaleString()}`}
                 </span>
               </div>
             ))}
@@ -121,7 +121,7 @@ export function ItineraryOptions({ itinerary, alternatives, scoreBreakdown }) {
                 </p>
               </div>
               <p className="text-sm font-semibold text-accent">
-                ₹{alt.total_cost_per_person?.toLocaleString()}
+                {currencySymbol}{alt.total_cost_per_person?.toLocaleString()}
               </p>
             </motion.div>
           ))}

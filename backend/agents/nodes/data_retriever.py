@@ -98,14 +98,24 @@ def data_retriever_node(state: TripState) -> dict:
         print(f"  ⚠️  route_tool failed ({e}), using seed routes")
         routes = seed["routes"]
 
-    # Filter to specific destination if extracted
+    # Filter to specific destination if extracted.
+    # If the destination is named but not in seed, return no routes so that
+    # web_enricher becomes the sole data source (avoids Rishikesh/Jaipur
+    # candidates competing against a live-fetched unseeded destination).
     if destination:
         filtered = [r for r in routes if r.get("destination") == destination]
-        if filtered:
-            routes = filtered
-
-    # Filter by destination_type if specified
-    if destination_type:
+        if filtered and origin:
+            # Also require origin to match — a Gurugram→Jaipur seed route must not
+            # be used when the user asked for Ranchi→Jaipur.
+            origin_match = [
+                r for r in filtered
+                if r.get("origin", "").lower() == origin.lower()
+            ]
+            routes = origin_match  # empty forces web_enricher to fetch the real route
+        else:
+            routes = filtered  # empty if destination not in seed at all
+    elif destination_type:
+        # Only apply type filter when no explicit destination was given
         filtered = [r for r in routes if r.get("destination_type") == destination_type]
         if filtered:
             routes = filtered
