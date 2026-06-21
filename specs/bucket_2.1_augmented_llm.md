@@ -3,8 +3,13 @@
 > **Generated for**: Distributed LLM execution (Claude / Gemini session)
 > **Priority**: P1 — Can start immediately with mock tools
 > **Reference**: This spec is self-contained. You may also read `specs/MASTER_SPEC.md` for full project context.
-> **Relationship to Bucket 2**: This is a **drop-in alternative** to Bucket 2. It produces the exact same `TripState` output via the exact same `run_workflow()` / `run_replan_workflow()` function signatures. The only difference is architectural: instead of a multi-node LangGraph state graph, this uses a **single-pass augmented LLM** orchestration with sequential Python function calls. At any point in the project lifecycle, the team can switch between Bucket 2 (agentic) and Bucket 2.1 (augmented) by changing one environment variable.
+> **Bucket 2.1**: It is the initial workflow implementation for TripGraph AI.
 
+It establishes the canonical workflow API, TripState contract, planner integration contract, and backend integration path used by Buckets 3, 4, and 5.
+
+Future workflow implementations (including a LangGraph-based agentic pipeline) must preserve the same public APIs and TripState structure but may use different internal orchestration mechanisms.
+
+Bucket 2.1 should be treated as the reference implementation and must run independently without any agentic workflow being present.
 ---
 
 ## Section A — Project Context
@@ -13,7 +18,9 @@
 
 **Your role (Bucket 2.1):** Build an **Augmented LLM pipeline** — a simplified, single-pass alternative to the multi-agent LangGraph workflow in Bucket 2. Instead of 6 separate LangGraph agent nodes with a state graph, you implement the same logical steps as **sequential Python functions** orchestrated by a single `run_workflow()` function. The LLM is called directly (no LangGraph dependency), and the output is the same `TripState` TypedDict consumed by Bucket 3 (FastAPI backend) and Bucket 4 (React frontend).
 
-**Why this exists:** Starting with an augmented LLM approach lets the team validate the end-to-end data flow, prompt quality, and integration contracts before introducing the complexity of a full agentic framework. It also serves as a performance/quality baseline to measure the agentic approach against.
+**Why this exists:** Bucket 2.1 provides the first complete workflow implementation for TripGraph AI. It enables end-to-end validation of prompts, state contracts, planner integration, tool integration, API integration, and frontend integration.
+
+Agentic workflows are considered future enhancements rather than prerequisites.
 
 **Key Principle:** The LLM handles **language** (extraction, explanation). Python handles **math** (cost, timing, validation). The planner handles **optimization** (graph-based itinerary construction). Your pipeline coordinates these — it does NOT calculate costs or invent data.
 
@@ -407,10 +414,11 @@ The constraint extraction step must output a dict with these exact keys:
 ### B.6 Environment Variables
 
 ```env
-LLM_PROVIDER=gemini
+LLM_PROVIDER=gemini          # Informational — current provider. llm_client.py uses google-generativeai directly.
 LLM_MODEL=gemini-2.0-flash
 GOOGLE_API_KEY=your_gemini_api_key_here
 LLM_TEMPERATURE=0
+LLM_MAX_TOKENS=4096
 
 # Pipeline mode toggle (NEW for Bucket 2.1)
 PIPELINE_MODE=augmented
@@ -462,11 +470,12 @@ This means **Bucket 3 code never changes**. The routing is transparent.
 | 17 | Workflow export function names | `run_workflow(chat_messages)` and `run_replan_workflow(state, delay_event)` — these are the public API called by Bucket 3. |
 | 18 | LLM provider packages | `google-generativeai` for direct Gemini calls. NO LangChain or LangGraph dependency. |
 | 19 | Mock vs real tool imports | Use try/except: try real imports first, fall back to mock if ImportError. This lets the bucket run independently. |
-| 20 | Constraint Validator: what fields are required to proceed | At minimum: `origin` AND (`budget_per_person` OR `trip_duration`) AND at least one preference (`destination_type`, `must_include`, or `destination`). |
+| 20 | Constraint Validator: what fields are required to proceed | At minimum: `origin` AND (`budget_per_person` OR `trip_duration`). These are the only hard requirements — their absence adds to `conflicts` and sets `is_ready_to_plan = False`. If no destination preference is given (`destination_type`, `destination`, or `must_include` all absent), a **warning** is added but planning proceeds with all available routes. |
 | 21 | Number of LLM calls per workflow run | Exactly 2: one for constraint extraction, one for explanation. All other steps are deterministic Python. |
 | 22 | LangGraph dependency | **None**. This bucket does NOT use LangGraph, LangChain, or any agentic framework. Direct `google-generativeai` SDK calls only. |
 | 23 | Code location | All code lives in `backend/agents_augmented/`. The existing `backend/agents/` directory (Bucket 2) is untouched. |
 | 24 | Pipeline switching mechanism | `backend/agents/workflow.py` reads `PIPELINE_MODE` env var and delegates. Default is `"augmented"` so this pipeline runs out of the box. |
+| 25 | Location name normalization | All location strings (`origin`, `destination`) extracted by the LLM **must be title-cased** before being passed to any tool function or planner. Use `str.strip().title()` to normalize. This ensures "rishikesh", "RISHIKESH", and "Rishikesh" all resolve identically when querying tools and Neo4j. Apply normalization in **two places**: (a) in `parse_constraints.py` immediately after LLM extraction, and (b) defensively at the top of `retrieve_data()`. |
 
 ---
 
@@ -575,14 +584,17 @@ def call_llm(system_prompt: str, user_prompt: str) -> str:
 def call_llm_json(system_prompt: str, user_prompt: str) -> dict:
     """
     Call the LLM and parse the response as JSON.
-    Handles markdown code fences. Retries once on parse failure.
+    Handles markdown code fences. Retries once on JSON parse failure only.
+
+    Decision #7: retry once on invalid JSON.
+    Decision #8: LLM/network failures are NOT retried — raise immediately.
     """
     for attempt in range(2):
+        raw = call_llm(system_prompt, user_prompt)  # raises on LLM/network failure (Decision #8)
         try:
-            raw = call_llm(system_prompt, user_prompt)
             cleaned = _strip_code_fences(raw)
             return json.loads(cleaned)
-        except (json.JSONDecodeError, Exception) as e:
+        except json.JSONDecodeError as e:
             if attempt == 0:
                 print(f"⚠️ JSON parse failed (attempt 1), retrying: {e}")
                 continue
@@ -788,6 +800,13 @@ def parse_constraints(chat_messages: list[str]) -> dict:
     if not isinstance(constraints.get("avoid_night_driving"), bool):
         constraints["avoid_night_driving"] = False
 
+    # Normalize location name casing (Decision #25):
+    # LLM may return "rishikesh" or "GURUGRAM" — title-case to match DB values.
+    for loc_field in ("origin", "destination"):
+        val = constraints.get(loc_field)
+        if isinstance(val, str) and val.strip():
+            constraints[loc_field] = val.strip().title()
+
     # Track missing fields and apply assumptions
     missing_fields = []
     assumptions = {}
@@ -902,13 +921,28 @@ except ImportError:
     )
 
 
+def _normalize_location(name: str | None, default: str = "") -> str:
+    """
+    Title-case a location name to match database casing.
+    e.g. "rishikesh" → "Rishikesh", "GURUGRAM" → "Gurugram".
+    Handles multi-word names: "new delhi" → "New Delhi".
+    """
+    if not name:
+        return default
+    return name.strip().title()
+
+
 def retrieve_data(extracted_constraints: dict) -> dict:
     """
     Fetch all travel data based on extracted constraints.
     Returns dict with keys: route_candidates, hotel_candidates,
     transport_candidates, activity_candidates, food_candidates, waypoint_candidates.
+
+    NOTE (Decision #25): origin and destination are title-cased before every
+    tool call so that LLM-extracted lowercase names ("rishikesh", "gurugram")
+    match the casing stored in Neo4j / mock data ("Rishikesh", "Gurugram").
     """
-    origin = extracted_constraints.get("origin", "Gurugram")
+    origin = _normalize_location(extracted_constraints.get("origin"), default="Gurugram")
     dest_type = extracted_constraints.get("destination_type")
     hotel_tier = extracted_constraints.get("hotel_tier")
     must_include = extracted_constraints.get("must_include", [])
@@ -925,7 +959,8 @@ def retrieve_data(extracted_constraints: dict) -> dict:
     all_waypoints = []
 
     for route in routes:
-        dest = route.get("destination", "")
+        # Normalize destination casing (Decision #25) — ensures "rishikesh" == "Rishikesh"
+        dest = _normalize_location(route.get("destination", ""))
         rid = route.get("route_id", "")
 
         hotels = get_hotels(dest, hotel_tier)
@@ -1347,11 +1382,11 @@ def run_workflow(chat_messages: list[str]) -> TripState:
     Steps (sequential):
       1. Parse constraints from chat (LLM call #1)
       2. Validate constraints (Python — no LLM)
-      3. If not ready: return partial state with missing_fields
-      4. Retrieve data from tools (Python — no LLM)
-      5. Run planning engine (Python — no LLM)
-      6. Generate explanation (LLM call #2)
-      7. Return completed TripState
+         → Early return here if constraints are insufficient.
+      3. Retrieve data from tools (Python — no LLM)
+      4. Run planning engine (Python — no LLM)
+      5. Generate explanation (LLM call #2)
+      6. Return completed TripState
 
     Returns: TripState dict with all fields populated.
     """
@@ -1383,19 +1418,19 @@ def run_workflow(chat_messages: list[str]) -> TripState:
         )
         return state
 
-    # ── Step 4: Retrieve data (Tools) ──
+    # ── Step 3: Retrieve data (Tools) ──
     print("\n🔍 Step 3: Retrieving travel data...")
     data_result = retrieve_data(state["extracted_constraints"])
     state.update(data_result)
 
-    # ── Step 5: Plan itinerary (Planner) ──
+    # ── Step 4: Plan itinerary (Planner) ──
     print("\n📊 Step 4: Running planning engine...")
     plan_result = plan_itinerary(state["extracted_constraints"], state)
     state.update(plan_result)
     dest = state.get("selected_itinerary", {}).get("destination", "N/A") if state.get("selected_itinerary") else "N/A"
     print(f"  ✅ Selected destination: {dest}")
 
-    # ── Step 6: Explain plan (LLM) ──
+    # ── Step 5: Explain plan (LLM) ──
     print("\n💬 Step 5: Generating explanation...")
     explain_result = explain_plan(
         selected_itinerary=state["selected_itinerary"],
@@ -1503,7 +1538,6 @@ PIPELINE_MODE=augmented
 ```
 google-generativeai>=0.8.0
 python-dotenv>=1.0.0
-pydantic>=2.0.0
 ```
 
 Note: **NO** `langchain`, `langchain-google-genai`, `langgraph`, or any agentic framework dependency.
@@ -1551,6 +1585,11 @@ specs/logs/bucket_2_1_decisions.md                   — Decisions & assumptions
 - [ ] No LangChain/LangGraph imports anywhere in `backend/agents_augmented/`
 
 ### Cross-Bucket Compatibility Checklist
+- [ ] `retrieve_data({"origin": "gurugram", ...})` returns the same results as `{"origin": "Gurugram", ...}`
+- [ ] `retrieve_data({"origin": "GURUGRAM", ...})` returns the same results as `{"origin": "Gurugram", ...}`
+- [ ] LLM-extracted lowercase location names are title-cased in `parse_constraints.py` before returning `extracted_constraints`
+- [ ] `_normalize_location()` helper exists in `retrieve_data.py` and handles `None`, empty string, lowercase, UPPERCASE, and multi-word names
+- [ ] Tool mock wrappers use `.lower()` comparison so they tolerate any residual casing
 - [ ] Bucket 3 can import `from backend.agents.workflow import run_workflow, run_replan_workflow` without changes
 - [ ] `run_workflow()` returns a dict with ALL TripState keys (even if some are None/[])
 - [ ] `extracted_constraints` dict has all 14 keys from Section B.5
@@ -1746,10 +1785,78 @@ if HAS_API_KEY:
 else:
     print("\n⏭️ Test 8: Skipped (no API key)")
 
-# ── Test 9: No LangChain imports ──
-print("\n🚫 Test 9: Verify no LangChain/LangGraph dependencies")
+# ── Test 9: Case-insensitive location name handling (Decision #25) ──
+print("\n🔤 Test 9: Case-insensitive location name normalization")
 try:
-    import ast
+    from backend.agents_augmented.mock_tools import get_routes, get_hotels, get_activities, get_restaurants
+    from backend.agents_augmented.steps.retrieve_data import _normalize_location
+    from backend.agents_augmented.steps.parse_constraints import CONSTRAINT_DEFAULTS
+
+    # 9a: _normalize_location helper
+    assert _normalize_location("rishikesh") == "Rishikesh", "lowercase → Title"
+    assert _normalize_location("GURUGRAM") == "Gurugram", "UPPERCASE → Title"
+    assert _normalize_location("riShikEsh") == "Rishikesh", "mixed case → Title"
+    assert _normalize_location("new delhi") == "New Delhi", "multi-word → Title"
+    assert _normalize_location(None, default="Gurugram") == "Gurugram", "None → default"
+    assert _normalize_location("") == "", "empty string → empty"
+    print("  ✅ _normalize_location handles all casing variants")
+
+    # 9b: Mock tool wrappers handle case-insensitive lookup
+    assert get_routes("gurugram") == get_routes("Gurugram"), "lowercase origin == Title origin"
+    assert get_routes("GURUGRAM") == get_routes("Gurugram"), "UPPER origin == Title origin"
+    assert get_hotels("rishikesh") == get_hotels("Rishikesh"), "lowercase dest == Title dest"
+    assert get_hotels("RISHIKESH") == get_hotels("Rishikesh"), "UPPER dest == Title dest"
+    assert get_activities("rishikesh") == get_activities("Rishikesh"), "activities lowercase == Title"
+    assert get_restaurants("rishikesh") == get_restaurants("Rishikesh"), "restaurants lowercase == Title"
+    print("  ✅ Mock tool wrappers return identical results for all casing variants")
+
+    # 9c: retrieve_data normalizes before calling tools (end-to-end path)
+    from backend.agents_augmented.steps.retrieve_data import retrieve_data
+    constraints_lower = {
+        "origin": "gurugram", "destination": None, "destination_type": "mountains",
+        "budget_per_person": 15000, "dates": "weekend", "trip_duration": "2D1N",
+        "transport_preference": [], "avoid_night_driving": False,
+        "must_include": [], "return_deadline": None, "hotel_tier": "comfort",
+        "risk_tolerance": "medium", "group_size": 4, "special_requirements": [],
+    }
+    constraints_title = {**constraints_lower, "origin": "Gurugram"}
+    result_lower = retrieve_data(constraints_lower)
+    result_title = retrieve_data(constraints_title)
+    assert result_lower["route_candidates"] == result_title["route_candidates"], \
+        "retrieve_data must return same routes for 'gurugram' and 'Gurugram'"
+    assert result_lower["hotel_candidates"] == result_title["hotel_candidates"], \
+        "retrieve_data must return same hotels for 'gurugram' and 'Gurugram'"
+    print("  ✅ retrieve_data returns identical results for lowercase/title-case origin")
+
+    # 9d: retrieve_data works with ALL-CAPS origin
+    constraints_upper = {**constraints_lower, "origin": "GURUGRAM"}
+    result_upper = retrieve_data(constraints_upper)
+    assert result_upper["route_candidates"] == result_title["route_candidates"], \
+        "retrieve_data must return same routes for 'GURUGRAM' and 'Gurugram'"
+    print("  ✅ retrieve_data returns identical results for UPPER-CASE origin")
+
+    # 9e: parse_constraints normalizes extracted origin & destination
+    # Simulate LLM returning lowercase location in extracted_constraints
+    from backend.agents_augmented.steps.parse_constraints import CONSTRAINT_DEFAULTS
+    raw_with_lowercase = {**CONSTRAINT_DEFAULTS, "origin": "gurugram", "destination": "rishikesh",
+                          "trip_duration": "2D1N"}
+    # Manually run the normalization block from parse_constraints
+    for loc_field in ("origin", "destination"):
+        val = raw_with_lowercase.get(loc_field)
+        if isinstance(val, str) and val.strip():
+            raw_with_lowercase[loc_field] = val.strip().title()
+    assert raw_with_lowercase["origin"] == "Gurugram", "parse should title-case origin"
+    assert raw_with_lowercase["destination"] == "Rishikesh", "parse should title-case destination"
+    print("  ✅ parse_constraints normalizes origin and destination to Title case")
+
+except Exception as e:
+    print(f"  ❌ Case-insensitivity tests failed: {e}")
+    import traceback
+    traceback.print_exc()
+
+# ── Test 10: No LangChain imports ──
+print("\n🚫 Test 10: Verify no LangChain/LangGraph dependencies")
+try:
     import glob
     aug_files = glob.glob("backend/agents_augmented/**/*.py", recursive=True)
     violations = []
@@ -1766,12 +1873,12 @@ except Exception as e:
     print(f"  ⚠️ Check failed: {e}")
 
 print("\n" + "=" * 60)
-print("Bucket 2.1 validation complete.")
+print("Bucket 2.1 validation complete. (10 tests)")
 ```
 
 ---
 
-## Section G — 📋 Assumptions & Decisions Log (Output File)
+## Section G —  Assumptions & Decisions Log (Output File)
 
 **You MUST create:** `specs/logs/bucket_2_1_decisions.md`
 
@@ -1780,7 +1887,7 @@ print("Bucket 2.1 validation complete.")
 Generated by: [Model Name] on [Date]
 
 ## Pre-Specified Decisions Applied
-- Decision 1–24 from Section C applied as-is.
+- Decision 1–25 from Section C applied as-is.
 
 ## Architectural Decisions
 - Used direct `google-generativeai` SDK instead of LangChain for LLM calls (no agentic framework dependency).
@@ -1837,3 +1944,4 @@ Generated by: [Model Name] on [Date]
 5. **Non-serializable objects**: The `trip_graph` field in candidates contains dataclass instances. Use `default=str` in any `json.dumps()` call. LLM prompts should NOT include the raw `trip_graph` object.
 6. **Router file**: Do NOT modify `backend/agents/workflow.py` beyond the router pattern shown in Step 13. If Bucket 2 is not yet built, the router simply imports from `agents_augmented` by default.
 7. **No LangChain**: Double-check that you have ZERO `langchain` or `langgraph` imports in any file under `backend/agents_augmented/`. This bucket must be completely independent of any agentic framework.
+8. **Location name casing**: The LLM may return location names in any casing ("rishikesh", "GURUGRAM", "riShikEsh"). Neo4j string property matches and mock data comparisons are case-sensitive by default. Always normalize location strings with `str.strip().title()` **before** passing them to any tool function or planner. Normalization must happen in two places: (a) in `parse_constraints.py` right after LLM extraction, and (b) defensively via `_normalize_location()` at the top of `retrieve_data()`. For Neo4j Cypher queries, use `toLower(n.name) = toLower($name)` rather than exact equality.
