@@ -1,0 +1,82 @@
+TripGraph manual launch host sequence (local host mode)
+
+Pre-checks (one-time)
+1. Ensure .env exists at repo root:
+   cp .env.example .env
+2. Open .env and set:
+   - GOOGLE_API_KEY=<your_real_key>
+   - NEO4J_URI=bolt://localhost:7687
+   - VITE_API_URL=http://localhost:8000
+
+Important environment note
+- This host can route localhost HTTP through a corporate proxy.
+- For local service calls, use:
+  no_proxy=localhost,127.0.0.1
+
+Manual launch sequence (every run)
+
+Step 1: Start Neo4j (Terminal A)
+1. cd /workspace/sw/siddaraj/iisc/deep_learning/TripGraph
+2. sudo systemctl start neo4j
+3. Validate Neo4j service:
+   sudo systemctl is-active neo4j
+   Expected output: active
+
+Step 2: Start backend API (Terminal B)
+1. cd /workspace/sw/siddaraj/iisc/deep_learning/TripGraph
+2. source .venv/bin/activate
+3. Start server:
+   no_proxy=localhost,127.0.0.1 uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
+4. Validate backend health from another terminal:
+   no_proxy=localhost,127.0.0.1 curl -s http://localhost:8000/health
+   Expected output: {"status":"healthy"}
+
+Step 3: Start frontend UI (Terminal C)
+1. export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh"
+2. cd /workspace/sw/siddaraj/iisc/deep_learning/TripGraph/frontend
+3. npm run dev -- --host 0.0.0.0
+4. Confirm Vite shows Local URL:
+   http://localhost:5173
+
+Where to connect
+- Frontend app: http://localhost:5173
+- Backend root test console: http://localhost:8000/
+- Backend Swagger docs: http://localhost:8000/docs
+- Backend ReDoc: http://localhost:8000/redoc
+- Neo4j Browser: http://localhost:7474
+- Neo4j Bolt endpoint: bolt://localhost:7687
+
+Manual smoke test sequence
+1. Open frontend at http://localhost:5173
+2. Submit sample chat in Plan step.
+3. Confirm extracted constraints appear in Review step.
+4. Generate itinerary and verify timeline/map/cost sections render.
+5. Run delay simulation and verify updated explanation/changes appear.
+
+Manual API checks (optional)
+1. GET health:
+   no_proxy=localhost,127.0.0.1 curl -s http://localhost:8000/health
+2. GET config:
+   no_proxy=localhost,127.0.0.1 curl -s http://localhost:8000/api/config
+3. POST parse-chat (example):
+   no_proxy=localhost,127.0.0.1 curl -s -X POST http://localhost:8000/api/parse-chat \
+     -H "Content-Type: application/json" \
+     -d '{"chat_messages":["Trip to mountains from Gurugram","Budget 15000","Need rafting"]}'
+
+Test interfaces
+1. Full API test suite:
+   - python -m pytest backend/tests/test_all_apis.py -v
+   - or python backend/tests/test_all_apis.py
+2. Offline planner test:
+   - python backend/test_runner.py
+3. Bucket tests:
+   - python -m pytest backend/tests/test_bucket_1.py -v
+   - python -m pytest backend/tests/test_bucket_2.py -v
+   - python -m pytest backend/tests/test_bucket_3.py -v
+   - python -m pytest backend/tests/test_bucket_5.py -v
+
+Stop sequence
+1. Stop frontend: Ctrl+C in Terminal C
+2. Stop backend: Ctrl+C in Terminal B
+3. Stop Neo4j service (optional):
+   sudo systemctl stop neo4j
