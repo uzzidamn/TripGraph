@@ -37,7 +37,7 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from backend.api_clients.flights_client import FlightsClient
 from backend.api_clients.duckduckgo_search_client import DuckDuckGoSearchClient
 from backend.api_clients.ors_client import ORSClient
-from backend.agents.llm_client import extract_text_content, get_llm
+from backend.agents.llm_client import extract_text_content, get_llm, strip_code_fences
 from backend.agents.state import TripState
 
 FLIGHT_THRESHOLD_KM = 500
@@ -192,11 +192,7 @@ def _llm_advisory(origin, destination, distance_km, duration_h, depart_date, gro
             )),
         ])
         raw = extract_text_content(resp.content).strip()
-        if raw.startswith("```"):
-            raw = raw.split("```", 2)[-1]
-            if raw.lstrip().startswith("json"):
-                raw = raw.lstrip()[4:]
-            raw = raw.rsplit("```", 1)[0]
+        raw = strip_code_fences(raw)
         p = json.loads(raw.strip())
         return {
             "recommended_mode": p.get("recommended_mode") or "either",

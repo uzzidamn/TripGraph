@@ -12,19 +12,13 @@ from typing import Any
 
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from backend.agents.llm_client import extract_text_content, get_llm
+from backend.agents.llm_client import extract_text_content, get_llm, strip_code_fences
 from backend.agents.prompts import FATIGUE_ADJUSTER_HUMAN, FATIGUE_ADJUSTER_SYSTEM
 from backend.agents.state import TripState
 
 
 def _strip_code_fences(text: str) -> str:
-    text = text.strip()
-    if text.startswith("```"):
-        text = text.split("```", 2)[-1]
-        if text.lstrip().startswith("json"):
-            text = text.lstrip()[4:]
-        text = text.rsplit("```", 1)[0]
-    return text.strip()
+    return strip_code_fences(text)
 
 
 def _base_scores_for_event(event: dict, lookups: dict) -> tuple[int, int]:

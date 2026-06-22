@@ -30,7 +30,7 @@ import json
 from langchain_core.messages import HumanMessage, SystemMessage
 
 from backend.api_clients.railradar_client import RailRadarClient
-from backend.agents.llm_client import extract_text_content, get_llm
+from backend.agents.llm_client import extract_text_content, get_llm, strip_code_fences
 from backend.agents.state import TripState
 
 # Reuse the flight distance helpers to decide relevance.
@@ -91,11 +91,7 @@ def _llm_advisory(origin, destination, distance_km):
             )),
         ])
         raw = extract_text_content(resp.content).strip()
-        if raw.startswith("```"):
-            raw = raw.split("```", 2)[-1]
-            if raw.lstrip().startswith("json"):
-                raw = raw.lstrip()[4:]
-            raw = raw.rsplit("```", 1)[0]
+        raw = strip_code_fences(raw)
         p = json.loads(raw.strip())
         return {
             "nearest_railhead": p.get("nearest_railhead") or "",

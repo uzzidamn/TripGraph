@@ -29,11 +29,29 @@ Two big ideas live here:
 Supported providers: gemini, openai, ollama, anthropic
 """
 import os
+import re
 
 from dotenv import load_dotenv
 from langchain_core.language_models import BaseChatModel
 
 load_dotenv()
+
+
+def strip_code_fences(text: str) -> str:
+    """Return the inner text of an LLM response, removing ```json / ``` fences.
+
+    Claude (esp. Haiku) habitually wraps JSON in fenced code blocks. Several
+    nodes previously used `raw.split("```", 2)[-1]`, which grabbed the EMPTY
+    string after the closing fence → json.loads("") → "Expecting value: line 1
+    column 1 (char 0)". This strips every fence marker regardless of position.
+    """
+    if not isinstance(text, str):
+        return text
+    t = text.strip()
+    if "```" in t:
+        # drop ```json / ```JSON / ``` openers and the bare ``` closers
+        t = re.sub(r"```[a-zA-Z]*", "", t).strip()
+    return t.strip("`").strip()
 
 
 def _resolve(role: str | None, key: str, default: str) -> str:
