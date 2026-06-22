@@ -7,6 +7,7 @@ from pydantic import BaseModel, Field
 class ParseChatRequest(BaseModel):
     """Request body for POST /api/parse-chat."""
 
+    user_id: Optional[str] = Field(None, description="Unique user identifier for memory scoping")
     chat_messages: List[str] = Field(
         ...,
         min_length=1,
@@ -23,6 +24,7 @@ class ParseChatRequest(BaseModel):
 class GenerateItineraryRequest(BaseModel):
     """Request body for POST /api/generate-itinerary."""
 
+    user_id: Optional[str] = Field(None, description="Unique user identifier for memory scoping")
     constraints: Dict[str, Any] = Field(
         ...,
         description="Structured constraints dict (from /api/parse-chat or provided directly)",

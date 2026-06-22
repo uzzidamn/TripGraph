@@ -73,7 +73,17 @@ const PREBUILT_TRIPS = [
   },
 ];
 
-export function ChatRoom({ onSubmit, loading }) {
+const FIELD_LABELS = {
+  origin: "Where you're travelling from",
+  destination: "Where you want to go",
+  destination_type: "Type of destination (beach, mountains, city…)",
+  budget_per_person: "Budget per person",
+  trip_duration: "How many days",
+  group_size: "Number of people",
+  dates: "Travel dates",
+};
+
+export function ChatRoom({ onSubmit, loading, missingFields = [], guardrailMessage = null }) {
   const [draft, setDraft] = useState("");
   const [messages, setMessages] = useState([]);
   const [quoteIdx, setQuoteIdx] = useState(() => Math.floor(Math.random() * TRAVEL_QUOTES.length));
@@ -186,9 +196,9 @@ export function ChatRoom({ onSubmit, loading }) {
           overflowY: "auto",
           padding: "20px 18px",
           display: "flex", flexDirection: "column", gap: 10,
-          justifyContent: isEmpty ? "center" : "flex-start",
+          justifyContent: isEmpty && missingFields.length === 0 ? "center" : "flex-start",
         }}>
-          {isEmpty ? (
+          {isEmpty && missingFields.length === 0 ? (
             <AnimatePresence mode="wait">
               <motion.div
                 key={quoteIdx}
@@ -218,27 +228,84 @@ export function ChatRoom({ onSubmit, loading }) {
               </motion.div>
             </AnimatePresence>
           ) : (
-            messages.map((msg, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.04 }}
-                style={{
-                  alignSelf: "flex-end",
-                  background: "linear-gradient(180deg, #3a3d44, #1d1f25)",
-                  color: "#f5f5f7",
-                  borderRadius: 14,
-                  padding: "8px 14px",
-                  fontSize: 12.5,
-                  lineHeight: 1.5,
-                  maxWidth: "85%",
-                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12), 0 1px 3px rgba(20,22,28,0.18)",
-                }}
-              >
-                {msg}
-              </motion.div>
-            ))
+            <>
+              {messages.map((msg, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.04 }}
+                  style={{
+                    alignSelf: "flex-end",
+                    background: "linear-gradient(180deg, #3a3d44, #1d1f25)",
+                    color: "#f5f5f7",
+                    borderRadius: 14,
+                    padding: "8px 14px",
+                    fontSize: 12.5,
+                    lineHeight: 1.5,
+                    maxWidth: "85%",
+                    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12), 0 1px 3px rgba(20,22,28,0.18)",
+                  }}
+                >
+                  {msg}
+                </motion.div>
+              ))}
+              {guardrailMessage && (
+                <motion.div
+                  key="guardrail-bubble"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4 }}
+                  style={{
+                    alignSelf: "flex-start",
+                    background: "rgba(255,240,240,0.92)",
+                    border: "1px solid rgba(220,80,80,0.22)",
+                    borderRadius: 14,
+                    padding: "10px 14px",
+                    fontSize: 12.5,
+                    lineHeight: 1.6,
+                    maxWidth: "90%",
+                    color: "#7a2020",
+                    boxShadow: "0 1px 4px rgba(180,40,40,0.08)",
+                  }}
+                >
+                  {guardrailMessage}
+                </motion.div>
+              )}
+              {missingFields.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4 }}
+                  style={{
+                    alignSelf: "flex-start",
+                    background: "rgba(255,255,255,0.85)",
+                    border: "1px solid var(--rim)",
+                    borderRadius: 14,
+                    padding: "10px 14px",
+                    fontSize: 12.5,
+                    lineHeight: 1.6,
+                    maxWidth: "90%",
+                    color: "var(--chrome)",
+                    boxShadow: "0 1px 4px rgba(20,22,28,0.07)",
+                  }}
+                >
+                  <div style={{ fontWeight: 600, marginBottom: 6 }}>
+                    I need a few more details to plan your trip:
+                  </div>
+                  <ul style={{ margin: 0, padding: "0 0 0 16px", display: "flex", flexDirection: "column", gap: 3 }}>
+                    {missingFields.map((f) => (
+                      <li key={f} style={{ fontSize: 12 }}>
+                        {FIELD_LABELS[f] || f}
+                      </li>
+                    ))}
+                  </ul>
+                  <div style={{ marginTop: 8, fontSize: 11.5, color: "var(--silver)" }}>
+                    Add them above and click <strong>Plan my trip</strong> again.
+                  </div>
+                </motion.div>
+              )}
+            </>
           )}
         </div>
 

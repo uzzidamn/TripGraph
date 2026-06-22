@@ -71,6 +71,7 @@ def segment_router_node(state: TripState) -> dict:
 
     cache = _load_cache()
     new_fetches = 0
+    MAX_FRESH_ORS_CALLS = 4  # cap per-request to avoid blocking the response
     segments = []
 
     for day, pts in by_day.items():
@@ -99,6 +100,9 @@ def segment_router_node(state: TripState) -> dict:
                         "duration_min": cached.get("duration_min"),
                     })
                 continue
+
+            if new_fetches >= MAX_FRESH_ORS_CALLS:
+                continue  # defer remaining segments to next request (will be cached then)
 
             try:
                 route = ORSClient.get_route(p1["lng"], p1["lat"], p2["lng"], p2["lat"])

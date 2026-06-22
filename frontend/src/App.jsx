@@ -18,6 +18,8 @@ import { DelaySimulator } from "./components/delay/DelaySimulator";
 import { DayStrip } from "./components/timeline/DayStrip";
 import { ToastContainer } from "./components/ui/Toast";
 import { GlassPanel, MetalText, Pill } from "./components/ui/Glass";
+import PipelineTrace from "./components/PipelineTrace";
+import UnsupportedRoute from "./components/UnsupportedRoute";
 
 const LEFT_W = 340;
 const RIGHT_W = 320;
@@ -296,9 +298,10 @@ export default function App() {
     itinerary, alternatives, timeline, mapPoints, routePolyline,
     costBreakdown, scoreBreakdown, explanation, delayResult,
     fatiguePerEvent, weatherForecast, traffic, hotelDeals, insightsPerPlace, retrievalSource, flights, trains, review, architectPlan, segmentPolylines,
+    unsupportedRoute, suggestedRoutes, nodeStatus, guardrailResult,
     toasts,
     submitChat, confirmPreferences, submitRefinements, skipRefinements,
-    runDelaySimulation, resetToChat,
+    runDelaySimulation, resetToChat, handleSelectSuggestedRoute,
   } = useItinerary();
 
   const [fitTick, setFitTick] = useState(0);     // bump to ask MapView to fit-all
@@ -372,7 +375,16 @@ export default function App() {
             {step === "chat" && (
               <motion.div key="chat" variants={centerCardVariants} initial="initial" animate="animate" exit="exit" style={centerStageStyle}>
                 <div className="hero-card" style={heroBoxStyle}>
-                  <ChatRoom onSubmit={submitChat} loading={loading} />
+                  <ChatRoom
+                    onSubmit={submitChat}
+                    loading={loading}
+                    missingFields={missingFields}
+                    guardrailMessage={
+                      guardrailResult?.action === "clarify" || guardrailResult?.action === "confirm"
+                        ? guardrailResult.response
+                        : null
+                    }
+                  />
                 </div>
               </motion.div>
             )}
@@ -386,7 +398,21 @@ export default function App() {
                     missingFields={missingFields}
                     conflictReport={conflictReport}
                     onConfirm={confirmPreferences}
+                    onBack={resetToChat}
                     loading={loading}
+                  />
+                </div>
+              </motion.div>
+            )}
+
+            {step === "unsupported" && (
+              <motion.div key="unsupported" variants={centerCardVariants} initial="initial" animate="animate" exit="exit" style={centerStageStyle}>
+                <div className="hero-card" style={{ ...heroBoxStyle, maxWidth: 680 }}>
+                  <UnsupportedRoute
+                    unsupportedRoute={unsupportedRoute}
+                    suggestedRoutes={suggestedRoutes}
+                    onSelectRoute={handleSelectSuggestedRoute}
+                    onBack={resetToChat}
                   />
                 </div>
               </motion.div>
@@ -556,6 +582,8 @@ export default function App() {
         >
           <ToastContainer toasts={toasts} />
         </div>
+
+        <PipelineTrace nodeStatus={nodeStatus} />
 
         <style>{`
           @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }

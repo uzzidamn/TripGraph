@@ -8,7 +8,7 @@ import {
 } from "../api/tripApi";
 
 const INITIAL = {
-  step: "chat",                  // chat | preferences | refine | itinerary
+  step: "chat",                  // chat | preferences | refine | itinerary | unsupported
   loading: false,
   error: null,
   chatMessages: [],
@@ -16,6 +16,16 @@ const INITIAL = {
   assumptions: {},
   missingFields: [],
   conflictReport: null,
+
+  // Guardrail / Memory
+  guardrailResult: null,
+  userProfile: null,
+  memoryContext: null,
+  visitedDestinations: [],
+
+  // Unsupported route
+  unsupportedRoute: null,
+  suggestedRoutes: [],
 
   // Refinement step
   refinementQuestions: [],
@@ -45,6 +55,9 @@ const INITIAL = {
   segmentPolylines: [],
   retrievalSource: {},
   retrievalPasses: 0,
+
+  // Pipeline trace (node → status)
+  nodeStatus: {},
 
   toasts: [],
 };
@@ -78,22 +91,74 @@ export function useItinerary() {
     );
   }, [addToast]);
 
-  // 1) parse chat → preferences step
+  // 1) parse chat → guardrail check → preferences step
   const submitChat = useCallback(
     async (messages) => {
-      patch({ loading: true, error: null, chatMessages: messages });
+      patch({ loading: true, error: null, chatMessages: messages, guardrailResult: null, nodeStatus: { guardrail: "running" } });
       try {
         const data = await parseChat(messages);
+
+        // Guardrail gate (Agent 0)
+        const guardrailAction = data.guardrail_result?.action;
+        const guardrailResponse = data.guardrail_result?.response;
+        if (guardrailAction === "clarify") {
+          patch({
+            loading: false,
+            guardrailResult: data.guardrail_result,
+            nodeStatus: { guardrail: "done" },
+          });
+          addToast(guardrailResponse || "I can only help plan trips. Please describe your travel plans!", "error");
+          return;
+        }
+        if (guardrailAction === "confirm") {
+          patch({
+            loading: false,
+            guardrailResult: data.guardrail_result,
+            nodeStatus: { guardrail: "done" },
+          });
+          addToast(guardrailResponse || "Looks like you've planned this trip before. Confirm to replan it!", "info");
+          // Still allow proceeding — just surface the notice
+        }
+
+        // OFF_TOPIC legacy fallback
+        const specialReqs = data.extracted_constraints?.special_requirements ?? [];
+        if (specialReqs.includes("OFF_TOPIC")) {
+          patch({ loading: false, nodeStatus: { guardrail: "done" } });
+          addToast("I can only help plan trips. Please describe your travel plans!", "error");
+          return;
+        }
+
+        const missing = data.missing_fields ?? [];
+        if (missing.length > 0) {
+          patch({
+            loading: false,
+            guardrailResult: data.guardrail_result ?? null,
+            userProfile: data.user_profile ?? null,
+            memoryContext: data.memory_context ?? null,
+            visitedDestinations: data.visited_destinations ?? [],
+            constraints: data.extracted_constraints,
+            assumptions: data.assumptions ?? {},
+            missingFields: missing,
+            conflictReport: data.conflict_report ?? null,
+            nodeStatus: { guardrail: "done", chat_parser: "done", memory_agent: "done", constraint_validator: "done" },
+          });
+          return;
+        }
         patch({
           loading: false,
           step: "preferences",
+          guardrailResult: data.guardrail_result ?? null,
+          userProfile: data.user_profile ?? null,
+          memoryContext: data.memory_context ?? null,
+          visitedDestinations: data.visited_destinations ?? [],
           constraints: data.extracted_constraints,
           assumptions: data.assumptions ?? {},
-          missingFields: data.missing_fields ?? [],
+          missingFields: [],
           conflictReport: data.conflict_report ?? null,
+          nodeStatus: { guardrail: "done", chat_parser: "done", memory_agent: "done", constraint_validator: "done" },
         });
       } catch (err) {
-        patch({ loading: false, error: err.message });
+        patch({ loading: false, error: err.message, nodeStatus: {} });
         addToast("Failed to parse chat. Please try again.", "error");
       }
     },
@@ -130,10 +195,26 @@ export function useItinerary() {
       patch({ loading: true, error: null, refinementAnswers });
       try {
         const data = await generateItinerary(constraints, refinementAnswers);
+
+        // Unsupported route
+        if (data.unsupported_route) {
+          patch({
+            loading: false,
+            step: "unsupported",
+            unsupportedRoute: data.unsupported_route,
+            suggestedRoutes: data.suggested_routes ?? [],
+            nodeStatus: { guardrail: "done", chat_parser: "done", memory_agent: "done",
+                          constraint_validator: "done", route_retriever: "done" },
+          });
+          return;
+        }
+
         patch({
           loading: false,
           step: "itinerary",
           constraints,
+          unsupportedRoute: null,
+          suggestedRoutes: [],
           itinerary: data.recommended_itinerary,
           alternatives: data.alternatives ?? [],
           timeline: data.timeline ?? [],
@@ -154,6 +235,13 @@ export function useItinerary() {
           segmentPolylines: data.segment_polylines ?? [],
           retrievalSource: data.retrieval_source ?? {},
           retrievalPasses: data.retrieval_passes ?? 0,
+          nodeStatus: {
+            guardrail: "done", chat_parser: "done", memory_agent: "done",
+            constraint_validator: "done", route_retriever: "done",
+            hotel_retriever: "done", transport_retriever: "done",
+            activity_retriever: "done", food_retriever: "done", waypoint_retriever: "done",
+            planner_orchestrator: "done", explainer: "done", memory_updater: "done",
+          },
           delayResult: null,
         });
       } catch (err) {
@@ -193,6 +281,19 @@ export function useItinerary() {
 
   const resetToChat = useCallback(() => setState(INITIAL), []);
 
+  const handleSelectSuggestedRoute = useCallback(
+    (route) => {
+      // User picked a suggested route from unsupported screen — pre-fill constraints and go to preferences
+      const newConstraints = {
+        origin: route.origin,
+        destination: route.destination,
+        destination_type: route.destination_type,
+      };
+      patch({ step: "preferences", constraints: newConstraints, unsupportedRoute: null, suggestedRoutes: [] });
+    },
+    [patch]
+  );
+
   return {
     ...state,
     submitChat,
@@ -202,6 +303,7 @@ export function useItinerary() {
     generatePlan,
     runDelaySimulation,
     resetToChat,
+    handleSelectSuggestedRoute,
     addToast,
   };
 }

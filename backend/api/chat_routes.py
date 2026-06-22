@@ -48,12 +48,17 @@ async def parse_chat(request: ParseChatRequest) -> ParseChatResponse:
 
         from backend.agents.workflow import run_workflow
 
-        result = run_workflow(request.chat_messages)
+        result = run_workflow(request.chat_messages, user_id=request.user_id)
         return ParseChatResponse(
+            guardrail_result=result.get("guardrail_result"),
             extracted_constraints=result.get("extracted_constraints", {}),
             missing_fields=result.get("missing_fields", []),
             assumptions=result.get("assumptions", {}),
+            user_profile=result.get("user_profile"),
+            memory_context=result.get("memory_context"),
+            visited_destinations=result.get("visited_destinations", []),
             conflict_report=result.get("conflict_report", {}),
+            is_ready_to_plan=result.get("is_ready_to_plan"),
         )
 
     except Exception as e:
