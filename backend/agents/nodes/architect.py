@@ -153,7 +153,7 @@ OUTPUT — exactly ONE valid JSON object, no markdown, matching this schema:
           "skippability": "must" | "recommend" | "optional",
           "estimated_cost_pp": int,   // INR per person, 0 for included/free
           "transport_mode": "flight" | "train" | "cab" | "walk" | null, // for type "travel"
-          "fun_facts": ["1-2 SPECIFIC verified facts about this location — not generic. Use full place name + 'India' for context. Example for a fort: 'specific historical/architectural fact about THIS fort.' MUST be factually true. ONLY for sightseeing/activity/experience events — for meals, travel legs, hotel check-ins and rest blocks, return an empty array []. At most 2 strings."]
+          "fun_facts": ["1-2 SPECIFIC verified facts about this place/attraction — not generic. Use full place name + 'India' for context. Example for a fort: 'specific historical/architectural fact about THIS fort.' MUST be factually true. For pure transfer legs (cab/drive between stops) you may return []. At most 2 strings."]
         }
       ],
       "day_summary": "one sentence on the day's arc"
