@@ -54,11 +54,13 @@ def explainer_node(state: TripState) -> dict:
     itinerary = state.get("selected_itinerary") or {}
     constraints = state.get("extracted_constraints") or {}
     timeline = state.get("timeline") or []
+    memory_context = state.get("memory_context") or {}
 
     human_prompt = EXPLAINER_HUMAN.format(
         constraints_json=_safe_json(constraints),
         itinerary_json=_safe_json(itinerary),
         timeline_json=json.dumps(timeline, default=str),
+        memory_context_json=json.dumps(memory_context, default=str),
     )
     messages = _build_messages(EXPLAINER_SYSTEM, human_prompt)
 

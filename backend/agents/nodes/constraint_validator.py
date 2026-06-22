@@ -40,21 +40,13 @@ def constraint_validator_node(state: TripState) -> dict:
         if isinstance(constraints.get(field), list):
             constraints[field] = [str(x).strip().lower() for x in constraints[field] if x]
 
-    # ── Required field checks (Decision 20) ──
+    # ── Required field checks ──
     if not constraints.get("origin"):
         missing_fields.append("origin")
         blocking.append({
             "type": "missing_required_field",
             "field": "origin",
-            "description": "Origin city is required to plan a trip.",
-        })
-
-    if not constraints.get("budget_per_person") and not constraints.get("trip_duration"):
-        missing_fields.extend(["budget_per_person", "trip_duration"])
-        blocking.append({
-            "type": "missing_required_field",
-            "field": "budget_per_person / trip_duration",
-            "description": "At least one of budget_per_person or trip_duration is required.",
+            "description": "Where are you travelling from? (origin city)",
         })
 
     has_preference = any([
@@ -63,11 +55,35 @@ def constraint_validator_node(state: TripState) -> dict:
         constraints.get("must_include"),
     ])
     if not has_preference:
-        missing_fields.append("destination / destination_type / must_include")
+        missing_fields.append("destination")
         blocking.append({
             "type": "missing_required_field",
             "field": "destination",
-            "description": "At least one preference (destination, destination_type, or must_include) is required.",
+            "description": "Where do you want to go? (destination, destination type, or must-include activity)",
+        })
+
+    if not constraints.get("trip_duration"):
+        missing_fields.append("trip_duration")
+        blocking.append({
+            "type": "missing_required_field",
+            "field": "trip_duration",
+            "description": "How long is the trip? (e.g. 2D1N, 3 days)",
+        })
+
+    if not constraints.get("budget_per_person"):
+        missing_fields.append("budget_per_person")
+        blocking.append({
+            "type": "missing_required_field",
+            "field": "budget_per_person",
+            "description": "What is the budget per person (in ₹)?",
+        })
+
+    if not constraints.get("group_size"):
+        missing_fields.append("group_size")
+        blocking.append({
+            "type": "missing_required_field",
+            "field": "group_size",
+            "description": "How many people are travelling?",
         })
 
     # ── Invalid value checks ──

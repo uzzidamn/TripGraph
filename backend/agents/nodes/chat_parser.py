@@ -45,7 +45,11 @@ def _build_messages(system: str, human: str) -> list:
 
 
 def _normalize(constraints: dict) -> tuple[dict, dict]:
-    """Normalize casing and apply defaults. Returns (normalized_constraints, assumptions)."""
+    """Normalize casing and type-coerce. Returns (normalized_constraints, assumptions).
+    
+    Does NOT apply value defaults for missing fields — those are surfaced as
+    missing_fields by the Constraint Validator so the user is prompted to provide them.
+    """
     assumptions: dict[str, str] = {}
 
     # Location names → .title()
@@ -58,29 +62,16 @@ def _normalize(constraints: dict) -> tuple[dict, dict]:
         if constraints.get(field):
             constraints[field] = str(constraints[field]).strip().lower()
 
+    # Map "luxury" hotel tier to "expedition" (LLM may return luxury; schema uses expedition)
+    if constraints.get("hotel_tier") == "luxury":
+        constraints["hotel_tier"] = "expedition"
+
     # List enum fields → lowercase items
     for field in ("transport_preference", "must_include"):
         if constraints.get(field):
             constraints[field] = [str(x).strip().lower() for x in constraints[field] if x]
 
-    # Apply defaults (Decisions 1–5)
-    if not constraints.get("group_size"):
-        constraints["group_size"] = 4
-        assumptions["group_size"] = "defaulted to 4"
-    if not constraints.get("hotel_tier"):
-        constraints["hotel_tier"] = "comfort"
-        assumptions["hotel_tier"] = "defaulted to comfort"
-    if not constraints.get("risk_tolerance"):
-        constraints["risk_tolerance"] = "medium"
-        assumptions["risk_tolerance"] = "defaulted to medium"
-    if not constraints.get("origin"):
-        constraints["origin"] = "Gurugram"
-        assumptions["origin"] = "defaulted to Gurugram"
-    if not constraints.get("trip_duration"):
-        constraints["trip_duration"] = "2D1N"
-        assumptions["trip_duration"] = "defaulted to 2D1N"
-
-    # Ensure list fields are always lists
+    # Ensure list fields are always lists (never null)
     for field in ("transport_preference", "must_include", "special_requirements"):
         if not isinstance(constraints.get(field), list):
             constraints[field] = []

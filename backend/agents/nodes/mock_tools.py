@@ -192,6 +192,11 @@ def get_routes(origin: str, destination_type: str | None = None) -> list[dict]:
     return results
 
 
+def get_all_routes() -> list[dict]:
+    """Return every route in the catalog — used to build suggestions when no match found."""
+    return list(MOCK_ROUTES)
+
+
 def get_hotels(destination: str, tier: str | None = None) -> list[dict]:
     results = [h for h in MOCK_HOTELS if h.get("destination", "").lower() == destination.strip().lower()]
     if tier:

@@ -36,3 +36,5 @@ neo4j_data/
 
 # OS
 Thumbs.db
+backend/Dockerfile
+docker-compose.yml

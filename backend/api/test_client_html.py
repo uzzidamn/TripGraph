@@ -363,6 +363,40 @@ HTML_CONTENT = """<!DOCTYPE html>
             border-color: rgba(245, 158, 11, 0.3);
             color: #fbbf24;
         }
+
+        /* Pipeline trace */
+        .trace-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.6rem 0.75rem;
+            border-radius: 8px;
+            background: rgba(0,0,0,0.2);
+            margin-bottom: 0.4rem;
+        }
+        .trace-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
+        .trace-label { font-size: 0.8rem; font-weight: 700; color: var(--text-secondary); margin-right: 0.3rem; }
+        .trace-value { font-size: 0.85rem; color: var(--text-primary); }
+        .trace-detail { font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.2rem; font-style: italic; }
+        .trace-step.trace-blocked { background: rgba(239,68,68,0.12); border-left: 2px solid var(--accent-rose); }
+        .trace-step.trace-warn { background: rgba(245,158,11,0.1); border-left: 2px solid var(--accent-amber); }
+        .trace-step.trace-ok { background: rgba(16,185,129,0.08); border-left: 2px solid var(--accent-green); }
+
+        /* Clarification form */
+        .clarify-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem; }
+        /* Suggestion route cards */
+        .suggestion-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; margin-top: 0.75rem; }
+        .suggestion-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 0.85rem 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .suggestion-card:hover { border-color: var(--primary); background: rgba(99,102,241,0.1); }
+        .suggestion-card .sc-route { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem; }
+        .suggestion-card .sc-meta { font-size: 0.78rem; color: var(--text-secondary); }
     </style>
 </head>
 <body>
@@ -416,6 +450,20 @@ HTML_CONTENT = """<!DOCTYPE html>
 
                     <button id="btn-parse" class="action-btn" onclick="parseChat()">
                         <span>Parse Group Chat</span>
+                    </button>
+                </div>
+
+                <!-- Clarification Card -->
+                <div class="card" id="clarify-card" style="display: none;">
+                    <div class="card-title" style="color: var(--accent-amber);">
+                        <span>⚠️ Clarify Missing Fields</span>
+                    </div>
+                    <p style="font-size:0.85rem; color: var(--text-secondary); margin-bottom:1rem;">
+                        Some trip details are missing or unclear. Fill them in below to continue planning.
+                    </p>
+                    <div id="clarify-fields-container" class="clarify-grid"></div>
+                    <button class="action-btn" style="background: var(--accent-amber); color: #000; font-weight: 700;" onclick="confirmClarification()">
+                        <span>Confirm &amp; Generate Itinerary →</span>
                     </button>
                 </div>
 
@@ -540,6 +588,24 @@ HTML_CONTENT = """<!DOCTYPE html>
                         <span style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.5rem; color: var(--accent-violet);">LLM Replanning Explanation:</span>
                         <p id="replan-explanation" style="font-size: 0.9rem; line-height: 1.5; color: var(--text-secondary); font-style: italic;"></p>
                     </div>
+                </div>
+
+                <!-- Unsupported Route Card -->
+                <div class="card" id="unsupported-route-card" style="display: none;">
+                    <div class="card-title" style="color: var(--accent-amber);">
+                        <span>🗺️ Route Not in Catalog</span>
+                    </div>
+                    <p id="unsupported-route-msg" style="font-size:0.9rem; margin-bottom:1rem; line-height:1.5;"></p>
+                    <div style="font-size:0.85rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.5rem;">Try one of these supported routes instead:</div>
+                    <div id="suggestion-cards-container" class="suggestion-cards"></div>
+                </div>
+
+                <!-- Pipeline Trace Card -->
+                <div class="card" id="pipeline-trace-card" style="display: none;">
+                    <div class="card-title">
+                        <span>🔬 Pipeline Agent Trace</span>
+                    </div>
+                    <div id="pipeline-trace-body"></div>
                 </div>
 
                 <!-- Raw JSON Card -->
@@ -681,6 +747,9 @@ HTML_CONTENT = """<!DOCTYPE html>
             document.getElementById('delay-card').style.display = "none";
             document.getElementById('replanned-card').style.display = "none";
             document.getElementById('raw-json-card').style.display = "none";
+            document.getElementById('pipeline-trace-card').style.display = "none";
+            document.getElementById('clarify-card').style.display = "none";
+            document.getElementById('unsupported-route-card').style.display = "none";
 
             const chatText = document.getElementById('chat-input').value.trim();
             if (!chatText) {
@@ -706,8 +775,30 @@ HTML_CONTENT = """<!DOCTYPE html>
                     return;
                 }
 
-                currentConstraints = data.extracted_constraints;
+                // Show guardrail result if it blocked the pipeline
+                const gr = data.guardrail_result || {};
+                if (gr.action === 'ignore') {
+                    showStatus(`🛡️ Guardrail: Message ignored — <strong>${gr.reason}</strong>. Not a valid trip request.`, "warning");
+                    displayRawJson(data);
+                    return;
+                }
+                if (gr.action === 'clarify') {
+                    showStatus(`🛡️ Guardrail: Clarification needed — <strong>${gr.response}</strong>`, "warning");
+                    displayRawJson(data);
+                    return;
+                }
+                if (gr.action === 'confirm') {
+                    showStatus(`🛡️ Guardrail: Similar trip found — <strong>${gr.response}</strong>`, "warning");
+                    displayRawJson(data);
+                    return;
+                }
+
+                currentConstraints = data.extracted_constraints || {};
+                displayPipelineTrace(data);
                 displayConstraints(data);
+                if ((data.missing_fields || []).length > 0) {
+                    showClarificationForm(data.missing_fields, currentConstraints);
+                }
                 displayRawJson(data);
 
             } catch (err) {
@@ -717,17 +808,17 @@ HTML_CONTENT = """<!DOCTYPE html>
         }
 
         function displayConstraints(data) {
-            const constraints = data.extracted_constraints;
+            const constraints = data.extracted_constraints || {};
             const missing = data.missing_fields || [];
             const assumptions = data.assumptions || {};
             const conflicts = data.conflict_report || {};
 
             document.getElementById('constraints-card').style.display = "block";
             
-            document.getElementById('val-origin').textContent = constraints.origin || 'Not specified';
-            document.getElementById('val-destination').textContent = constraints.destination || (constraints.destination_type ? `Any ${constraints.destination_type}` : 'Not specified');
-            document.getElementById('val-budget').textContent = constraints.budget_per_person ? `₹${constraints.budget_per_person.toLocaleString()}` : 'Not specified';
-            document.getElementById('val-duration').textContent = `${constraints.trip_duration || '2D1N'} / Group of ${constraints.group_size || 4}`;
+            document.getElementById('val-origin').textContent = constraints.origin || '❓ Not provided';
+            document.getElementById('val-destination').textContent = constraints.destination || (constraints.destination_type ? `Any ${constraints.destination_type}` : '❓ Not provided');
+            document.getElementById('val-budget').textContent = constraints.budget_per_person ? `₹${constraints.budget_per_person.toLocaleString()}` : '❓ Not provided';
+            document.getElementById('val-duration').textContent = `${constraints.trip_duration || '❓'} / Group of ${constraints.group_size || '❓'}`;
 
             // Ready badge
             const isReady = missing.length === 0;
@@ -744,7 +835,7 @@ HTML_CONTENT = """<!DOCTYPE html>
                 badge.style.color = "var(--accent-amber)";
                 badge.textContent = `Clarification Needed (${missing.length})`;
                 document.getElementById('btn-generate').disabled = false; // let them click anyway to see fallback
-                showStatus(`The parser requests more info. Missing fields: <strong>${missing.join(', ')}</strong>. You can still run Generate to test the fallback default planning.`, "warning");
+                // Clarification form handles prompting — no warning needed here
             }
 
             // Assumptions
@@ -802,14 +893,52 @@ HTML_CONTENT = """<!DOCTYPE html>
                 }
 
                 if (!data.recommended_itinerary) {
-                    showStatus("No valid itineraries could be generated. Hard constraints violated.", "error");
-                    if (data.validation_report && data.validation_report.hard_constraint_violations) {
-                        showStatus(`Violations: <br>${data.validation_report.hard_constraint_violations.join('<br>')}`, "error");
+                    // Always update trace + raw JSON so the user can see what happened
+                    displayPipelineTrace(data);
+                    displayRawJson(data);
+
+                    // Check if route had no catalog match
+                    if (data.unsupported_route) {
+                        displayUnsupportedRoute(data.unsupported_route, data.suggested_routes || []);
+                        showStatus(`Route not supported yet — see suggestions below.`, "warning");
+                        return;
                     }
+
+                    // Check if guardrail blocked the pipeline
+                    const gr = data.guardrail_result || {};
+                    if (gr.action && gr.action !== 'proceed') {
+                        showStatus(`🛡️ Guardrail blocked planning — action: <strong>${gr.action}</strong>. ${gr.response || gr.reason || ''}`, "warning");
+                        return;
+                    }
+
+                    // Check if constraint validator blocked (missing required fields)
+                    if (data.is_ready_to_plan === false) {
+                        const cr = data.conflict_report || {};
+                        const blocking = cr.blocking_conflicts || [];
+                        const reasons = blocking.map(b => `&bull; ${b.description || b.field}`).join('<br>');
+                        showStatus(`Cannot plan — required fields missing or conflicting:<br>${reasons || 'See Raw JSON for details.'}`, "error");
+                        if ((data.missing_fields || []).length > 0) {
+                            showClarificationForm(data.missing_fields, data.extracted_constraints);
+                        }
+                        return;
+                    }
+
+                    // Planner ran but all candidates violated hard constraints
+                    const vr = data.validation_report || {};
+                    const violations = vr.hard_constraint_violations || [];
+                    const budgetInfo = (vr.budget_used != null && vr.budget_limit != null)
+                        ? `<br>&bull; Budget used: ₹${Number(vr.budget_used).toLocaleString()} / limit ₹${Number(vr.budget_limit).toLocaleString()}`
+                        : '';
+                    const violationList = violations.map(v => `&bull; ${v}`).join('<br>');
+                    showStatus(
+                        `No valid itineraries could be generated. Hard constraints violated:<br>${violationList || 'No candidates matched the route catalog.'}${budgetInfo}`,
+                        "error"
+                    );
                     return;
                 }
 
                 selectedItinerary = data.recommended_itinerary;
+                displayPipelineTrace(data);
                 displayItinerary(data);
                 displayRawJson(data);
 
@@ -955,6 +1084,193 @@ HTML_CONTENT = """<!DOCTYPE html>
 
             // Explanation
             document.getElementById('replan-explanation').textContent = data.explanation || 'No replanning explanation returned.';
+        }
+
+        function displayPipelineTrace(data) {
+            const body = document.getElementById('pipeline-trace-body');
+            if (!body) return;
+            body.innerHTML = '';
+            document.getElementById('pipeline-trace-card').style.display = 'block';
+
+            function step(icon, label, value, detail, status = 'ok') {
+                const d = document.createElement('div');
+                d.className = `trace-step trace-${status}`;
+                d.innerHTML = `
+                    <span class="trace-icon">${icon}</span>
+                    <div>
+                        <div><span class="trace-label">${label}</span><span class="trace-value">${value}</span></div>
+                        ${detail ? `<div class="trace-detail">${detail}</div>` : ''}
+                    </div>`;
+                body.appendChild(d);
+            }
+
+            // Agent 0: Guardrail
+            const gr = data.guardrail_result || {};
+            const grStatus = !gr.action ? 'ok' : (gr.action === 'proceed' ? 'ok' : (gr.action === 'ignore' ? 'blocked' : 'warn'));
+            step('🛡️', 'Guardrail: ', `action=${gr.action || 'n/a'} | reason=${gr.reason || 'n/a'}`,
+                gr.response ? `"${gr.response}"` : '', grStatus);
+            if (gr.action && gr.action !== 'proceed') return;
+
+            // Agent 1: Chat Parser
+            const c = data.extracted_constraints || {};
+            const filled = Object.values(c).filter(v => v !== null && v !== undefined && !(Array.isArray(v) && v.length === 0)).length;
+            const missing = data.missing_fields || [];
+            const assumps = data.assumptions || {};
+            const aCount = Object.keys(assumps).length;
+            const parserDetail = aCount > 0 ? `Assumptions: ${Object.entries(assumps).map(([k,v]) => `${k}→${v}`).join(', ')}` : '';
+            step('📝', 'Chat Parser: ', `${filled}/14 fields extracted | ${missing.length} missing | ${aCount} assumptions`,
+                parserDetail, missing.length > 0 ? 'warn' : 'ok');
+
+            // Agent 2: Memory Agent
+            const profile = data.user_profile || {};
+            const memCtx = data.memory_context || {};
+            const visited = data.visited_destinations || [];
+            const profileKeys = Object.keys(profile).length;
+            const memDetail = [
+                visited.length > 0 ? `Visited: ${visited.join(', ')}` : '',
+                Object.keys(memCtx).length > 0 ? `Context: ${JSON.stringify(memCtx)}` : 'No memory context applied',
+            ].filter(Boolean).join(' | ');
+            step('🧠', 'Memory Agent: ', `${profileKeys} profile fields | ${visited.length} visited destinations`, memDetail, 'ok');
+
+            // Agent 3: Constraint Validator
+            const cr = data.conflict_report || {};
+            const blocking = (cr.blocking_conflicts || []).length;
+            const warnings = (cr.warnings || []).length;
+            const isReady = data.is_ready_to_plan;
+            const cvDetail = blocking > 0 ? (cr.blocking_conflicts || []).map(x => x.description).join('; ') : '';
+            step('✅', 'Constraint Validator: ', `ready=${isReady ? 'yes' : 'no'} | blocking=${blocking} | warnings=${warnings}`,
+                cvDetail, blocking > 0 ? 'blocked' : (warnings > 0 ? 'warn' : 'ok'));
+            if (!isReady) return;
+
+            // Data Retrieval agents
+            const rC = (data.route_candidates || []).length;
+            const hC = (data.hotel_candidates || []).length;
+            const aC = (data.activity_candidates || []).length;
+            const tC = (data.transport_candidates || []).length;
+            const fC = (data.food_candidates || []).length;
+            const wC = (data.waypoint_candidates || []).length;
+            if (rC + hC + aC + tC + fC + wC > 0) {
+                step('🔍', 'Data Retrieval: ',
+                    `${rC} routes | ${hC} hotels | ${tC} transport | ${aC} activities | ${fC} food | ${wC} waypoints`,
+                    '', rC === 0 ? 'warn' : 'ok');
+            }
+
+            // Planner
+            const candCount = (data.itinerary_candidates || []).length;
+            const score = (data.score_breakdown || {}).final_score;
+            if (candCount > 0 || data.recommended_itinerary) {
+                step('📋', 'Planner: ', `${candCount} candidates | selected score: ${score != null ? score : 'n/a'}`, '', 'ok');
+            }
+
+            // Explainer
+            if (data.explanation) {
+                step('💬', 'Explainer: ', 'rationale generated', '', 'ok');
+            }
+        }
+
+        const CLARIFY_FIELD_CONFIG = {
+            'origin':            { label: 'Origin City',          type: 'text',   placeholder: 'e.g. Gurugram' },
+            'destination':       { label: 'Destination',          type: 'text',   placeholder: 'e.g. Rishikesh' },
+            'destination_type':  { label: 'Destination Type',     type: 'select', options: ['mountains', 'heritage', 'nature'] },
+            'budget_per_person': { label: 'Budget Per Person (₹)', type: 'number', placeholder: 'e.g. 15000' },
+            'trip_duration':     { label: 'Trip Duration',         type: 'text',   placeholder: 'e.g. 2D1N, 3 days' },
+            'group_size':        { label: 'Group Size',            type: 'number', placeholder: 'e.g. 4' },
+            'hotel_tier':        { label: 'Hotel Tier',            type: 'select', options: ['budget', 'comfort', 'expedition'] },
+            'risk_tolerance':    { label: 'Risk Tolerance',        type: 'select', options: ['low', 'medium', 'high'] },
+        };
+
+        function showClarificationForm(missingFields, constraints) {
+            if (!missingFields || missingFields.length === 0) {
+                document.getElementById('clarify-card').style.display = 'none';
+                return;
+            }
+            const container = document.getElementById('clarify-fields-container');
+            container.innerHTML = '';
+
+            // Normalize compound missing field strings like "budget_per_person / trip_duration"
+            const fields = [];
+            for (const f of missingFields) {
+                f.split('/').forEach(part => {
+                    const key = part.trim().replace(/ /g, '_');
+                    if (CLARIFY_FIELD_CONFIG[key] && !fields.includes(key)) fields.push(key);
+                });
+            }
+            if (fields.length === 0) {
+                document.getElementById('clarify-card').style.display = 'none';
+                return;
+            }
+
+            fields.forEach(key => {
+                const cfg = CLARIFY_FIELD_CONFIG[key];
+                const existing = (constraints || {})[key];
+                const div = document.createElement('div');
+                div.className = 'clarify-field';
+                let inputHtml;
+                if (cfg.type === 'select') {
+                    const opts = cfg.options.map(o => `<option value="${o}"${existing === o ? ' selected' : ''}>${o}</option>`).join('');
+                    inputHtml = `<select id="clarify-${key}"><option value="">-- select --</option>${opts}</select>`;
+                } else {
+                    inputHtml = `<input type="${cfg.type}" id="clarify-${key}" placeholder="${cfg.placeholder}" value="${existing != null ? existing : ''}">`;
+                }
+                div.innerHTML = `<label>${cfg.label}</label>${inputHtml}`;
+                container.appendChild(div);
+            });
+
+            container.dataset.fields = JSON.stringify(fields);
+            document.getElementById('clarify-card').style.display = 'block';
+        }
+
+        function confirmClarification() {
+            const container = document.getElementById('clarify-fields-container');
+            const fields = JSON.parse(container.dataset.fields || '[]');
+            const updates = {};
+            fields.forEach(key => {
+                const el = document.getElementById(`clarify-${key}`);
+                if (el && el.value.trim()) {
+                    updates[key] = (key === 'budget_per_person' || key === 'group_size') ? parseInt(el.value) : el.value.trim();
+                }
+            });
+            currentConstraints = Object.assign({}, currentConstraints, updates);
+            document.getElementById('clarify-card').style.display = 'none';
+            showStatus('Fields confirmed. Generating itinerary...', 'info');
+            generateItinerary();
+        }
+
+        function displayUnsupportedRoute(unsupported, suggestions) {
+            const card = document.getElementById('unsupported-route-card');
+            const msg = document.getElementById('unsupported-route-msg');
+            const container = document.getElementById('suggestion-cards-container');
+
+            const origin = unsupported.origin || '?';
+            const dest = unsupported.destination || unsupported.destination_type || '?';
+            msg.innerHTML = `<strong>${origin} → ${dest}</strong> is not in our route catalog yet.<br>
+                We'll try to add it soon! In the meantime, here are the routes we currently support:`;
+
+            container.innerHTML = '';
+            (suggestions || []).forEach(r => {
+                const card = document.createElement('div');
+                card.className = 'suggestion-card';
+                card.innerHTML = `
+                    <div class="sc-route">${r.origin} → ${r.destination}</div>
+                    <div class="sc-meta">${r.destination_type || ''} &bull; ${r.distance_km} km</div>`;
+                card.onclick = () => loadSuggestion(r);
+                container.appendChild(card);
+            });
+
+            card.style.display = 'block';
+        }
+
+        function loadSuggestion(route) {
+            // Pre-fill the chat input with the suggested route and re-parse
+            const existing = document.getElementById('chat-input').value;
+            // Replace origin/destination lines if present, else prepend
+            const lines = existing.split('\\n').filter(l =>
+                !l.match(/from|origin|travelling from/i) && !l.match(/go to|destination|trip to/i)
+            );
+            lines.unshift(`Trip from ${route.origin} to ${route.destination}`);
+            document.getElementById('chat-input').value = lines.join('\\n');
+            document.getElementById('unsupported-route-card').style.display = 'none';
+            showStatus(`Loaded suggestion: ${route.origin} → ${route.destination}. Review input and click Parse.`, 'info');
         }
 
         function displayRawJson(data) {

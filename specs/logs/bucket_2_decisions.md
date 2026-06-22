@@ -75,6 +75,59 @@ and frontend never use it). This avoids serialization issues at the FastAPI boun
 
 ---
 
+---
+
+## v2 Decisions (bucket2_v2.md)
+
+### Pre-Specified Decisions Applied
+
+| # | Decision | Value Applied |
+|---|----------|---------------|
+| 21 | Memory unavailable | Continue with empty memory — `get_user_memory()` returns `{}` on missing user_id or unknown id |
+| 22 | Memory priority | Explicit user input > current chat > memory — memory only fills absent fields |
+| 23 | Memory update timing | End of successful workflow — `memory_updater_node` runs in fan-out after planner |
+| 24 | Parallel retrieval workers | 5 — `ThreadPoolExecutor(max_workers=5)` in `data_retriever_node` |
+| 25 | Parallel agent execution | Enabled — `explainer` and `memory_updater` fan-out concurrently after `planner_orchestrator` |
+| 26 | Memory scope | user (individual) — keyed by `user_id`, not group chat ID |
+| 27 | Past-trip deduplication | Enabled by default — routes filtered by `visited_destinations` in both data_retriever and planner |
+| 28 | Dedup override keyword | `again`, `same place`, `revisit`, `back to`, `once more` — detected in `memory_agent_node` |
+| 29 | Dedup feedback message | "Since you've already travelled to {destination}, we're skipping that..." — injected via `memory_context.skip_reason` into EXPLAINER_SYSTEM |
+| 30 | Guardrail: non-trip message | Silently ignore — `action=ignore`, `response=None`, pipeline exits |
+| 31 | Guardrail: invalid prompt | `action=clarify`, clarification message returned |
+| 32 | Guardrail: similar trip, completed | `action=confirm`, asks if user wants new plan |
+| 33 | Guardrail: similar trip, planned | `action=confirm`, asks if trip is still on |
+| 34 | Guardrail: similar trip, cancelled | `action=proceed`, cancellation note in `response`, Chat Parser runs |
+| 35 | Guardrail confidence threshold | < 0.4 → classified as non_trip regardless of `intent` field |
+| 36 | New files | `backend/agents/nodes/guardrail.py` |
+
+### Unspecified v2 Decisions Made During Build
+
+**Memory store: in-process dict (thread-safe)**
+Used `threading.Lock` around `_STORE` operations. No persistence across process restarts. Interface (`get_user_memory`, `update_user_memory`, `clear_user_memory`) can be swapped for a DB-backed implementation without changing any node code.
+
+**Memory scope rename: group_chat_id → user_id**
+Spec was updated mid-build: `group_chat_id`/`group_profile`/`get_group_memory`/`update_group_memory` renamed to `user_id`/`user_profile`/`get_user_memory`/`update_user_memory`. Memory is now individual-user-scoped, not group-chat-scoped.
+
+**Guardrail: pure Python similar-trip detection**
+The similar-trip check (section 0.3) is pure Python string matching (destination name in chat text). No LLM call for this step — the LLM is used only for intent classification (trip/non_trip/invalid). This avoids a second LLM call and is deterministic enough for the supported cases.
+
+**Guardrail: fallback to proceed on LLM error**
+If the LLM classification call fails for any reason, `guardrail_node` returns `action=proceed` with `reason=guardrail_error` rather than blocking the pipeline. The LLM error is logged to stdout.
+
+**Parallel retrieval: ThreadPoolExecutor within data_retriever_node, not LangGraph Send API**
+The spec describes 5 parallel sub-nodes; implemented as 5 concurrent `ThreadPoolExecutor` futures within a single LangGraph node. This is functionally equivalent and simpler than the LangGraph Send API, which would require restructuring the graph into a subgraph. Upgrade to Send API when real async tools are introduced.
+
+**Dedup applied at both data_retriever and planner_orchestrator**
+The spec says data_retriever filters visited destinations. Added a secondary guard in `planner_orchestrator_node` to catch cases where the node is called directly (e.g., in tests) without going through the retriever. The planner also sets `memory_context["all_candidates_visited"] = True` when all routes are filtered.
+
+**`trace_id` removed from TripState**
+The v2 TripState spec does not include `trace_id`. Removed from the state class and `init_state()`. The `get_trace_url()` call in `workflow.py` was removed accordingly. LangSmith tracing still works via env vars (`LANGCHAIN_TRACING_V2`, `LANGCHAIN_API_KEY`) — just not stored in state.
+
+**Replan workflow now includes memory_updater**
+The replan graph is: `replanner_agent → memory_updater → END`. The memory_updater persists the replanned itinerary as a new `past_trips` entry with `status=planned`. This ensures memory is updated after both initial planning and replanning.
+
+---
+
 ## External Assumptions
 
 - `langgraph`, `langchain-core`, `langchain-google-genai` are in `requirements.txt` (Bucket 5)

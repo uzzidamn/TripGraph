@@ -57,9 +57,18 @@ def _extract_map_points(itinerary: dict) -> list[dict]:
 def planner_orchestrator_node(state: TripState) -> dict:
     constraints = state.get("extracted_constraints") or {}
     conflict_report = dict(state.get("conflict_report") or {})
+    memory_context = dict(state.get("memory_context") or {})
+
+    # route_retriever already applied dedup; if all routes were visited it returns []
+    # and we fall back to all_route_candidates so the planner can still produce a plan
+    routes = list(state.get("route_candidates") or [])
+    if not routes:
+        routes = list(state.get("all_route_candidates") or [])
+        if routes:
+            memory_context["all_candidates_visited"] = True
 
     data = {
-        "routes": state.get("route_candidates") or [],
+        "routes": routes,
         "hotels": state.get("hotel_candidates") or [],
         "transport": state.get("transport_candidates") or [],
         "activities": state.get("activity_candidates") or [],
@@ -141,4 +150,5 @@ def planner_orchestrator_node(state: TripState) -> dict:
         "map_points": map_points,
         "cost_breakdown": cost_breakdown,
         "conflict_report": conflict_report,
+        "memory_context": memory_context,
     }

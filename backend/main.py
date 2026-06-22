@@ -12,8 +12,12 @@ Health check:
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+import os
 
 from backend.api.chat_routes import router as chat_router
+from backend.api.eval import router as eval_router
 from backend.api.itinerary_routes import router as itinerary_router
 from backend.api.replanner_routes import router as replanner_router
 from backend.config import settings
@@ -42,6 +46,7 @@ app.add_middleware(
 app.include_router(chat_router)
 app.include_router(itinerary_router)
 app.include_router(replanner_router)
+app.include_router(eval_router)
 
 # Config request model
 from pydantic import BaseModel
@@ -76,3 +81,14 @@ async def root() -> HTMLResponse:
 async def health() -> dict:
     """Health check endpoint used by Docker Compose and monitoring."""
     return {"status": "healthy"}
+
+
+# Serve built React frontend — must be mounted after all API routes
+_FRONTEND_DIST = os.path.join(os.path.dirname(__file__), "..", "frontend", "dist")
+if os.path.isdir(_FRONTEND_DIST):
+    app.mount("/assets", StaticFiles(directory=os.path.join(_FRONTEND_DIST, "assets")), name="assets")
+
+    @app.get("/app", include_in_schema=False)
+    @app.get("/app/{full_path:path}", include_in_schema=False)
+    async def serve_frontend(full_path: str = "") -> FileResponse:
+        return FileResponse(os.path.join(_FRONTEND_DIST, "index.html"))

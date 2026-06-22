@@ -35,5 +35,43 @@ class Settings:
         "CORS_ORIGINS", "http://localhost:5173,http://localhost:3000"
     ).split(",")
 
+    # LangSmith observability (optional — tracing is skipped when key is absent)
+    LANGCHAIN_API_KEY: str = os.getenv("LANGCHAIN_API_KEY", "")
+    LANGCHAIN_PROJECT: str = os.getenv("LANGCHAIN_PROJECT", "bucket2-golden-dataset")
+
 
 settings = Settings()
+
+
+def configure_langsmith() -> None:
+    """Enable LangSmith tracing if LANGCHAIN_API_KEY is set. No-op otherwise."""
+    if not settings.LANGCHAIN_API_KEY:
+        return
+    os.environ.setdefault("LANGCHAIN_TRACING_V2", "true")
+    os.environ.setdefault("LANGCHAIN_PROJECT", settings.LANGCHAIN_PROJECT)
+    os.environ.setdefault("LANGCHAIN_API_KEY", settings.LANGCHAIN_API_KEY)
+
+
+from langchain_core.callbacks import BaseCallbackHandler as _BaseCallbackHandler
+
+
+class RunIdCapture(_BaseCallbackHandler):
+    """Callback that captures the root LangGraph run ID from the first on_chain_start event."""
+
+    def __init__(self):
+        super().__init__()
+        self.run_id: str | None = None
+
+    def on_chain_start(self, serialized, inputs, *, run_id, **kwargs):
+        if self.run_id is None:
+            self.run_id = str(run_id)
+
+
+def get_runnable_config(
+    run_name: str = "tripgraph",
+    metadata: dict | None = None,
+    callbacks: list | None = None,
+):
+    """Return a LangGraph RunnableConfig with optional LangSmith metadata and callbacks."""
+    from langchain_core.runnables.config import RunnableConfig
+    return RunnableConfig(run_name=run_name, metadata=metadata or {}, callbacks=callbacks or [])
