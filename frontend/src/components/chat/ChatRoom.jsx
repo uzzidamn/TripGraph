@@ -28,14 +28,15 @@ const TRAVEL_QUOTES = [
 
 const PREBUILT_TRIPS = [
   {
-    label: "Goa monsoon escape",
+    label: "Goa beach getaway",
     icon: "🌴",
     messages: [
-      "Looking at a Goa trip from Chandigarh, 5 days",
-      "Budget about ₹50k per person",
-      "Mix of beach, heritage, and good Goan food",
-      "Comfortable hotel, group of 4",
-      "Flying preferred — don't want a long drive",
+      "Planning a Goa getaway from Chandigarh for 4 days",
+      "Budget around ₹40k per person",
+      "Want a mix of North Goa beaches, a bit of Old Goa heritage, and great seafood",
+      "A sunset cruise and a beach-shack dinner would be lovely",
+      "Comfortable hotel close to the beach, group of 4",
+      "Flying both ways — no long drives, keep the pace relaxed",
     ],
   },
   {
@@ -61,14 +62,14 @@ const PREBUILT_TRIPS = [
     ],
   },
   {
-    label: "Kerala backwaters",
-    icon: "🛶",
+    label: "Rishikesh weekend",
+    icon: "🧘",
     messages: [
-      "Kerala trip — Kochi, Alleppey, Munnar — 6 days",
-      "Budget ₹35k per person",
-      "Houseboat night is a must, want hill views too",
-      "Mid-range hotels, 3 people",
-      "Flying from Bangalore",
+      "Quick Rishikesh weekend from Delhi, 2 days",
+      "Budget ₹8k per person",
+      "Rafting, riverside cafés, and the evening Ganga aarti",
+      "2 people, a budget riverside stay is fine",
+      "Driving down is OK",
     ],
   },
 ];
