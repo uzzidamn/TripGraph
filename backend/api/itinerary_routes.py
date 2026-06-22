@@ -127,6 +127,7 @@ async def generate_itinerary(request: GenerateItineraryRequest) -> ItineraryResp
             review=result.get("review"),
             architect_plan=result.get("architect_plan"),
             terminal_info=result.get("terminal_info"),
+            segment_polylines=result.get("segment_polylines") or [],
         )
 
     except Exception as e:

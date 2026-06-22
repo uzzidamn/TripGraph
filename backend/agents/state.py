@@ -80,6 +80,9 @@ class TripState(TypedDict):
     # Terminal info — airports/stations for origin + destination with first/last mile times
     terminal_info: Optional[Dict[str, Any]]
 
+    # Per-segment road polylines (drawn between consecutive stops via ORS)
+    segment_polylines: List[Dict[str, Any]]
+
 
 def initialize_state(raw_chat: List[str]) -> TripState:
     """Return a fully initialized TripState with all fields set to safe defaults.
@@ -128,4 +131,5 @@ def initialize_state(raw_chat: List[str]) -> TripState:
         last_review_feedback=None,
         architect_plan=None,
         terminal_info=None,
+        segment_polylines=[],
     )

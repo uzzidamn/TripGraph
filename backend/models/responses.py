@@ -51,6 +51,9 @@ class ItineraryResponse(BaseModel):
     # Terminal info — airports/stations with first/last mile travel times
     terminal_info: Optional[Dict[str, Any]] = None
 
+    # Per-segment road polylines (ORS-routed) for drawing real directions
+    segment_polylines: Optional[List[Dict[str, Any]]] = None
+
 
 class RefinementQuestionsResponse(BaseModel):
     """Response for POST /api/refinement-questions.

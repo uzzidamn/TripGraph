@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Navigation, RefreshCw, Loader2, AlertTriangle, X } from "lucide-react";
+import { RefreshCw, Loader2, AlertTriangle, X } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
+import { PalmCompass } from "./components/ui/PalmCompass";
 
 import { useItinerary } from "./hooks/useItinerary";
 import { SelectionProvider } from "./hooks/useSelection";
@@ -10,14 +11,13 @@ import { ExtractedPreferences } from "./components/preferences/ExtractedPreferen
 import { RefineQuestions } from "./components/refine/RefineQuestions";
 import { CalendarView } from "./components/itinerary/CalendarView";
 import { EventPopover } from "./components/itinerary/EventPopover";
-import { ReviewCard } from "./components/itinerary/ReviewCard";
 import { TripBrief } from "./components/itinerary/TripBrief";
 import { MapView } from "./components/map/MapView";
-import { CostBreakdown } from "./components/cost/CostBreakdown";
+import { CostPanel } from "./components/cost/CostPanel";
 import { DelaySimulator } from "./components/delay/DelaySimulator";
 import { DayStrip } from "./components/timeline/DayStrip";
 import { ToastContainer } from "./components/ui/Toast";
-import { GlassPanel, MetalText, Pill, GhostButton } from "./components/ui/Glass";
+import { GlassPanel, MetalText, Pill } from "./components/ui/Glass";
 
 const LEFT_W = 340;
 const RIGHT_W = 320;
@@ -39,34 +39,37 @@ function FloatingHeader({ step, onReset }) {
         position: "absolute",
         top: 0, left: 0, right: 0,
         zIndex: 60,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
+        height: 56,
         padding: "12px 20px",
         background: "linear-gradient(180deg, rgba(245,245,247,0.78) 0%, transparent 100%)",
         pointerEvents: "none",
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: 10, pointerEvents: "auto" }}>
-        <div
-          style={{
-            width: 30, height: 30,
-            borderRadius: 8,
-            background: "linear-gradient(135deg, #2a2d33, #0a0c10)",
-            display: "grid",
-            placeItems: "center",
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.18), 0 4px 12px rgba(20,22,28,0.18)",
-          }}
-        >
-          <Navigation size={14} style={{ color: "#f5f5f7" }} />
+      {/* TripGraph logo — absolute top-left */}
+      <div style={{
+        position: "absolute", top: 12, left: 20,
+        display: "flex", alignItems: "center", gap: 10, pointerEvents: "auto",
+      }}>
+        <div style={{
+          width: 32, height: 32, borderRadius: 9,
+          background: "linear-gradient(135deg, #2a2d33, #0a0c10)",
+          display: "grid", placeItems: "center",
+          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.18), 0 4px 12px rgba(20,22,28,0.18)",
+        }}>
+          <PalmCompass size={20} color="#f5f5f7" />
         </div>
         <MetalText style={{ fontWeight: 700, fontSize: 14 }}>
           TripGraph <span style={{ color: "var(--silver)", fontWeight: 500 }}>AI</span>
         </MetalText>
       </div>
 
+      {/* Steps pill — absolute top-center */}
       <GlassPanel
         style={{
+          position: "absolute",
+          top: 12,
+          left: "50%",
+          transform: "translateX(-50%)",
           display: "flex",
           alignItems: "center",
           gap: 4,
@@ -112,27 +115,6 @@ function FloatingHeader({ step, onReset }) {
         })}
       </GlassPanel>
 
-      <button
-        onClick={onReset}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 5,
-          fontSize: 11,
-          color: "var(--silver)",
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-          fontFamily: "Inter, sans-serif",
-          pointerEvents: "auto",
-          transition: "color 0.2s",
-        }}
-        onMouseEnter={(e) => (e.currentTarget.style.color = "var(--platinum)")}
-        onMouseLeave={(e) => (e.currentTarget.style.color = "var(--silver)")}
-      >
-        <RefreshCw size={12} />
-        Start over
-      </button>
     </div>
   );
 }
@@ -201,11 +183,10 @@ function IntegrationsBanner() {
 }
 
 // ─── Itinerary summary chip (top-center on map) ──────────────────────────────
-function ItinerarySummaryOverlay({ itinerary, retrievalSource }) {
+function ItinerarySummaryOverlay({ itinerary, onReset }) {
   if (!itinerary) return null;
   const route = itinerary.route || {};
   const transport = itinerary.transport || {};
-  const cost = itinerary.total_cost_per_person;
   return (
     <motion.div
       initial={{ y: -20, opacity: 0 }}
@@ -213,53 +194,73 @@ function ItinerarySummaryOverlay({ itinerary, retrievalSource }) {
       transition={{ delay: 0.3, type: "spring", stiffness: 280, damping: 30 }}
       style={{
         position: "absolute",
-        top: 64,
-        left: "50%",
-        transform: "translateX(-50%)",
+        top: 70,
+        left: 0,
+        right: 0,
+        display: "flex",
+        justifyContent: "center",
         zIndex: 35,
-        pointerEvents: "auto",
-        maxWidth: 460,
+        pointerEvents: "none",
       }}
     >
       <GlassPanel
         strong
         style={{
-          padding: "10px 18px",
+          padding: "10px 22px 12px",
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
-          gap: 14,
-          borderRadius: 999,
+          gap: 6,
+          borderRadius: 18,
+          pointerEvents: "auto",
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
-          <div style={{ fontSize: 9.5, fontWeight: 700, letterSpacing: "0.12em", color: "var(--silver)", textTransform: "uppercase" }}>
-            Recommended
-          </div>
-          <div style={{ fontSize: 13, fontWeight: 600, color: "var(--platinum)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-            {route.origin || "Origin"} → {route.destination || itinerary.destination}
-          </div>
+        <div style={{
+          display: "flex", alignItems: "center", gap: 10,
+          fontSize: 14, fontWeight: 700, color: "var(--platinum)",
+          whiteSpace: "nowrap",
+        }}>
+          <span>{route.origin || "Origin"}</span>
+          <span style={{ color: "var(--silver)", fontSize: 12 }}>→</span>
+          <span>{route.destination || itinerary.destination}</span>
+          {transport.mode && (
+            <Pill tone="muted" style={{ marginLeft: 4 }}>
+              {String(transport.mode).replace(/_/g, " ")}
+            </Pill>
+          )}
         </div>
-        <div style={{ width: 1, height: 28, background: "var(--rim)" }} />
-        {transport.mode && (
-          <Pill tone="muted">{String(transport.mode).replace(/_/g, " ")}</Pill>
-        )}
-        {cost != null && (
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-            <div style={{ fontSize: 9.5, color: "var(--silver)", letterSpacing: "0.08em" }}>P.P.</div>
-            <div style={{ fontSize: 14, fontWeight: 700, color: "var(--chrome)" }}>
-              ₹{Number(cost).toLocaleString()}
-            </div>
-          </div>
-        )}
-        {retrievalSource && Object.values(retrievalSource).some((s) => s === "api+kg") && (
-          <Pill tone="default" title="Live API data enriched the KG for this trip">Live</Pill>
-        )}
+        <button
+          onClick={onReset}
+          style={{
+            display: "inline-flex", alignItems: "center", gap: 5,
+            padding: "4px 14px", borderRadius: 999,
+            fontSize: 10, fontWeight: 700, letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            color: "var(--chrome)",
+            background: "rgba(255,255,255,0.6)",
+            border: "1px solid var(--rim)",
+            cursor: "pointer",
+            fontFamily: "Inter, sans-serif",
+            transition: "background 0.15s, color 0.15s",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "linear-gradient(180deg, #3a3d44, #1d1f25)";
+            e.currentTarget.style.color = "#f5f5f7";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "rgba(255,255,255,0.6)";
+            e.currentTarget.style.color = "var(--chrome)";
+          }}
+        >
+          <RefreshCw size={10} />
+          Start Over
+        </button>
       </GlassPanel>
     </motion.div>
   );
 }
 
-// ─── Delay panel (bottom-left, slim — cost now lives in TripBrief) ────────────
+// ─── Bottom-left: DelaySimulator only (cost panel moved into calendar) ───────
 function BottomLeftPanel({ onSimulate, loading, delayResult }) {
   return (
     <motion.div
@@ -270,15 +271,13 @@ function BottomLeftPanel({ onSimulate, loading, delayResult }) {
       style={{
         position: "absolute",
         left: 16,
-        bottom: 16,
+        bottom: 18,
         width: LEFT_W - 32,
         zIndex: 32,
         pointerEvents: "auto",
       }}
     >
-      <GlassPanel style={{ padding: 0, overflow: "hidden" }}>
-        <DelaySimulator onSimulate={onSimulate} loading={loading} delayResult={delayResult} />
-      </GlassPanel>
+      <DelaySimulator onSimulate={onSimulate} loading={loading} delayResult={delayResult} />
     </motion.div>
   );
 }
@@ -296,13 +295,12 @@ export default function App() {
     refinementQuestions,
     itinerary, alternatives, timeline, mapPoints, routePolyline,
     costBreakdown, scoreBreakdown, explanation, delayResult,
-    fatiguePerEvent, weatherForecast, traffic, hotelDeals, insightsPerPlace, retrievalSource, flights, trains, review, architectPlan,
+    fatiguePerEvent, weatherForecast, traffic, hotelDeals, insightsPerPlace, retrievalSource, flights, trains, review, architectPlan, segmentPolylines,
     toasts,
     submitChat, confirmPreferences, submitRefinements, skipRefinements,
     runDelaySimulation, resetToChat,
   } = useItinerary();
 
-  const [mapEngine, setMapEngine] = useState("uber"); // prefer Google Uber-style tiles; falls back to CartoDB
   const [fitTick, setFitTick] = useState(0);     // bump to ask MapView to fit-all
   const [selectedDay, setSelectedDay] = useState(1);
 
@@ -332,13 +330,12 @@ export default function App() {
           routePolyline={routePolyline}
           interactive={isItinerary}
           panning={showLanding}
-          engine={mapEngine}
-          onEngineChange={setMapEngine}
           fitAllTick={fitTick}
           selectedDay={isItinerary ? selectedDay : null}
+          onSelectDay={setSelectedDay}
           transportMode={itinerary?.transport?.mode}
           timeline={timeline}
-          costBreakdown={costBreakdown}
+          segmentPolylines={segmentPolylines}
         />
 
         <AnimatePresence>
@@ -424,7 +421,7 @@ export default function App() {
                   excluded={itinerary?.excluded_places || architectPlan?.excluded || []}
                 />
 
-                {/* BOTTOM-LEFT: Delay simulator (cost lives inside TripBrief now) */}
+                {/* BOTTOM-LEFT: Delay simulator alone (cost moved into calendar) */}
                 <BottomLeftPanel
                   onSimulate={runDelaySimulation}
                   loading={loading}
@@ -439,7 +436,7 @@ export default function App() {
                   })) || itinerary?.day_themes || []}
                   weatherForecast={weatherForecast}
                   selectedDay={selectedDay}
-                  onSelectDay={(d) => { setSelectedDay(d); setFitTick(t => t + 1); }}
+                  onSelectDay={(d) => setSelectedDay(d)}
                   totalEvents={timeline.length}
                   costBreakdown={costBreakdown}
                   timeline={timeline}
@@ -459,18 +456,25 @@ export default function App() {
                     bottom: 16,
                     zIndex: 30,
                     pointerEvents: "auto",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 10,
                   }}
                 >
-                  <GlassPanel strong style={{ height: "100%", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+                  {/* Cost panel above the calendar — cost lives next to the itinerary it describes */}
+                  <CostPanel costBreakdown={costBreakdown} timeline={timeline} />
+
+                  <GlassPanel strong style={{ flex: 1, minHeight: 0, overflow: "hidden", display: "flex", flexDirection: "column" }}>
                     <CalendarView
                       timeline={timeline}
                       tripName={`${itinerary?.route?.origin} → ${itinerary?.route?.destination || itinerary?.destination}`}
+                      onSelectDay={setSelectedDay}
                     />
                   </GlassPanel>
                 </motion.div>
 
                 {/* Floating itinerary summary chip (top-center) */}
-                <ItinerarySummaryOverlay itinerary={itinerary} retrievalSource={retrievalSource} />
+                <ItinerarySummaryOverlay itinerary={itinerary} onReset={resetToChat} />
 
                 {/* Map-anchored popover for the active event */}
                 <EventPopover

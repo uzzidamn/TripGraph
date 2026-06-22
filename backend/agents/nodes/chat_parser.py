@@ -54,6 +54,76 @@ def _parse_llm_json(text: Any) -> Dict[str, Any]:
     return json.loads(text)
 
 
+_MAX_STR = 80          # truncate any string field to this length
+_MAX_LIST_ITEMS = 12   # max items per list field
+_MAX_BUDGET = 5_000_000  # ₹50 lakh — anything above is almost certainly hostile
+_MIN_BUDGET = 500       # below this is meaningless
+_INJECTION_PATTERNS = (
+    "ignore previous", "ignore above", "system:", "assistant:",
+    "you are now", "act as", "<script", "javascript:", "data:text/",
+    "```", "<<", ">>",
+)
+
+
+def _strip_injection_patterns(value):
+    """Reject strings containing prompt-injection patterns outright."""
+    if not isinstance(value, str):
+        return value
+    lowered = value.lower()
+    for pat in _INJECTION_PATTERNS:
+        if pat in lowered:
+            # Suspicious — discard the value entirely rather than try to clean it
+            return None
+    # Also discard strings that don't look like a sensible travel field
+    # (no letters, just symbols, or contains < > { } which suggest HTML/code)
+    if any(c in value for c in "<>{}[]") or not any(c.isalpha() for c in value):
+        return None
+    return value[:_MAX_STR].strip() or None
+
+
+def _sanitize_constraints(parsed: dict) -> dict:
+    """Defense-in-depth: clamp values and strip prompt-injection patterns
+    from anything that came back from the LLM. The LLM is instructed to do
+    this in the prompt, but we don't trust it 100%."""
+    out = dict(parsed or {})
+
+    # String fields → length-clamp + injection-strip
+    for f in ("origin", "destination", "destination_type",
+              "trip_duration", "dates", "return_deadline",
+              "hotel_tier", "risk_tolerance"):
+        if f in out and isinstance(out[f], str):
+            out[f] = _strip_injection_patterns(out[f])
+
+    # List fields → cap length + sanitize each item
+    for f in ("transport_preference", "must_include", "special_requirements"):
+        if isinstance(out.get(f), list):
+            cleaned = []
+            for item in out[f][:_MAX_LIST_ITEMS]:
+                s = _strip_injection_patterns(item) if isinstance(item, str) else None
+                if s:
+                    cleaned.append(s)
+            out[f] = cleaned
+        else:
+            out[f] = []
+
+    # Numeric clamps
+    b = out.get("budget_per_person")
+    if isinstance(b, (int, float)):
+        b = int(b)
+        out["budget_per_person"] = b if _MIN_BUDGET <= b <= _MAX_BUDGET else None
+    elif b is not None:
+        out["budget_per_person"] = None
+
+    g = out.get("group_size")
+    if isinstance(g, (int, float)):
+        g = int(g)
+        out["group_size"] = g if 1 <= g <= 50 else 4
+    elif g is not None:
+        out["group_size"] = 4
+
+    return out
+
+
 def chat_parser_node(state: TripState) -> dict:
     """Extract travel constraints from raw chat messages.
 
@@ -64,7 +134,7 @@ def chat_parser_node(state: TripState) -> dict:
     raw_chat = state["raw_chat"]
     formatted = "\n".join(f"{i+1}. {msg}" for i, msg in enumerate(raw_chat))
 
-    llm = get_llm()
+    llm = get_llm("parser")
     messages = [
         ("system", CHAT_PARSER_SYSTEM),
         ("human", CHAT_PARSER_HUMAN.format(chat_messages=formatted)),
@@ -91,11 +161,19 @@ def chat_parser_node(state: TripState) -> dict:
         if parsed.get(field) is None:
             parsed[field] = default
 
+    # ── Server-side guardrails (defense-in-depth on top of prompt instructions) ──
+    parsed = _sanitize_constraints(parsed)
+
     # Identify fields that are still missing (null after defaults)
     missing = [
         f for f in _REQUIRED_FIELDS
         if parsed.get(f) is None
     ]
+
+    # If the parser detected an off-topic / hostile chat, flag it as a hard miss
+    if "OFF_TOPIC" in (parsed.get("special_requirements") or []):
+        print("  ⚠️  Chat parser: input flagged as off-topic / prompt-injection attempt")
+        missing = list(set(missing + ["origin", "destination"]))
 
     print(f"  ✅ Chat parser: extracted constraints for origin='{parsed.get('origin')}', "
           f"dest_type='{parsed.get('destination_type')}', budget={parsed.get('budget_per_person')}")

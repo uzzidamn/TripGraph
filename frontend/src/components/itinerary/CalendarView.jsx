@@ -1,11 +1,9 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Car, Bed, Zap, Utensils, Coffee, Download } from "lucide-react";
+import { Car, Bed, Zap, Utensils, Coffee, Download, Calendar as CalIcon } from "lucide-react";
 import { downloadICS } from "../../utils/icsGenerator";
 import { useSelection } from "../../hooks/useSelection";
 
-// Muted, Google-Calendar-style type accents (thin left border + soft tint on a
-// light card). No saturated fills — keeps the light theme calm.
 const TYPE_META = {
   travel:   { icon: Car,      accent: "#3b82a6", label: "Transit" },
   hotel:    { icon: Bed,      accent: "#6e7382", label: "Stay" },
@@ -20,29 +18,29 @@ function timeToMinutes(t) {
   return h * 60 + (m || 0);
 }
 
-// Grid spans 05:00–23:00, one event per real start/end.
-const DAY_START_H = 5;
+// One day fills the column; each hour gets HOUR_ROW px so text is readable.
+const DAY_START_H = 6;
 const DAY_END_H = 23;
 const HOURS = Array.from({ length: DAY_END_H - DAY_START_H + 1 }, (_, i) => DAY_START_H + i);
-const ROW_HEIGHT = 46; // px per hour — taller so it scrolls like Google Calendar
-const GRID_H = (HOURS.length - 1) * ROW_HEIGHT;
+const HOUR_ROW = 70;
+const DAY_HEIGHT = (HOURS.length - 1) * HOUR_ROW;
 
 function topPx(timeStr) {
   const mins = Math.max(timeToMinutes(timeStr), DAY_START_H * 60) - DAY_START_H * 60;
-  return (mins / 60) * ROW_HEIGHT;
+  return (mins / 60) * HOUR_ROW;
 }
 function heightPx(start, end) {
   const s = Math.max(timeToMinutes(start), DAY_START_H * 60);
   let e = Math.min(timeToMinutes(end), DAY_END_H * 60);
-  if (e <= s) e = s + 30; // guard against zero/negative
-  return Math.max(((e - s) / 60) * ROW_HEIGHT, 22);
+  if (e <= s) e = s + 30;
+  return Math.max(((e - s) / 60) * HOUR_ROW, 40);
 }
 
 function eventSyncId(ev) {
   return ev.point_id || ev.id;
 }
 
-function EventBlock({ event }) {
+function EventBlock({ event, onSelectDay }) {
   const { activePointId, setActivePointId } = useSelection();
   const meta = TYPE_META[event.type] ?? TYPE_META.rest;
   const Icon = meta.icon;
@@ -58,197 +56,249 @@ function EventBlock({ event }) {
       onClick={() => {
         const latLng = event.lat != null && event.lng != null ? [event.lat, event.lng] : null;
         setActivePointId(syncId, latLng);
+        if (onSelectDay && event.day != null) onSelectDay(event.day);
       }}
       title={`${event.title} · ${event.start_time}–${event.end_time}`}
       style={{
         position: "absolute",
         top: `${top}px`,
         height: `${h}px`,
-        left: "3px",
-        right: "3px",
-        background: isActive ? "#ffffff" : "rgba(255,255,255,0.85)",
+        left: 6,
+        right: 6,
+        background: isActive ? "#ffffff" : "rgba(255,255,255,0.92)",
         border: `1px solid ${isActive ? meta.accent : "var(--rim)"}`,
         borderLeft: `3px solid ${meta.accent}`,
-        borderRadius: "7px",
+        borderRadius: 8,
         cursor: "pointer",
         overflow: "hidden",
         zIndex: isActive ? 15 : 5,
         boxShadow: isActive
-          ? `0 4px 14px rgba(20,22,28,0.16)`
+          ? `0 4px 14px rgba(20,22,28,0.18)`
           : "0 1px 3px rgba(20,22,28,0.08)",
-        transition: "box-shadow 0.2s, background 0.2s, border-color 0.2s",
-        padding: "3px 6px",
+        transition: "box-shadow 0.18s, background 0.18s, border-color 0.18s",
+        padding: "6px 9px",
         display: "flex",
         flexDirection: "column",
-        gap: "1px",
+        gap: 2,
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-        <Icon size={9} style={{ color: meta.accent, flexShrink: 0 }} />
-        <span
-          style={{
-            fontSize: "9.5px",
-            fontWeight: 700,
-            color: "var(--platinum)",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-        >
+      <div style={{ display: "flex", alignItems: "center", gap: 5, flexShrink: 0 }}>
+        <Icon size={11} style={{ color: meta.accent, flexShrink: 0 }} />
+        <span style={{
+          fontSize: 12, fontWeight: 700, color: "var(--platinum)",
+          overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flex: 1,
+        }}>
           {event.title}
         </span>
+        {event.cost > 0 && (
+          <span style={{ fontSize: 10, fontWeight: 700, color: "var(--chrome)", flexShrink: 0 }}>
+            ₹{Number(event.cost).toLocaleString()}
+          </span>
+        )}
       </div>
-      {h > 30 && (
-        <span style={{ fontSize: "8px", color: "var(--silver)", whiteSpace: "nowrap" }}>
+      {h > 40 && (
+        <span style={{ fontSize: 9.5, color: "var(--silver)", whiteSpace: "nowrap" }}>
           {event.start_time} – {event.end_time}
+        </span>
+      )}
+      {h > 70 && event.why && (
+        <span style={{
+          fontSize: 10, color: "var(--chrome)", lineHeight: 1.35,
+          overflow: "hidden", textOverflow: "ellipsis",
+          display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical",
+        }}>
+          {event.why}
         </span>
       )}
     </motion.div>
   );
 }
 
-export function CalendarView({ timeline, tripName = "My Trip" }) {
-  const scrollRef = useRef(null);
+/** Auto-filled grey "Free time" block in calendar gaps >60 min between events. */
+function FreeTimeBlock({ start, end }) {
+  const top = topPx(start);
+  const h = heightPx(start, end);
+  if (h < 60) return null;
+  return (
+    <div style={{
+      position: "absolute",
+      top: `${top}px`, height: `${h}px`,
+      left: 6, right: 6,
+      background: "repeating-linear-gradient(45deg, rgba(0,0,0,0.025), rgba(0,0,0,0.025) 6px, rgba(0,0,0,0.04) 6px, rgba(0,0,0,0.04) 12px)",
+      border: "1px dashed var(--rim)",
+      borderRadius: 6,
+      display: "flex", alignItems: "center", justifyContent: "center",
+      pointerEvents: "none",
+    }}>
+      <span style={{
+        fontSize: 10, color: "var(--silver)", fontWeight: 600,
+        letterSpacing: "0.06em", textTransform: "uppercase",
+      }}>
+        Free time
+      </span>
+    </div>
+  );
+}
 
-  // Auto-scroll so the first event is in view (~07:00).
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = Math.max(0, (7 - DAY_START_H) * ROW_HEIGHT - 20);
+export function CalendarView({ timeline, tripName = "My Trip", onSelectDay = null }) {
+  const scrollRef = useRef(null);
+  const { activePointId } = useSelection();
+
+  const byDay = useMemo(() => {
+    const map = new Map();
+    for (const ev of timeline || []) {
+      const d = ev.day ?? 1;
+      if (!map.has(d)) map.set(d, []);
+      map.get(d).push(ev);
     }
+    return [...map.entries()].sort((a, b) => a[0] - b[0]);
   }, [timeline]);
 
-  if (!timeline?.length) return null;
+  // Compute auto-filled gaps per day
+  const gapsByDay = useMemo(() => {
+    const map = new Map();
+    for (const [day, events] of byDay) {
+      const sorted = [...events].sort((a, b) =>
+        timeToMinutes(a.start_time) - timeToMinutes(b.start_time)
+      );
+      const gaps = [];
+      for (let i = 0; i < sorted.length - 1; i++) {
+        const endA = timeToMinutes(sorted[i].end_time);
+        const startB = timeToMinutes(sorted[i + 1].start_time);
+        if (startB - endA >= 60) {
+          gaps.push({
+            start: `${String(Math.floor(endA / 60)).padStart(2, "0")}:${String(endA % 60).padStart(2, "0")}`,
+            end: `${String(Math.floor(startB / 60)).padStart(2, "0")}:${String(startB % 60).padStart(2, "0")}`,
+          });
+        }
+      }
+      map.set(day, gaps);
+    }
+    return map;
+  }, [byDay]);
 
-  const byDay = timeline.reduce((acc, ev) => {
-    const d = ev.day ?? 1;
-    (acc[d] = acc[d] ?? []).push(ev);
-    return acc;
-  }, {});
-  const days = Object.keys(byDay).map(Number).sort((a, b) => a - b);
+  // Scroll active event into view
+  useEffect(() => {
+    if (!activePointId || !scrollRef.current) return;
+    const node = scrollRef.current.querySelector(`[data-sync-id="${activePointId}"]`);
+    if (node) {
+      node.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [activePointId]);
+
+  if (!timeline?.length) return null;
 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100%", minHeight: 0 }}>
       {/* Header */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "12px 14px",
-          borderBottom: "1px solid var(--rim)",
-          flexShrink: 0,
-        }}
-      >
-        <div>
-          <p style={{ fontSize: "10px", fontWeight: 700, color: "var(--silver)", textTransform: "uppercase", letterSpacing: "0.12em" }}>
-            Calendar
-          </p>
-          <p style={{ fontSize: "11px", color: "var(--chrome)", marginTop: "1px", fontWeight: 500 }}>
-            {days.length} day{days.length !== 1 ? "s" : ""} · {timeline.length} events
-          </p>
+      <div style={{
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        padding: "12px 14px", borderBottom: "1px solid var(--rim)", flexShrink: 0,
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
+          <CalIcon size={13} style={{ color: "var(--chrome)" }} />
+          <div>
+            <p style={{
+              fontSize: 9.5, fontWeight: 700, color: "var(--silver)",
+              textTransform: "uppercase", letterSpacing: "0.12em",
+            }}>
+              Calendar
+            </p>
+            <p style={{ fontSize: 11, color: "var(--chrome)", marginTop: 1, fontWeight: 500 }}>
+              {byDay.length} day{byDay.length !== 1 ? "s" : ""} · {timeline.length} events
+            </p>
+          </div>
         </div>
         <button
           onClick={() => downloadICS(timeline, tripName)}
           className="btn-ghost"
           style={{
-            display: "flex", alignItems: "center", gap: "6px",
-            padding: "6px 12px", borderRadius: "999px",
-            fontSize: "11px", fontWeight: 600, cursor: "pointer",
+            display: "flex", alignItems: "center", gap: 5,
+            padding: "5px 10px", borderRadius: 999,
+            fontSize: 10.5, fontWeight: 600, cursor: "pointer",
           }}
           title="Download as .ics calendar file"
         >
-          <Download size={12} />
-          Export ICS
+          <Download size={11} />
+          Export
         </button>
       </div>
 
-      {/* Sticky day-header row */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: `38px repeat(${days.length}, 1fr)`,
-          borderBottom: "1px solid var(--rim)",
-          flexShrink: 0,
-          background: "rgba(255,255,255,0.4)",
-        }}
-      >
-        <div />
-        {days.map((day) => (
-          <div
-            key={day}
-            style={{
-              textAlign: "center",
-              padding: "8px 4px",
-              borderLeft: "1px solid var(--rim)",
-            }}
-          >
-            <span style={{ fontSize: "10.5px", fontWeight: 700, color: "var(--chrome)", letterSpacing: "0.04em" }}>
-              Day {day}
-            </span>
+      {/* Vertically scrollable: days stacked, one column each */}
+      <div ref={scrollRef} style={{ flex: 1, overflowY: "auto", overflowX: "hidden" }}>
+        {byDay.map(([day, events]) => (
+          <div key={day} style={{ borderBottom: "1px solid var(--rim)" }}>
+            {/* Sticky day header */}
+            <div style={{
+              position: "sticky", top: 0, zIndex: 20,
+              background: "rgba(255,255,255,0.92)",
+              backdropFilter: "blur(10px)",
+              padding: "8px 14px",
+              borderBottom: "1px solid var(--rim)",
+              display: "flex", justifyContent: "space-between", alignItems: "center",
+            }}>
+              <span style={{
+                fontSize: 11, fontWeight: 800, color: "var(--platinum)",
+                letterSpacing: "0.04em",
+              }}>
+                Day {day}
+              </span>
+              <span style={{ fontSize: 9.5, color: "var(--silver)" }}>
+                {events.length} stop{events.length !== 1 ? "s" : ""}
+              </span>
+            </div>
+
+            {/* Day timeline body */}
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "42px 1fr",
+              height: DAY_HEIGHT,
+              position: "relative",
+              background: "rgba(255,255,255,0.4)",
+            }}>
+              {/* Time labels column */}
+              <div style={{ position: "relative", borderRight: "1px solid var(--rim)" }}>
+                {HOURS.map((h, i) => (
+                  <div key={h} style={{
+                    position: "absolute",
+                    top: `${i * HOUR_ROW - 5}px`,
+                    right: 6,
+                    fontSize: 9.5, color: "var(--silver)",
+                    fontWeight: 600, lineHeight: 1,
+                    fontVariantNumeric: "tabular-nums",
+                  }}>
+                    {String(h).padStart(2, "0")}:00
+                  </div>
+                ))}
+              </div>
+
+              {/* Events column */}
+              <div style={{ position: "relative", height: DAY_HEIGHT }}>
+                {/* Hour gridlines */}
+                {HOURS.map((h, i) => (
+                  <div key={h} style={{
+                    position: "absolute",
+                    top: `${i * HOUR_ROW}px`,
+                    left: 0, right: 0,
+                    borderTop: `1px solid rgba(0,0,0,${i % 6 === 0 ? 0.10 : 0.045})`,
+                  }} />
+                ))}
+                {/* Auto-fill grey "Free time" gaps */}
+                {(gapsByDay.get(day) || []).map((g, i) => (
+                  <FreeTimeBlock key={`gap-${day}-${i}`} start={g.start} end={g.end} />
+                ))}
+                {/* Event blocks */}
+                {events.map((ev, i) => (
+                  <div key={ev.id || i} data-sync-id={eventSyncId(ev)} style={{
+                    position: "absolute", top: 0, left: 0, right: 0, height: "100%",
+                  }}>
+                    <EventBlock event={ev} onSelectDay={onSelectDay} />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         ))}
-      </div>
-
-      {/* Scrollable time body */}
-      <div ref={scrollRef} style={{ flex: 1, overflowY: "auto", overflowX: "hidden" }}>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: `38px repeat(${days.length}, 1fr)`,
-            height: `${GRID_H}px`,
-            position: "relative",
-          }}
-        >
-          {/* Time labels */}
-          <div style={{ position: "relative" }}>
-            {HOURS.map((h, i) => (
-              <div
-                key={h}
-                style={{
-                  position: "absolute",
-                  top: `${i * ROW_HEIGHT - 5}px`,
-                  right: "5px",
-                  fontSize: "8.5px",
-                  color: "var(--silver)",
-                  fontWeight: 600,
-                  lineHeight: 1,
-                  fontVariantNumeric: "tabular-nums",
-                }}
-              >
-                {String(h).padStart(2, "0")}:00
-              </div>
-            ))}
-          </div>
-
-          {/* Day columns */}
-          {days.map((day) => (
-            <div
-              key={day}
-              style={{
-                position: "relative",
-                borderLeft: "1px solid var(--rim)",
-                height: `${GRID_H}px`,
-              }}
-            >
-              {/* Hour gridlines (visible on light bg) */}
-              {HOURS.map((h, i) => (
-                <div
-                  key={h}
-                  style={{
-                    position: "absolute",
-                    top: `${i * ROW_HEIGHT}px`,
-                    left: 0,
-                    right: 0,
-                    borderTop: `1px solid rgba(0,0,0,${i % 6 === 0 ? "0.10" : "0.045"})`,
-                  }}
-                />
-              ))}
-              {(byDay[day] || []).map((ev, i) => (
-                <EventBlock key={ev.id || i} event={ev} />
-              ))}
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );

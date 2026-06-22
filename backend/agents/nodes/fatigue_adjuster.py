@@ -113,7 +113,7 @@ def fatigue_adjuster_node(state: TripState) -> dict:
     # Try LLM adjustment
     adjusted: dict[str, Any] = {}
     try:
-        llm = get_llm()
+        llm = get_llm("fatigue")
         response = llm.invoke([
             SystemMessage(content=FATIGUE_ADJUSTER_SYSTEM),
             HumanMessage(content=FATIGUE_ADJUSTER_HUMAN.format(

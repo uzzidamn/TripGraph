@@ -1,11 +1,17 @@
 import json
+import os
 from langchain_core.messages import SystemMessage, HumanMessage
-from backend.agents.llm_client import get_llm, extract_text_content
+from backend.agents.llm_client import get_llm, get_grounded_llm, extract_text_content
 from backend.agents.prompts import ENRICHER_SYSTEM, ENRICHER_HUMAN
 from backend.agents.state import TripState
 
 def itinerary_enricher_node(state: TripState) -> dict:
-    llm = get_llm()
+    # The enricher's value is freshness (current permit costs, seasonal closures,
+    # "is this café still open"), so prefer a Google-grounded Gemini client that
+    # can issue live Search queries. Fall back to the role-routed default LLM if
+    # grounding is unavailable (no Google key, or env-disabled).
+    use_grounding = os.getenv("ENRICHER_GOOGLE_GROUNDING", "true").lower() == "true"
+    llm = (get_grounded_llm() if use_grounding else None) or get_llm("enricher")
     itinerary = state.get("selected_itinerary")
     if not itinerary:
         return {"enrichment_applied": False}

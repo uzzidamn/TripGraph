@@ -90,8 +90,8 @@
     {
       "name": "Bangalore",
       "type": "urban",
-      "lat": 12.9716,
-      "lng": 77.5946,
+      "lat": 12.96557,
+      "lng": 77.60625,
       "state": "Karnataka",
       "region": "south",
       "description": "The Silicon Valley of India, known for its pleasant weather, garden parks, and vibrant pub culture.",
@@ -1130,6 +1130,15 @@
       "verification_status": "verified",
       "data_source": "llm_knowledge",
       "last_verified": "2026-06-22"
+    },
+    {
+      "name": "Kerala",
+      "lat": 9.791129,
+      "lng": 76.746728,
+      "type": "nature",
+      "tags": [
+        "nature"
+      ]
     }
   ],
   "routes": [
@@ -8385,6 +8394,17 @@
       "verification_status": "llm_generated",
       "data_source": "llm_knowledge",
       "last_verified": "2026-06-22"
+    },
+    {
+      "route_id": "route_3e747ddb",
+      "origin": "Bangalore",
+      "destination": "Kerala",
+      "distance_km": 546.01,
+      "duration_hours": 7.72,
+      "driving_distance": "546 km",
+      "driving_time": "7.7 hours",
+      "polyline": null,
+      "base_drive_minutes": 463
     }
   ],
   "hotels": [
@@ -15012,6 +15032,36 @@
       "verification_status": "verified",
       "data_source": "llm_knowledge",
       "last_verified": "2026-06-22"
+    },
+    {
+      "hotel_id": "hotel_62c5c400",
+      "name": "Thodupuzha - Puliyanmala Road",
+      "lat": 9.8287975,
+      "lng": 76.7711159,
+      "tier": "comfort",
+      "price_per_night": 4500,
+      "address": "Kolapra, Muttam - 685587, Kerala, India",
+      "destination": "Kerala"
+    },
+    {
+      "hotel_id": "hotel_a2007987",
+      "name": "Melukavumattom-Kollappally Road",
+      "lat": 9.7835554,
+      "lng": 76.7542784,
+      "tier": "comfort",
+      "price_per_night": 4500,
+      "address": "Maryland - 686652, Kerala, India",
+      "destination": "Kerala"
+    },
+    {
+      "hotel_id": "hotel_50bc6801",
+      "name": "biju hotel",
+      "lat": 9.8004727,
+      "lng": 76.7278626,
+      "tier": "comfort",
+      "price_per_night": 4500,
+      "address": "Neeloor - Muttom Road, Neeloor - 686651, Kerala, India",
+      "destination": "Kerala"
     }
   ],
   "activities": [
@@ -37644,6 +37694,66 @@
       "verification_status": "verified",
       "data_source": "llm_knowledge",
       "last_verified": "2026-06-22"
+    },
+    {
+      "activity_id": "activity_65189841",
+      "name": "Vakakkadu - Melukavu",
+      "lat": 9.7704212,
+      "lng": 76.7814212,
+      "category": "tourism",
+      "address": "Idamaruku - 686652, Kerala, India",
+      "tags": [
+        "tourism"
+      ],
+      "destination": "Kerala"
+    },
+    {
+      "activity_id": "activity_b314ff23",
+      "name": "statue of mary",
+      "lat": 9.8000868,
+      "lng": 76.7265857,
+      "category": "tourism",
+      "address": "Pizhaku-Kavukandam-Neeloor Road, Colony, Veliayath, Kadanad - 686651, Kerala, India",
+      "tags": [
+        "tourism"
+      ],
+      "destination": "Kerala"
+    },
+    {
+      "activity_id": "activity_39a34ca3",
+      "name": "kolanimudi",
+      "lat": 9.7903729,
+      "lng": 76.7794867,
+      "category": "tourism",
+      "address": "Ilaveezhapoonchira Road, Mechal, Melukavumattom - 685590, Kerala, India",
+      "tags": [
+        "tourism"
+      ],
+      "destination": "Kerala"
+    },
+    {
+      "activity_id": "activity_eccad7eb",
+      "name": "Statue of st joseph",
+      "lat": 9.8003336,
+      "lng": 76.7277902,
+      "category": "tourism",
+      "address": "Neeloor - Muttom Road, Neeloor - 686651, Kerala, India",
+      "tags": [
+        "tourism"
+      ],
+      "destination": "Kerala"
+    },
+    {
+      "activity_id": "activity_ee52857c",
+      "name": "moscow view point",
+      "lat": 9.7764751,
+      "lng": 76.7801388,
+      "category": "tourism",
+      "address": "Vakakkadu - Melukavu, Idamaruku - 686652, Kerala, India",
+      "tags": [
+        "tourism"
+      ],
+      "destination": "Kerala"
     }
   ],
   "restaurants": [

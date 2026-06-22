@@ -22,7 +22,7 @@ def weather_agent_node(state: TripState) -> dict:
     dest_lat = primary.get("dest_lat")
     dest_lng = primary.get("dest_lng")
     if dest_lat is not None and dest_lng is not None:
-        forecast = OpenWeatherMapClient.get_forecast(dest_lat, dest_lng, days=3)
+        forecast = OpenWeatherMapClient.get_forecast(dest_lat, dest_lng, days=7)
         if forecast:
             out["destination"] = forecast
 

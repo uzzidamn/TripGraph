@@ -1,26 +1,27 @@
 /**
  * Silver/aluminum Leaflet map for TripGraph AI.
  *
- * Key features:
- *   - Numbered sequence markers per day with dimming for other days
- *   - Per-segment polylines styled by transport mode (flight/train/cab)
- *   - Cost + time labels on connecting segments between stops
- *   - Pixel tracking for map-anchored popovers (updates on pan/zoom)
- *   - Google Uber-style tiles when available, CartoDB light fallback
- *   - Landing mode: slow east-to-west pan across a blurred world map
+ * Behaviours:
+ *   - Defaults to Google "Uber-style" grey tiles when available; CartoDB light fallback
+ *   - Numbered seq markers per day, dimmed on other days
+ *   - Real ORS road polylines per segment (when segment_polylines present)
+ *   - Flight segments dashed straight lines
+ *   - Day click → animated zoom IN to that day's bounds (not fit-all)
+ *   - Marker click → sets active pin + lat/lng for popover anchoring
+ *   - Pixel tracker updates anchorPx on map move/zoom
  */
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, Fragment } from "react";
 import {
   MapContainer,
   TileLayer,
   Marker,
   Polyline,
-  Popup,
   useMap,
   useMapEvents,
 } from "react-leaflet";
 import L from "leaflet";
-import { GlassPanel, Pill } from "../ui/Glass";
+// eslint-disable-next-line no-unused-vars
+import { GlassPanel } from "../ui/Glass";
 import { useSelection } from "../../hooks/useSelection";
 
 delete L.Icon.Default.prototype._getIconUrl;
@@ -30,14 +31,6 @@ L.Icon.Default.mergeOptions({
   shadowUrl:     "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 });
 
-const TYPE_LABEL = {
-  origin:      "Start",
-  destination: "Destination",
-  waypoint:    "Stop",
-  hotel:       "Stay",
-  activity:    "Activity",
-  travel:      "Transit",
-};
 
 function silverIcon({ size = 24, active = false } = {}) {
   const r = size / 2;
@@ -61,16 +54,16 @@ function silverIcon({ size = 24, active = false } = {}) {
     </svg>`
   );
   return new L.Icon({
-    iconUrl:    `data:image/svg+xml,${svg}`,
-    iconSize:   [size, pinH],
+    iconUrl: `data:image/svg+xml,${svg}`,
+    iconSize: [size, pinH],
     iconAnchor: [r, pinH],
-    popupAnchor:[0, -pinH + 4],
-    className:  active ? "marker-pulse" : "",
+    popupAnchor: [0, -pinH + 4],
+    className: active ? "marker-pulse" : "",
   });
 }
 
-function seqIcon({ seq = 1, active = false, dimmed = false, cost = null } = {}) {
-  const size = active ? 34 : 30;
+function seqIcon({ seq = 1, active = false, dimmed = false } = {}) {
+  const size = active ? 36 : 30;
   const bg = active ? "#0a0c10" : dimmed ? "#dde2eb" : "#2a2d33";
   const text = dimmed ? "#6e7382" : "#ffffff";
   const ring = active ? "#ffffff" : "rgba(255,255,255,0.95)";
@@ -82,32 +75,23 @@ function seqIcon({ seq = 1, active = false, dimmed = false, cost = null } = {}) 
             text-anchor="middle" dominant-baseline="middle" fill="${text}">${seq}</text>
     </svg>`
   );
-  const costTag = cost && !dimmed
-    ? `<div style="position:absolute;top:${size + 2}px;left:50%;transform:translateX(-50%);
-        background:#1d1f25;color:#f5f5f7;font-size:9px;font-weight:700;padding:1px 5px;
-        border-radius:4px;white-space:nowrap;font-family:Inter,sans-serif;
-        box-shadow:0 1px 4px rgba(0,0,0,0.3)">₹${cost.toLocaleString()}</div>`
-    : "";
   return new L.DivIcon({
-    html: `<div style="position:relative;filter:drop-shadow(${shadow})"><img src="data:image/svg+xml,${svg}" style="display:block;width:${size}px;height:${size}px" />${costTag}</div>`,
+    html: `<div style="filter:drop-shadow(${shadow})"><img src="data:image/svg+xml,${svg}" style="display:block;width:${size}px;height:${size}px" /></div>`,
     className: active ? "marker-pulse" : "",
-    iconSize: [size, size + (costTag ? 16 : 0)],
+    iconSize: [size, size],
     iconAnchor: [size/2, size/2],
     popupAnchor:[0, -size/2 - 4],
   });
 }
 
-/** Segment cost/time label placed at the midpoint of a polyline. */
 function segmentLabel(minutes, cost, mode) {
   const parts = [];
   if (minutes) parts.push(`${minutes} min`);
   if (cost) parts.push(`₹${cost.toLocaleString()}`);
   if (!parts.length) return null;
-
   const modeIcon = mode === "flight" ? "✈" : mode === "train" ? "🚆" : mode === "cab" ? "🚕" : "→";
-
   return new L.DivIcon({
-    html: `<div style="background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);
+    html: `<div style="background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);
       border:1px solid rgba(0,0,0,0.12);border-radius:6px;padding:2px 7px;
       font-size:9px;font-weight:600;color:#2a2d33;white-space:nowrap;
       font-family:Inter,sans-serif;box-shadow:0 1px 4px rgba(0,0,0,0.12);
@@ -119,8 +103,7 @@ function segmentLabel(minutes, cost, mode) {
   });
 }
 
-/** Tracks active marker pixel position on map move/zoom for anchored popovers. */
-function PixelTracker({ mapPoints }) {
+function PixelTracker() {
   const map = useMap();
   const { activePointId, activeLatLng, setAnchorPx } = useSelection();
 
@@ -133,10 +116,7 @@ function PixelTracker({ mapPoints }) {
   }, [map, activeLatLng, activePointId, setAnchorPx]);
 
   useMapEvents({
-    move: updatePx,
-    zoom: updatePx,
-    moveend: updatePx,
-    zoomend: updatePx,
+    move: updatePx, zoom: updatePx, moveend: updatePx, zoomend: updatePx,
   });
 
   useEffect(() => { updatePx(); }, [updatePx]);
@@ -147,9 +127,7 @@ function PixelTracker({ mapPoints }) {
 function MapController({ mapPoints, interactive, panning, activePointId, fitAllTick, selectedDay }) {
   const map = useMap();
 
-  useEffect(() => {
-    if (panning) map.setZoom(3);
-  }, [panning, map]);
+  useEffect(() => { if (panning) map.setZoom(3); }, [panning, map]);
 
   useEffect(() => {
     if (interactive) {
@@ -165,35 +143,48 @@ function MapController({ mapPoints, interactive, panning, activePointId, fitAllT
     }
   }, [interactive, panning, map]);
 
+  // ── Day click → zoom IN to that day's stops, smooth mac-like flyToBounds ──
+  useEffect(() => {
+    if (!interactive || !mapPoints?.length || selectedDay == null) return;
+    const dayPts = mapPoints.filter((p) => p.day === selectedDay);
+    if (dayPts.length === 0) return;
+    const nonOrigin = dayPts.filter((p) => p.type !== "origin");
+    const pts = nonOrigin.length > 0 ? nonOrigin : dayPts;
+    const bounds = L.latLngBounds(pts.map((p) => [p.lat, p.lng]));
+    if (!bounds.isValid()) return;
+    // flyToBounds gives a smooth eased animation
+    map.flyToBounds(bounds, {
+      padding: [120, 120],
+      maxZoom: 14,
+      duration: 0.9,
+      easeLinearity: 0.25,
+    });
+  }, [selectedDay, mapPoints, interactive, map]);
+
+  // Initial fit to all on first load
   useEffect(() => {
     if (!interactive || !mapPoints?.length) return;
-    let pts = mapPoints;
-    if (selectedDay !== null) {
-      const dayPts = mapPoints.filter(p => p.day === selectedDay);
-      if (dayPts.length > 0) {
-        const nonOrigin = dayPts.filter(p => p.type !== "origin");
-        pts = nonOrigin.length > 0 ? nonOrigin : dayPts;
-      }
-    }
-    const bounds = L.latLngBounds(pts.map((p) => [p.lat, p.lng]));
+    const bounds = L.latLngBounds(mapPoints.map((p) => [p.lat, p.lng]));
     if (bounds.isValid()) {
-      map.fitBounds(bounds, { padding: [120, 120], maxZoom: 12 });
+      map.fitBounds(bounds, { padding: [120, 120], maxZoom: 12, animate: false });
     }
-  }, [mapPoints, interactive, selectedDay, map]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [interactive]);
 
+  // Marker fly-to
   useEffect(() => {
     if (!interactive || !mapPoints?.length || !activePointId) return;
     const target = mapPoints.find(
       (p) => (p.id || `${p.type}:${p.label}`) === activePointId
     );
     if (target) {
-      map.flyTo([target.lat, target.lng], Math.max(map.getZoom(), 10), {
-        duration: 0.8,
-        easeLinearity: 0.4,
+      map.flyTo([target.lat, target.lng], Math.max(map.getZoom(), 12), {
+        duration: 0.7, easeLinearity: 0.3,
       });
     }
   }, [activePointId, mapPoints, interactive, map]);
 
+  // Explicit "fit all" trigger
   useEffect(() => {
     if (!interactive || !mapPoints?.length || fitAllTick === 0) return;
     const bounds = L.latLngBounds(mapPoints.map((p) => [p.lat, p.lng]));
@@ -202,6 +193,7 @@ function MapController({ mapPoints, interactive, panning, activePointId, fitAllT
     }
   }, [fitAllTick, mapPoints, interactive, map]);
 
+  // Landing pan
   useEffect(() => {
     if (!panning) return;
     let raf;
@@ -228,13 +220,12 @@ export function MapView({
   routePolyline = null,
   interactive = false,
   panning = false,
-  engine = "classic",
-  onEngineChange,
   fitAllTick = 0,
   selectedDay = null,
+  onSelectDay = null,
   transportMode = null,
   timeline = [],
-  costBreakdown = null,
+  segmentPolylines = [],
 }) {
   const { activePointId, setActivePointId } = useSelection();
   const defaultCenter = [22, 78];
@@ -251,7 +242,8 @@ export function MapView({
     return () => { cancelled = true; };
   }, [baseUrl]);
 
-  const useGoogle = engine !== "classic" && !!googleTiles?.tile_url_template;
+  // Always prefer Google (uber-style) when available, no UI toggle
+  const useGoogle = !!googleTiles?.tile_url_template;
 
   const center = hasPoints
     ? [
@@ -261,35 +253,49 @@ export function MapView({
     : defaultCenter;
 
   const isFlight = transportMode === "flight";
-  const originPt = mapPoints.find((p) => p.type === "origin");
-  const destPt = mapPoints.find((p) => p.type === "destination") || mapPoints.find((p) => p.type === "hotel");
 
-  const polylinePositions =
-    isFlight && originPt && destPt
-      ? [[originPt.lat, originPt.lng], [destPt.lat, destPt.lng]]
-      : routePolyline && routePolyline.length > 1
+  // For flight: the dashed long-haul line goes airport → airport.
+  // Find the two "travel" events whose titles contain "airport" — the architect
+  // creates these on Day 1 (departure) and last day (return). Falls back to
+  // origin → destination city pins for non-flight road trips.
+  const airportPts = mapPoints
+    .filter((p) => p.day === 1 && /airport/i.test(p.label || ""))
+    .sort((a, b) => (a.seq || 0) - (b.seq || 0));
+  const departureAirport = airportPts[0];
+  const arrivalAirport = airportPts[airportPts.length - 1];
+
+  const mainPolyline =
+    isFlight && departureAirport && arrivalAirport && departureAirport !== arrivalAirport
+      ? [[departureAirport.lat, departureAirport.lng], [arrivalAirport.lat, arrivalAirport.lng]]
+      : !isFlight && routePolyline && routePolyline.length > 1
       ? routePolyline
-      : mapPoints
-          .filter((p) => ["origin", "waypoint", "destination"].includes(p.type))
-          .map((p) => [p.lat, p.lng]);
+      : null;
 
-  // Build a cost lookup from timeline: event point_id → cost
+  // Cost lookup by point_id
   const costByPointId = {};
   for (const ev of timeline) {
     if (ev.point_id && ev.cost) costByPointId[ev.point_id] = ev.cost;
   }
 
-  // Build segment info: for each consecutive pair of stops in a day,
-  // compute midpoint + travel time/cost for the label
-  const buildSegments = () => {
+  // Build segments from segment_polylines (preferred — real ORS road geometry)
+  // Falls back to straight lines for segments without a polyline
+  const buildSegmentRenderables = () => {
+    const segmentsByDay = new Map();
+    for (const sp of segmentPolylines || []) {
+      if (selectedDay != null && sp.day !== selectedDay) continue;
+      const key = `${sp.day}-${sp.from_seq}-${sp.to_seq}`;
+      segmentsByDay.set(key, sp);
+    }
+
+    // Build straight-line fallbacks for pairs not in segment_polylines
     const byDay = new Map();
     for (const p of mapPoints) {
       if (p.seq == null || p.day == null) continue;
       if (!byDay.has(p.day)) byDay.set(p.day, []);
       byDay.get(p.day).push(p);
     }
-    const days = selectedDay ? [selectedDay] : [...byDay.keys()];
-    const segments = [];
+    const days = selectedDay != null ? [selectedDay] : [...byDay.keys()];
+    const fallbackSegments = [];
     const midpoints = [];
 
     for (const d of days) {
@@ -300,48 +306,43 @@ export function MapView({
         const p1 = pts[i];
         const p2 = pts[i + 1];
         const mode = (p2.mode || "").toLowerCase();
+        const key = `${d}-${p1.seq}-${p2.seq}`;
+        const hasRealPolyline = segmentsByDay.has(key);
 
-        let pathOptions = { color: "#2a2d33", weight: 2, opacity: 0.55, dashArray: "6 6" };
-        if (mode === "flight") {
-          pathOptions = { color: "var(--silver)", weight: 2.5, opacity: 0.8, dashArray: "4 6" };
-        } else if (mode === "train" || mode === "rail") {
-          pathOptions = { color: "#1d1f25", weight: 3.5, opacity: 0.8, dashArray: "8 4" };
-        } else if (mode === "cab" || mode === "drive" || mode === "car") {
-          pathOptions = { color: "#3a3d44", weight: 2.2, opacity: 0.7, dashArray: "6 4" };
-        }
+        // Midpoint segment labels intentionally removed — they cluttered the map
+        // and the same info (cost + duration) lives on the event pin / popover.
 
-        segments.push({ key: `day-${d}-seg-${i}`, positions: [[p1.lat, p1.lng], [p2.lat, p2.lng]], pathOptions });
-
-        // Find the travel event between these stops to get cost/time
-        const travelEv = timeline.find(ev =>
-          ev.day === d && ev.type === "travel" && ev.seq != null &&
-          ev.seq > (p1.seq || 0) && ev.seq <= (p2.seq || 999)
-        ) || timeline.find(ev =>
-          ev.day === d && ev.type === "travel" &&
-          ((ev.title || "").toLowerCase().includes((p2.label || "").toLowerCase().split(" ")[0]))
-        );
-
-        const tMin = travelEv?.duration_minutes || null;
-        const tCost = travelEv?.cost || null;
-        const tMode = travelEv?.transport_mode || mode || null;
-
-        // Compute midpoint for the label
-        const midLat = (p1.lat + p2.lat) / 2;
-        const midLng = (p1.lng + p2.lng) / 2;
-
-        // Only show labels for non-trivial segments
-        if (tMin || tCost) {
-          const icon = segmentLabel(tMin, tCost, tMode);
-          if (icon) {
-            midpoints.push({ key: `mid-${d}-${i}`, lat: midLat, lng: midLng, icon });
+        if (!hasRealPolyline) {
+          // Fallback straight line
+          let pathOptions = { color: "#2a2d33", weight: 2, opacity: 0.55, dashArray: "6 6" };
+          if (mode === "flight" || mode === "air") {
+            pathOptions = { color: "var(--silver)", weight: 2.5, opacity: 0.8, dashArray: "4 6" };
+          } else if (mode === "train" || mode === "rail") {
+            pathOptions = { color: "#1d1f25", weight: 3.5, opacity: 0.8, dashArray: "8 4" };
           }
+          fallbackSegments.push({
+            key: `fb-${key}`,
+            positions: [[p1.lat, p1.lng], [p2.lat, p2.lng]],
+            pathOptions,
+          });
         }
       }
     }
-    return { segments, midpoints };
+
+    // Render real polylines from segmentPolylines
+    const realSegments = [...segmentsByDay.values()].map((sp) => ({
+      key: `real-${sp.day}-${sp.from_seq}-${sp.to_seq}`,
+      positions: sp.polyline,
+      // Uber-style: dark line with subtle halo
+      mode: sp.mode,
+    }));
+
+    return { realSegments, fallbackSegments, midpoints };
   };
 
-  const { segments: daySegments, midpoints: segmentMidpoints } = interactive ? buildSegments() : { segments: [], midpoints: [] };
+  const { realSegments, fallbackSegments, midpoints } = interactive
+    ? buildSegmentRenderables()
+    : { realSegments: [], fallbackSegments: [], midpoints: [] };
 
   return (
     <div className={`map-fullscreen ${useGoogle ? "map-google" : ""}`}>
@@ -364,7 +365,7 @@ export function MapView({
           selectedDay={selectedDay}
         />
 
-        {interactive && <PixelTracker mapPoints={mapPoints} />}
+        {interactive && <PixelTracker />}
 
         {useGoogle ? (
           <TileLayer
@@ -378,16 +379,16 @@ export function MapView({
           <TileLayer
             key="carto"
             url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+            attribution='&copy; OSM &copy; CARTO'
             maxZoom={19}
           />
         )}
 
-        {/* Main route polyline */}
-        {polylinePositions.length > 1 && (
+        {/* Main inter-city polyline (origin → destination) */}
+        {mainPolyline && mainPolyline.length > 1 && (
           <>
             <Polyline
-              positions={polylinePositions}
+              positions={mainPolyline}
               pathOptions={
                 isFlight
                   ? { color: "#2a2d33", weight: 6, opacity: 0.05, dashArray: "10 10" }
@@ -395,25 +396,39 @@ export function MapView({
               }
             />
             <Polyline
-              positions={polylinePositions}
+              positions={mainPolyline}
               pathOptions={
                 isFlight
-                  ? { color: "var(--silver)", weight: 2, opacity: 0.8, dashArray: "6 6", className: "route-polyline" }
-                  : { color: "#1d1f25", weight: 2.4, opacity: 0.88, className: "route-polyline" }
+                  ? { color: "var(--silver)", weight: 2, opacity: 0.85, dashArray: "6 6", className: "route-polyline" }
+                  : { color: "#1d1f25", weight: 2.6, opacity: 0.9, className: "route-polyline" }
               }
             />
           </>
         )}
 
-        {/* Per-day sequence polylines with transport mode styling */}
-        {daySegments.map(s => (
+        {/* Real ORS road polylines (Uber-style: halo + dark line) */}
+        {realSegments.map((s) => (
+          <Fragment key={s.key}>
+            <Polyline
+              positions={s.positions}
+              pathOptions={{ color: "#2a2d33", weight: 7, opacity: 0.12 }}
+            />
+            <Polyline
+              positions={s.positions}
+              pathOptions={{
+                color: s.mode === "cab" ? "#1d1f25" : "#3a3d44",
+                weight: 3.5, opacity: 0.92,
+                className: "route-polyline",
+              }}
+            />
+          </Fragment>
+        ))}
+
+        {/* Fallback straight-line segments */}
+        {fallbackSegments.map((s) => (
           <Polyline key={s.key} positions={s.positions} pathOptions={s.pathOptions} />
         ))}
 
-        {/* Segment cost/time labels at midpoints */}
-        {segmentMidpoints.map(m => (
-          <Marker key={m.key} position={[m.lat, m.lng]} icon={m.icon} interactive={false} />
-        ))}
 
         {/* Markers */}
         {mapPoints.map((pt, i) => {
@@ -423,7 +438,7 @@ export function MapView({
           const dimmed = selectedDay != null && pt.day != null && pt.day !== selectedDay;
           const cost = costByPointId[id] || null;
           const icon = isSeq
-            ? seqIcon({ seq: pt.seq, active, dimmed, cost: dimmed ? null : cost })
+            ? seqIcon({ seq: pt.seq, active, dimmed })
             : silverIcon({ active });
           return (
             <Marker
@@ -434,111 +449,15 @@ export function MapView({
               eventHandlers={{
                 click: () => {
                   setActivePointId(id, [pt.lat, pt.lng]);
+                  if (onSelectDay && pt.day != null && pt.day !== selectedDay) {
+                    onSelectDay(pt.day);
+                  }
                 },
               }}
-            >
-              <Popup>
-                <div style={{ fontFamily: "Inter, sans-serif", minWidth: 160 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-                    <div
-                      style={{
-                        width: 10, height: 10, borderRadius: 999,
-                        background: "var(--chrome)",
-                        boxShadow: "0 0 6px rgba(0,0,0,0.18)",
-                      }}
-                    />
-                    <span style={{ fontWeight: 700, fontSize: 13, color: "var(--platinum)" }}>
-                      {pt.label}
-                    </span>
-                  </div>
-                  <Pill tone="muted">{TYPE_LABEL[pt.type] || pt.type}</Pill>
-                </div>
-              </Popup>
-            </Marker>
+            />
           );
         })}
       </MapContainer>
-
-      {/* Floating cost summary on map (bottom-right, above zoom controls) */}
-      {interactive && costBreakdown && costBreakdown.total > 0 && (
-        <div
-          style={{
-            position: "absolute",
-            bottom: 16,
-            right: 16,
-            zIndex: 1000,
-            pointerEvents: "auto",
-          }}
-        >
-          <GlassPanel strong style={{
-            padding: "10px 14px",
-            borderRadius: 12,
-            display: "flex",
-            flexDirection: "column",
-            gap: 6,
-            minWidth: 150,
-          }}>
-            <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.12em", color: "var(--silver)", textTransform: "uppercase" }}>
-              Cost per person
-            </div>
-            <div style={{ fontSize: 20, fontWeight: 800, color: "var(--platinum)", lineHeight: 1 }}>
-              ₹{(costBreakdown.total || 0).toLocaleString()}
-            </div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 3 }}>
-              {costBreakdown.transport > 0 && (
-                <span style={{ fontSize: 9, color: "var(--silver)" }}>🚗 ₹{costBreakdown.transport.toLocaleString()}</span>
-              )}
-              {costBreakdown.hotel > 0 && (
-                <span style={{ fontSize: 9, color: "var(--silver)" }}>🏨 ₹{costBreakdown.hotel.toLocaleString()}</span>
-              )}
-              {costBreakdown.activities > 0 && (
-                <span style={{ fontSize: 9, color: "var(--silver)" }}>⚡ ₹{costBreakdown.activities.toLocaleString()}</span>
-              )}
-              {costBreakdown.food > 0 && (
-                <span style={{ fontSize: 9, color: "var(--silver)" }}>🍽 ₹{costBreakdown.food.toLocaleString()}</span>
-              )}
-            </div>
-          </GlassPanel>
-        </div>
-      )}
-
-      {/* Engine toggle pill */}
-      {!panning && (
-        <div style={{ position: "absolute", top: 14, right: 16, zIndex: 1000, pointerEvents: "auto" }}>
-          <GlassPanel style={{ display: "inline-flex", alignItems: "center", gap: 2, padding: 4, borderRadius: 999 }}>
-            {[
-              { id: "classic", label: "Classic" },
-              { id: "uber",    label: "Uber", disabled: !googleTiles },
-            ].map((opt) => (
-              <button
-                key={opt.id}
-                type="button"
-                disabled={opt.disabled}
-                onClick={() => !opt.disabled && onEngineChange && onEngineChange(opt.id)}
-                title={opt.disabled ? "Google Maps tiles unavailable (check key)" : "Google Maps — Uber-style"}
-                style={{
-                  padding: "5px 12px",
-                  borderRadius: 999,
-                  background: engine === opt.id
-                    ? "linear-gradient(180deg, #3a3d44, #1d1f25)"
-                    : "transparent",
-                  color: engine === opt.id ? "#f5f5f7" : opt.disabled ? "var(--silver)" : "var(--chrome)",
-                  fontSize: 10.5,
-                  fontWeight: 700,
-                  letterSpacing: "0.06em",
-                  textTransform: "uppercase",
-                  cursor: opt.disabled ? "not-allowed" : "pointer",
-                  border: "none",
-                  opacity: opt.disabled ? 0.55 : 1,
-                  transition: "background 0.2s",
-                }}
-              >
-                {opt.label}
-              </button>
-            ))}
-          </GlassPanel>
-        </div>
-      )}
     </div>
   );
 }

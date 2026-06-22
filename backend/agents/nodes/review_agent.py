@@ -109,7 +109,7 @@ def review_agent_node(state: TripState) -> dict:
     }
 
     try:
-        llm = get_llm()
+        llm = get_llm("review")
         resp = llm.invoke([
             SystemMessage(content=_SYSTEM),
             HumanMessage(content=_HUMAN.format(

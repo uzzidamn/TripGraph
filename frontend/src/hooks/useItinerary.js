@@ -42,6 +42,7 @@ const INITIAL = {
   insightsPerPlace: {},
   review: null,
   architectPlan: null,
+  segmentPolylines: [],
   retrievalSource: {},
   retrievalPasses: 0,
 
@@ -150,6 +151,7 @@ export function useItinerary() {
           insightsPerPlace: data.insights_per_place ?? {},
           review: data.review ?? null,
           architectPlan: data.architect_plan ?? null,
+          segmentPolylines: data.segment_polylines ?? [],
           retrievalSource: data.retrieval_source ?? {},
           retrievalPasses: data.retrieval_passes ?? 0,
           delayResult: null,

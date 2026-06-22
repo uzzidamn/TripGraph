@@ -39,22 +39,73 @@ class OpenWeatherMapClient:
             return None
 
     @classmethod
-    def get_forecast(cls, lat: float, lng: float, days: int = 3) -> dict | None:
-        """Fetch a per-day condensed forecast for the next `days` days (max 5).
+    def get_forecast(cls, lat: float, lng: float, days: int = 7) -> dict | None:
+        """Fetch a per-day condensed forecast.
+
+        Tries One Call API 3.0 first (gives 8 days of daily data). Falls back
+        to the legacy 5-day/3-hour endpoint when One Call isn't subscribed.
 
         Returns:
             {
               "<YYYY-MM-DD>": {
                 "temp_min": float, "temp_max": float,
-                "description": "<dominant 3hr-slot description>",
-                "summary": "<rain|clouds|clear|snow|thunderstorm|...>",
-                "pop_max": float   # max probability-of-precipitation across the day
-              },
-              ...
+                "description": "...",
+                "summary": "rain|clouds|clear|...",
+                "pop_max": float
+              }
             }
         """
         if not OPENWEATHERMAP_API_KEY:
             return None
+
+        out = cls._fetch_onecall(lat, lng, days)
+        if out:
+            return out
+        # One Call 3.0 not subscribed on this key — fall back to /forecast
+        return cls._fetch_5day(lat, lng, min(days, 5))
+
+    @classmethod
+    def _fetch_onecall(cls, lat: float, lng: float, days: int) -> dict | None:
+        """One Call API 3.0 — 8-day daily forecast in a single call."""
+        url = "https://api.openweathermap.org/data/3.0/onecall"
+        params = {
+            "lat": lat, "lon": lng,
+            "appid": OPENWEATHERMAP_API_KEY,
+            "units": "metric",
+            "exclude": "minutely,hourly,alerts,current",
+        }
+        try:
+            response = requests.get(url, params=params, timeout=10)
+            if response.status_code in (401, 403, 429):
+                # Key not subscribed to One Call 3.0
+                return None
+            response.raise_for_status()
+            data = response.json()
+            daily = data.get("daily") or []
+            if not daily:
+                return None
+            out: dict[str, dict] = {}
+            for d in daily[:days]:
+                ts = d.get("dt")
+                if not ts:
+                    continue
+                day = datetime.utcfromtimestamp(ts).date().isoformat()
+                w = (d.get("weather") or [{}])[0]
+                temp = d.get("temp") or {}
+                out[day] = {
+                    "temp_min": round(temp.get("min", 0), 1),
+                    "temp_max": round(temp.get("max", 0), 1),
+                    "description": w.get("description", ""),
+                    "summary": (w.get("main") or "").lower(),
+                    "pop_max": round(d.get("pop", 0.0), 2),
+                }
+            return out
+        except Exception:
+            return None
+
+    @classmethod
+    def _fetch_5day(cls, lat: float, lng: float, days: int) -> dict | None:
+        """Legacy 5-day / 3-hour forecast — condense per day."""
         url = f"{cls.BASE_URL}/forecast"
         params = {"lat": lat, "lon": lng, "appid": OPENWEATHERMAP_API_KEY, "units": "metric"}
         try:
@@ -78,7 +129,6 @@ class OpenWeatherMapClient:
                 slots_for_day = by_day[day]
                 temps = [s["main"]["temp"] for s in slots_for_day if "main" in s]
                 pops = [s.get("pop", 0.0) for s in slots_for_day]
-                # Dominant description = most common across slots, biased to midday
                 midday = min(slots_for_day, key=lambda s: abs(
                     datetime.utcfromtimestamp(s["dt"]).hour - 13
                 ))

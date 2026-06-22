@@ -143,6 +143,8 @@ def run_workflow_from_constraints(constraints: dict) -> TripState:
     from backend.agents.nodes.traffic_agent import traffic_agent_node
     from backend.agents.nodes.insights_agent import insights_agent_node
     from backend.agents.nodes.architect import architect_node
+    from backend.agents.nodes.photo_enricher import photo_enricher_node
+    from backend.agents.nodes.segment_router import segment_router_node
     from backend.agents.nodes.review_agent import review_agent_node
 
     # 1) Retrieve candidate data (2-pass KG↔API)
@@ -167,6 +169,13 @@ def run_workflow_from_constraints(constraints: dict) -> TripState:
     for iteration in range(max_iterations):
         print(f"\n🧠 Planner iteration {iteration + 1}/{max_iterations}...")
         state.update(architect_node(state))
+
+        # Enrich timeline events with Google Place photos (for KG-sourced events
+        # that don't carry a photo_name).
+        state.update(photo_enricher_node(state))
+
+        # Compute real road-following polylines between consecutive stops
+        state.update(segment_router_node(state))
 
         # 4) Side-channel pending-API agents (silent stubs)
         state.update(deals_agent_node(state))

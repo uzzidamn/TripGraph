@@ -69,9 +69,31 @@ YOUR JOB:
     - If the chosen mode is "train", similar transition events to/from train stations MUST be created on Day 1.
     - On the return day, you MUST include similar transition events returning to the origin city.
 11. INTRA-CITY TRAVEL & TRAFFIC BUFFERS:
-    - Include explicit "travel" type events between physical stops if the travel time is >15 minutes.
+    - Include explicit "travel" type events between EVERY two physical stops, even short ones (>5 minutes).
+    - Title format: "Travel to <next event name>" (e.g., "Travel to Fort Aguada"). The title MUST name the next destination so the user always knows what's next.
     - Calculate the travel duration from the provided driving-time matrix.
     - Add a realistic traffic buffer (e.g. 10-20 minutes depending on distance) and state this in the event's "why" field (e.g. "45 min drive via cab, includes 15 min buffer for peak traffic").
+    - For the LAST event of each day (except the return-home day), add a final "travel" event titled "Return to hotel — <hotel name>" with the journey back.
+    - For Day 2 onwards (except the return day), the FIRST event of each day should be type="rest" or "meal" titled "Breakfast at <hotel name>" / "Morning at <hotel name>" so the user sees the day begins at their stay.
+
+12. NO IDLE GAPS — FILL EVERY DAY MEANINGFULLY:
+    - After hotel check-in (typically 14:00–15:00), the rest of Day 1 MUST be used. Schedule a buffer (30–45 min for unpacking), then a low-fatigue nearby activity: a sunset walk near the hotel, the hotel's signature restaurant/pool, a short visit to a famous nearby landmark (within 15 min). Never end Day 1 at 16:00 with no further plans.
+    - Type these wind-down activities as "rest" with morale 6-8, fatigue 2-3 and clearly say in "why" that this is intentionally light (e.g., "Recovery from morning travel; explore the hotel grounds and dinner at the in-house restaurant").
+    - For free evening slots on any day, add named activities ("Sunset at Miramar Beach", "Dinner at hotel rooftop", "Local market walk") — NOT generic "Free time".
+
+13. TRANSPORT MODE ON EVERY TRAVEL EVENT:
+    - Every "travel" event MUST set transport_mode to one of: "flight", "train", "cab", "auto", "scooter", "walk", "bus", "ferry".
+    - Use "walk" for distances <800m, "auto" or "scooter" for short hops in cities like Goa/Pondicherry, "cab" for the default, "ferry" for island/river crossings.
+    - State this clearly in the why field too (e.g., "Auto-rickshaw, ~10 min — most authentic way to navigate Old Goa lanes").
+    - BACKPACKER MODE (when hotel_tier is "budget" OR budget_per_person < ₹15000): for EVERY travel event also include in "tips":
+        * Specific local bus route number / depot if applicable (e.g., "Kadamba Bus from Panaji bus stand to Calangute — ₹35, 45 min, every 20 min")
+        * Typical auto-rickshaw fare (e.g., "Auto: ₹120 metered, ₹180 if negotiated")
+        * Typical Uber/Ola estimate (e.g., "Uber Go: ₹250-300, Uber Auto: ₹140-180")
+        * Scooter/bike rental rate if relevant (e.g., "Activa rental: ₹400/day, fuel ₹100")
+    - For comfort+ travelers: just give the Uber/Ola estimate, skip the bus detail.
+
+14. COST_SUMMARY HOTEL DETAIL:
+    - In cost_summary, also emit "hotel_breakdown": a list of {"name": "<hotel name>", "nights": int, "per_night": int, "total_pp": int}. If the trip uses a single hotel, the list has one item. If hotels change (e.g., switch from beach hotel to city hotel), list each separately so the user sees which hotel cost what.
 
 OUTPUT — exactly ONE valid JSON object, no markdown, matching this schema:
 
@@ -99,7 +121,8 @@ OUTPUT — exactly ONE valid JSON object, no markdown, matching this schema:
           "morale": int 0-10,
           "skippability": "must" | "recommend" | "optional",
           "estimated_cost_pp": int,   // INR per person, 0 for included/free
-          "transport_mode": "flight" | "train" | "cab" | "walk" | null // for type "travel"
+          "transport_mode": "flight" | "train" | "cab" | "walk" | null, // for type "travel"
+          "fun_facts": ["2-3 SPECIFIC verified facts about this location, attraction, or transit point — not generic. Use full place name + 'India' for context. Example for 'Goa airport': 'Dabolim Airport (GOI) is one of India's busiest tourist airports' / 'It was a naval airport until 1955'. For a fort: '3 specific historical/architectural facts about THIS fort.' MUST be factually true. 2-3 strings."]
         }
       ],
       "day_summary": "one sentence on the day's arc"
@@ -270,7 +293,7 @@ def architect_node(state: TripState) -> dict:
         payload += feedback_str
 
     try:
-        llm = get_llm()
+        llm = get_llm("architect")
         resp = llm.invoke([SystemMessage(content=_SYSTEM), HumanMessage(content=payload)])
         raw = extract_text_content(resp.content).strip()
         if raw.startswith("```"):
@@ -289,7 +312,7 @@ def architect_node(state: TripState) -> dict:
     timeline: list[dict] = []
     fatigue: dict[str, Any] = {}
     point_id_by_event: dict[str, str] = {}
-    map_points: list[dict] = _seed_map_points(route, constraints, hotel)
+    map_points: list[dict] = _seed_map_points(route, constraints, hotel, mode, state.get("terminal_info") or {})
     points_by_id = {p["id"]: p for p in map_points}
 
     for d in plan.get("days") or []:
@@ -339,6 +362,16 @@ def architect_node(state: TripState) -> dict:
                     if t_mode:
                         points_by_id[pt_id]["mode"] = t_mode
 
+            # Calculate duration_minutes from start/end if not provided
+            try:
+                sh, sm = [int(x) for x in start.split(":")]
+                eh, em = [int(x) for x in end.split(":")]
+                duration_min = (eh * 60 + em) - (sh * 60 + sm)
+                if duration_min <= 0:
+                    duration_min = None
+            except Exception:
+                duration_min = None
+
             tl_event = {
                 "id": event_id,
                 "day": day_n,
@@ -353,17 +386,20 @@ def architect_node(state: TripState) -> dict:
                 "lat": lat, "lng": lng,
                 "point_id": pt_id,
                 "transport_mode": t_mode,
+                "duration_minutes": duration_min,
+                "fun_facts": ev.get("fun_facts") or [],
             }
             cost = ev.get("estimated_cost_pp")
             if cost:
                 tl_event["cost"] = int(cost)
 
             # Carry through enrichment fields from the original candidate so the
-            # popover gets the photo / rating / opening hours.
+            # popover gets the photo / rating / opening hours / KG confidence.
             cand = _find_candidate(activities, restaurants, ev.get("place_id"), title)
             if cand:
                 for k in ("photo_name", "editorial_summary", "rating", "rating_count",
-                          "opening_hours", "tags", "address", "website"):
+                          "opening_hours", "tags", "address", "website",
+                          "confidence_pct", "verification_status", "insider_tip"):
                     if cand.get(k) and not tl_event.get(k):
                         tl_event[k] = cand[k]
 
@@ -387,6 +423,7 @@ def architect_node(state: TripState) -> dict:
         "miscellaneous": int(cost.get("miscellaneous_pp") or 1500),
         "total": int(cost.get("total_pp") or 0) or _sum_cost(cost),
         "budget_limit": int(constraints.get("budget_per_person") or 0),
+        "hotel_breakdown": cost.get("hotel_breakdown") or [],
     }
 
     # Merge architect enrichment into selected_itinerary
@@ -440,34 +477,49 @@ def _sum_cost(c: dict) -> int:
                                             "food_pp_total", "miscellaneous_pp"))
 
 
-def _seed_map_points(route: dict, constraints: dict, hotel: dict) -> list[dict]:
-    """Seed origin/destination/hotel pins so they always show up on the map."""
+def _seed_map_points(route: dict, constraints: dict, hotel: dict,
+                     mode: str = "drive", terminal_info: dict | None = None) -> list[dict]:
+    """Seed map pins:
+      - origin = city center (always)
+      - destination = city center (only for non-flight; for flight, omitted so
+        the architect's airport+hotel events are the visible endpoints)
+      - hotel pin
+      - airport pins (for flight mode) — sit between origin and destination so
+        segment_router draws origin → airport (road) and dest_airport → hotel (road)
+    """
     pts = []
+    terminal_info = terminal_info or {}
+
+    # Origin — always city center
     if route.get("origin"):
         olabel = route.get("origin")
-        lat = route.get("origin_lat")
-        lng = route.get("origin_lng")
-        if lat is None or lng is None or (lat == 0 and lng == 0):
+        olat = route.get("origin_lat")
+        olng = route.get("origin_lng")
+        if olat is None or olng is None or (olat == 0 and olng == 0):
             try:
                 from backend.api_clients.ors_client import ORSClient
-                geo = ORSClient.geocode(olabel)
+                geo = ORSClient.geocode(route.get("origin"))
                 if geo:
-                    lat, lng = geo["lat"], geo["lng"]
+                    olat, olng = geo["lat"], geo["lng"]
             except Exception:
                 pass
-        if not lat or not lng:
-            lat, lng = 28.4595, 77.0266
-        pts.append({"id": f"origin:{olabel}", "lat": lat, "lng": lng, "label": olabel,
-                    "type": "origin", "day": 1, "seq": 0})
-    if route.get("dest_lat") and route.get("dest_lng"):
-        dlabel = route.get("destination") or "Destination"
-        pts.append({"id": f"destination:{dlabel}", "lat": route["dest_lat"],
-                    "lng": route["dest_lng"], "label": dlabel, "type": "destination",
-                    "day": 1, "seq": 1})
+        if not olat or not olng:
+            olat, olng = 28.4595, 77.0266
+        pts.append({"id": f"origin:{route.get('origin')}", "lat": olat, "lng": olng,
+                    "label": olabel, "type": "origin", "day": 1, "seq": 0})
+
+    # Destination city pin — only for non-flight road trips. Push to high seq
+    # so it doesn't clash with the architect's first event (which is also seq=1).
+    if mode != "flight" and route.get("dest_lat") and route.get("dest_lng"):
+        pts.append({"id": f"destination:{route.get('destination') or 'dest'}",
+                    "lat": route["dest_lat"], "lng": route["dest_lng"],
+                    "label": route.get("destination") or "Destination",
+                    "type": "destination"})  # no day/seq → not part of any day's sequence
+
     if hotel.get("lat") and hotel.get("lng"):
         hid = hotel.get("hotel_id") or hotel.get("name") or "hotel"
         pts.append({"id": f"hotel:{hid}", "lat": hotel["lat"], "lng": hotel["lng"],
-                    "label": hotel.get("name", "Hotel"), "type": "hotel", "day": 1, "seq": 2})
+                    "label": hotel.get("name", "Hotel"), "type": "hotel"})  # no day/seq either
     return pts
 
 

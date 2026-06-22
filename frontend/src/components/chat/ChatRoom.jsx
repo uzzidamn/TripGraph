@@ -1,39 +1,91 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Send, MessageCircle, Loader2, Navigation } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Send, Loader2, Sparkles } from "lucide-react";
+import { PalmCompass } from "../ui/PalmCompass";
 
-const PLACEHOLDER_MESSAGES = [
-  "Guys Rishikesh this weekend? I can do ₹15k max",
-  "Yes! But I can't do night driving please",
-  "Need rafting for sure, and good cafes",
-  "Back by Monday morning sharp",
+const TRAVEL_QUOTES = [
+  { q: "The world is a book, and those who do not travel read only one page.", a: "Augustine of Hippo" },
+  { q: "Travel is the only thing you buy that makes you richer.", a: "Anonymous" },
+  { q: "Not all those who wander are lost.", a: "J.R.R. Tolkien" },
+  { q: "We travel not to escape life, but for life not to escape us.", a: "Anonymous" },
+  { q: "Adventure is worthwhile in itself.", a: "Amelia Earhart" },
+  { q: "Travel makes one modest. You see what a tiny place you occupy in the world.", a: "Gustave Flaubert" },
+  { q: "The journey of a thousand miles begins with a single step.", a: "Lao Tzu" },
+  { q: "Life is either a daring adventure or nothing at all.", a: "Helen Keller" },
+  { q: "Once a year, go someplace you've never been before.", a: "Dalai Lama" },
+  { q: "Wherever you go, go with all your heart.", a: "Confucius" },
+  { q: "Take only memories, leave only footprints.", a: "Chief Seattle" },
+  { q: "Travel is fatal to prejudice, bigotry, and narrow-mindedness.", a: "Mark Twain" },
+  { q: "Jobs fill your pocket, adventures fill your soul.", a: "Jaime Lyn Beatty" },
+  { q: "Travel far enough, you meet yourself.", a: "David Mitchell" },
+  { q: "I haven't been everywhere, but it's on my list.", a: "Susan Sontag" },
+  { q: "The real voyage of discovery consists not in seeking new landscapes, but in having new eyes.", a: "Marcel Proust" },
+  { q: "To travel is to live.", a: "Hans Christian Andersen" },
+  { q: "Two roads diverged in a wood, and I took the one less traveled by.", a: "Robert Frost" },
+  { q: "Travelling — it leaves you speechless, then turns you into a storyteller.", a: "Ibn Battuta" },
+  { q: "A ship in harbor is safe, but that is not what ships are built for.", a: "John A. Shedd" },
 ];
 
-const EXAMPLE_CHATS = [
-  { label: "Rishikesh weekend", messages: PLACEHOLDER_MESSAGES },
+const PREBUILT_TRIPS = [
   {
-    label: "Jaipur heritage",
+    label: "Goa monsoon escape",
+    icon: "🌴",
     messages: [
-      "Jaipur trip next week, budget ₹12k per head",
-      "Heritage sites only please, no adventure",
-      "Comfortable hotel, not budget",
-      "4 people, back by Sunday night",
+      "Looking at a Goa trip from Chandigarh, 5 days",
+      "Budget about ₹50k per person",
+      "Mix of beach, heritage, and good Goan food",
+      "Comfortable hotel, group of 4",
+      "Flying preferred — don't want a long drive",
     ],
   },
-];
-
-const AVATARS = ["A", "B", "C", "D"];
-
-const AVATAR_COLORS = [
-  "rgba(207,214,224,0.3)",
-  "rgba(0,206,201,0.3)",
-  "rgba(253,203,110,0.3)",
-  "rgba(0,184,148,0.3)",
+  {
+    label: "Jaipur heritage weekend",
+    icon: "🏰",
+    messages: [
+      "Jaipur weekend from Gurugram, 3 days",
+      "Budget ₹15k per person",
+      "Heritage sites, palaces, local food",
+      "Mid-range hotel, 4 people",
+      "Driving down is fine",
+    ],
+  },
+  {
+    label: "Manali backpacker",
+    icon: "🏔️",
+    messages: [
+      "Manali trip from Delhi, 4 days on a tight budget",
+      "₹10k per person, hostels are fine",
+      "Hiking, cafés, Old Manali vibe",
+      "2 people, taking overnight bus is OK",
+      "Need rough idea of local transport costs too",
+    ],
+  },
+  {
+    label: "Kerala backwaters",
+    icon: "🛶",
+    messages: [
+      "Kerala trip — Kochi, Alleppey, Munnar — 6 days",
+      "Budget ₹35k per person",
+      "Houseboat night is a must, want hill views too",
+      "Mid-range hotels, 3 people",
+      "Flying from Bangalore",
+    ],
+  },
 ];
 
 export function ChatRoom({ onSubmit, loading }) {
   const [draft, setDraft] = useState("");
   const [messages, setMessages] = useState([]);
+  const [quoteIdx, setQuoteIdx] = useState(() => Math.floor(Math.random() * TRAVEL_QUOTES.length));
+
+  // Rotate quotes every 6 seconds — pauses if the user has started typing
+  useEffect(() => {
+    if (messages.length > 0 || draft.length > 0) return;
+    const timer = setInterval(() => {
+      setQuoteIdx((i) => (i + 1) % TRAVEL_QUOTES.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [messages.length, draft.length]);
 
   const addMessage = (text) => {
     const trimmed = text.trim();
@@ -49,211 +101,165 @@ export function ChatRoom({ onSubmit, loading }) {
     }
   };
 
+  const currentQuote = TRAVEL_QUOTES[quoteIdx];
+  const isEmpty = messages.length === 0 && draft.length === 0;
+
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-      {/* Hero heading */}
-      <div style={{ textAlign: "center" }}>
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "8px",
-            marginBottom: "12px",
-          }}
-        >
-          <div
-            style={{
-              width: "38px",
-              height: "38px",
-              borderRadius: "10px",
-              background: "linear-gradient(135deg, #9aa3b2, #00cec9)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Navigation size={18} style={{ color: "#f5f5f7" }} />
-          </div>
+    <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+      {/* Prebuilt trips — top row */}
+      <div>
+        <div style={{
+          fontSize: 9.5, fontWeight: 700, letterSpacing: "0.14em",
+          color: "var(--silver)", textTransform: "uppercase",
+          textAlign: "center", marginBottom: 10,
+        }}>
+          Try a prebuilt plan
         </div>
-        <h1
-          style={{
-            fontSize: "24px",
-            fontWeight: 800,
-            color: "var(--platinum)",
-            letterSpacing: "-0.03em",
-            lineHeight: 1.1,
-            marginBottom: "6px",
-          }}
-        >
-          Plan your group trip
-        </h1>
-        <p style={{ fontSize: "13px", color: "var(--silver)", lineHeight: 1.5 }}>
-          Paste your WhatsApp conversation — AI extracts preferences instantly
-        </p>
-      </div>
-
-      {/* Example chips */}
-      <div style={{ display: "flex", gap: "8px", justifyContent: "center", flexWrap: "wrap" }}>
-        {EXAMPLE_CHATS.map(({ label, messages: msgs }) => (
-          <button
-            key={label}
-            onClick={() => setMessages(msgs)}
-            style={{
-              padding: "5px 14px",
-              borderRadius: "999px",
-              border: "1px solid var(--rim)",
-              background: "rgba(0,0,0,0.04)",
-              color: "var(--silver)",
-              fontSize: "11px",
-              fontWeight: 600,
-              cursor: "pointer",
-              fontFamily: "Inter, sans-serif",
-              transition: "all 0.2s",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(207,214,224,0.15)";
-              e.currentTarget.style.color = "#cfd6e0";
-              e.currentTarget.style.borderColor = "rgba(207,214,224,0.3)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "rgba(0,0,0,0.04)";
-              e.currentTarget.style.color = "#94a3b8";
-              e.currentTarget.style.borderColor = "rgba(0,0,0,0.10)";
-            }}
-          >
-            Try: {label}
-          </button>
-        ))}
-      </div>
-
-      {/* Chat window */}
-      <div
-        style={{
-          background: "rgba(0,0,0,0.03)",
-          border: "1px solid var(--rim)",
-          borderRadius: "14px",
-          overflow: "hidden",
-        }}
-      >
-        {/* Chat header */}
-        <div
-          style={{
-            padding: "10px 14px",
-            borderBottom: "1px solid var(--rim)",
-            display: "flex",
-            alignItems: "center",
-            gap: "6px",
-          }}
-        >
-          <MessageCircle size={13} style={{ color: "#cfd6e0" }} />
-          <span
-            style={{
-              fontSize: "10px",
-              fontWeight: 700,
-              color: "var(--silver)",
-              textTransform: "uppercase",
-              letterSpacing: "0.08em",
-            }}
-          >
-            Group Chat
-          </span>
-          {messages.length > 0 && (
-            <span style={{ marginLeft: "auto", fontSize: "10px", color: "var(--silver)" }}>
-              {messages.length} message{messages.length !== 1 ? "s" : ""}
-            </span>
-          )}
-        </div>
-
-        {/* Messages */}
-        <div
-          style={{
-            minHeight: "150px",
-            maxHeight: "240px",
-            overflowY: "auto",
-            padding: "12px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "8px",
-          }}
-        >
-          {messages.length === 0 ? (
-            <p
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          gap: 8,
+        }}>
+          {PREBUILT_TRIPS.map(({ label, icon, messages: msgs }) => (
+            <motion.button
+              key={label}
+              whileHover={{ scale: 1.02, y: -1 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => setMessages(msgs)}
               style={{
-                textAlign: "center",
-                color: "var(--silver)",
-                fontSize: "12px",
-                marginTop: "40px",
-                fontStyle: "italic",
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "9px 12px",
+                borderRadius: 10,
+                border: "1px solid var(--rim)",
+                background: "rgba(255,255,255,0.6)",
+                color: "var(--chrome)",
+                fontSize: 12,
+                fontWeight: 600,
+                cursor: "pointer",
+                fontFamily: "Inter, sans-serif",
+                textAlign: "left",
+                transition: "background 0.15s, border-color 0.15s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(255,255,255,0.95)";
+                e.currentTarget.style.borderColor = "var(--chrome)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "rgba(255,255,255,0.6)";
+                e.currentTarget.style.borderColor = "var(--rim)";
               }}
             >
-              Type a message or try an example above
-            </p>
+              <span style={{ fontSize: 16 }}>{icon}</span>
+              <span style={{ flex: 1 }}>{label}</span>
+            </motion.button>
+          ))}
+        </div>
+      </div>
+
+      {/* Divider */}
+      <div style={{
+        display: "flex", alignItems: "center", gap: 10,
+      }}>
+        <div style={{ flex: 1, height: 1, background: "var(--rim)" }} />
+        <span style={{
+          fontSize: 9.5, fontWeight: 700, letterSpacing: "0.14em",
+          color: "var(--silver)", textTransform: "uppercase",
+        }}>
+          or tell us your trip
+        </span>
+        <div style={{ flex: 1, height: 1, background: "var(--rim)" }} />
+      </div>
+
+      {/* Chat / input box with rotating quotes as the empty-state */}
+      <div style={{
+        background: "rgba(255,255,255,0.7)",
+        border: "1px solid var(--rim)",
+        borderRadius: 16,
+        overflow: "hidden",
+        boxShadow: "0 4px 14px rgba(20,22,28,0.04)",
+      }}>
+        {/* Messages list / quote */}
+        <div style={{
+          minHeight: 170, maxHeight: 240,
+          overflowY: "auto",
+          padding: "20px 18px",
+          display: "flex", flexDirection: "column", gap: 10,
+          justifyContent: isEmpty ? "center" : "flex-start",
+        }}>
+          {isEmpty ? (
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={quoteIdx}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                style={{
+                  display: "flex", flexDirection: "column", alignItems: "center",
+                  gap: 8, textAlign: "center", padding: "0 12px",
+                }}
+              >
+                <PalmCompass size={20} color="var(--silver)" />
+                <p style={{
+                  fontSize: 14, fontWeight: 500, lineHeight: 1.55,
+                  color: "var(--platinum)", letterSpacing: "-0.01em",
+                  fontStyle: "italic", maxWidth: 380,
+                }}>
+                  "{currentQuote.q}"
+                </p>
+                <span style={{
+                  fontSize: 10.5, color: "var(--silver)",
+                  letterSpacing: "0.08em", textTransform: "uppercase", fontWeight: 600,
+                }}>
+                  — {currentQuote.a}
+                </span>
+              </motion.div>
+            </AnimatePresence>
           ) : (
             messages.map((msg, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.02 }}
-                style={{ display: "flex", gap: "8px", alignItems: "flex-start" }}
+                transition={{ delay: i * 0.04 }}
+                style={{
+                  alignSelf: "flex-end",
+                  background: "linear-gradient(180deg, #3a3d44, #1d1f25)",
+                  color: "#f5f5f7",
+                  borderRadius: 14,
+                  padding: "8px 14px",
+                  fontSize: 12.5,
+                  lineHeight: 1.5,
+                  maxWidth: "85%",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12), 0 1px 3px rgba(20,22,28,0.18)",
+                }}
               >
-                <div
-                  style={{
-                    width: "24px",
-                    height: "24px",
-                    borderRadius: "50%",
-                    background: AVATAR_COLORS[i % 4],
-                    flexShrink: 0,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "10px",
-                    fontWeight: 700,
-                    color: "var(--platinum)",
-                  }}
-                >
-                  {AVATARS[i % 4]}
-                </div>
-                <div
-                  style={{
-                    background: "rgba(0,0,0,0.04)",
-                    border: "1px solid var(--rim)",
-                    borderRadius: "10px",
-                    padding: "7px 12px",
-                    fontSize: "12px",
-                    color: "var(--platinum)",
-                    lineHeight: 1.5,
-                    maxWidth: "85%",
-                  }}
-                >
-                  {msg}
-                </div>
+                {msg}
               </motion.div>
             ))
           )}
         </div>
 
         {/* Input row */}
-        <div
-          style={{
-            padding: "10px 14px",
-            borderTop: "1px solid var(--rim)",
-            display: "flex",
-            gap: "8px",
-            alignItems: "center",
-          }}
-        >
+        <div style={{
+          padding: "11px 16px",
+          borderTop: "1px solid var(--rim)",
+          display: "flex", gap: 10, alignItems: "center",
+          background: "rgba(255,255,255,0.4)",
+        }}>
           <input
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
             onKeyDown={handleKey}
-            placeholder="Type a message and press Enter…"
+            placeholder="Where to? Tell us what you're after…"
             style={{
               flex: 1,
               background: "transparent",
               border: "none",
               outline: "none",
-              fontSize: "13px",
+              fontSize: 13.5,
               color: "var(--platinum)",
               fontFamily: "Inter, sans-serif",
               fontWeight: 500,
@@ -263,52 +269,60 @@ export function ChatRoom({ onSubmit, loading }) {
             onClick={() => addMessage(draft)}
             disabled={!draft.trim()}
             style={{
-              background: "none",
-              border: "none",
+              background: draft.trim() ? "linear-gradient(180deg, #3a3d44, #1d1f25)" : "rgba(0,0,0,0.04)",
+              border: "1px solid rgba(0,0,0,0.18)",
+              borderRadius: 999,
               cursor: draft.trim() ? "pointer" : "not-allowed",
-              opacity: draft.trim() ? 1 : 0.3,
-              color: "#cfd6e0",
-              display: "flex",
-              alignItems: "center",
-              transition: "opacity 0.2s",
+              color: draft.trim() ? "#f5f5f7" : "var(--silver)",
+              width: 32, height: 32,
+              display: "grid",
+              placeItems: "center",
+              transition: "background 0.15s, opacity 0.15s",
             }}
           >
-            <Send size={15} />
+            <Send size={14} />
           </button>
         </div>
       </div>
 
       {/* Submit */}
-      <button
+      <motion.button
+        whileHover={messages.length > 0 && !loading ? { scale: 1.01 } : {}}
+        whileTap={messages.length > 0 && !loading ? { scale: 0.99 } : {}}
         onClick={() => onSubmit(messages)}
         disabled={messages.length === 0 || loading}
         className="btn-primary"
         style={{
           width: "100%",
-          padding: "13px 0",
-          borderRadius: "12px",
+          padding: "14px 0",
+          borderRadius: 13,
           border: "none",
           color: "#f5f5f7",
-          fontSize: "13px",
+          fontSize: 13.5,
           fontWeight: 700,
           cursor: messages.length === 0 || loading ? "not-allowed" : "pointer",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          gap: "8px",
+          gap: 8,
           fontFamily: "Inter, sans-serif",
-          letterSpacing: "-0.01em",
+          letterSpacing: "0.01em",
+          opacity: messages.length === 0 ? 0.55 : 1,
+          transition: "opacity 0.2s",
         }}
       >
         {loading ? (
           <>
             <Loader2 size={15} style={{ animation: "spin 1s linear infinite" }} />
-            Analysing conversation…
+            Reading the room…
           </>
         ) : (
-          "Extract preferences →"
+          <>
+            <Sparkles size={14} />
+            Plan my trip
+          </>
         )}
-      </button>
+      </motion.button>
     </div>
   );
 }
