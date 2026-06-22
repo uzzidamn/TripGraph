@@ -14,6 +14,8 @@ Main workflow graph:
 Replan workflow graph:
     replan → END
 """
+import os
+
 from langgraph.graph import END, StateGraph
 
 from backend.agents.nodes.chat_parser import chat_parser_node
@@ -164,8 +166,11 @@ def run_workflow_from_constraints(constraints: dict) -> TripState:
     state.update(weather_agent_node(state))
     state.update(insights_agent_node(state))
 
-    # 3) The Architect + Reviewer critic loop (up to 2 iterations)
-    max_iterations = 2
+    # 3) The Architect + Reviewer critic loop.
+    # Each iteration re-runs the (expensive) architect, so default to a single
+    # pass — on small hosts a 2nd full generation doubles latency for marginal
+    # gain. Bump ARCHITECT_MAX_ITERS=2 to re-enable self-correction.
+    max_iterations = int(os.getenv("ARCHITECT_MAX_ITERS", "1"))
     for iteration in range(max_iterations):
         print(f"\n🧠 Planner iteration {iteration + 1}/{max_iterations}...")
         state.update(architect_node(state))

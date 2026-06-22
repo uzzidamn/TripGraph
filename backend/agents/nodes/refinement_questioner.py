@@ -11,7 +11,7 @@ from typing import Any
 
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from backend.agents.llm_client import extract_text_content, get_llm, strip_code_fences
+from backend.agents.llm_client import extract_text_content, get_llm, strip_code_fences, loads_loose
 from backend.agents.prompts import REFINEMENT_QUESTIONER_HUMAN, REFINEMENT_QUESTIONER_SYSTEM
 from backend.agents.state import TripState
 
@@ -77,7 +77,7 @@ def refinement_questioner_node(state: TripState) -> dict:
             )),
         ])
         raw = _strip_code_fences(extract_text_content(response.content))
-        parsed = json.loads(raw)
+        parsed = loads_loose(raw)
         questions = parsed.get("questions") or []
         if not isinstance(questions, list) or len(questions) != 4:
             raise ValueError(f"Expected exactly 4 questions, got {len(questions)}")

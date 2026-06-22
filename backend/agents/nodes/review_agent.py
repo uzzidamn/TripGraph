@@ -23,7 +23,7 @@ import json
 
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from backend.agents.llm_client import extract_text_content, get_llm, strip_code_fences
+from backend.agents.llm_client import extract_text_content, get_llm, strip_code_fences, loads_loose
 from backend.agents.state import TripState
 
 _SYSTEM = """You are a meticulous travel-plan reviewer for TripGraph AI.
@@ -124,7 +124,7 @@ def review_agent_node(state: TripState) -> dict:
         ])
         raw = extract_text_content(resp.content).strip()
         raw = strip_code_fences(raw)
-        p = json.loads(raw.strip())
+        p = loads_loose(raw)
         verdict = p.get("verdict") if p.get("verdict") in ("looks_good", "minor_issues", "needs_attention") else "minor_issues"
         notes = []
         for n in (p.get("notes") or [])[:5]:

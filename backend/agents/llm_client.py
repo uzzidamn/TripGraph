@@ -37,6 +37,28 @@ from langchain_core.language_models import BaseChatModel
 load_dotenv()
 
 
+def loads_loose(text: str):
+    """Parse the first JSON value from an LLM response.
+
+    Tolerates ```json fences AND trailing prose after the JSON (Claude often
+    appends a sentence after a big object, which made json.loads raise
+    "Extra data: ..."). Uses raw_decode to read just the first valid value.
+    """
+    import json
+    t = strip_code_fences(text)
+    try:
+        return json.loads(t)
+    except json.JSONDecodeError:
+        for i, ch in enumerate(t):
+            if ch in "{[":
+                try:
+                    obj, _ = json.JSONDecoder().raw_decode(t[i:])
+                    return obj
+                except json.JSONDecodeError:
+                    continue
+        raise
+
+
 def strip_code_fences(text: str) -> str:
     """Return the inner text of an LLM response, removing ```json / ``` fences.
 

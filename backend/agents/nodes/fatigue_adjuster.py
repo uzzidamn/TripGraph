@@ -12,7 +12,7 @@ from typing import Any
 
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from backend.agents.llm_client import extract_text_content, get_llm, strip_code_fences
+from backend.agents.llm_client import extract_text_content, get_llm, strip_code_fences, loads_loose
 from backend.agents.prompts import FATIGUE_ADJUSTER_HUMAN, FATIGUE_ADJUSTER_SYSTEM
 from backend.agents.state import TripState
 
@@ -118,7 +118,7 @@ def fatigue_adjuster_node(state: TripState) -> dict:
             )),
         ])
         raw = _strip_code_fences(extract_text_content(response.content))
-        parsed = json.loads(raw)
+        parsed = loads_loose(raw)
         ev_map = parsed.get("events") or {}
         # Build the merged result
         # Pick the highest-morale activity as the trip's "signature"

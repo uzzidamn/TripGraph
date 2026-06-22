@@ -25,7 +25,7 @@ from typing import Any
 
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from backend.agents.llm_client import extract_text_content, get_llm, strip_code_fences
+from backend.agents.llm_client import extract_text_content, get_llm, strip_code_fences, loads_loose
 from backend.agents.state import TripState
 from backend.api_clients.google_routes_client import GoogleRoutesClient
 
@@ -297,7 +297,7 @@ def architect_node(state: TripState) -> dict:
         resp = llm.invoke([SystemMessage(content=_SYSTEM), HumanMessage(content=payload)])
         raw = extract_text_content(resp.content).strip()
         raw = strip_code_fences(raw)
-        plan = json.loads(raw.strip())
+        plan = loads_loose(raw)
     except Exception as e:
         print(f"  ⚠️  Architect LLM failed ({e}) — falling back to deterministic template")
         return _fallback_to_template(state)

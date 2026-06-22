@@ -1,7 +1,7 @@
 import json
 import os
 from langchain_core.messages import SystemMessage, HumanMessage
-from backend.agents.llm_client import get_llm, get_grounded_llm, extract_text_content, strip_code_fences
+from backend.agents.llm_client import get_llm, get_grounded_llm, extract_text_content, strip_code_fences, loads_loose
 from backend.agents.prompts import ENRICHER_SYSTEM, ENRICHER_HUMAN
 from backend.agents.state import TripState
 
@@ -63,7 +63,7 @@ def itinerary_enricher_node(state: TripState) -> dict:
         return {"selected_itinerary": itinerary, "enrichment_applied": False}
 
     try:
-        enrichment = json.loads(strip_code_fences(content_str))
+        enrichment = loads_loose(content_str)
     except json.JSONDecodeError:
         if "```json" in content_str:
             content_str = content_str.split("```json")[1].split("```")[0]
