@@ -9,7 +9,9 @@ console.info(`%c[TripGraph] API base URL = ${BASE_URL}`, "color:#cfd6e0;font-wei
 
 const client = axios.create({
   baseURL: BASE_URL,
-  timeout: 120000,
+  // Full plan generation can take ~2.5 min on a small server; the old 120s cap
+  // fired mid-generation and dropped the user onto mock "default data".
+  timeout: 300000,
   headers: { "Content-Type": "application/json" },
 });
 
