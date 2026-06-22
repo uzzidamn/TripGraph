@@ -24,7 +24,7 @@ fi
 
 echo "==> Verifying DNS points here before requesting a cert"
 RESOLVED="$(dig +short "$DOMAIN" | tail -1 || true)"
-MYIP="$(curl -fsSL ifconfig.me || true)"
+MYIP="$(curl -4 -fsSL ifconfig.me || true)"   # force IPv4 — droplet also has IPv6
 echo "    $DOMAIN resolves to: ${RESOLVED:-<nothing>}"
 echo "    this droplet IP is : ${MYIP:-<unknown>}"
 if [[ -n "$RESOLVED" && -n "$MYIP" && "$RESOLVED" != "$MYIP" ]]; then
