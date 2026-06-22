@@ -61,7 +61,9 @@ class ORSClient:
             "layers": ORS_GEOCODE_LAYERS,
         }
         try:
-            response = requests.get(url, params=params, timeout=10)
+            # (connect, read): fail fast on connection stalls so a flaky network
+            # doesn't add ~10s per geocode (×4-5 calls = ~50s) to planning.
+            response = requests.get(url, params=params, timeout=(3.05, 7))
             response.raise_for_status()
             data = response.json()
             features = data.get("features") or []
@@ -121,7 +123,7 @@ class ORSClient:
             "Content-Type": "application/json",
         }
         try:
-            response = requests.post(url, json=body, headers=headers, timeout=15)
+            response = requests.post(url, json=body, headers=headers, timeout=(3.05, 12))
             response.raise_for_status()
             data = response.json()
             features = data.get("features") or []

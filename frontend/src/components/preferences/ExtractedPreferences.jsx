@@ -211,7 +211,7 @@ export function ExtractedPreferences({
       {/* CTA */}
       <button
         onClick={() => onConfirm(constraints)}
-        disabled={loading || conflictReport?.has_conflicts}
+        disabled={loading}
         className="btn-primary"
         style={{
           width: "100%",
@@ -221,7 +221,7 @@ export function ExtractedPreferences({
           color: "white",
           fontSize: "13px",
           fontWeight: 700,
-          cursor: loading || conflictReport?.has_conflicts ? "not-allowed" : "pointer",
+          cursor: loading ? "not-allowed" : "pointer",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
