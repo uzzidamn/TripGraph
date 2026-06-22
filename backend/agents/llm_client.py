@@ -121,6 +121,31 @@ def get_grounded_llm(model: str | None = None):
         return None
 
 
+def get_trace_url() -> str | None:
+    """Return the LangSmith trace URL for the most recent run, or None.
+
+    LangSmith tracing activates automatically for every `.invoke()` in the
+    pipeline when these env vars are set (no code changes needed):
+        LANGCHAIN_TRACING_V2=true
+        LANGCHAIN_API_KEY=<your langsmith key>
+        LANGCHAIN_PROJECT=tripgraph   (optional, names the trace project)
+    This helper just surfaces a clickable link to the latest run for the UI/logs.
+    """
+    if os.getenv("LANGCHAIN_TRACING_V2", "false").lower() != "true":
+        return None
+    try:
+        from langsmith import Client
+        client = Client()
+        runs = list(client.list_runs(
+            project_name=os.getenv("LANGCHAIN_PROJECT", "default"), limit=1
+        ))
+        if runs:
+            return client.get_run_url(run=runs[0])
+    except Exception:
+        pass
+    return None
+
+
 def extract_text_content(content: any) -> str:
     """Helper to convert LangChain message content (which could be a string, a list of dicts/strings, or other types) into a plain string."""
     if isinstance(content, list):
