@@ -21,6 +21,7 @@ afford. The deterministic Python layer still owns cost math + final
 validation; the LLM owns sequencing, selection, narrative.
 """
 import json
+import os
 from typing import Any
 
 from langchain_core.messages import HumanMessage, SystemMessage
@@ -28,6 +29,34 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from backend.agents.llm_client import extract_text_content, get_llm, strip_code_fences, loads_loose
 from backend.agents.state import TripState
 from backend.api_clients.google_routes_client import GoogleRoutesClient
+
+# Hard cap on events per day, enforced after generation. Keeps plans readable
+# and bounds the architect's output size (its biggest latency driver).
+_MAX_EVENTS_PER_DAY = int(os.getenv("ARCHITECT_MAX_EVENTS_PER_DAY", "8"))
+# Event types that are structurally essential and must never be trimmed.
+_ESSENTIAL_TYPES = {"travel", "transit", "meal", "food", "hotel", "checkin", "checkout"}
+
+
+def _cap_events_per_day(plan: dict) -> None:
+    """Trim any over-packed day in place to _MAX_EVENTS_PER_DAY.
+
+    Drops only surplus NON-essential events, lowest-priority first (skippability
+    'optional' before 'recommend'), so travel legs, meals and hotel events always
+    survive and the timeline stays coherent.
+    """
+    rank = {"optional": 0, "recommend": 1, "must": 2}
+    for day in plan.get("days") or []:
+        events = day.get("events") or []
+        if len(events) <= _MAX_EVENTS_PER_DAY:
+            continue
+        essential = [e for e in events if (e.get("type") or "").lower() in _ESSENTIAL_TYPES]
+        trimmable = [e for e in events if (e.get("type") or "").lower() not in _ESSENTIAL_TYPES]
+        # keep highest-priority trimmables up to the remaining budget
+        budget = max(0, _MAX_EVENTS_PER_DAY - len(essential))
+        trimmable.sort(key=lambda e: rank.get((e.get("skippability") or "recommend").lower(), 1), reverse=True)
+        kept = set(id(e) for e in trimmable[:budget]) | set(id(e) for e in essential)
+        # preserve original ordering of survivors
+        day["events"] = [e for e in events if id(e) in kept]
 
 
 _SYSTEM = """You are the lead travel planner at TripGraph AI — equivalent to a
@@ -47,7 +76,9 @@ You receive:
 YOUR JOB:
 1. Select WHICH activities to include — not all of them. Skip lower-rated /
    geographically inconvenient ones unless they're must-includes. Aim for 2-3
-   substantive stops per full day plus meals.
+   substantive stops per full day plus meals. HARD LIMIT: at most 7 events per
+   day total (counting meals, travel legs and check-ins). Do NOT over-pack —
+   fewer, well-chosen stops beat a cramped schedule.
 2. SEQUENCE them per day so consecutive stops are geographically clustered.
    Use the distance matrix. Don't ping-pong across the city.
 3. RESPECT opening hours when known (don't schedule a fort at 6am if it opens at 9).
@@ -122,7 +153,7 @@ OUTPUT — exactly ONE valid JSON object, no markdown, matching this schema:
           "skippability": "must" | "recommend" | "optional",
           "estimated_cost_pp": int,   // INR per person, 0 for included/free
           "transport_mode": "flight" | "train" | "cab" | "walk" | null, // for type "travel"
-          "fun_facts": ["2-3 SPECIFIC verified facts about this location, attraction, or transit point — not generic. Use full place name + 'India' for context. Example for 'Goa airport': 'Dabolim Airport (GOI) is one of India's busiest tourist airports' / 'It was a naval airport until 1955'. For a fort: '3 specific historical/architectural facts about THIS fort.' MUST be factually true. 2-3 strings."]
+          "fun_facts": ["1-2 SPECIFIC verified facts about this location — not generic. Use full place name + 'India' for context. Example for a fort: 'specific historical/architectural fact about THIS fort.' MUST be factually true. ONLY for sightseeing/activity/experience events — for meals, travel legs, hotel check-ins and rest blocks, return an empty array []. At most 2 strings."]
         }
       ],
       "day_summary": "one sentence on the day's arc"
@@ -301,6 +332,9 @@ def architect_node(state: TripState) -> dict:
     except Exception as e:
         print(f"  ⚠️  Architect LLM failed ({e}) — falling back to deterministic template")
         return _fallback_to_template(state)
+
+    # Safety net: enforce the per-day event cap even if the model overshoots.
+    _cap_events_per_day(plan)
 
     # ── Convert the architect's structured plan into the shapes the rest of
     # the system expects (timeline + map_points + cost_breakdown + explanation

@@ -15,6 +15,7 @@ Replan workflow graph:
     replan → END
 """
 import os
+from concurrent.futures import ThreadPoolExecutor
 
 from langgraph.graph import END, StateGraph
 
@@ -26,6 +27,26 @@ from backend.agents.nodes.planner_orchestrator import planner_orchestrator_node
 from backend.agents.nodes.replanner_agent import replanner_agent_node
 from backend.agents.nodes.itinerary_enricher import itinerary_enricher_node
 from backend.agents.state import TripState, initialize_state
+
+
+def _run_parallel(state: TripState, nodes: list) -> None:
+    """Run independent agent nodes concurrently and merge their state patches.
+
+    Each node reads the shared state and returns a patch dict (it must not depend
+    on the others' output). Patches are applied after all complete, so the nodes
+    see a consistent pre-update view. Used for I/O-bound agents whose network
+    waits can overlap (flights+train, weather+insights).
+    """
+    with ThreadPoolExecutor(max_workers=len(nodes)) as pool:
+        futures = [pool.submit(n, state) for n in nodes]
+        patches = []
+        for f in futures:
+            try:
+                patches.append(f.result() or {})
+            except Exception as e:
+                print(f"  ⚠️  parallel node failed: {e}")
+    for patch in patches:
+        state.update(patch)
 
 
 def _route_after_validation(state: TripState) -> str:
@@ -158,13 +179,15 @@ def run_workflow_from_constraints(constraints: dict) -> TripState:
     #    - terminal_resolver finds airports/stations + first/last mile times
     #    - weather forecast (drives gear checklist)
     #    - DDG insights (Wikipedia-style abstracts per place)
-    state.update(flights_agent_node(state))
-    state.update(train_agent_node(state))
+    #
+    # flights/train both read only constraints and write disjoint keys, so run
+    # them concurrently (each does a DDG scrape + LLM call). Same for
+    # weather/insights after planning. This overlaps their network waits.
+    _run_parallel(state, [flights_agent_node, train_agent_node])
     state.update(mode_planner_node(state))
     state.update(planner_orchestrator_node(state))   # picks route/transport/hotel shell
     state.update(terminal_resolver_node(state))
-    state.update(weather_agent_node(state))
-    state.update(insights_agent_node(state))
+    _run_parallel(state, [weather_agent_node, insights_agent_node])
 
     # 3) The Architect + Reviewer critic loop.
     # Each iteration re-runs the (expensive) architect, so default to a single
