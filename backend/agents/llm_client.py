@@ -71,12 +71,15 @@ def get_llm(role: str | None = None) -> BaseChatModel:
         )
     elif provider == "anthropic":
         from langchain_anthropic import ChatAnthropic
+        # timeout is generous: the architect generates a large structured
+        # itinerary JSON and on small hosts (1 vCPU droplet) a 60s cap caused
+        # timeouts → fallback to the deterministic template. Override via env.
         return ChatAnthropic(
             model=model,
             temperature=temperature,
             anthropic_api_key=os.getenv("ANTHROPIC_API_KEY"),
             max_retries=3,
-            timeout=60,
+            timeout=float(os.getenv("LLM_TIMEOUT", "180")),
         )
     elif provider == "openai":
         from langchain_openai import ChatOpenAI
