@@ -16,8 +16,11 @@ from dotenv import load_dotenv
 # was absent when an upstream module first called load_dotenv() could stay unset.
 load_dotenv(override=True)
 
-from fastapi import FastAPI
+import os
+
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from backend.api.chat_routes import router as chat_router
 from backend.api.itinerary_routes import router as itinerary_router
@@ -51,6 +54,43 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# ── Maintenance gate ──────────────────────────────────────────────────────
+# When MAINTENANCE_MODE is on, the credit-burning planning endpoints return 503
+# so no LLM/API calls fire (protects the owner's keys from public/teammate use).
+# The landing page + read-only config endpoints (maptiles, integrations) stay
+# live, so the site still looks alive. Owner bypasses by sending the secret
+# header X-Tripgraph-Key (set MAINTENANCE_BYPASS_KEY in .env).
+_GATED_PATHS = {
+    "/api/parse-chat",
+    "/api/generate-itinerary",
+    "/api/refinement-questions",
+    "/api/simulate-delay",
+}
+
+
+def _maintenance_on() -> bool:
+    return os.getenv("MAINTENANCE_MODE", "false").strip().lower() in ("1", "true", "yes", "on")
+
+
+@app.middleware("http")
+async def maintenance_gate(request: Request, call_next):
+    if (
+        _maintenance_on()
+        and request.method == "POST"
+        and request.url.path in _GATED_PATHS
+    ):
+        bypass = os.getenv("MAINTENANCE_BYPASS_KEY", "")
+        if not bypass or request.headers.get("X-Tripgraph-Key") != bypass:
+            return JSONResponse(
+                status_code=503,
+                content={
+                    "detail": "TripGraph is in private preview — live planning goes on at the demo.",
+                    "maintenance": True,
+                },
+            )
+    return await call_next(request)
+
 
 # Route modules
 app.include_router(chat_router)

@@ -74,6 +74,11 @@ const PREBUILT_TRIPS = [
   },
 ];
 
+// Private-preview gate: when VITE_MAINTENANCE=true the landing stays fully
+// visible but planning is disabled (and the backend also 503s the API), so
+// teammates can browse without spending the owner's LLM credits.
+const MAINTENANCE = import.meta.env.VITE_MAINTENANCE === "true";
+
 export function ChatRoom({ onSubmit, loading }) {
   const [draft, setDraft] = useState("");
   const [messages, setMessages] = useState([]);
@@ -107,6 +112,20 @@ export function ChatRoom({ onSubmit, loading }) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+      {MAINTENANCE && (
+        <div style={{
+          padding: "12px 16px", borderRadius: 14, textAlign: "center",
+          background: "rgba(255,255,255,0.7)", border: "1px solid var(--rim)",
+          backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
+          color: "var(--ink-strong, #1d1f25)", fontSize: 13, fontWeight: 600,
+          lineHeight: 1.4,
+        }}>
+          🛠️ TripGraph is in <b>private preview</b> — live trip planning goes on at the demo.
+          <div style={{ fontSize: 11, fontWeight: 500, color: "var(--silver)", marginTop: 4 }}>
+            Browse around — planning is paused for now.
+          </div>
+        </div>
+      )}
       {/* Prebuilt trips — top row */}
       <div>
         <div style={{
@@ -124,9 +143,10 @@ export function ChatRoom({ onSubmit, loading }) {
           {PREBUILT_TRIPS.map(({ label, icon, messages: msgs }) => (
             <motion.button
               key={label}
-              whileHover={{ scale: 1.02, y: -1 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setMessages(msgs)}
+              whileHover={MAINTENANCE ? {} : { scale: 1.02, y: -1 }}
+              whileTap={MAINTENANCE ? {} : { scale: 0.98 }}
+              disabled={MAINTENANCE}
+              onClick={() => { if (!MAINTENANCE) setMessages(msgs); }}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -288,10 +308,10 @@ export function ChatRoom({ onSubmit, loading }) {
 
       {/* Submit */}
       <motion.button
-        whileHover={messages.length > 0 && !loading ? { scale: 1.01 } : {}}
-        whileTap={messages.length > 0 && !loading ? { scale: 0.99 } : {}}
-        onClick={() => onSubmit(messages)}
-        disabled={messages.length === 0 || loading}
+        whileHover={messages.length > 0 && !loading && !MAINTENANCE ? { scale: 1.01 } : {}}
+        whileTap={messages.length > 0 && !loading && !MAINTENANCE ? { scale: 0.99 } : {}}
+        onClick={() => { if (!MAINTENANCE) onSubmit(messages); }}
+        disabled={messages.length === 0 || loading || MAINTENANCE}
         className="btn-primary"
         style={{
           width: "100%",
