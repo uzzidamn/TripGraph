@@ -74,6 +74,8 @@ const PREBUILT_TRIPS = [
   },
 ];
 
+const MAINTENANCE = import.meta.env.VITE_MAINTENANCE === "true";
+
 const FIELD_LABELS = {
   origin: "Where you're travelling from",
   destination: "Where you want to go",
