@@ -29,7 +29,7 @@ const TRAVEL_QUOTES = [
 const PREBUILT_TRIPS = [
   {
     label: "Goa beach getaway",
-    icon: "🌴",
+    img: "/cards/goa.jpg",
     messages: [
       "Planning a Goa getaway from Chandigarh for 4 days",
       "Budget around ₹40k per person",
@@ -41,7 +41,7 @@ const PREBUILT_TRIPS = [
   },
   {
     label: "Jaipur heritage weekend",
-    icon: "🏰",
+    img: "/cards/jaipur.jpg",
     messages: [
       "Jaipur weekend from Gurugram, 3 days",
       "Budget ₹15k per person",
@@ -52,7 +52,7 @@ const PREBUILT_TRIPS = [
   },
   {
     label: "Manali backpacker",
-    icon: "🏔️",
+    img: "/cards/manali.jpg",
     messages: [
       "Manali trip from Delhi, 4 days on a tight budget",
       "₹10k per person, hostels are fine",
@@ -63,7 +63,7 @@ const PREBUILT_TRIPS = [
   },
   {
     label: "Rishikesh weekend",
-    icon: "🧘",
+    img: "/cards/rishikesh.jpg",
     messages: [
       "Quick Rishikesh weekend from Delhi, 2 days",
       "Budget ₹8k per person",
@@ -140,7 +140,7 @@ export function ChatRoom({ onSubmit, loading }) {
           gridTemplateColumns: "repeat(2, 1fr)",
           gap: 8,
         }}>
-          {PREBUILT_TRIPS.map(({ label, icon, messages: msgs }) => (
+          {PREBUILT_TRIPS.map(({ label, img, messages: msgs }) => (
             <motion.button
               key={label}
               whileHover={MAINTENANCE ? {} : { scale: 1.02, y: -1 }}
@@ -148,32 +148,43 @@ export function ChatRoom({ onSubmit, loading }) {
               disabled={MAINTENANCE}
               onClick={() => { if (!MAINTENANCE) setMessages(msgs); }}
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-                padding: "9px 12px",
-                borderRadius: 10,
+                position: "relative",
+                overflow: "hidden",
+                height: 72,
+                padding: 0,
+                borderRadius: 12,
                 border: "1px solid var(--rim)",
-                background: "rgba(255,255,255,0.6)",
-                color: "var(--chrome)",
-                fontSize: 12,
-                fontWeight: 600,
                 cursor: "pointer",
-                fontFamily: "Inter, sans-serif",
-                textAlign: "left",
-                transition: "background 0.15s, border-color 0.15s",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(255,255,255,0.95)";
-                e.currentTarget.style.borderColor = "var(--chrome)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "rgba(255,255,255,0.6)";
-                e.currentTarget.style.borderColor = "var(--rim)";
+                display: "flex",
+                alignItems: "flex-end",
               }}
             >
-              <span style={{ fontSize: 16 }}>{icon}</span>
-              <span style={{ flex: 1 }}>{label}</span>
+              {/* destination photo */}
+              <div style={{
+                position: "absolute", inset: 0,
+                backgroundImage: `url(${img})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                filter: "blur(1.5px) saturate(0.92)",
+                transform: "scale(1.08)",
+              }} />
+              {/* heavy white veil — keeps the silver look + text legible */}
+              <div style={{
+                position: "absolute", inset: 0,
+                background:
+                  "linear-gradient(180deg, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.70) 55%, rgba(255,255,255,0.90) 100%)",
+              }} />
+              <span style={{
+                position: "relative",
+                padding: "8px 11px",
+                fontSize: 12,
+                fontWeight: 700,
+                letterSpacing: "-0.01em",
+                color: "var(--ink-strong, #1d1f25)",
+                fontFamily: "Inter, sans-serif",
+                textShadow: "0 1px 6px rgba(255,255,255,0.95)",
+                lineHeight: 1.15,
+              }}>{label}</span>
             </motion.button>
           ))}
         </div>
