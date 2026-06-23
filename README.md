@@ -1,102 +1,124 @@
-# TripGraph
+# TripGraph AI
 
-TripGraph is a GenAI-assisted group travel planning system that converts (group) conversation/chat into structured constraints, builds itineraries, scores and validates plans, and supports delay-aware replanning.
+TripGraph AI turns a few lines of trip intent ("4-day Goa trip from Chandigarh, ₹40k pp, beaches + seafood, flying") into a **fully-reasoned, map-centric itinerary** — day-by-day, with real road/flight paths, costs, weather-aware gear notes, fatigue pacing, and live place photos & ratings.
 
-## Architecture overview
+It is built around a **multi-agent pipeline** that selects and sequences activities from a curated knowledge graph, grounded by real travel-time, weather, and places data — not invented by a single LLM call.
 
-### High-level components
-- Frontend (React + Vite): chat-first UI to submit trip intent, review extracted constraints, inspect itinerary/timeline/map/cost, and simulate delays.
-- Backend (FastAPI): API orchestration layer exposing parse, generate-itinerary, replanning, config, and health endpoints.
-- Planning engine (Python modules): candidate generation, scoring, validation, timeline generation, and deterministic replanning.
-- Agent pipelines:
-  - Agentic pipeline (LangGraph): multi-node workflow with chat parsing, constraint validation, retrieval, planning, enrichment, and explanation.
-  - Augmented pipeline (ReAct tool-calling): tool-augmented LLM loop producing a complete TripState.
-- Knowledge/data layer:
-  - Neo4j graph database
-  - Seed JSON datasets for routes/hotels/activities/transport/waypoints/restaurants
-  - External APIs (OpenRouteService, Geoapify, OpenWeatherMap)
+**Live demo:** https://tripgraph.app
 
-### Runtime data flow
-1. User submits chat messages in frontend.
-2. Backend /api/parse-chat extracts constraints and reports missing fields/conflicts.
-3. Frontend submits constraints to /api/generate-itinerary.
-4. Backend executes selected pipeline mode (agentic or augmented), then planner + enrichment + explanation.
-5. Frontend renders itinerary options, timeline/calendar, map points, and cost breakdown.
-6. On delay simulation, frontend calls /api/simulate-delay and backend returns replanned itinerary + change summary.
+---
 
-## Backend interfaces
+## What it does
 
-### Core API endpoints
-- GET /health: service health probe
-- GET /docs: Swagger UI
-- GET /redoc: ReDoc API docs
-- GET /: interactive backend test console (HTML)
-- GET /api/config: get active pipeline mode
-- POST /api/config: set pipeline mode (agentic or augmented)
-- POST /api/parse-chat: parse chat to extracted constraints
-- POST /api/generate-itinerary: generate scored validated itinerary from constraints
-- POST /api/simulate-delay: replan selected itinerary for a delay event
+- **Chat → structured plan**: extracts constraints (origin, destination, days, budget, group, preferences) from natural language.
+- **LLM Itinerary Architect**: one reasoned pass that *selects, sequences and clusters* activities per day using a real driving-time matrix — explicit travel legs between every stop, no idle gaps, return-to-hotel, breakfast-at-hotel.
+- **Map-centric UI**: everything lives on the map — numbered pins, real ORS road polylines, flight legs, map-anchored detail popovers, a per-day strip, a Google-Calendar-style timeline, and a cost breakdown.
+- **Grounded enrichment**: Google Place photos + ratings, weather forecast, flight/train advisories with scraped price ranges, "did you know" facts.
+- **Delay-aware replanning**: simulate a delay and get an adjusted itinerary with a change summary.
 
-### Pipeline mode behavior
-- agentic: LangGraph node workflow from parse to explain
-- augmented: tool-augmented LLM ReAct loop
+---
 
-## Frontend interfaces
+## Architecture
 
-- Main UI (Vite app): http://localhost:5173
-- Workflow steps in UI:
-  - Plan (chat input)
-  - Review (constraints and assumptions)
-  - Explore (itinerary, map, timeline, cost, delay simulator)
+### Components
+- **Frontend** — React + Vite. Map-first UI (Leaflet + Google "Uber-style" tiles), map-anchored popovers, day strip, calendar, cost panel, delay simulator.
+- **Backend** — FastAPI orchestration exposing parse / generate / refine / replan / config / health endpoints.
+- **Agent pipeline** — LangGraph multi-node workflow (see below).
+- **Knowledge / data layer** — a curated JSON knowledge store (`backend/data/local_kg_store.json`) of destinations, activities, hotels and transport. Neo4j is **optional**; the app runs fully on the JSON store if Neo4j is unavailable.
 
-## Launch guide (local host mode)
+### Multi-LLM routing
+LLM calls are routed **per agent role** via `.env` (no code changes):
+- **Claude** (Anthropic) handles the reasoning-critical agents — the **architect** and the **review** pass.
+- **Gemini** (`gemini-3.1-flash-lite`, free tier) handles the lighter, high-volume agents — parser, validator, flights/train advisories, fatigue, explainer, enricher.
+
+Set the global default with `LLM_PROVIDER` / `LLM_MODEL`, and override any agent with `LLM_PROVIDER_<ROLE>` / `LLM_MODEL_<ROLE>` (e.g. `LLM_PROVIDER_ARCHITECT=anthropic`).
+
+### Pipeline (agentic, LangGraph)
+`chat_parser → constraint_validator → data_retriever (2-pass KG↔API↔cache) → mode_planner → planner_orchestrator → terminal_resolver → [flights ∥ train] → [weather ∥ insights] → architect (LLM brain) → photo_enricher → segment_router (ORS polylines) → fatigue_adjuster → review → explainer`
+
+Independent agents run concurrently; the architect runs a single pass (configurable critic loop). A `refinement_questioner` powers the optional counter-questions step, and `replanner_agent` powers delay simulation.
+
+### External data sources
+| Source | Use |
+|---|---|
+| **OpenRouteService** | geocoding, driving routes, per-segment road polylines |
+| **Google Maps Platform** | Places (photos, ratings, hours), Routes (distance matrix), Map Tiles |
+| **OpenWeatherMap** | day-by-day forecast → gear checklist |
+| **RailRadar** | alternative rail routes |
+| **DuckDuckGo** | destination insights + flight/train price snippets |
+
+---
+
+## API endpoints
+- `GET  /health` — health probe
+- `GET  /docs` — Swagger UI
+- `GET  /api/config` · `POST /api/config` — get/set pipeline mode
+- `POST /api/parse-chat` — chat → extracted constraints
+- `POST /api/generate-itinerary` — constraints → scored, validated itinerary (timeline, map points, cost)
+- `POST /api/refinement-questions` — 1 round of sharpening counter-questions
+- `POST /api/simulate-delay` — replan for a delay event
+- `GET  /api/maptiles-session` · `GET /api/integrations` — map/config helpers
+
+---
+
+## Running locally
 
 ### Prerequisites
-- Neo4j service installed and available on localhost:7687
-- Python 3.9+ virtual environment at .venv
-- Node 20+ available (nvm recommended)
-- .env configured (especially GOOGLE_API_KEY)
+- Python 3.9+ (virtualenv at `.venv`)
+- Node 20+ (nvm recommended)
+- A `.env` file with the required keys (see below). Neo4j is **not** required.
 
-### Start services
-1. Neo4j
-   - sudo systemctl start neo4j
+### Environment (`.env`)
+```bash
+# LLM routing
+LLM_PROVIDER=gemini
+LLM_MODEL=gemini-3.1-flash-lite-preview
+LLM_PROVIDER_ARCHITECT=anthropic
+LLM_MODEL_ARCHITECT=claude-haiku-4-5-20251001
+LLM_PROVIDER_REVIEW=anthropic
+LLM_MODEL_REVIEW=claude-haiku-4-5-20251001
 
-2. Backend
-   - cd /workspace/sw/siddaraj/iisc/deep_learning/TripGraph
-   - source .venv/bin/activate
-   - no_proxy=localhost,127.0.0.1 uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
+# Keys
+ANTHROPIC_API_KEY=...
+GOOGLE_API_KEY=...            # Gemini (Generative Language)
+GOOGLE_MAPS_API_KEY=...       # Places / Routes / Tiles  (also set VITE_GOOGLE_MAPS_API_KEY)
+ORS_API_KEY=...
+OPENWEATHERMAP_API_KEY=...
+RAILRADAR_API_KEY=...
+VITE_GOOGLE_MAPS_API_KEY=...
+```
+> `.env` is gitignored — never commit it.
 
-3. Frontend
-   - export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh"
-   - cd /workspace/sw/siddaraj/iisc/deep_learning/TripGraph/frontend
-   - npm run dev -- --host 0.0.0.0
+### Start the backend
+```bash
+./.venv/bin/pip install -r backend/requirements.txt
+./.venv/bin/uvicorn backend.main:app --host 127.0.0.1 --port 8001 --env-file .env
+```
+> `--env-file .env` is important — it loads the keys before the app imports, so Google/LLM clients pick them up.
 
-## Test interfaces
+### Start the frontend
+```bash
+cd frontend
+npm install
+npm run dev          # http://localhost:5173  (proxies the API via VITE_API_URL=http://localhost:8001)
+```
 
-### Interactive interfaces
-- Frontend UI: http://localhost:5173
-- Backend HTML test console: http://localhost:8000/
-- Swagger docs + try-it-out: http://localhost:8000/docs
-- Neo4j Browser: http://localhost:7474
+---
 
-### Automated test entry points
-- Full API integration suite:
-  - python -m pytest backend/tests/test_all_apis.py -v
-  - or python backend/tests/test_all_apis.py
-- Offline planning engine checks (mock data, no live Neo4j required):
-  - python backend/test_runner.py
-- Bucket test suites:
-  - backend/tests/test_bucket_1.py
-  - backend/tests/test_bucket_2.py
-  - backend/tests/test_bucket_3.py
-  - backend/tests/test_bucket_5.py
+## Deployment
 
-## Repository structure (summary)
-- backend/: FastAPI APIs, agents, planner, knowledge graph, models, tools, tests
-- frontend/: React app, hooks, API client, map/calendar/cost/delay UI components
-- specs/: bucket specs, implementation plan, logs
-- Agent_Pipeline/: planning/spec notes for the agent pipeline
+Production runs on a DigitalOcean droplet behind nginx + systemd, with HTTPS via Let's Encrypt. The `deploy/` folder has everything:
+- `deploy/deploy.sh <DROPLET_IP>` — installs deps, builds the frontend, runs the backend under systemd, fronts it with nginx (serves the SPA + proxies `/api`).
+- `deploy/enable_https.sh <domain> <email>` — points nginx at the domain and provisions a Let's Encrypt cert (auto-renew).
+- `deploy/DEPLOY.md` — step-by-step guide + troubleshooting.
 
-## Notes for this environment
-- If localhost requests are routed through a corporate proxy, set no_proxy=localhost,127.0.0.1 when invoking local service checks.
-- If using docker compose networking, set NEO4J_URI=bolt://neo4j:7687. For local Neo4j service, keep NEO4J_URI=bolt://localhost:7687.
+### Private-preview / maintenance mode
+Set `MAINTENANCE_MODE=true` (backend) and build the frontend with `VITE_MAINTENANCE=true` to keep the landing page live while disabling planning endpoints (returns 503) — useful for sharing the site without spending LLM/API credits.
+
+---
+
+## Repository structure
+- `backend/` — FastAPI app, agent nodes (`agents/nodes/`), API clients (`api_clients/`), planner, models, curated KG store (`data/`)
+- `frontend/` — React + Vite app (map / calendar / cost / delay UI, hooks, API client)
+- `deploy/` — droplet deploy + HTTPS scripts and guide
+- `specs/`, `Agent_Pipeline/` — design specs and pipeline notes
