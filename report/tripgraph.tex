@@ -19,34 +19,38 @@
 
 \paperid{1}
 
-\title{TripGraph AI: A Grounded Multi-Agent System for \\
-Conversational Group Travel Itinerary Planning}
+\title{TripGraph AI: An Agentic, Grounded System for \\
+Conversational Group Travel Planning}
 
 \author[A]{\fnms{Ujjwal}~\snm{Rattan}\thanks{Corresponding Author. Email: ujjwalrattan@iisc.ac.in.}}
-\author[A]{\fnms{Naveen}~\snm{Venturi}}
-\author[A]{\fnms{Navneet}~\snm{Samra}}
-\author[A]{\fnms{Siddaraju}~\snm{D.H.}}
+\author[A]{\fnms{Anantha Viswak}~\snm{A}}
+\author[A]{\fnms{Bharath Kannan}~\snm{M}}
+\author[A]{\fnms{Jeyachandran}~\snm{Alagesan}}
+\author[A]{\fnms{Suriya Prakash}~\snm{M}}
+\author[A]{\fnms{Siddaraju}~\snm{D.\,H.}}
+\author[A]{\fnms{Venturi}~\snm{Naveen}}
+\author[A]{\fnms{Abdul}~\snm{Hafiz}}
+\author[A]{\fnms{Navneet}~\snm{Chandan}}
 
 \address[A]{Indian Institute of Science, Bengaluru, India}
 
 \begin{abstract}
-Large language models can write plausible travel itineraries but routinely
-hallucinate places, distances, opening hours and prices, and collapse on the
-constraint arithmetic real trips demand. We present \emph{TripGraph AI}, a
-deployed multi-agent system that converts free-form group chat into a
-constraint-aware, day-by-day itinerary rendered on an interactive map. Rather
-than a single generative call, TripGraph routes a twelve-node LangGraph
-pipeline in which a curated knowledge graph supplies verified candidate places
-and a battery of real APIs (routing, places, weather, rail) ground every
-decision. A single \emph{Itinerary Architect} LLM call then \emph{selects,
-sequences and clusters} activities per day over a real driving-time matrix,
-emitting explicit inter-stop travel legs, fatigue pacing and per-event
-reasoning. We further introduce \emph{per-role model routing}: reasoning-heavy
-roles use a frontier model (Claude) while high-volume roles use a free,
-fast model (Gemini Flash-Lite), cutting paid-model calls by ${\sim}75\%$ with
-no quality regression. The system is live behind a domain with HTTPS. We
-describe the architecture, a cost/latency analysis, robustness measures, and a
-worked example; supporting detail is provided in numbered appendices.
+A single large language model can write a travel itinerary that reads well but
+is often wrong: it invents places, misjudges distances, breaks the budget, and
+ignores how tired a group will get. We argue that this task is better solved by
+an agentic architecture, and we build one. TripGraph AI turns a short group
+chat into a constraint aware, day by day itinerary drawn on a live map. Instead
+of one generative call, it runs a fixed graph of specialised agents in which a
+curated knowledge graph supplies real places and a set of live APIs ground
+every distance, price and forecast. A dedicated planning agent then selects,
+orders and paces the chosen activities over a real travel time matrix. We also
+introduce per role model routing, where heavy reasoning runs on a frontier
+model and lighter, high volume work runs on a free model, which removes about
+three quarters of the paid calls without hurting plan quality. We explain why
+the agentic decomposition is the right fit for this problem, how each part was
+built so that new data sources and capabilities can be added later, and we
+close the main text with the business outlook. The system is deployed with a
+public domain and HTTPS.
 \end{abstract}
 
 \end{frontmatter}
@@ -54,71 +58,114 @@ worked example; supporting detail is provided in numbered appendices.
 \section{Introduction}
 \label{sec:intro}
 
-Planning a group trip is a constraint-satisfaction problem wrapped in a
-conversation. A chat such as ``\emph{4 days in Goa from Chandigarh, around
-\rupee40k each, beaches and seafood, flying, group of 4}'' implies a budget
-envelope, a transport mode, a geography to sequence, opening hours to respect,
-and a group whose energy must be paced. Asking a single large language model
-(LLM) to emit the whole plan is attractive but fragile: models invent
-attractions, misstate inter-city distances, assign impossible same-day
-schedules, and silently violate the budget~\citep{xie2024travelplanner}.
+Planning a group trip is a conversation that hides a hard constraint problem.
+A line such as ``four days in Goa from Chandigarh, about \rupee40k each,
+beaches and seafood, flying, group of four'' fixes a budget, implies a
+transport mode, names a geography that has to be sequenced sensibly, and
+introduces a group whose energy has to be managed across the days. Handing the
+whole job to one language model is tempting, but it fails in four predictable
+ways. It invents attractions and hotels that do not exist. It guesses travel
+times and so packs days that cannot physically happen. It quietly loses the
+budget and returns plans that cost more than the cap. And it forgets the soft
+human factors, such as not stacking three long treks back to back. Every one of
+these is a point where a true fact or an actual calculation is needed, not more
+fluent prose.
 
-Concretely, an end-to-end LLM exhibits four recurring failure modes on this
-task: \emph{(i)} it hallucinates attractions or hotels that do not exist;
-\emph{(ii)} it mis-estimates travel time and so over-packs days or assumes
-teleportation between stops; \emph{(iii)} it loses the budget, quietly
-returning plans that exceed the stated cap; and \emph{(iv)} it ignores soft
-human factors such as cumulative fatigue. Each of these is a place where a
-\emph{fact} or a \emph{computation}, not fluent text, is required.
+This is why we treat the problem as an agentic one rather than a single
+prompt. The language model is kept for what it is genuinely good at, namely
+choosing among options, ordering them, and explaining the choices in natural
+language. Everything that has to be correct is delegated to components that can
+be checked: a curated knowledge graph for which places exist, and live services
+for distance, weather and price. The result is closer in spirit to
+retrieval augmented generation \citep{lewis2020rag} and tool using agents
+\citep{yao2023react,schick2023toolformer} than to free text generation, but it
+is deliberately organised as a fixed, inspectable pipeline rather than an
+open ended agent loop. We make four contributions. We present a deployed agent
+pipeline that fuses a knowledge graph with five live services
+(Section~\ref{sec:why} and \ref{sec:arch}). We describe a planning agent that
+reasons over a real travel time matrix (Section~\ref{sec:architect}). We give a
+configuration only mechanism for routing each agent to a different model
+(Section~\ref{sec:routing}). And we set out the deployment and the business
+outlook (Sections~\ref{sec:ui} and \ref{sec:future}). Supporting detail sits in
+the appendices and is referenced by number from here on.
 
-TripGraph AI takes the opposite stance. The LLM is used where it is strong
---- selection, sequencing and natural-language reasoning --- while a curated
-knowledge graph (KG) and live APIs own everything that must be \emph{true}:
-which places exist, how far apart they are, what the weather will be, and what
-things cost. This mirrors retrieval-augmented generation~\citep{lewis2020rag}
-and tool-use agents~\citep{yao2023react,schick2023toolformer}, but is
-specialised into a fixed, auditable pipeline rather than a free-running agent
-loop, so that every plan is reproducible and every fact is attributable. The
-fixed control flow is a deliberate trade: we give up the open-endedness of an
-autonomous agent in exchange for predictable latency, bounded cost, and the
-ability to point at the exact node responsible for any field in the output.
+\section{Why an agentic AI architecture}
+\label{sec:why}
 
-\paragraph{Contributions.}
-\begin{enumerate}[leftmargin=1.4em,itemsep=1pt]
-\item A deployed twelve-node \textbf{grounded planning pipeline}
-(Section~\ref{sec:arch}) that fuses a curated KG with five external data
-services; the full node roster is in Appendix~\ref{app:nodes}.
-\item The \textbf{Itinerary Architect} (Section~\ref{sec:architect}): one
-structured LLM pass that plans a multi-day trip over a real travel-time matrix
-with explicit travel legs and fatigue pacing. A worked output is in
-Appendix~\ref{app:example}.
-\item \textbf{Per-role multi-LLM routing} (Section~\ref{sec:routing}): a
-configuration-only mechanism that offloads ${\sim}75\%$ of LLM calls to a free
-model while protecting quality; cost/latency data in Appendix~\ref{app:cost}.
-\item A \textbf{robustness and deployment} story (Section~\ref{sec:deploy}):
-prompt-injection guardrails (Appendix~\ref{app:guard}), graceful degradation,
-and a one-command cloud deployment (Appendix~\ref{app:deploy}).
-\end{enumerate}
+The case for an AI system here is straightforward. The input is open ended
+natural language, the output is a structured plan with reasoning attached, and
+the hard parts are selection and sequencing under soft preferences. Classical
+rule engines cannot read the chat, and a pure search planner cannot judge that
+a hill fort is worth an extra hour of driving. A language model supplies that
+judgement. The harder question is why the system should be \emph{agentic} and
+not a single large prompt, and the answer shapes the whole design.
+
+First, the task naturally decomposes into concerns that are easier to get right
+in isolation than together: understanding the request, finding candidates,
+grounding facts, building the schedule, pacing it, and checking it. Giving each
+concern its own agent means each can be prompted, tested and replaced on its
+own, and a weak step can be improved without disturbing the rest. Second, a
+decomposed pipeline can be grounded. Because retrieval and routing are separate
+agents, the planner is handed verified candidates and real travel times, so it
+can never place a city that does not exist or assume two stops are next to each
+other when they are an hour apart. Third, the pipeline degrades gracefully. If
+a live service is down, that single agent falls back to cached or seed data and
+the plan still completes, which a monolithic prompt cannot do. Fourth, an
+agentic graph is auditable: every field in the output can be traced to the node
+that produced it, which matters when a user asks why a stop was chosen or a
+budget was flagged.
+
+It is worth being clear about what kind of agentic system this is, because the
+term covers two very different designs. One is a free running loop, in the
+style of ReAct \citep{yao2023react}, where a model decides at each step which
+tool to call next and stops when it judges itself done. That is powerful for
+open tasks, but for a product it is hard to predict: the number of tool calls,
+the cost and the latency all vary per request, and a wrong turn early on is
+hard to debug. We chose the other design, a fixed graph of agents with a known
+topology, because group trip planning has a stable shape. The stages are always
+the same, so we encode them once. This buys three things that matter for a
+deployed service. Runs are reproducible, since the same input flows through the
+same nodes and yields the same plan. Cost is bounded, since the number of model
+calls is fixed rather than discovered at run time. And behaviour is debuggable,
+since a failure is localised to one node rather than buried in a chain of
+self directed decisions. We still get the benefits of LLM reasoning, but only
+at the nodes where reasoning is actually required.
+
+The glue that holds the agents together is a single typed state object that
+every node reads from and writes a small patch back to. This shared contract is
+deliberate. It means an agent depends on the shape of the state, not on the
+internals of its neighbours, so agents can be developed and tested in
+isolation, reordered, or run in parallel when they do not depend on each other.
+It also makes the whole run observable: because each agent's contribution is an
+explicit patch, the pipeline can be traced end to end, which is how we attach
+run tracing and how a reviewer can see exactly which agent set a given field.
+Taken together, the typed state, the fixed topology and the per agent model
+choice are what let the project grow by addition rather than rewrite, which was
+a primary design goal from the start.
 
 \section{System architecture}
 \label{sec:arch}
 
-TripGraph is a FastAPI backend orchestrating a LangGraph~\citep{langgraph2024}
-state graph, with a React/Vite map-centric frontend. A request flows through
-the stages in Figure~\ref{fig:pipeline}. The chat is first parsed into a typed
-\texttt{constraints} object; a validator checks for conflicts and fills safe
-defaults. A two-pass retriever then assembles candidate routes, hotels,
-activities and restaurants \emph{KG-first}, falling back to APIs only for gaps,
-and caching results to disk. Independent grounding agents (flights, rail,
-weather, web insights) run \emph{concurrently}. The Architect consumes all of
-this and emits the plan, which is then enriched (place photos, road polylines),
-scored for fatigue, and reviewed.
+TripGraph is a FastAPI backend that drives a LangGraph state graph
+\citep{langgraph2024}, with a React and Vite map first frontend. Figure~%
+\ref{fig:pipeline} shows the flow. The chat is first parsed into a typed
+constraints record. A validator then does light constraint reasoning: it spots
+conflicts, for example an expedition tier hotel against a low budget, and fills
+safe defaults for anything unstated while logging each assumption so the user
+can correct it before planning starts. A two pass retriever assembles
+candidate routes, hotels, activities and restaurants from the knowledge graph
+first, and only calls external services for whatever the graph cannot cover,
+caching every result to disk so repeat trips are near instant. Four grounding
+agents (flights, rail, weather and web insights) then run at the same time, on
+separate threads, so their network waits overlap. The planning agent consumes
+all of this, produces the day by day plan, and downstream agents enrich it with
+photos and real road geometry, score fatigue, and review it.
 
 \begin{figure}[t]
 \centering
 \begin{tikzpicture}[
   font=\scriptsize,
-  node distance=2.1mm,
+  node distance=2.0mm,
   box/.style={draw,rounded corners=1.5pt,align=center,inner sep=2.2pt,
               minimum height=4.2mm,fill=blue!4},
   arch/.style={draw,rounded corners=1.5pt,align=center,inner sep=2.6pt,
@@ -128,15 +175,15 @@ scored for fatigue, and reviewed.
   ar/.style={-{Stealth[length=1.4mm]},gray}]
 \node[box] (parse) {chat\\parser};
 \node[box,right=of parse] (val) {constraint\\validator};
-\node[box,right=of val] (ret) {data retriever\\(KG\,$\leftrightarrow$\,API)};
+\node[box,right=of val] (ret) {retriever\\(KG\,$\leftrightarrow$\,API)};
 \node[gnd,below=4mm of parse] (fl) {flights};
 \node[gnd,right=of fl] (tr) {trains};
 \node[gnd,right=of tr] (we) {weather};
 \node[gnd,right=of we] (ins) {insights};
-\node[arch,below=4mm of fl,xshift=10mm] (arch) {\textbf{Itinerary Architect}\\(select\,$\cdot$\,sequence\,$\cdot$\,pace)};
+\node[arch,below=4mm of fl,xshift=10mm] (arch) {\textbf{Planning Agent}\\select\,$\cdot$\,order\,$\cdot$\,pace};
 \node[box,right=of arch,xshift=2mm] (photo) {photo\\enricher};
-\node[box,below=4mm of arch,xshift=-6mm] (seg) {segment router\\(road polylines)};
-\node[box,right=of seg] (fat) {fatigue\\adjuster};
+\node[box,below=4mm of arch,xshift=-6mm] (seg) {road\\polylines};
+\node[box,right=of seg] (fat) {fatigue\\scorer};
 \node[box,right=of fat] (rev) {review};
 \draw[ar] (parse)--(val); \draw[ar] (val)--(ret);
 \draw[ar] (ret.south) |- (we.east);
@@ -150,86 +197,66 @@ scored for fatigue, and reviewed.
       label={[gray,font=\tiny]left:\,parallel}] {};
 \end{scope}
 \end{tikzpicture}
-\caption{The TripGraph pipeline. Blue: structural nodes; green: concurrent
-grounding agents; orange: the reasoning core. Constraint extraction and
-validation precede a KG-first retrieval; the Architect plans over grounded
-candidates; downstream nodes enrich, pace and review.}
+\caption{The agent pipeline. Blue nodes are structural, green nodes are
+concurrent grounding agents, and the orange node is the reasoning core.
+Extraction and validation precede a graph first retrieval; the planning agent
+works over grounded candidates; later agents enrich, pace and check the result.}
 \label{fig:pipeline}
 \end{figure}
 
-\paragraph{Constraint extraction and validation.}
-The parser maps free text to a typed record --- origin, destination, dates,
-duration, group size, budget per person, hotel tier, transport preferences,
-must-include activities and risk tolerance --- emitting \texttt{null} for
-anything not stated rather than inventing it. The validator then performs
-lightweight constraint reasoning: it detects conflicts (e.g.\ an
-``expedition''-tier hotel against a sub-budget cap, or night-driving avoidance
-on a long self-drive leg) and supplies safe defaults for non-critical fields,
-recording each assumption so the user can review and override it before
-planning proceeds. Only when the minimal fields are present does the graph
-advance to retrieval.
+The knowledge graph is the part that keeps the system honest. It is a curated
+store of more than eighty Indian destinations, each with activities, hotels and
+transport options carrying coordinates, ratings, an indicative cost, a fatigue
+seed and a confidence score. The planner never invents a place; it selects from
+these verified candidates, which is what turns a believable plan into a plan
+whose every stop is real. The graph is read through a fallback layer that uses
+Neo4j when it is available and an equivalent JSON store otherwise, so the
+system has no hard database dependency and runs unchanged on a laptop or a
+small server.
 
-\paragraph{Two-pass, KG-first retrieval.}
-Retrieval runs in two passes. Pass one queries the knowledge graph for routes,
-hotels, activities and restaurants matching the destination and tier. If
-coverage is sufficient the system stops there; otherwise pass two calls
-external services only for the missing slots and merges the results back, with
-every fetched record written to a disk cache keyed by query so repeat trips are
-near-instant. This ordering keeps the common case fast and free, reserves paid
-API calls for genuine gaps, and bounds the blast radius of any single service
-outage.
+Two design choices in the retrieval path are worth calling out, since both were
+made for the sake of later growth. The first is that retrieval is graph first
+and only reaches for a live service when the graph cannot answer, with every
+fetched record written back to a disk cache. This keeps the common path fast
+and free, and it means that adding a new live source later is a matter of
+filling one slot in the second pass rather than rewiring the planner. The
+second is that each candidate carries a confidence score, so the system can
+prefer verified, high confidence places now and, in future, blend in lower
+confidence discoveries from the web behind the same interface without the
+planner needing to know where a candidate came from. The grounding agents that
+run in parallel follow the same contract: flights and rail return structured
+advisories with indicative fares, weather returns a per day forecast that the
+planner turns into a gear note, and the insights agent returns short factual
+notes. None of them can block the run, because a failure in any one simply
+leaves its slot empty and the planner proceeds with what it has.
 
-\paragraph{Knowledge graph as a guardrail.}
-The KG is a curated store of $80{+}$ Indian destinations with activities,
-hotels and transport options, each carrying coordinates, ratings, indicative
-cost, fatigue/morale seeds and a confidence score. Crucially, the LLM never
-invents a place: it \emph{chooses} from verified candidates, which is what
-turns ``a plausible-sounding plan'' into ``a plan whose every stop exists''.
-The KG also makes failure graceful --- if a live API is unavailable, the
-cached/seed data still yields a coherent plan. The graph is queried through a
-fallback layer (Neo4j when present, otherwise an equivalent JSON store), so the
-system carries no hard database dependency and runs unchanged on a laptop or a
-small cloud instance.
-
-\section{The Itinerary Architect}
+\section{The planning agent}
 \label{sec:architect}
 
-The Architect is the system's reasoning core and its main departure from
-template-based planners. In a \emph{single} structured call it receives: the
-constraints, the chosen transport mode and hotel, the candidate pool, a real
-\emph{driving-time matrix} between the top candidates (from a routing API), the
-day-by-day weather, and short web insights. It returns a JSON plan in which
-each day is a sequence of typed events (activity, meal, travel, rest, hotel),
-and every event carries a start time, duration, a one-line ``why'', a fatigue
-and morale score, a skippability rating, and local tips.
+The planning agent is the reasoning core and the main place where real judgement
+happens. In one structured call it receives the constraints, the chosen
+transport mode and hotel, the candidate pool, a real driving time matrix
+$D\in\mathbb{R}^{n\times n}$ over the top candidates, the day by day weather,
+and short web notes. It returns a plan in which each day is a sequence of typed
+events (activity, meal, travel, rest, hotel), and each event carries a start
+time, a duration, a one line reason, fatigue and morale scores, a skippability
+rating and local tips.
 
-Three design rules make the output usable rather than merely plausible.
-\textbf{(i) Explicit travel legs:} the Architect inserts a \texttt{travel}
-event between every pair of physical stops, with mode and a traffic buffer
-computed from the matrix --- so the map shows city\,$\rightarrow$\,airport
-road, flight, and airport\,$\rightarrow$\,hotel road, not teleportation.
-\textbf{(ii) No idle gaps and realistic days:} each day begins at the hotel and
-ends with a return leg, and post-arrival afternoons are filled with low-fatigue
-activities rather than left blank. \textbf{(iii) Bounded density:} a hard cap
-of seven events per day (enforced both in-prompt and by a post-processor that
-trims only low-priority, non-essential stops) keeps plans readable and bounds
-output length, which is the dominant latency term (Appendix~\ref{app:cost}).
+Three rules keep the output usable rather than merely plausible. The agent
+inserts an explicit travel event between every pair of physical stops, with a
+mode and a traffic buffer sized from $D$, so the map shows the drive to the
+airport, the flight, and the drive to the hotel instead of a jump in space.
+Each day starts at the hotel and ends with a return leg, and arrival
+afternoons are filled with light activities rather than left blank. A hard cap
+of seven events per day, enforced in the prompt and by a post processor that
+trims only low priority stops, keeps days readable and bounds output length,
+which is the largest single driver of latency (Appendix~\ref{app:cost}). The
+travel time matrix matters because estimating distance is exactly what a
+language model cannot do reliably on its own; handing it a cheap, real matrix
+removes the most common failure of LLM planners.
 
-\paragraph{Grounding the schedule in real travel time.}
-The candidate set is too large to reason over pairwise in prose, so we first
-compute a driving-time matrix $D \in \mathbb{R}^{n\times n}$ over the top-$n$
-candidates (hotel included) from a routing API, and pass it to the Architect as
-structured context. The model is instructed to minimise backtracking by
-keeping consecutive same-day stops geographically close, using $D$ rather than
-straight-line distance, and to size each travel leg's duration as the matrix
-value plus a traffic buffer. This is where most LLM planners fail silently ---
-they assume teleportation between stops --- and where a cheap matrix gives the
-model the one signal it cannot estimate reliably on its own.
-
-\paragraph{Pacing model.}
-Each event $e$ receives base fatigue and morale seeds from the catalogue, which
-the \emph{fatigue\_adjuster} then refines for context. Conceptually the
-adjusted fatigue of the $k$-th event on a day is
+Pacing is handled by a fatigue agent that refines the seed scores for context.
+The adjusted fatigue of the $k$th event of a day is
 %
 \begin{equation}\label{eq:fatigue}
 \hat{f}_k \;=\; \mathrm{clip}_{[0,10]}\!\Big( f^{\,0}_k
@@ -237,132 +264,107 @@ adjusted fatigue of the $k$-th event on a day is
  + \gamma \!\!\sum_{j<k}\!\mathbb{1}[f^{\,0}_j \!\ge\! \tau] \Big),
 \end{equation}
 %
-where $f^{0}_k$ is the seed, $c_k$ the cumulative distance travelled so far that
-day, the indicator terms add load for adverse weather and for preceding
-high-intensity stops, and $\alpha,\beta,\gamma,\tau$ are small fixed weights.
-A symmetric rule lowers morale for repeated activity types. The resulting
-$(\hat f, \hat m)$ pair drives the per-event \emph{skippability} rating the UI
-uses to mark which stops are essential versus cuttable when a group is tired.
+where $f^{0}_k$ is the catalogue seed, $c_k$ is the distance covered so far that
+day, the indicators add load for bad weather and for earlier intense stops, and
+$\alpha,\beta,\gamma,\tau$ are small fixed weights. The resulting scores drive
+the skippability rating the interface uses to mark which stops are essential
+and which can be dropped when a group is tired. Finally a review agent checks
+the plan for budget and constraint violations and either approves it or returns
+feedback for one bounded re plan, surfacing problems such as a budget overage
+to the user as an advisory rather than silently changing the plan.
 
-\paragraph{Self-critique.}
-The Architect's plan is passed to a review agent that checks budget adherence,
-constraint satisfaction and obvious infeasibility, and either approves it or
-returns structured feedback for one bounded re-plan. The review verdict is
-surfaced to the user as an advisory (e.g.\ a flagged budget overage) rather
-than silently mutating the plan, keeping the system honest about its own
-limitations.
-
-\paragraph{Robust decoding.}
-Because LLMs frequently wrap JSON in markdown fences and append trailing prose,
-we parse with a tolerant decoder that strips fences and extracts the first
-valid JSON value; this single fix eliminated a class of silent
-fall-backs-to-template that we observed when migrating model families
-(Appendix~\ref{app:guard}).
-
-\section{Cost-aware multi-LLM routing}
+\section{Per role model routing}
 \label{sec:routing}
 
-A planning run issues many LLM calls of very different value: parsing and
-validation are cheap and forgiving, whereas the Architect and the final review
-demand strong structured reasoning. We exploit this with \emph{per-role
-routing}: every agent calls \texttt{get\_llm(role)}, and the provider/model for
-each role is resolved from environment variables, so any agent can be moved
-between providers with no code change. Our deployed configuration (Table~\ref{tab:routing}) keeps the
-Architect and Review on a frontier model (Claude) and routes the remaining
-roles to a free, fast model (Gemini Flash-Lite). This cut paid-model calls per
-plan from ${\sim}8$ to ${\sim}2$ ($\approx 75\%$ reduction) while preserving
-itinerary quality, because the offloaded roles emit small, well-specified JSON
-that the smaller model handles reliably given our tolerant decoder. Independent
-roles (flights/trains, weather/insights) additionally execute in parallel
-threads, overlapping their network latency. A full latency and cost breakdown
-is given in Appendix~\ref{app:cost}.
+A single run issues many model calls of very different value. Parsing and
+validation are cheap and forgiving, while planning and review need strong
+structured reasoning. We use this with per role routing: each agent asks a
+factory for its model, and the provider and model name for every role are read
+from configuration, so any agent can move between providers without touching
+code. Our deployed setup (Table~\ref{tab:routing}) keeps the planner and review
+on a frontier model and sends the rest to a free, fast model. This dropped paid
+calls per plan from about eight to about two, roughly a seventy five percent
+cut, with no drop in plan quality, because the offloaded roles emit small,
+well specified JSON that the smaller model handles reliably. Independent roles
+also run on parallel threads. The mechanism is the same one that makes future
+integration cheap: a new model, including a local one for offline use, is a
+configuration change rather than a code change.
 
 \begin{table}[h]
-\caption{Per-role model routing (deployed configuration).}
+\caption{Per role model routing in the deployed system.}
 \label{tab:routing}
 \centering
 \begin{tabular}{lll}
 \toprule
-Role(s) & Model & Rationale \\
+Role(s) & Model class & Why \\
 \midrule
-Architect & Claude (frontier) & hardest reasoning \\
-Review & Claude (frontier) & quality gate \\
-Parser, validator & Gemini Flash-Lite & small, forgiving JSON \\
-Flights, trains, fatigue & Gemini Flash-Lite & high volume \\
-Explainer, enricher & Gemini Flash-Lite & narrative/lookup \\
+Planning agent & frontier & hardest reasoning \\
+Review & frontier & quality gate \\
+Parser, validator & free, fast & small forgiving JSON \\
+Flights, trains, fatigue & free, fast & high volume \\
+Explainer, enricher & free, fast & narrative and lookup \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The mechanism is configuration-only: a global default plus
-\texttt{LLM\_PROVIDER\_<ROLE>} / \texttt{LLM\_MODEL\_<ROLE>} overrides resolved
-at call time. Swapping any agent between providers --- or onto a local model
-for offline use --- requires editing environment variables, not code, which
-made the cost optimisation a deployment decision rather than a code change.
-
-\section{Map-native interface}
+\section{Map native interface and deployment}
 \label{sec:ui}
 
-A plan is only as useful as its presentation, and a list of bullet points hides
-exactly the spatial reasoning travellers care about. TripGraph therefore makes
-the map the primary surface: the itinerary \emph{is} the map. Each stop is a
-numbered pin in visiting order; consecutive stops are joined by the
-\emph{actual} road polyline returned by the routing API, while inter-city legs
-render as a dashed flight/rail arc, so a user immediately sees the
-city-centre\,$\rightarrow$\,airport drive, the flight, and the
-airport\,$\rightarrow$\,hotel drive rather than an implausible straight line.
+The plan is presented on the map, because a list of bullets hides the spatial
+reasoning that travellers care about. Each stop is a numbered pin in visiting
+order, joined by the real road polyline from the routing service, with
+inter city legs drawn as a dashed arc, so the route reads as it will actually
+be travelled. Selecting a pin opens a card pinned to that point on screen, with
+a live photo and rating, the planner's reason, opening hours, the fatigue
+gauges from Equation~(\ref{eq:fatigue}) and local tips. A day strip and a
+calendar timeline give the time view and are linked to the map both ways, and a
+cost ledger shows where the budget goes by category. A delay simulator lets the
+user inject a disruption and watch the day re plan with a plain language summary
+of what changed. The system is deployed behind a domain with HTTPS: an nginx
+proxy serves the built app and forwards the API to a backend run under systemd,
+provisioned by a single script. Every external call is wrapped so a failure
+downgrades instead of breaking the plan, chat input passes a prompt injection
+guardrail, and a maintenance flag can disable paid endpoints while keeping the
+site visible (Appendices~\ref{app:guard} and \ref{app:deploy}).
 
-Selecting a pin opens a detail popover anchored to that point in screen space
-(it tracks the pin as the map pans and zooms), showing a live place photo and
-rating fetched from the places API, the Architect's one-line ``why'', opening
-hours, the fatigue/morale gauges from Equation~(\ref{eq:fatigue}), and local
-tips. A per-day strip and a calendar-style timeline give the temporal view;
-clicking a day flies the map to that day's bounding box and filters the
-timeline, and clicking a timeline event highlights its pin --- the spatial and
-temporal views are bidirectionally linked. A cost ledger breaks the budget into
-transport, hotel (per night $\times$ nights), activities, food and
-miscellaneous, so the user can see \emph{where} the money goes, not just the
-total. Finally, a delay simulator lets the user inject a disruption; the
-\emph{replanner} shifts, shortens or drops events to absorb it and explains in
-plain language what changed and whether the return deadline still holds.
+\section{Future scope and business outlook}
+\label{sec:future}
 
-\section{Robustness and deployment}
-\label{sec:deploy}
+The same properties that make the architecture sound also make it a viable
+product. The clearest route to revenue is booking commission: the system
+already proposes specific hotels, flights and trains, so connecting the
+existing scaffolded deal and transport agents to live inventory turns every
+itinerary into a set of affiliate booking links at no extra modelling cost. A
+second route is business to business licensing. Travel agencies and online
+travel platforms can embed the planner as a white label service, where the
+per role routing keeps their running cost low because only two calls per plan
+touch a paid model. A third route is tiered access, offering free planning with
+a premium tier for larger groups, longer trips, live re planning during travel,
+and offline use through a local model. The opportunity is sized by a simple observation: group trips are common and
+high value, yet the planning step is still done by hand across chat threads,
+browser tabs and spreadsheets, and that friction is exactly what the system
+removes. A sensible go to market follows the architecture. The public demo
+validates the consumer experience and seeds the knowledge graph. From there the
+white label offering reaches travel agencies and regional operators who want a
+planner but cannot build one, and an API offering exposes the planning agent to
+other apps that already own a customer base. The unit economics are favourable
+because of the routing design: most of the work runs on a free tier, so the
+marginal model cost of an itinerary is small and predictable, which keeps the
+service viable even at consumer price points.
 
-\paragraph{Degradation and safety.} Every external call is wrapped so that a
-failure downgrades gracefully (e.g.\ missing polylines fall back to straight
-segments; a rate-limited agent is skipped) rather than failing the plan. Chat
-input passes a dual-layer prompt-injection guardrail
-(Appendix~\ref{app:guard}). LLM timeouts and client/proxy read-timeouts were
-tuned to exceed worst-case plan latency after we traced a ``default data''
-symptom to a 120\,s cap firing mid-generation.
-
-\paragraph{Deployment.} The system runs in production behind a domain with
-Let's Encrypt HTTPS: an \texttt{nginx} reverse proxy serves the built SPA and
-proxies the API to a \texttt{systemd}-managed backend; one script provisions
-the whole stack (Appendix~\ref{app:deploy}). A private-preview gate lets the
-site stay publicly visible while disabling credit-spending endpoints.
-
-\section{Related work and conclusion}
-\label{sec:related}
-
-TripGraph sits between free-running tool agents~\citep{yao2023react,
-park2023generative} and rigid template planners. Like agentic systems it uses
-tools and LLM reasoning; unlike them it fixes the control flow for
-auditability and grounds selection in a curated KG, addressing the
-hallucination and constraint failures that benchmarks such as
-TravelPlanner~\citep{xie2024travelplanner} expose. We showed that a grounded,
-role-routed pipeline with a single reasoned planning pass yields coherent,
-constraint-aware, map-native itineraries at low cost, and is robust enough to
-deploy.
-
-\paragraph{Limitations.} The current evaluation is qualitative and
-deployment-driven rather than a controlled study against a benchmark; the KG is
-curated and India-focused; and candidate selection is heuristic rather than
-learned. Future work includes a learned candidate ranker, a richer
-group-utility cost model, automatic evaluation on a held-out trip set, and
-closing the loop with explicit user feedback. Extended details, tables and a
-worked example follow in the appendices.
+Defensibility comes from two places that are hard to copy quickly. The first is
+the curated knowledge graph, a compounding asset that improves selection
+quality as it grows with verified places and real bookings, and that a generic
+model cannot reproduce because it encodes choices and confidence, not just
+text. The second is the agentic structure itself, which lowers the cost of
+every future feature. Because each capability is an agent over a shared state,
+expansion to new regions, a corporate travel policy agent that enforces company
+rules, a group voting agent that turns shared decisions into a single plan,
+real time re planning during a trip, and a learned ranker for candidates can
+each be added as a node without reworking the pipeline. The product can grow
+feature by feature and market by market while the core stays stable, which is
+the commercial payoff of the engineering decisions described above. Extended
+details and a worked example follow in the appendices.
 
 \clearpage
 \appendix
@@ -370,29 +372,27 @@ worked example follow in the appendices.
 \section{Agent roster}
 \label{app:nodes}
 Referenced from Section~\ref{sec:arch}. The deployed pipeline comprises:
-\emph{chat\_parser} (chat\,$\rightarrow$\,constraints), \emph{constraint\_%
-validator} (conflicts/defaults), \emph{data\_retriever} (two-pass
-KG\,$\leftrightarrow$\,API with disk cache), \emph{mode\_planner} (road/rail/
-flight selection by distance), \emph{planner\_orchestrator} (route/hotel
-shell), \emph{terminal\_resolver} (airports/stations + first/last-mile times),
-\emph{flights\_agent} and \emph{train\_agent} (advisories with scraped price
-ranges), \emph{weather\_agent} (forecast\,$\rightarrow$\,gear list),
-\emph{insights\_agent} (web abstracts), \emph{architect} (the planning core),
-\emph{photo\_enricher} (Places photos/ratings, parallel + capped),
-\emph{segment\_router} (road polylines, cached), \emph{fatigue\_adjuster}
-(context-aware pacing) and \emph{review\_agent} (final sanity check with an AI
-disclaimer). A \emph{refinement\_questioner} powers an optional one-round
-counter-question step and a \emph{replanner\_agent} powers delay simulation.
+chat parser (chat to constraints), constraint validator (conflicts and
+defaults), retriever (two pass graph and API with disk cache), mode planner
+(road, rail or flight by distance), planner orchestrator (route and hotel
+shell), terminal resolver (airports and stations with first and last mile
+times), flights and train agents (advisories with scraped fare ranges), weather
+agent (forecast to gear list), insights agent (web abstracts), the planning
+agent itself, photo enricher (place photos and ratings, parallel and capped),
+road polyline router (cached geometry), fatigue scorer and review agent. A
+refinement questioner powers an optional one round of counter questions, and a
+replanner agent powers the delay simulator. Deal and traffic agents are present
+as scaffolds for future live integrations.
 
 \section{External data sources}
 \label{app:data}
 Referenced from Section~\ref{sec:arch}. Table~\ref{tab:apis} lists the live
-services and their role. The KG-first strategy means most runs touch only a
-subset; the routing API is the tightest free ceiling (2000 requests/day), so
-per-segment polylines are aggressively cached.
+services. Graph first retrieval means most runs touch only a few of them. The
+routing service has the tightest free ceiling at two thousand requests per day,
+so per segment road geometry is cached aggressively.
 
 \begin{table}[h]
-\caption{External services and their use.}
+\caption{Live services and their role.}
 \label{tab:apis}
 \centering
 \begin{tabular}{ll}
@@ -400,72 +400,70 @@ per-segment polylines are aggressively cached.
 Service & Role \\
 \midrule
 OpenRouteService & geocoding, routes, road polylines \\
-Google Maps Platform & Places (photos, ratings), distance matrix, tiles \\
-OpenWeatherMap & day-by-day forecast \\
+Google Maps Platform & places (photos, ratings), distance matrix, tiles \\
+OpenWeatherMap & day by day forecast \\
 RailRadar & alternative rail routes \\
-DuckDuckGo & destination insights, fare snippets \\
+DuckDuckGo & destination notes, fare snippets \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\section{Cost and latency analysis}
+\section{Cost and latency}
 \label{app:cost}
-Referenced from Sections~\ref{sec:architect} and~\ref{sec:routing}. The
-workload is I/O-bound: on a 1\,vCPU/2\,GB cloud instance, server CPU stays
-below $10\%$ during planning --- wall-clock time is dominated by LLM token
-streaming and API round-trips, not computation, so vertical scaling does not
-help. The Architect's output length is the largest single term, which is why
-the seven-events/day cap matters. Table~\ref{tab:lat} summarises observed
-end-to-end latency. Per-role routing reduced frontier-model calls per plan from
-${\sim}8$ to ${\sim}2$; the offloaded model is on a free tier, so marginal
-LLM cost for a typical plan approaches that of the two retained calls.
+Referenced from Sections~\ref{sec:architect} and \ref{sec:routing}. The
+workload is bound by input and output, not computation: on a one vCPU cloud
+instance the server CPU stays below ten percent during planning, so the time is
+spent waiting on model tokens and API round trips, and vertical scaling does
+not help. Planner output length is the largest single term, which is why the
+seven events per day cap matters. Table~\ref{tab:lat} gives observed end to end
+latency. Per role routing cut frontier calls per plan from about eight to about
+two; the offloaded model sits on a free tier, so the marginal model cost of a
+typical plan is close to those two retained calls.
 
 \begin{table}[h]
-\caption{Indicative end-to-end plan latency (cloud 1\,vCPU instance).}
+\caption{Indicative end to end latency on a one vCPU instance.}
 \label{tab:lat}
 \centering
 \begin{tabular}{lcc}
 \toprule
-Trip & Events & Wall-clock \\
+Trip & Events & Wall clock \\
 \midrule
-2-day weekend (warm cache) & ${\sim}12$ & ${\sim}30$\,s \\
-4-day trip (cold cache) & ${\sim}30$ & ${\sim}140$\,s \\
+2 day weekend (warm cache) & about 12 & about 30\,s \\
+4 day trip (cold cache) & about 30 & about 140\,s \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \section{Worked example}
 \label{app:example}
-Referenced from Section~\ref{sec:architect}. For ``\emph{Chandigarh
-$\rightarrow$ Goa, 4 days, \rupee40k pp, flying, group of 4}'' the Architect
-selects a flight mode, opens Day~1 with cab$\rightarrow$IXC, flight, and
-GOI$\rightarrow$hotel travel legs, then a light arrival afternoon; Days~2--3
-cluster North-Goa beaches and Old-Goa heritage with explicit inter-stop cab
-legs and a sunset/seafood evening; Day~4 returns. Each stop carries a ``why'',
-a fatigue/morale pair, and tips; the review node flags any budget overage as an
-advisory rather than silently exceeding it.
+Referenced from Section~\ref{sec:architect}. For ``Chandigarh to Goa, four
+days, \rupee40k per person, flying, group of four'' the planner picks a flight
+mode, opens day one with the cab to the airport, the flight, and the cab to the
+hotel, then a light arrival afternoon. Days two and three cluster the North Goa
+beaches and Old Goa heritage with explicit cab legs between stops and a sunset
+and seafood evening, and day four returns home. Each stop carries a reason, a
+fatigue and morale pair, and tips, and the review agent flags any budget
+overage as an advisory rather than exceeding it silently.
 
 \section{Guardrails and parsing robustness}
 \label{app:guard}
-Referenced from Sections~\ref{sec:architect} and~\ref{sec:deploy}. Chat is
-treated as untrusted data: a prompt-level instruction plus a server-side
-sanitiser reject injection patterns (``ignore previous'', role markers,
-script/HTML), clamp numeric ranges, and flag off-topic input. On the parsing
-side, a tolerant JSON decoder strips ```` ```json ```` fences and uses
-\texttt{raw\_decode} to read the first valid object even when the model appends
-trailing prose --- this removed silent fall-backs to the deterministic template
-that appeared when switching model families.
+Referenced from Sections~\ref{sec:architect} and \ref{sec:ui}. Chat is treated
+as untrusted input. A prompt level instruction and a server side sanitiser
+reject injection patterns such as ``ignore previous'', role markers and script
+or HTML, clamp numeric ranges, and flag off topic input. On parsing, a tolerant
+decoder strips code fences and reads the first valid JSON object even when the
+model adds trailing prose, which removed a class of silent fall backs to a
+template that appeared when we switched model families.
 
 \section{Deployment topology}
 \label{app:deploy}
-Referenced from Section~\ref{sec:deploy}. A single script installs system
-dependencies, builds the SPA, runs the backend under \texttt{systemd}, and
-configures \texttt{nginx} to serve static assets and proxy \texttt{/api}, so
-the browser sees one origin (sidestepping CORS). A second script provisions a
-Let's Encrypt certificate and rebuilds the frontend against the HTTPS origin.
-Secrets live only in an un-tracked environment file; a maintenance flag returns
-HTTP~503 from credit-spending endpoints while leaving the landing experience
-intact.
+Referenced from Section~\ref{sec:ui}. One script installs dependencies, builds
+the frontend, runs the backend under systemd, and configures nginx to serve the
+static assets and proxy the API, so the browser sees a single origin and CORS
+is not an issue. A second script provisions a Let's Encrypt certificate and
+rebuilds the frontend against the secured origin. Secrets live only in an
+untracked environment file, and the maintenance flag returns an HTTP 503 from
+paid endpoints while leaving the landing experience in place.
 
 \bibliography{refs}
 
