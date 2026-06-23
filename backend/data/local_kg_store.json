@@ -268,8 +268,8 @@
     {
       "name": "Chandigarh",
       "type": "origin",
-      "lat": 30.7333,
-      "lng": 76.7794,
+      "lat": 30.728092,
+      "lng": 76.7784,
       "state": "Union Territory",
       "region": "north",
       "description": "India's first planned city, known for its architecture, Rock Garden, and clean urban spaces.",
@@ -324,9 +324,9 @@
     },
     {
       "name": "Goa",
-      "type": "beach",
-      "lat": 15.4909,
-      "lng": 73.8278,
+      "type": "nature",
+      "lat": 15.353196,
+      "lng": 74.104396,
       "state": "Goa",
       "region": "west",
       "description": "Famous for its sunny beaches, Portuguese heritage, seafood, water sports, and vibrant nightlife.",
@@ -1138,6 +1138,15 @@
       "type": "nature",
       "tags": [
         "nature"
+      ]
+    },
+    {
+      "name": "Kochi, Alleppey, Munnar",
+      "lat": 9.956297,
+      "lng": 76.332486,
+      "type": "mountains",
+      "tags": [
+        "mountains"
       ]
     }
   ],
@@ -8405,6 +8414,28 @@
       "driving_time": "7.7 hours",
       "polyline": null,
       "base_drive_minutes": 463
+    },
+    {
+      "route_id": "route_56beef7a",
+      "origin": "Bangalore",
+      "destination": "Kochi, Alleppey, Munnar",
+      "distance_km": 506.93,
+      "duration_hours": 7.07,
+      "driving_distance": "507 km",
+      "driving_time": "7.1 hours",
+      "polyline": null,
+      "base_drive_minutes": 424
+    },
+    {
+      "route_id": "route_778a8390",
+      "origin": "Chandigarh",
+      "destination": "Goa",
+      "distance_km": 2037.88,
+      "duration_hours": 22.9,
+      "driving_distance": "2038 km",
+      "driving_time": "22.9 hours",
+      "polyline": null,
+      "base_drive_minutes": 1374
     }
   ],
   "hotels": [
@@ -15062,6 +15093,46 @@
       "price_per_night": 4500,
       "address": "Neeloor - Muttom Road, Neeloor - 686651, Kerala, India",
       "destination": "Kerala"
+    },
+    {
+      "hotel_id": "hotel_62f84e4c",
+      "name": "Hotel Safal",
+      "lat": 9.9289523,
+      "lng": 76.3180568,
+      "tier": "comfort",
+      "price_per_night": 4500,
+      "address": "Lakeshore-Madavana Service Road, Maradu, Thrippunithura - 682304, Kerala, India",
+      "destination": "Kochi, Alleppey, Munnar"
+    },
+    {
+      "hotel_id": "hotel_962fceab",
+      "name": "Tristar Presidency",
+      "lat": 9.9587651,
+      "lng": 76.2935601,
+      "tier": "comfort",
+      "price_per_night": 4500,
+      "address": "Parambithara Road, Panampilly Nagar, Ernakulam - 682036, Kerala, India",
+      "destination": "Kochi, Alleppey, Munnar"
+    },
+    {
+      "hotel_id": "hotel_89df2df9",
+      "name": "Hotel Centre Point",
+      "lat": 9.9622816,
+      "lng": 76.2890077,
+      "tier": "comfort",
+      "price_per_night": 4500,
+      "address": "Mahatma Gandhi Road, Perumanoor, Ernakulam - 680016, Kerala, India",
+      "destination": "Kochi, Alleppey, Munnar"
+    },
+    {
+      "hotel_id": "hotel_b5efbd5a",
+      "name": "Hotel Kochi Caprice",
+      "lat": 9.9658203,
+      "lng": 76.2941592,
+      "tier": "comfort",
+      "price_per_night": 4500,
+      "address": "Sahodaran Ayyappan Road, Ernakulam South, Ernakulam - 682036, Kerala, India",
+      "destination": "Kochi, Alleppey, Munnar"
     }
   ],
   "activities": [
@@ -37754,6 +37825,66 @@
         "tourism"
       ],
       "destination": "Kerala"
+    },
+    {
+      "activity_id": "activity_c9c4009e",
+      "name": "Sahodaran Ayyappan Road",
+      "lat": 9.9668777,
+      "lng": 76.2983761,
+      "category": "tourism",
+      "address": "Ernakulam South, Ernakulam - 682020, Kerala, India",
+      "tags": [
+        "tourism"
+      ],
+      "destination": "Kochi, Alleppey, Munnar"
+    },
+    {
+      "activity_id": "activity_d545caaf",
+      "name": "Ettumanoor - Ernakulam Road",
+      "lat": 9.9449392,
+      "lng": 76.3461862,
+      "category": "tourism",
+      "address": "Maradu, Thrippunithura - 682304, Kerala, India",
+      "tags": [
+        "tourism"
+      ],
+      "destination": "Kochi, Alleppey, Munnar"
+    },
+    {
+      "activity_id": "activity_ef70765c",
+      "name": "Kochinbackwaters Boat Club",
+      "lat": 9.9365873,
+      "lng": 76.3120724,
+      "category": "tourism",
+      "address": "Kundannoor Bridge, Thevara, Ernakulam - 682013, Kerala, India",
+      "tags": [
+        "tourism"
+      ],
+      "destination": "Kochi, Alleppey, Munnar"
+    },
+    {
+      "activity_id": "activity_bd68c2ec",
+      "name": "Thillana",
+      "lat": 9.9482404,
+      "lng": 76.3553826,
+      "category": "tourism",
+      "address": "Old SH20, Thrippunithura - 682301, Kerala, India",
+      "tags": [
+        "tourism"
+      ],
+      "destination": "Kochi, Alleppey, Munnar"
+    },
+    {
+      "activity_id": "activity_31128e25",
+      "name": "Chavara Statue",
+      "lat": 9.9936757,
+      "lng": 76.3572787,
+      "category": "tourism",
+      "address": "Rajagiri College Road, Ernakulam - 682037, Kerala, India",
+      "tags": [
+        "tourism"
+      ],
+      "destination": "Kochi, Alleppey, Munnar"
     }
   ],
   "restaurants": [
