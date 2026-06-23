@@ -42,3 +42,6 @@ backend/data/ddg_cache.json
 backend/data/segment_polyline_cache.json
 backend/data/local_kg_store.json
 /tmp/tripgraph_memory_*.json
+
+# Runtime SQLite DB (user accounts, memory) — never commit
+tripgraph.db
