@@ -256,7 +256,7 @@ Each day starts at the hotel and ends with a return leg, and arrival
 afternoons are filled with light activities rather than left blank. A hard cap
 of seven events per day, enforced in the prompt and by a post processor that
 trims only low priority stops, keeps days readable and bounds output length,
-which is the largest single driver of latency (Appendix~\ref{app:cost}). The
+which is the largest single driver of latency (Section~\ref{sec:cost}). The
 travel time matrix matters because estimating distance is exactly what a
 language model cannot do reliably on its own; handing it a cheap, real matrix
 removes the most common failure of LLM planners.
@@ -333,6 +333,41 @@ downgrades instead of breaking the plan, chat input passes a prompt injection
 guardrail, and a maintenance flag can disable paid endpoints while keeping the
 site visible (Appendices~\ref{app:guard} and \ref{app:deploy}).
 
+\section{Results and observations}
+\label{sec:cost}
+
+The system is deployed and produces complete, grounded itineraries across a
+range of Indian trips. Three observations stand out. First, grounding works:
+because the planner only ever selects from verified knowledge graph candidates
+and is handed a real travel time matrix, plans do not contain invented
+attractions, and every day shows explicit travel legs with realistic durations
+rather than jumps between distant stops. Second, the workload is bound by input
+and output, not computation. On a one vCPU cloud instance the server CPU stays
+below ten percent during planning, so wall clock time is spent waiting on model
+tokens and API round trips, which means vertical scaling does not help and the
+planner's output length is the single largest term. This is why the seven
+events per day cap matters in practice, and why the parallel grounding agents
+and the disk cache for routing geometry have a visible effect: a warm cache
+keeps a four day plan well under the time of a cold one. Table~\ref{tab:lat}
+gives indicative end to end latency. Third, cost falls sharply without quality
+loss. Per role routing cut frontier model calls per plan from about eight to
+about two, and the offloaded roles run on a free tier, so the marginal model
+cost of a typical plan is close to those two retained calls.
+
+\begin{table}[h]
+\caption{Indicative end to end latency on a one vCPU instance.}
+\label{tab:lat}
+\centering
+\begin{tabular}{lcc}
+\toprule
+Trip & Events & Wall clock \\
+\midrule
+2 day weekend (warm cache) & about 12 & about 30\,s \\
+4 day trip (cold cache) & about 30 & about 140\,s \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{Future scope and business outlook}
 \label{sec:future}
 
@@ -358,19 +393,15 @@ because of the routing design: most of the work runs on a free tier, so the
 marginal model cost of an itinerary is small and predictable, which keeps the
 service viable even at consumer price points.
 
-Defensibility comes from two places that are hard to copy quickly. The first is
-the curated knowledge graph, a compounding asset that improves selection
-quality as it grows with verified places and real bookings, and that a generic
-model cannot reproduce because it encodes choices and confidence, not just
-text. The second is the agentic structure itself, which lowers the cost of
-every future feature. Because each capability is an agent over a shared state,
-expansion to new regions, a corporate travel policy agent that enforces company
-rules, a group voting agent that turns shared decisions into a single plan,
-real time re planning during a trip, and a learned ranker for candidates can
-each be added as a node without reworking the pipeline. The product can grow
-feature by feature and market by market while the core stays stable, which is
-the commercial payoff of the engineering decisions described above. Extended
-details and a worked example follow in the appendices.
+Defensibility comes from two sources. The first is the curated knowledge graph,
+a compounding asset that improves as it grows with verified places and real
+bookings, and that a generic model cannot reproduce because it encodes choices
+and confidence, not just text. The second is the agentic structure itself:
+because each capability is an agent over a shared state, new regions, a
+corporate policy agent, a group voting agent and a learned candidate ranker can
+each be added as a node without reworking the pipeline, so the product grows
+feature by feature while the core stays stable. Extended details and a worked
+example follow in the appendices.
 
 \clearpage
 \appendix
@@ -410,32 +441,6 @@ Google Maps Platform & places (photos, ratings), distance matrix, tiles \\
 OpenWeatherMap & day by day forecast \\
 RailRadar & alternative rail routes \\
 DuckDuckGo & destination notes, fare snippets \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\section{Cost and latency}
-\label{app:cost}
-Referenced from Sections~\ref{sec:architect} and \ref{sec:routing}. The
-workload is bound by input and output, not computation: on a one vCPU cloud
-instance the server CPU stays below ten percent during planning, so the time is
-spent waiting on model tokens and API round trips, and vertical scaling does
-not help. Planner output length is the largest single term, which is why the
-seven events per day cap matters. Table~\ref{tab:lat} gives observed end to end
-latency. Per role routing cut frontier calls per plan from about eight to about
-two; the offloaded model sits on a free tier, so the marginal model cost of a
-typical plan is close to those two retained calls.
-
-\begin{table}[h]
-\caption{Indicative end to end latency on a one vCPU instance.}
-\label{tab:lat}
-\centering
-\begin{tabular}{lcc}
-\toprule
-Trip & Events & Wall clock \\
-\midrule
-2 day weekend (warm cache) & about 12 & about 30\,s \\
-4 day trip (cold cache) & about 30 & about 140\,s \\
 \bottomrule
 \end{tabular}
 \end{table}
