@@ -5,10 +5,8 @@ Uses the Chat Parser + Constraint Validator agents from the LangGraph pipeline.
 """
 import traceback
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, HTTPException
 
-from backend.auth.dependencies import get_optional_user
-from backend.db.models import User
 from backend.models.requests import ParseChatRequest
 from backend.models.responses import ParseChatResponse
 
@@ -16,10 +14,7 @@ router = APIRouter(prefix="/api", tags=["Chat"])
 
 
 @router.post("/parse-chat", response_model=ParseChatResponse)
-async def parse_chat(
-    request: ParseChatRequest,
-    current_user: User | None = Depends(get_optional_user),
-) -> ParseChatResponse:
+async def parse_chat(request: ParseChatRequest) -> ParseChatResponse:
     """Parse group chat messages and extract structured trip constraints.
 
     Runs the full workflow but returns only the constraint extraction portion.
@@ -53,19 +48,12 @@ async def parse_chat(
 
         from backend.agents.workflow import run_workflow
 
-        # Token-authenticated user takes priority; fall back to body field; anonymous if neither.
-        user_id = current_user.id if current_user else request.user_id
-        result = run_workflow(request.chat_messages, user_id=user_id)
+        result = run_workflow(request.chat_messages)
         return ParseChatResponse(
-            guardrail_result=result.get("guardrail_result"),
             extracted_constraints=result.get("extracted_constraints", {}),
             missing_fields=result.get("missing_fields", []),
             assumptions=result.get("assumptions", {}),
-            user_profile=result.get("user_profile"),
-            memory_context=result.get("memory_context"),
-            visited_destinations=result.get("visited_destinations", []),
             conflict_report=result.get("conflict_report", {}),
-            is_ready_to_plan=result.get("is_ready_to_plan"),
         )
 
     except Exception as e:

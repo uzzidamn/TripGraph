@@ -5,32 +5,29 @@ Validates extracted constraints for completeness and logical consistency.
 Phase A (Python): Check required fields and obvious hard conflicts.
 Phase B (LLM):    Detect subtle logical conflicts and suggest assumptions.
 """
+import json
+
+from backend.agents.llm_client import get_llm
+from backend.agents.nodes.chat_parser import _parse_llm_json
+from backend.agents.prompts import CONSTRAINT_VALIDATOR_HUMAN, CONSTRAINT_VALIDATOR_SYSTEM
 from backend.agents.state import TripState
 
 
 def _check_required_fields(constraints: dict) -> list[str]:
-    """Return list of required fields that are missing (null or absent).
-
-    Per spec F.6 — five required fields checked independently:
-      origin, destination/destination_type/must_include, trip_duration,
-      budget_per_person, group_size
-    """
+    """Return list of required fields that are missing (null or absent)."""
     missing = []
     if not constraints.get("origin"):
         missing.append("origin")
-    has_destination = (
-        constraints.get("destination")
-        or constraints.get("destination_type")
+    has_duration = constraints.get("budget_per_person") or constraints.get("trip_duration")
+    if not has_duration:
+        missing.append("budget_per_person_or_trip_duration")
+    has_preference = (
+        constraints.get("destination_type")
         or constraints.get("must_include")
+        or constraints.get("destination")
     )
-    if not has_destination:
-        missing.append("destination")
-    if not constraints.get("trip_duration"):
-        missing.append("trip_duration")
-    if not constraints.get("budget_per_person"):
-        missing.append("budget_per_person")
-    if not constraints.get("group_size"):
-        missing.append("group_size")
+    if not has_preference:
+        missing.append("destination_type_or_must_include")
     return missing
 
 
@@ -85,15 +82,38 @@ def constraint_validator_node(state: TripState) -> dict:
             "assumptions": {},
         }
 
-    # Phase B removed — Python Phase A covers all hard blockers.
-    # LLM conflict-scan added ~2s per request with no decision impact.
-    print(f"  ✅ Constraint validator: ready_to_plan=True, conflicts={len(hard_conflicts)}")
+    # Phase B: LLM checks — subtle conflicts and assumptions
+    llm = get_llm()
+    messages = [
+        ("system", CONSTRAINT_VALIDATOR_SYSTEM),
+        ("human", CONSTRAINT_VALIDATOR_HUMAN.format(constraints=json.dumps(constraints, indent=2))),
+    ]
+
+    llm_result: dict = {}
+    try:
+        response = llm.invoke(messages)
+        llm_result = _parse_llm_json(response.content)
+    except json.JSONDecodeError as e:
+        print(f"  ⚠️  Constraint validator JSON parse failed: {e}")
+        llm_result = {"conflict_report": {}, "assumptions": {}}
+    except Exception as e:
+        print(f"  ❌ LLM call failed: {e}")
+        raise
+
+    # Merge Python-detected conflicts with LLM-detected conflicts
+    llm_conflicts = llm_result.get("conflict_report", {}).get("conflicts", [])
+    all_conflicts = hard_conflicts + llm_conflicts
+    assumptions = llm_result.get("assumptions", {})
+
+    print(f"  ✅ Constraint validator: ready_to_plan=True, "
+          f"conflicts={len(all_conflicts)}, assumptions={len(assumptions)}")
+
     return {
         "is_ready_to_plan": True,
         "conflict_report": {
-            "has_conflicts": bool(hard_conflicts),
-            "conflicts": hard_conflicts,
+            "has_conflicts": bool(all_conflicts),
+            "conflicts": all_conflicts,
         },
-        "assumptions": {},
+        "assumptions": assumptions,
         "missing_fields": [],
     }

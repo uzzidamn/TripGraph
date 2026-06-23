@@ -148,7 +148,7 @@ def get_grounded_llm(model: str | None = None):
     api_key = os.getenv("GOOGLE_API_KEY")
     if not api_key:
         return None
-    model = model or os.getenv("GROUNDED_LLM_MODEL") or os.getenv("LLM_MODEL", "gemini-2.0-flash")
+    model = model or os.getenv("GROUNDED_LLM_MODEL", "gemini-2.0-flash")
     try:
         from langchain_google_genai import ChatGoogleGenerativeAI
         client = ChatGoogleGenerativeAI(

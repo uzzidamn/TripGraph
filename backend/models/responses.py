@@ -7,47 +7,15 @@ from pydantic import BaseModel, Field
 class ParseChatResponse(BaseModel):
     """Response for POST /api/parse-chat."""
 
-    # Agent 0: Guardrail
-    guardrail_result: Optional[Dict[str, Any]] = None
-    # Agent 1: Chat Parser
     extracted_constraints: Optional[Dict[str, Any]] = None
     missing_fields: Optional[List[str]] = None
     assumptions: Optional[Dict[str, Any]] = None
-    # Agent 2: Memory Agent
-    user_profile: Optional[Dict[str, Any]] = None
-    memory_context: Optional[Dict[str, Any]] = None
-    visited_destinations: Optional[List[str]] = None
-    # Agent 3: Constraint Validator
     conflict_report: Optional[Dict[str, Any]] = None
-    is_ready_to_plan: Optional[bool] = None
 
 
 class ItineraryResponse(BaseModel):
     """Response for POST /api/generate-itinerary."""
 
-    # Unsupported route (checked first in failure path)
-    unsupported_route: Optional[Dict[str, Any]] = None
-    suggested_routes: Optional[List[Dict[str, Any]]] = None
-    # Agent 0: Guardrail
-    guardrail_result: Optional[Dict[str, Any]] = None
-    # Agents 1-3
-    extracted_constraints: Optional[Dict[str, Any]] = None
-    missing_fields: Optional[List[str]] = None
-    assumptions: Optional[Dict[str, Any]] = None
-    conflict_report: Optional[Dict[str, Any]] = None
-    is_ready_to_plan: Optional[bool] = None
-    # Agent 2: Memory
-    user_profile: Optional[Dict[str, Any]] = None
-    memory_context: Optional[Dict[str, Any]] = None
-    visited_destinations: Optional[List[str]] = None
-    # Agent 4: Data Retrieval candidates
-    route_candidates: Optional[List[Dict[str, Any]]] = None
-    hotel_candidates: Optional[List[Dict[str, Any]]] = None
-    transport_candidates: Optional[List[Dict[str, Any]]] = None
-    activity_candidates: Optional[List[Dict[str, Any]]] = None
-    food_candidates: Optional[List[Dict[str, Any]]] = None
-    waypoint_candidates: Optional[List[Dict[str, Any]]] = None
-    # Agent 5: Planner
     recommended_itinerary: Optional[Dict[str, Any]] = None
     alternatives: Optional[List[Dict[str, Any]]] = None
     validation_report: Optional[Dict[str, Any]] = None

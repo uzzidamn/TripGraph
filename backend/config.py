@@ -35,17 +35,5 @@ class Settings:
         "CORS_ORIGINS", "http://localhost:5173,http://localhost:3000"
     ).split(",")
 
-    # Auth / DB
-    DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///./tripgraph.db")
-    JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY", "")
-    JWT_EXPIRE_MINUTES: int = int(os.getenv("JWT_EXPIRE_MINUTES", "10080"))
-
-    def __init__(self):
-        if not self.JWT_SECRET_KEY:
-            raise RuntimeError(
-                "JWT_SECRET_KEY is not set. Add it to .env — "
-                "generate one with: python -c \"import secrets; print(secrets.token_hex(32))\""
-            )
-
 
 settings = Settings()

@@ -1,5 +1,5 @@
 """Pydantic request models for all API endpoints."""
-from typing import Any, Dict, List, Literal, Optional
+from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -7,7 +7,6 @@ from pydantic import BaseModel, Field
 class ParseChatRequest(BaseModel):
     """Request body for POST /api/parse-chat."""
 
-    user_id: Optional[str] = Field(None, description="Unique user identifier for memory scoping")
     chat_messages: List[str] = Field(
         ...,
         min_length=1,
@@ -24,7 +23,6 @@ class ParseChatRequest(BaseModel):
 class GenerateItineraryRequest(BaseModel):
     """Request body for POST /api/generate-itinerary."""
 
-    user_id: Optional[str] = Field(None, description="Unique user identifier for memory scoping")
     constraints: Dict[str, Any] = Field(
         ...,
         description="Structured constraints dict (from /api/parse-chat or provided directly)",
@@ -45,14 +43,6 @@ class GenerateItineraryRequest(BaseModel):
         None,
         description="Answers to the 4 LLM-generated refinement questions, "
                     "keyed by question id. Merged into constraints before planning.",
-    )
-    duplicate_action: Optional[Literal["proceed", "cancel"]] = Field(
-        None,
-        description=(
-            "Response to a duplicate trip warning. "
-            "'proceed' continues planning the same route. "
-            "'cancel' aborts planning."
-        ),
     )
 
 
