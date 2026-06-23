@@ -5,8 +5,10 @@ Uses the Chat Parser + Constraint Validator agents from the LangGraph pipeline.
 """
 import traceback
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 
+from backend.auth.dependencies import get_optional_user
+from backend.db.models import User
 from backend.models.requests import ParseChatRequest
 from backend.models.responses import ParseChatResponse
 
@@ -14,7 +16,10 @@ router = APIRouter(prefix="/api", tags=["Chat"])
 
 
 @router.post("/parse-chat", response_model=ParseChatResponse)
-async def parse_chat(request: ParseChatRequest) -> ParseChatResponse:
+async def parse_chat(
+    request: ParseChatRequest,
+    current_user: User | None = Depends(get_optional_user),
+) -> ParseChatResponse:
     """Parse group chat messages and extract structured trip constraints.
 
     Runs the full workflow but returns only the constraint extraction portion.
@@ -48,7 +53,9 @@ async def parse_chat(request: ParseChatRequest) -> ParseChatResponse:
 
         from backend.agents.workflow import run_workflow
 
-        result = run_workflow(request.chat_messages, user_id=request.user_id)
+        # Token-authenticated user takes priority; fall back to body field; anonymous if neither.
+        user_id = current_user.id if current_user else request.user_id
+        result = run_workflow(request.chat_messages, user_id=user_id)
         return ParseChatResponse(
             guardrail_result=result.get("guardrail_result"),
             extracted_constraints=result.get("extracted_constraints", {}),

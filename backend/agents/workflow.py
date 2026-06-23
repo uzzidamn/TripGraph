@@ -28,9 +28,9 @@ from backend.agents.state import TripState, initialize_state
 
 def _route_after_guardrail(state: TripState) -> str:
     action = (state.get("guardrail_result") or {}).get("action", "proceed")
-    if action in ("clarify", "confirm"):
-        return END
-    return "chat_parser"
+    if action == "clarify":
+        return END  # off-topic: stop immediately, no point extracting
+    return "chat_parser"  # for "confirm" or "proceed": continue to extract constraints
 
 
 def build_main_workflow() -> StateGraph:
@@ -95,7 +95,80 @@ def run_workflow(chat_messages: list[str], user_id: str | None = None) -> TripSt
     return result
 
 
-def run_workflow_from_constraints(constraints: dict) -> TripState:
+def _duplicate_guardrail(
+    constraints: dict,
+    user_id,
+    duplicate_action: str | None,
+) -> dict | None:
+    """Check for a duplicate past trip before any expensive agent work.
+
+    Returns a partial state dict to short-circuit the workflow, or None to proceed.
+    Anonymous users (no user_id) are always passed through.
+    Any exception skips the check — planning is never blocked.
+    """
+    if not user_id:
+        return None
+
+    origin = constraints.get("origin", "")
+    destination = constraints.get("destination") or constraints.get("destination_type", "")
+    if not origin or not destination:
+        return None
+
+    try:
+        from backend.memory.store import find_duplicate_trip
+
+        if duplicate_action == "cancel":
+            return {"guardrail_result": {
+                "action": "cancel",
+                "reason": "user_cancelled",
+                "response": "Planning cancelled. Let me know if you'd like to plan a different trip.",
+                "matched_trip": None,
+            }}
+
+        if duplicate_action == "proceed":
+            print(f"  ✅ Duplicate guard: user chose to proceed — planning {origin} → {destination}")
+            return None
+
+        matched = find_duplicate_trip(user_id, origin, destination)
+
+        if matched is None:
+            return None
+
+        planned_at = matched.get("planned_at", "")
+        date_str = ""
+        if planned_at:
+            try:
+                from datetime import datetime as _dt
+                dt = _dt.fromisoformat(planned_at.replace("Z", "+00:00"))
+                date_str = dt.strftime("%d %b %Y")
+            except Exception:
+                date_str = planned_at[:10]
+
+        status_str = matched.get("status", "planned")
+        verb = "had" if status_str == "completed" else "have"
+        response = (
+            f"You already {verb} a trip to {destination} from {origin}"
+            + (f" ({date_str})" if date_str else "")
+            + ". Would you like to proceed with the same?"
+        )
+        print(f"  ⏸  Duplicate guard: {status_str} trip to {destination} — confirming with user")
+        return {"guardrail_result": {
+            "action": "confirm",
+            "reason": "similar_trip_found",
+            "response": response,
+            "matched_trip": matched,
+        }}
+
+    except Exception as e:
+        print(f"  ⚠️  Duplicate guardrail failed ({e}) — skipping check")
+        return None
+
+
+def run_workflow_from_constraints(
+    constraints: dict,
+    user_id: int | str | None = None,
+    duplicate_action: str | None = None,
+) -> TripState:
     """Run the planning pipeline with pre-extracted constraints, skipping LLM re-parse.
 
     Pipeline order (post-pivot 2026-06-21):
@@ -107,6 +180,18 @@ def run_workflow_from_constraints(constraints: dict) -> TripState:
     state = initialize_state([])
     state["extracted_constraints"] = constraints
     state["is_ready_to_plan"] = True
+
+    if user_id:
+        state["user_id"] = user_id
+        from backend.memory.store import get_user_memory
+        state["user_profile"] = get_user_memory(user_id)
+        print(f"  🧠 Memory loaded for user_id={user_id}")
+
+    # Duplicate trip gate — stops before any expensive work
+    early_exit = _duplicate_guardrail(constraints, user_id, duplicate_action)
+    if early_exit is not None:
+        state.update(early_exit)
+        return state
 
     from backend.agents.nodes.weather_agent import weather_agent_node
     from backend.agents.nodes.flights_agent import flights_agent_node
@@ -160,6 +245,12 @@ def run_workflow_from_constraints(constraints: dict) -> TripState:
     state.update(traffic_agent_node(state))
 
     _fold_review_into_explanation(state)
+
+    # Record the new trip in memory if planning succeeded
+    if user_id and state.get("selected_itinerary"):
+        from backend.memory.store import record_new_trip
+        trip_id = record_new_trip(user_id, constraints)
+        print(f"  💾 Trip recorded: {trip_id}")
 
     print("✅ Workflow complete\n")
     return state

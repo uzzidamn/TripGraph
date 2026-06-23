@@ -13,6 +13,13 @@ const client = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
+// Attach stored JWT so logged-in users get memory-aware planning
+client.interceptors.request.use((config) => {
+  const token = localStorage.getItem("tg_token");
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
 // Subscribers (e.g. useItinerary's addToast) that want to know when the API
 // silently falls back to mock data. Without this, the user sees fake results
 // and assumes the planner is broken.
@@ -55,12 +62,13 @@ export const fetchRefinementQuestions = (constraints, assumptions = {}) =>
     { questions: [] }
   );
 
-export const generateItinerary = (constraints, refinementAnswers = null) =>
+export const generateItinerary = (constraints, refinementAnswers = null, duplicateAction = null) =>
   withMockFallback(
     "/api/generate-itinerary",
     () => client.post("/api/generate-itinerary", {
       constraints,
       refinement_answers: refinementAnswers,
+      ...(duplicateAction && { duplicate_action: duplicateAction }),
     }),
     MOCK_ITINERARY
   );

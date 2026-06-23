@@ -83,9 +83,9 @@ const FIELD_LABELS = {
   dates: "Travel dates",
 };
 
-export function ChatRoom({ onSubmit, loading, missingFields = [], guardrailMessage = null }) {
+export function ChatRoom({ onSubmit, loading, missingFields = [], guardrailMessage = null, duplicateResult = null, onDuplicateAction, initialMessages = [] }) {
   const [draft, setDraft] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(initialMessages);
   const [quoteIdx, setQuoteIdx] = useState(() => Math.floor(Math.random() * TRAVEL_QUOTES.length));
 
   // Rotate quotes every 6 seconds — pauses if the user has started typing
@@ -250,7 +250,7 @@ export function ChatRoom({ onSubmit, loading, missingFields = [], guardrailMessa
                   {msg}
                 </motion.div>
               ))}
-              {guardrailMessage && (
+              {!duplicateResult && guardrailMessage && (
                 <motion.div
                   key="guardrail-bubble"
                   initial={{ opacity: 0, y: 6 }}
@@ -351,6 +351,62 @@ export function ChatRoom({ onSubmit, loading, missingFields = [], guardrailMessa
           </button>
         </div>
       </div>
+
+      {/* Duplicate trip notice — rendered outside scroll area so it's always visible */}
+      <AnimatePresence>
+        {duplicateResult && (
+          <motion.div
+            key="duplicate-notice"
+            initial={{ opacity: 0, y: 8, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.97 }}
+            transition={{ duration: 0.3 }}
+            style={{
+              background: "rgba(255,248,225,0.97)",
+              border: "1px solid rgba(210,155,30,0.35)",
+              borderRadius: 14,
+              padding: "14px 16px",
+              fontSize: 12.5,
+              lineHeight: 1.6,
+              color: "#5c3d00",
+              boxShadow: "0 2px 10px rgba(180,120,0,0.10)",
+            }}
+          >
+            <div style={{ marginBottom: 12 }}>{duplicateResult.response}</div>
+            <div style={{ display: "flex", gap: 8 }}>
+              <button
+                onClick={() => onDuplicateAction?.("proceed")}
+                style={{
+                  padding: "8px 20px", borderRadius: 999, fontSize: 12.5, fontWeight: 600,
+                  cursor: "pointer", fontFamily: "Inter, sans-serif",
+                  background: "linear-gradient(180deg, #3a3d44, #1d1f25)",
+                  color: "#f5f5f7", border: "1px solid rgba(0,0,0,0.35)",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12), 0 2px 6px rgba(20,22,28,0.18)",
+                  transition: "opacity 0.15s",
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.82"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}
+              >
+                Yes, plan it
+              </button>
+              <button
+                onClick={() => onDuplicateAction?.("cancel")}
+                style={{
+                  padding: "8px 20px", borderRadius: 999, fontSize: 12.5, fontWeight: 600,
+                  cursor: "pointer", fontFamily: "Inter, sans-serif",
+                  background: "transparent", color: "#5c3d00",
+                  border: "1px solid rgba(180,120,0,0.32)",
+                  transition: "background 0.15s",
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(180,120,0,0.09)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+              >
+                Cancel
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Submit */}
       <motion.button

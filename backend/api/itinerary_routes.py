@@ -6,8 +6,10 @@ Runs the full agentic pipeline: data retrieval → planning → scoring → expl
 import traceback
 from typing import Any
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 
+from backend.auth.dependencies import get_optional_user
+from backend.db.models import User
 from backend.models.requests import GenerateItineraryRequest
 from backend.models.responses import ItineraryResponse
 
@@ -57,7 +59,10 @@ def _constraints_to_chat(constraints: dict[str, Any]) -> list[str]:
 
 
 @router.post("/generate-itinerary", response_model=ItineraryResponse)
-async def generate_itinerary(request: GenerateItineraryRequest) -> ItineraryResponse:
+async def generate_itinerary(
+    request: GenerateItineraryRequest,
+    current_user: User | None = Depends(get_optional_user),
+) -> ItineraryResponse:
     """Generate scored, validated itineraries from a structured constraints dict.
 
     Converts constraints to synthetic chat, runs the full pipeline, and returns
@@ -104,7 +109,13 @@ async def generate_itinerary(request: GenerateItineraryRequest) -> ItineraryResp
             request.refinement_answers or {},
         )
 
-        result = run_workflow_from_constraints(constraints)
+        # Token-authenticated user takes priority; fall back to body field; anonymous if neither.
+        user_id = current_user.id if current_user else request.user_id
+        result = run_workflow_from_constraints(
+            constraints,
+            user_id=user_id,
+            duplicate_action=request.duplicate_action,
+        )
 
         return ItineraryResponse(
             unsupported_route=result.get("unsupported_route"),

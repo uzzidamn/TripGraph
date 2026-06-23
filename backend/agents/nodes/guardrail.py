@@ -71,12 +71,36 @@ def _classify(messages: list[str]) -> dict:
         return {"classification": "trip", "confidence": 0.5, "reason": "llm_error"}
 
 
-def _find_similar_past_trip(messages: list[str], past_trips: list[dict]) -> dict | None:
-    """Simple keyword-based check for destination overlap with past trips."""
+def _find_similar_past_trip(
+    messages: list[str],
+    past_trips: list[dict],
+    origin: str | None = None,
+    destination: str | None = None,
+) -> dict | None:
+    """Match a past trip (planned or completed) with the same origin+destination.
+
+    Uses exact fingerprint match when origin+destination are provided (generate-itinerary path).
+    Falls back to destination-keyword scan of raw messages (parse-chat path).
+    Cancelled trips are always skipped.
+    """
     if not past_trips:
         return None
+
+    checkable = [t for t in past_trips if t.get("status", "planned") != "cancelled"]
+    if not checkable:
+        return None
+
+    if origin and destination:
+        o, d = origin.strip().lower(), destination.strip().lower()
+        for trip in checkable:
+            if (trip.get("origin", "").strip().lower() == o and
+                    trip.get("destination", "").strip().lower() == d):
+                return trip
+        return None  # structured path: only exact match qualifies
+
+    # Text-keyword fallback for parse-chat path
     text = " ".join(messages).lower()
-    for trip in past_trips:
+    for trip in checkable:
         dest = (trip.get("destination") or "").lower()
         if dest and dest in text:
             return trip
@@ -222,35 +246,35 @@ def guardrail_node(state: TripState) -> dict:
             "matched_trip": None,
         }}
 
-    # Similar past-trip check
-    similar = _find_similar_past_trip(messages, past_trips)
+    # Similar past-trip check — structured fingerprint when available, text fallback otherwise
+    constraints = state.get("extracted_constraints") or {}
+    similar = _find_similar_past_trip(
+        messages, past_trips,
+        origin=constraints.get("origin"),
+        destination=constraints.get("destination"),
+    )
     if similar:
-        status = similar.get("status", "completed")
         dest = similar.get("destination", "that destination")
-        date = similar.get("date", "")
+        origin_str = similar.get("origin", "")
+        status_str = similar.get("status", "planned")
+        planned_at = similar.get("planned_at", "")
+        date_str = ""
+        if planned_at:
+            try:
+                from datetime import datetime as _dt
+                dt = _dt.fromisoformat(planned_at.replace("Z", "+00:00"))
+                date_str = dt.strftime("%d %b %Y")
+            except Exception:
+                date_str = planned_at[:10]
 
-        if status == "cancelled":
-            print(f"  ✅ Guardrail: similar cancelled trip to {dest} — proceeding")
-            return {"guardrail_result": {
-                "action": "proceed",
-                "reason": "similar_trip_cancelled",
-                "response": f"Noted — that trip to {dest} was cancelled. Let me put together a new plan.",
-                "matched_trip": similar,
-            }}
-
-        if status == "completed":
-            response = (
-                f"I found a previous trip with similar details to {dest}. "
-                f"Since that trip is completed, should I plan something new, or would you like the same plan again?"
-            )
-        else:  # planned
-            response = (
-                f"I found a similar planned trip to {dest}"
-                + (f" on {date}" if date else "")
-                + ". Is that trip still on, or do you want a fresh plan?"
-            )
-
-        print(f"  ⏸  Guardrail: similar {status} trip found — confirming with user")
+        verb = "had" if status_str == "completed" else "have"
+        response = (
+            f"You already {verb} a trip to {dest}"
+            + (f" from {origin_str}" if origin_str else "")
+            + (f" ({date_str})" if date_str else "")
+            + ". Would you like to proceed with the same?"
+        )
+        print(f"  ⏸  Guardrail: {status_str} trip to {dest} found — confirming with user")
         return {"guardrail_result": {
             "action": "confirm",
             "reason": "similar_trip_found",

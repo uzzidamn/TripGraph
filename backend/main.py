@@ -23,8 +23,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
+from backend.api.auth_routes import router as auth_router
 from backend.api.chat_routes import router as chat_router
 from backend.api.itinerary_routes import router as itinerary_router
+from backend.api.memory_routes import router as memory_router
 from backend.api.refinement_routes import router as refinement_router
 from backend.api.replanner_routes import router as replanner_router
 from backend.config import settings
@@ -59,6 +61,8 @@ app.add_middleware(
 _FRONTEND_DIST = Path(__file__).parent.parent / "frontend" / "dist"
 
 # Route modules
+app.include_router(auth_router)
+app.include_router(memory_router)
 app.include_router(chat_router)
 app.include_router(itinerary_router)
 app.include_router(refinement_router)
@@ -92,7 +96,10 @@ async def set_config(config: ConfigUpdate) -> dict:
 @app.get("/", tags=["Root"], response_class=FileResponse, include_in_schema=False)
 async def root():
     """Serve the React SPA index page."""
-    return FileResponse(_FRONTEND_DIST / "index.html")
+    return FileResponse(
+        _FRONTEND_DIST / "index.html",
+        headers={"Cache-Control": "no-cache, no-store, must-revalidate"},
+    )
 
 
 @app.get("/console", tags=["Root"], response_class=HTMLResponse)
@@ -182,6 +189,13 @@ async def integrations_status() -> dict:
 
 
 @app.on_event("startup")
+async def _init_database():
+    """Create SQL tables (users, user_memory) on first startup."""
+    from backend.db.init_db import create_tables
+    create_tables()
+
+
+@app.on_event("startup")
 async def _print_integration_banner():
     """Loud, readable warning at startup when critical keys are missing."""
     import os as _os
@@ -216,4 +230,7 @@ if _FRONTEND_DIST.exists():
         requested = _FRONTEND_DIST / full_path
         if requested.exists() and requested.is_file():
             return FileResponse(requested)
-        return FileResponse(_FRONTEND_DIST / "index.html")
+        return FileResponse(
+            _FRONTEND_DIST / "index.html",
+            headers={"Cache-Control": "no-cache, no-store, must-revalidate"},
+        )

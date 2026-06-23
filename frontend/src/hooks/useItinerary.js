@@ -19,6 +19,8 @@ const INITIAL = {
 
   // Guardrail / Memory
   guardrailResult: null,
+  pendingDuplicate: null,   // { source: "chat"|"generate", constraints, refinementAnswers, ...prefFields }
+  duplicateApproved: false, // user already clicked "proceed" — skip duplicate check in generate
   userProfile: null,
   memoryContext: null,
   visitedDestinations: [],
@@ -111,13 +113,23 @@ export function useItinerary() {
           return;
         }
         if (guardrailAction === "confirm") {
+          // Stay on chat — surface the duplicate notice with proceed/cancel buttons
           patch({
             loading: false,
+            step: "chat",
             guardrailResult: data.guardrail_result,
-            nodeStatus: { guardrail: "done" },
+            pendingDuplicate: {
+              source: "chat",
+              constraints: data.extracted_constraints,
+              assumptions: data.assumptions ?? {},
+              userProfile: data.user_profile ?? null,
+              memoryContext: data.memory_context ?? null,
+              visitedDestinations: data.visited_destinations ?? [],
+              conflictReport: data.conflict_report ?? null,
+            },
+            nodeStatus: { guardrail: "done", chat_parser: "done", memory_agent: "done", constraint_validator: "done" },
           });
-          addToast(guardrailResponse || "Looks like you've planned this trip before. Confirm to replan it!", "info");
-          // Still allow proceeding — just surface the notice
+          return;
         }
 
         // OFF_TOPIC legacy fallback
@@ -133,6 +145,7 @@ export function useItinerary() {
           patch({
             loading: false,
             guardrailResult: data.guardrail_result ?? null,
+            pendingDuplicate: null,
             userProfile: data.user_profile ?? null,
             memoryContext: data.memory_context ?? null,
             visitedDestinations: data.visited_destinations ?? [],
@@ -148,6 +161,7 @@ export function useItinerary() {
           loading: false,
           step: "preferences",
           guardrailResult: data.guardrail_result ?? null,
+          pendingDuplicate: null,
           userProfile: data.user_profile ?? null,
           memoryContext: data.memory_context ?? null,
           visitedDestinations: data.visited_destinations ?? [],
@@ -190,11 +204,24 @@ export function useItinerary() {
 
   // 3) refine submitted (or skipped) → generate plan
   const generatePlan = useCallback(
-    async (constraintsArg, refinementAnswers) => {
+    async (constraintsArg, refinementAnswers, duplicateAction = null) => {
       const constraints = constraintsArg ?? state.constraints;
-      patch({ loading: true, error: null, refinementAnswers });
+      // If user already clicked "proceed" on the duplicate notice, carry that approval forward
+      const effectiveDuplicateAction = duplicateAction ?? (state.duplicateApproved ? "proceed" : null);
+      patch({ loading: true, error: null, refinementAnswers, duplicateApproved: false });
       try {
-        const data = await generateItinerary(constraints, refinementAnswers);
+        const data = await generateItinerary(constraints, refinementAnswers, effectiveDuplicateAction);
+
+        // Duplicate trip detected — snap back to chat with inline notice
+        if (data.guardrail_result?.action === "confirm") {
+          patch({
+            loading: false,
+            step: "chat",
+            guardrailResult: data.guardrail_result,
+            pendingDuplicate: { source: "generate", constraints, refinementAnswers },
+          });
+          return;
+        }
 
         // Unsupported route
         if (data.unsupported_route) {
@@ -257,6 +284,39 @@ export function useItinerary() {
     [generatePlan]
   );
 
+  // Handles the proceed/cancel buttons shown when a duplicate trip is detected
+  const handleDuplicateAction = useCallback(
+    async (action) => {
+      const pending = state.pendingDuplicate;
+      if (action === "cancel" || !pending) {
+        patch({ guardrailResult: null, pendingDuplicate: null });
+        return;
+      }
+      if (pending.source === "chat") {
+        // User confirmed despite duplicate — continue to preferences
+        // Set duplicateApproved so generatePlan passes duplicate_action: "proceed" automatically
+        patch({
+          step: "preferences",
+          guardrailResult: null,
+          pendingDuplicate: null,
+          duplicateApproved: true,
+          constraints: pending.constraints,
+          assumptions: pending.assumptions ?? {},
+          userProfile: pending.userProfile ?? null,
+          memoryContext: pending.memoryContext ?? null,
+          visitedDestinations: pending.visitedDestinations ?? [],
+          missingFields: [],
+          conflictReport: pending.conflictReport ?? null,
+        });
+      } else {
+        // User confirmed despite duplicate — re-run generate with proceed flag
+        patch({ guardrailResult: null, pendingDuplicate: null });
+        await generatePlan(pending.constraints, pending.refinementAnswers, "proceed");
+      }
+    },
+    [state.pendingDuplicate, patch, generatePlan]
+  );
+
   const skipRefinements = useCallback(
     () => generatePlan(undefined, null),
     [generatePlan]
@@ -301,6 +361,7 @@ export function useItinerary() {
     submitRefinements,
     skipRefinements,
     generatePlan,
+    handleDuplicateAction,
     runDelaySimulation,
     resetToChat,
     handleSelectSuggestedRoute,

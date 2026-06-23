@@ -1,5 +1,5 @@
 """Pydantic request models for all API endpoints."""
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import BaseModel, Field
 
@@ -45,6 +45,14 @@ class GenerateItineraryRequest(BaseModel):
         None,
         description="Answers to the 4 LLM-generated refinement questions, "
                     "keyed by question id. Merged into constraints before planning.",
+    )
+    duplicate_action: Optional[Literal["proceed", "cancel"]] = Field(
+        None,
+        description=(
+            "Response to a duplicate trip warning. "
+            "'proceed' continues planning the same route. "
+            "'cancel' aborts planning."
+        ),
     )
 
 
