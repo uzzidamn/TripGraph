@@ -35,22 +35,18 @@ Conversational Group Travel Planning}
 \address[A]{Indian Institute of Science, Bengaluru, India}
 
 \begin{abstract}
-A single large language model can write a travel itinerary that reads well but
-is often wrong: it invents places, misjudges distances, breaks the budget, and
-ignores how tired a group will get. We argue that this task is better solved by
-an agentic architecture, and we build one. TripGraph AI turns a short group
-chat into a constraint aware, day by day itinerary drawn on a live map. Instead
-of one generative call, it runs a fixed graph of specialised agents in which a
-curated knowledge graph supplies real places and a set of live APIs ground
-every distance, price and forecast. A dedicated planning agent then selects,
-orders and paces the chosen activities over a real travel time matrix. We also
-introduce per role model routing, where heavy reasoning runs on a frontier
-model and lighter, high volume work runs on a free model, which removes about
-three quarters of the paid calls without hurting plan quality. We explain why
-the agentic decomposition is the right fit for this problem, how each part was
-built so that new data sources and capabilities can be added later, and we
-close the main text with the business outlook. The system is deployed with a
-public domain and HTTPS.
+Large language models write fluent travel itineraries that are often wrong:
+they invent places, misjudge distances and break the stated budget. We treat
+planning as an agentic problem and build TripGraph AI, a deployed system that
+turns a short group chat into a constraint aware, day by day itinerary on a
+live map. A fixed LangGraph pipeline of specialised agents separates
+understanding, grounding and reasoning: a curated knowledge graph supplies
+verified places, live APIs ground every distance, price and forecast, and a
+single planning agent selects, orders and paces activities over a real travel
+time matrix. Per role model routing sends heavy reasoning to a frontier model
+and high volume work to a free model, cutting paid calls by about three
+quarters with no loss of quality. We detail the architecture, the choices that
+make it extensible, and the business outlook.
 \end{abstract}
 
 \end{frontmatter}
@@ -62,32 +58,22 @@ Planning a group trip is a conversation that hides a hard constraint problem.
 A line such as ``four days in Goa from Chandigarh, about \rupee40k each,
 beaches and seafood, flying, group of four'' fixes a budget, implies a
 transport mode, names a geography that has to be sequenced sensibly, and
-introduces a group whose energy has to be managed across the days. Handing the
-whole job to one language model is tempting, but it fails in four predictable
-ways. It invents attractions and hotels that do not exist. It guesses travel
-times and so packs days that cannot physically happen. It quietly loses the
-budget and returns plans that cost more than the cap. And it forgets the soft
-human factors, such as not stacking three long treks back to back. Every one of
-these is a point where a true fact or an actual calculation is needed, not more
-fluent prose.
-
-This is why we treat the problem as an agentic one rather than a single
-prompt. The language model is kept for what it is genuinely good at, namely
-choosing among options, ordering them, and explaining the choices in natural
-language. Everything that has to be correct is delegated to components that can
-be checked: a curated knowledge graph for which places exist, and live services
-for distance, weather and price. The result is closer in spirit to
+introduces a group whose energy has to be managed across the days. A single
+language model produces a fluent answer, but the parts that must be true, which
+places exist, how far apart they are and what they cost, are the parts it gets
+wrong. We therefore keep the model for what it is good at, choosing and
+ordering options and explaining them, and delegate everything that must be
+correct to components that can be checked. The result is close in spirit to
 retrieval augmented generation \citep{lewis2020rag} and tool using agents
-\citep{yao2023react,schick2023toolformer} than to free text generation, but it
-is deliberately organised as a fixed, inspectable pipeline rather than an
-open ended agent loop. We make four contributions. We present a deployed agent
-pipeline that fuses a knowledge graph with five live services
-(Section~\ref{sec:why} and \ref{sec:arch}). We describe a planning agent that
-reasons over a real travel time matrix (Section~\ref{sec:architect}). We give a
+\citep{yao2023react,schick2023toolformer}, but organised as a fixed,
+inspectable pipeline rather than an open ended loop. We make four
+contributions: a deployed agent pipeline that fuses a knowledge graph with five
+live services (Sections~\ref{sec:why}, \ref{sec:arch}); a planning agent that
+reasons over a real travel time matrix (Section~\ref{sec:architect}); a
 configuration only mechanism for routing each agent to a different model
-(Section~\ref{sec:routing}). And we set out the deployment and the business
-outlook (Sections~\ref{sec:ui} and \ref{sec:future}). Supporting detail sits in
-the appendices and is referenced by number from here on.
+(Section~\ref{sec:routing}); and the deployment and business outlook
+(Sections~\ref{sec:ui}, \ref{sec:future}). Supporting detail sits in the
+appendices, referenced by number.
 
 \section{Why an agentic AI architecture}
 \label{sec:why}
@@ -230,6 +216,19 @@ planner turns into a gear note, and the insights agent returns short factual
 notes. None of them can block the run, because a failure in any one simply
 leaves its slot empty and the planner proceeds with what it has.
 
+Control flow is split into two compiled graphs for a practical reason. A small
+graph of four nodes (guardrail, parse, validate, with a conditional edge that
+exits early on off topic or unsafe input) backs the interactive parse step and
+returns in a few seconds, so the user can confirm the extracted constraints
+before any expensive work begins. Only on confirmation does the full planning
+sequence run, from the validated constraints through retrieval, the parallel
+grounding agents, the planning agent and the enrichment, pacing and review
+agents. Each agent communicates only by reading the shared state and returning
+a small patch, never by calling another agent directly, so the orchestrator
+alone decides ordering and can run independent agents on parallel threads
+without changing any agent's code. This is the same property that lets us add a
+node to the graph without touching its neighbours.
+
 \section{The planning agent}
 \label{sec:architect}
 
@@ -240,7 +239,14 @@ $D\in\mathbb{R}^{n\times n}$ over the top candidates, the day by day weather,
 and short web notes. It returns a plan in which each day is a sequence of typed
 events (activity, meal, travel, rest, hotel), and each event carries a start
 time, a duration, a one line reason, fatigue and morale scores, a skippability
-rating and local tips.
+rating and local tips. The output is a strict contract: the system prompt
+encodes about a dozen numbered rules covering inter city transitions, intra
+city travel buffers, day boundaries, gear and the cost breakdown, and the agent
+must return JSON that the deterministic layer below it consumes field by field.
+Keeping cost arithmetic and final validation in that deterministic layer, and
+leaving only selection, ordering and narrative to the model, is a deliberate
+division of labour: the language model handles the judgement it is good at while
+the numbers it is bad at are computed in code.
 
 Three rules keep the output usable rather than merely plausible. The agent
 inserts an explicit travel event between every pair of physical stops, with a
