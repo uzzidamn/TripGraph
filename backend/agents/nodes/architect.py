@@ -84,14 +84,11 @@ YOUR JOB:
 3. RESPECT opening hours when known (don't schedule a fort at 6am if it opens at 9).
 4. WRITE WHY each stop is worth it (1 sentence; reference what makes it special).
 5. NOTE FATIGUE: rate each event 0-10 fatigue + 0-10 morale, and give it a
-   skippability rating ("must" | "recommend" | "optional"). Cumulative fatigue
-   matters — a day with 2 long treks should warn about the second one.
+   skippability rating ("must" | "recommend" | "optional").
 6. EMIT GEAR CHECKLIST from weather (rain → waterproofs; cold → layers; sun → SPF).
-7. EMIT BOOKING LEAD TIMES for things that need advance reservation (trekking
-   permits, popular restaurants, etc.) — use general knowledge.
-8. EMIT LOCAL TIPS the KG can't know (cash-only spots, best time of day for X,
-   shortcut routes, neighbourhoods to avoid after dark).
-9. EMIT EXCLUDED items with reasons so the user understands the trade-offs.
+7. EMIT BOOKING LEAD TIMES for things that need advance reservation.
+8. EMIT LOCAL TIPS the KG can't know (cash-only spots, best time of day for X).
+9. EMIT EXCLUDED items with reasons.
 10. INTER-CITY TRANSPORTATION TRANSITIONS (FLIGHT/TRAIN):
     - If the chosen mode is "flight", the Day 1 timeline MUST start with:
       - Event 1: Travel from the origin city to the departing airport (type: "travel", e.g. "Cab to Chandigarh Airport (IXC)"). Show duration: travel time + 120 min check-in/security buffer.
@@ -114,14 +111,8 @@ YOUR JOB:
 
 13. TRANSPORT MODE ON EVERY TRAVEL EVENT:
     - Every "travel" event MUST set transport_mode to one of: "flight", "train", "cab", "auto", "scooter", "walk", "bus", "ferry".
-    - Use "walk" for distances <800m, "auto" or "scooter" for short hops in cities like Goa/Pondicherry, "cab" for the default, "ferry" for island/river crossings.
-    - State this clearly in the why field too (e.g., "Auto-rickshaw, ~10 min — most authentic way to navigate Old Goa lanes").
-    - BACKPACKER MODE (when hotel_tier is "budget" OR budget_per_person < ₹15000): for EVERY travel event also include in "tips":
-        * Specific local bus route number / depot if applicable (e.g., "Kadamba Bus from Panaji bus stand to Calangute — ₹35, 45 min, every 20 min")
-        * Typical auto-rickshaw fare (e.g., "Auto: ₹120 metered, ₹180 if negotiated")
-        * Typical Uber/Ola estimate (e.g., "Uber Go: ₹250-300, Uber Auto: ₹140-180")
-        * Scooter/bike rental rate if relevant (e.g., "Activa rental: ₹400/day, fuel ₹100")
-    - For comfort+ travelers: just give the Uber/Ola estimate, skip the bus detail.
+    - Use "walk" <800m, "cab" default, "ferry" for river/island crossings.
+    - tips: budget trips include approx local bus/auto fare; comfort+ trips just Uber estimate.
 
 14. COST_SUMMARY HOTEL DETAIL:
     - In cost_summary, also emit "hotel_breakdown": a list of {"name": "<hotel name>", "nights": int, "per_night": int, "total_pp": int}. If the trip uses a single hotel, the list has one item. If hotels change (e.g., switch from beach hotel to city hotel), list each separately so the user sees which hotel cost what.
@@ -146,14 +137,14 @@ OUTPUT — exactly ONE valid JSON object, no markdown, matching this schema:
           "title": "human-readable title shown on the pin",
           "place_id": "activity_id / hotel_id / null",
           "lat": float | null, "lng": float | null,
-          "why": "one sentence on what makes this stop worth it",
-          "tips": "one optional tip OR empty string",
+          "why": "≤12 words: what makes this stop worth it",
+          "tips": "≤10 words tip OR empty string",
           "fatigue": int 0-10,
           "morale": int 0-10,
           "skippability": "must" | "recommend" | "optional",
           "estimated_cost_pp": int,   // INR per person, 0 for included/free
           "transport_mode": "flight" | "train" | "cab" | "walk" | null, // for type "travel"
-          "fun_facts": ["1-2 SPECIFIC verified facts about this place/attraction — not generic. Use full place name + 'India' for context. Example for a fort: 'specific historical/architectural fact about THIS fort.' MUST be factually true. For pure transfer legs (cab/drive between stops) you may return []. At most 2 strings."]
+          "fun_facts": ["1-2 SPECIFIC verified facts about this place/attraction — not generic. Use full place name + 'India' for context. MUST be factually true. For pure transfer legs you may return []. At most 2 strings."]
         }
       ],
       "day_summary": "one sentence on the day's arc"

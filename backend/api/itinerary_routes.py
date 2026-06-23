@@ -6,8 +6,10 @@ Runs the full agentic pipeline: data retrieval → planning → scoring → expl
 import traceback
 from typing import Any
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 
+from backend.auth.dependencies import get_optional_user
+from backend.db.models import User
 from backend.models.requests import GenerateItineraryRequest
 from backend.models.responses import ItineraryResponse
 
@@ -57,7 +59,10 @@ def _constraints_to_chat(constraints: dict[str, Any]) -> list[str]:
 
 
 @router.post("/generate-itinerary", response_model=ItineraryResponse)
-async def generate_itinerary(request: GenerateItineraryRequest) -> ItineraryResponse:
+async def generate_itinerary(
+    request: GenerateItineraryRequest,
+    current_user: User | None = Depends(get_optional_user),
+) -> ItineraryResponse:
     """Generate scored, validated itineraries from a structured constraints dict.
 
     Converts constraints to synthetic chat, runs the full pipeline, and returns
@@ -104,9 +109,32 @@ async def generate_itinerary(request: GenerateItineraryRequest) -> ItineraryResp
             request.refinement_answers or {},
         )
 
-        result = run_workflow_from_constraints(constraints)
+        # Token-authenticated user takes priority; fall back to body field; anonymous if neither.
+        user_id = current_user.id if current_user else request.user_id
+        result = run_workflow_from_constraints(
+            constraints,
+            user_id=user_id,
+            duplicate_action=request.duplicate_action,
+        )
 
         return ItineraryResponse(
+            unsupported_route=result.get("unsupported_route"),
+            suggested_routes=result.get("suggested_routes", []),
+            guardrail_result=result.get("guardrail_result"),
+            extracted_constraints=result.get("extracted_constraints", {}),
+            missing_fields=result.get("missing_fields", []),
+            assumptions=result.get("assumptions", {}),
+            conflict_report=result.get("conflict_report", {}),
+            is_ready_to_plan=result.get("is_ready_to_plan"),
+            user_profile=result.get("user_profile"),
+            memory_context=result.get("memory_context"),
+            visited_destinations=result.get("visited_destinations", []),
+            route_candidates=result.get("route_candidates", []),
+            hotel_candidates=result.get("hotel_candidates", []),
+            transport_candidates=result.get("transport_candidates", []),
+            activity_candidates=result.get("activity_candidates", []),
+            food_candidates=result.get("food_candidates", []),
+            waypoint_candidates=result.get("waypoint_candidates", []),
             recommended_itinerary=result.get("selected_itinerary"),
             alternatives=result.get("alternative_itineraries", []),
             validation_report=result.get("validation_report", {}),

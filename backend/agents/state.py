@@ -8,6 +8,16 @@ from typing import Any, Dict, List, Optional, TypedDict
 class TripState(TypedDict):
     # Input
     raw_chat: List[str]
+    user_id: Optional[str]
+
+    # Guardrail (Agent 0)
+    guardrail_result: Dict[str, Any]
+
+    # Memory (Agent 2)
+    user_profile: Dict[str, Any]
+    memory_context: Dict[str, Any]
+    memory_updates: Dict[str, Any]
+    visited_destinations: List[str]
 
     # Constraint extraction (Chat Parser)
     extracted_constraints: Dict[str, Any]
@@ -20,6 +30,9 @@ class TripState(TypedDict):
 
     # Data retrieval
     route_candidates: List[Dict[str, Any]]
+    all_route_candidates: List[Dict[str, Any]]
+    unsupported_route: Optional[Dict[str, Any]]
+    suggested_routes: List[Dict[str, Any]]
     hotel_candidates: List[Dict[str, Any]]
     transport_candidates: List[Dict[str, Any]]
     activity_candidates: List[Dict[str, Any]]
@@ -83,6 +96,9 @@ class TripState(TypedDict):
     # Per-segment road polylines (drawn between consecutive stops via ORS)
     segment_polylines: List[Dict[str, Any]]
 
+    # Observability
+    langsmith_run_id: Optional[str]
+
 
 def initialize_state(raw_chat: List[str]) -> TripState:
     """Return a fully initialized TripState with all fields set to safe defaults.
@@ -92,12 +108,21 @@ def initialize_state(raw_chat: List[str]) -> TripState:
     """
     return TripState(
         raw_chat=raw_chat,
+        user_id=None,
+        guardrail_result={},
+        user_profile={},
+        memory_context={},
+        memory_updates={},
+        visited_destinations=[],
         extracted_constraints={},
         missing_fields=[],
         assumptions={},
         conflict_report={},
         is_ready_to_plan=False,
         route_candidates=[],
+        all_route_candidates=[],
+        unsupported_route=None,
+        suggested_routes=[],
         hotel_candidates=[],
         transport_candidates=[],
         activity_candidates=[],
@@ -132,4 +157,5 @@ def initialize_state(raw_chat: List[str]) -> TripState:
         architect_plan=None,
         terminal_info=None,
         segment_polylines=[],
+        langsmith_run_id=None,
     )

@@ -8,7 +8,7 @@ import {
 } from "../api/tripApi";
 
 const INITIAL = {
-  step: "chat",                  // chat | preferences | refine | itinerary
+  step: "chat",                  // chat | preferences | refine | itinerary | unsupported
   loading: false,
   error: null,
   chatMessages: [],
@@ -16,6 +16,18 @@ const INITIAL = {
   assumptions: {},
   missingFields: [],
   conflictReport: null,
+
+  // Guardrail / Memory
+  guardrailResult: null,
+  pendingDuplicate: null,   // { source: "chat"|"generate", constraints, refinementAnswers, ...prefFields }
+  duplicateApproved: false, // user already clicked "proceed" — skip duplicate check in generate
+  userProfile: null,
+  memoryContext: null,
+  visitedDestinations: [],
+
+  // Unsupported route
+  unsupportedRoute: null,
+  suggestedRoutes: [],
 
   // Refinement step
   refinementQuestions: [],
@@ -45,6 +57,9 @@ const INITIAL = {
   segmentPolylines: [],
   retrievalSource: {},
   retrievalPasses: 0,
+
+  // Pipeline trace (node → status)
+  nodeStatus: {},
 
   toasts: [],
 };
@@ -78,22 +93,86 @@ export function useItinerary() {
     );
   }, [addToast]);
 
-  // 1) parse chat → preferences step
+  // 1) parse chat → guardrail check → preferences step
   const submitChat = useCallback(
     async (messages) => {
-      patch({ loading: true, error: null, chatMessages: messages });
+      patch({ loading: true, error: null, chatMessages: messages, guardrailResult: null, nodeStatus: { guardrail: "running" } });
       try {
         const data = await parseChat(messages);
+
+        // Guardrail gate (Agent 0)
+        const guardrailAction = data.guardrail_result?.action;
+        const guardrailResponse = data.guardrail_result?.response;
+        if (guardrailAction === "clarify") {
+          patch({
+            loading: false,
+            guardrailResult: data.guardrail_result,
+            nodeStatus: { guardrail: "done" },
+          });
+          addToast(guardrailResponse || "I can only help plan trips. Please describe your travel plans!", "error");
+          return;
+        }
+        if (guardrailAction === "confirm") {
+          // Stay on chat — surface the duplicate notice with proceed/cancel buttons
+          patch({
+            loading: false,
+            step: "chat",
+            guardrailResult: data.guardrail_result,
+            pendingDuplicate: {
+              source: "chat",
+              constraints: data.extracted_constraints,
+              assumptions: data.assumptions ?? {},
+              userProfile: data.user_profile ?? null,
+              memoryContext: data.memory_context ?? null,
+              visitedDestinations: data.visited_destinations ?? [],
+              conflictReport: data.conflict_report ?? null,
+            },
+            nodeStatus: { guardrail: "done", chat_parser: "done", memory_agent: "done", constraint_validator: "done" },
+          });
+          return;
+        }
+
+        // OFF_TOPIC legacy fallback
+        const specialReqs = data.extracted_constraints?.special_requirements ?? [];
+        if (specialReqs.includes("OFF_TOPIC")) {
+          patch({ loading: false, nodeStatus: { guardrail: "done" } });
+          addToast("I can only help plan trips. Please describe your travel plans!", "error");
+          return;
+        }
+
+        const missing = data.missing_fields ?? [];
+        if (missing.length > 0) {
+          patch({
+            loading: false,
+            guardrailResult: data.guardrail_result ?? null,
+            pendingDuplicate: null,
+            userProfile: data.user_profile ?? null,
+            memoryContext: data.memory_context ?? null,
+            visitedDestinations: data.visited_destinations ?? [],
+            constraints: data.extracted_constraints,
+            assumptions: data.assumptions ?? {},
+            missingFields: missing,
+            conflictReport: data.conflict_report ?? null,
+            nodeStatus: { guardrail: "done", chat_parser: "done", memory_agent: "done", constraint_validator: "done" },
+          });
+          return;
+        }
         patch({
           loading: false,
           step: "preferences",
+          guardrailResult: data.guardrail_result ?? null,
+          pendingDuplicate: null,
+          userProfile: data.user_profile ?? null,
+          memoryContext: data.memory_context ?? null,
+          visitedDestinations: data.visited_destinations ?? [],
           constraints: data.extracted_constraints,
           assumptions: data.assumptions ?? {},
-          missingFields: data.missing_fields ?? [],
+          missingFields: [],
           conflictReport: data.conflict_report ?? null,
+          nodeStatus: { guardrail: "done", chat_parser: "done", memory_agent: "done", constraint_validator: "done" },
         });
       } catch (err) {
-        patch({ loading: false, error: err.message });
+        patch({ loading: false, error: err.message, nodeStatus: {} });
         addToast("Failed to parse chat. Please try again.", "error");
       }
     },
@@ -125,15 +204,44 @@ export function useItinerary() {
 
   // 3) refine submitted (or skipped) → generate plan
   const generatePlan = useCallback(
-    async (constraintsArg, refinementAnswers) => {
+    async (constraintsArg, refinementAnswers, duplicateAction = null) => {
       const constraints = constraintsArg ?? state.constraints;
-      patch({ loading: true, error: null, refinementAnswers });
+      // If user already clicked "proceed" on the duplicate notice, carry that approval forward
+      const effectiveDuplicateAction = duplicateAction ?? (state.duplicateApproved ? "proceed" : null);
+      patch({ loading: true, error: null, refinementAnswers, duplicateApproved: false });
       try {
-        const data = await generateItinerary(constraints, refinementAnswers);
+        const data = await generateItinerary(constraints, refinementAnswers, effectiveDuplicateAction);
+
+        // Duplicate trip detected — snap back to chat with inline notice
+        if (data.guardrail_result?.action === "confirm") {
+          patch({
+            loading: false,
+            step: "chat",
+            guardrailResult: data.guardrail_result,
+            pendingDuplicate: { source: "generate", constraints, refinementAnswers },
+          });
+          return;
+        }
+
+        // Unsupported route
+        if (data.unsupported_route) {
+          patch({
+            loading: false,
+            step: "unsupported",
+            unsupportedRoute: data.unsupported_route,
+            suggestedRoutes: data.suggested_routes ?? [],
+            nodeStatus: { guardrail: "done", chat_parser: "done", memory_agent: "done",
+                          constraint_validator: "done", route_retriever: "done" },
+          });
+          return;
+        }
+
         patch({
           loading: false,
           step: "itinerary",
           constraints,
+          unsupportedRoute: null,
+          suggestedRoutes: [],
           itinerary: data.recommended_itinerary,
           alternatives: data.alternatives ?? [],
           timeline: data.timeline ?? [],
@@ -154,6 +262,13 @@ export function useItinerary() {
           segmentPolylines: data.segment_polylines ?? [],
           retrievalSource: data.retrieval_source ?? {},
           retrievalPasses: data.retrieval_passes ?? 0,
+          nodeStatus: {
+            guardrail: "done", chat_parser: "done", memory_agent: "done",
+            constraint_validator: "done", route_retriever: "done",
+            hotel_retriever: "done", transport_retriever: "done",
+            activity_retriever: "done", food_retriever: "done", waypoint_retriever: "done",
+            planner_orchestrator: "done", explainer: "done", memory_updater: "done",
+          },
           delayResult: null,
         });
       } catch (err) {
@@ -167,6 +282,39 @@ export function useItinerary() {
   const submitRefinements = useCallback(
     (answers) => generatePlan(undefined, answers),
     [generatePlan]
+  );
+
+  // Handles the proceed/cancel buttons shown when a duplicate trip is detected
+  const handleDuplicateAction = useCallback(
+    async (action) => {
+      const pending = state.pendingDuplicate;
+      if (action === "cancel" || !pending) {
+        patch({ guardrailResult: null, pendingDuplicate: null });
+        return;
+      }
+      if (pending.source === "chat") {
+        // User confirmed despite duplicate — continue to preferences
+        // Set duplicateApproved so generatePlan passes duplicate_action: "proceed" automatically
+        patch({
+          step: "preferences",
+          guardrailResult: null,
+          pendingDuplicate: null,
+          duplicateApproved: true,
+          constraints: pending.constraints,
+          assumptions: pending.assumptions ?? {},
+          userProfile: pending.userProfile ?? null,
+          memoryContext: pending.memoryContext ?? null,
+          visitedDestinations: pending.visitedDestinations ?? [],
+          missingFields: [],
+          conflictReport: pending.conflictReport ?? null,
+        });
+      } else {
+        // User confirmed despite duplicate — re-run generate with proceed flag
+        patch({ guardrailResult: null, pendingDuplicate: null });
+        await generatePlan(pending.constraints, pending.refinementAnswers, "proceed");
+      }
+    },
+    [state.pendingDuplicate, patch, generatePlan]
   );
 
   const skipRefinements = useCallback(
@@ -193,6 +341,19 @@ export function useItinerary() {
 
   const resetToChat = useCallback(() => setState(INITIAL), []);
 
+  const handleSelectSuggestedRoute = useCallback(
+    (route) => {
+      // User picked a suggested route from unsupported screen — pre-fill constraints and go to preferences
+      const newConstraints = {
+        origin: route.origin,
+        destination: route.destination,
+        destination_type: route.destination_type,
+      };
+      patch({ step: "preferences", constraints: newConstraints, unsupportedRoute: null, suggestedRoutes: [] });
+    },
+    [patch]
+  );
+
   return {
     ...state,
     submitChat,
@@ -200,8 +361,10 @@ export function useItinerary() {
     submitRefinements,
     skipRefinements,
     generatePlan,
+    handleDuplicateAction,
     runDelaySimulation,
     resetToChat,
+    handleSelectSuggestedRoute,
     addToast,
   };
 }

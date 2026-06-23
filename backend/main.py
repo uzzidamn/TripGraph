@@ -17,13 +17,17 @@ from dotenv import load_dotenv
 load_dotenv(override=True)
 
 import os
+from pathlib import Path
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 
+from backend.api.auth_routes import router as auth_router
 from backend.api.chat_routes import router as chat_router
 from backend.api.itinerary_routes import router as itinerary_router
+from backend.api.memory_routes import router as memory_router
 from backend.api.refinement_routes import router as refinement_router
 from backend.api.replanner_routes import router as replanner_router
 from backend.config import settings
@@ -49,18 +53,15 @@ app = FastAPI(
 # origins combined with credentials, and the app doesn't use cookies.
 app.add_middleware(
     CORSMiddleware,
-    allow_origin_regex=r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$",
+    allow_origin_regex=r"^https?://(localhost|127\.0\.0\.1|\d{1,3}(\.\d{1,3}){3})(:\d+)?$",
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+_FRONTEND_DIST = Path(__file__).parent.parent / "frontend" / "dist"
+
 # ── Maintenance gate ──────────────────────────────────────────────────────
-# When MAINTENANCE_MODE is on, the credit-burning planning endpoints return 503
-# so no LLM/API calls fire (protects the owner's keys from public/teammate use).
-# The landing page + read-only config endpoints (maptiles, integrations) stay
-# live, so the site still looks alive. Owner bypasses by sending the secret
-# header X-Tripgraph-Key (set MAINTENANCE_BYPASS_KEY in .env).
 _GATED_PATHS = {
     "/api/parse-chat",
     "/api/generate-itinerary",
@@ -91,12 +92,15 @@ async def maintenance_gate(request: Request, call_next):
             )
     return await call_next(request)
 
-
 # Route modules
+app.include_router(auth_router)
+app.include_router(memory_router)
 app.include_router(chat_router)
 app.include_router(itinerary_router)
 app.include_router(refinement_router)
 app.include_router(replanner_router)
+# eval router (dev/testing only — not registered in production)
+# To enable: from backend.api.eval import router as eval_router; app.include_router(eval_router)
 
 # Config request model
 from pydantic import BaseModel
@@ -121,48 +125,13 @@ async def set_config(config: ConfigUpdate) -> dict:
     return {"pipeline_mode": settings.PIPELINE_MODE}
 
 
-@app.get("/", tags=["Root"], response_class=HTMLResponse)
-async def root() -> HTMLResponse:
-    """Root endpoint — points the user to the real React UI.
-
-    The old `test_client_html` console is still served at `/console` for
-    debugging individual endpoints, but it's intentionally out of the
-    happy path now: it was written for an earlier API shape and crashes
-    on responses that include the new fields (retrieval_passes,
-    fatigue_per_event, etc.).
-    """
-    return HTMLResponse(content=f"""
-<!doctype html>
-<html><head><meta charset="utf-8"><title>TripGraph AI — backend</title>
-<style>
-  body {{ background:#181c24; color:#dde2eb; font-family:-apple-system,Inter,system-ui,sans-serif;
-          margin:0; min-height:100vh; display:grid; place-items:center; }}
-  .card {{ max-width:520px; padding:36px 32px; border:1px solid rgba(255,255,255,0.16);
-           border-radius:16px; background:linear-gradient(180deg,rgba(63,70,81,0.45),rgba(35,40,48,0.65));
-           backdrop-filter:blur(20px); box-shadow:0 24px 64px rgba(0,0,0,0.45); }}
-  h1 {{ font-size:18px; font-weight:600; margin:0 0 6px; letter-spacing:-0.01em; }}
-  p  {{ font-size:13px; color:#b5bcc8; margin:0 0 14px; line-height:1.55; }}
-  a.btn {{ display:inline-block; padding:10px 18px; border-radius:999px; text-decoration:none;
-           font-size:13px; font-weight:600; color:#181c24;
-           background:linear-gradient(180deg,#dde2eb,#b5bcc8); border:1px solid rgba(255,255,255,0.4);
-           box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),0 6px 18px rgba(0,0,0,0.35); }}
-  a.btn + a.btn {{ margin-left:8px; background:transparent; color:#dde2eb;
-                   border:1px solid rgba(255,255,255,0.16); box-shadow:none; font-weight:500; }}
-  code {{ color:#dde2eb; background:rgba(255,255,255,0.06); padding:2px 6px; border-radius:4px; font-size:12px; }}
-</style></head><body>
-  <div class="card">
-    <h1>TripGraph backend is running on :8001</h1>
-    <p>This is the API server. The user-facing app lives at the React dev server:</p>
-    <p><a class="btn" href="http://127.0.0.1:5174">Open TripGraph app</a>
-       <a class="btn" href="/docs">API docs</a>
-       <a class="btn" href="/console">Legacy console</a></p>
-    <p style="margin-top:18px;font-size:11.5px;color:#9aa3b2">
-       The legacy console at <code>/console</code> was written for an earlier API shape and
-       may crash on new response fields. Use the React app for real use.
-    </p>
-  </div>
-</body></html>
-""")
+@app.get("/", tags=["Root"], response_class=FileResponse, include_in_schema=False)
+async def root():
+    """Serve the React SPA index page."""
+    return FileResponse(
+        _FRONTEND_DIST / "index.html",
+        headers={"Cache-Control": "no-cache, no-store, must-revalidate"},
+    )
 
 
 @app.get("/console", tags=["Root"], response_class=HTMLResponse)
@@ -252,6 +221,13 @@ async def integrations_status() -> dict:
 
 
 @app.on_event("startup")
+async def _init_database():
+    """Create SQL tables (users, user_memory) on first startup."""
+    from backend.db.init_db import create_tables
+    create_tables()
+
+
+@app.on_event("startup")
 async def _print_integration_banner():
     """Loud, readable warning at startup when critical keys are missing."""
     import os as _os
@@ -274,3 +250,19 @@ async def _print_integration_banner():
         print("  Add keys to .env (see .env.example) and restart.")
         print("=" * 72)
         print("")
+
+
+# --- Static file serving (must come LAST so API routes take priority) ---
+# Serves Vite-built React app. Falls back to index.html for SPA client-side routing.
+if _FRONTEND_DIST.exists():
+    app.mount("/assets", StaticFiles(directory=_FRONTEND_DIST / "assets"), name="assets")
+
+    @app.get("/{full_path:path}", include_in_schema=False)
+    async def spa_fallback(full_path: str):
+        requested = _FRONTEND_DIST / full_path
+        if requested.exists() and requested.is_file():
+            return FileResponse(requested)
+        return FileResponse(
+            _FRONTEND_DIST / "index.html",
+            headers={"Cache-Control": "no-cache, no-store, must-revalidate"},
+        )

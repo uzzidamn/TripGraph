@@ -74,14 +74,19 @@ const PREBUILT_TRIPS = [
   },
 ];
 
-// Private-preview gate: when VITE_MAINTENANCE=true the landing stays fully
-// visible but planning is disabled (and the backend also 503s the API), so
-// teammates can browse without spending the owner's LLM credits.
-const MAINTENANCE = import.meta.env.VITE_MAINTENANCE === "true";
+const FIELD_LABELS = {
+  origin: "Where you're travelling from",
+  destination: "Where you want to go",
+  destination_type: "Type of destination (beach, mountains, city…)",
+  budget_per_person: "Budget per person",
+  trip_duration: "How many days",
+  group_size: "Number of people",
+  dates: "Travel dates",
+};
 
-export function ChatRoom({ onSubmit, loading }) {
+export function ChatRoom({ onSubmit, loading, missingFields = [], guardrailMessage = null, duplicateResult = null, onDuplicateAction, initialMessages = [] }) {
   const [draft, setDraft] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(initialMessages);
   const [quoteIdx, setQuoteIdx] = useState(() => Math.floor(Math.random() * TRAVEL_QUOTES.length));
 
   // Rotate quotes every 6 seconds — pauses if the user has started typing
@@ -218,9 +223,9 @@ export function ChatRoom({ onSubmit, loading }) {
           overflowY: "auto",
           padding: "20px 18px",
           display: "flex", flexDirection: "column", gap: 10,
-          justifyContent: isEmpty ? "center" : "flex-start",
+          justifyContent: isEmpty && missingFields.length === 0 ? "center" : "flex-start",
         }}>
-          {isEmpty ? (
+          {isEmpty && missingFields.length === 0 ? (
             <AnimatePresence mode="wait">
               <motion.div
                 key={quoteIdx}
@@ -250,27 +255,84 @@ export function ChatRoom({ onSubmit, loading }) {
               </motion.div>
             </AnimatePresence>
           ) : (
-            messages.map((msg, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.04 }}
-                style={{
-                  alignSelf: "flex-end",
-                  background: "linear-gradient(180deg, #3a3d44, #1d1f25)",
-                  color: "#f5f5f7",
-                  borderRadius: 14,
-                  padding: "8px 14px",
-                  fontSize: 12.5,
-                  lineHeight: 1.5,
-                  maxWidth: "85%",
-                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12), 0 1px 3px rgba(20,22,28,0.18)",
-                }}
-              >
-                {msg}
-              </motion.div>
-            ))
+            <>
+              {messages.map((msg, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.04 }}
+                  style={{
+                    alignSelf: "flex-end",
+                    background: "linear-gradient(180deg, #3a3d44, #1d1f25)",
+                    color: "#f5f5f7",
+                    borderRadius: 14,
+                    padding: "8px 14px",
+                    fontSize: 12.5,
+                    lineHeight: 1.5,
+                    maxWidth: "85%",
+                    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12), 0 1px 3px rgba(20,22,28,0.18)",
+                  }}
+                >
+                  {msg}
+                </motion.div>
+              ))}
+              {!duplicateResult && guardrailMessage && (
+                <motion.div
+                  key="guardrail-bubble"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4 }}
+                  style={{
+                    alignSelf: "flex-start",
+                    background: "rgba(255,240,240,0.92)",
+                    border: "1px solid rgba(220,80,80,0.22)",
+                    borderRadius: 14,
+                    padding: "10px 14px",
+                    fontSize: 12.5,
+                    lineHeight: 1.6,
+                    maxWidth: "90%",
+                    color: "#7a2020",
+                    boxShadow: "0 1px 4px rgba(180,40,40,0.08)",
+                  }}
+                >
+                  {guardrailMessage}
+                </motion.div>
+              )}
+              {missingFields.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4 }}
+                  style={{
+                    alignSelf: "flex-start",
+                    background: "rgba(255,255,255,0.85)",
+                    border: "1px solid var(--rim)",
+                    borderRadius: 14,
+                    padding: "10px 14px",
+                    fontSize: 12.5,
+                    lineHeight: 1.6,
+                    maxWidth: "90%",
+                    color: "var(--chrome)",
+                    boxShadow: "0 1px 4px rgba(20,22,28,0.07)",
+                  }}
+                >
+                  <div style={{ fontWeight: 600, marginBottom: 6 }}>
+                    I need a few more details to plan your trip:
+                  </div>
+                  <ul style={{ margin: 0, padding: "0 0 0 16px", display: "flex", flexDirection: "column", gap: 3 }}>
+                    {missingFields.map((f) => (
+                      <li key={f} style={{ fontSize: 12 }}>
+                        {FIELD_LABELS[f] || f}
+                      </li>
+                    ))}
+                  </ul>
+                  <div style={{ marginTop: 8, fontSize: 11.5, color: "var(--silver)" }}>
+                    Add them above and click <strong>Plan my trip</strong> again.
+                  </div>
+                </motion.div>
+              )}
+            </>
           )}
         </div>
 
@@ -316,6 +378,62 @@ export function ChatRoom({ onSubmit, loading }) {
           </button>
         </div>
       </div>
+
+      {/* Duplicate trip notice — rendered outside scroll area so it's always visible */}
+      <AnimatePresence>
+        {duplicateResult && (
+          <motion.div
+            key="duplicate-notice"
+            initial={{ opacity: 0, y: 8, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.97 }}
+            transition={{ duration: 0.3 }}
+            style={{
+              background: "rgba(255,248,225,0.97)",
+              border: "1px solid rgba(210,155,30,0.35)",
+              borderRadius: 14,
+              padding: "14px 16px",
+              fontSize: 12.5,
+              lineHeight: 1.6,
+              color: "#5c3d00",
+              boxShadow: "0 2px 10px rgba(180,120,0,0.10)",
+            }}
+          >
+            <div style={{ marginBottom: 12 }}>{duplicateResult.response}</div>
+            <div style={{ display: "flex", gap: 8 }}>
+              <button
+                onClick={() => onDuplicateAction?.("proceed")}
+                style={{
+                  padding: "8px 20px", borderRadius: 999, fontSize: 12.5, fontWeight: 600,
+                  cursor: "pointer", fontFamily: "Inter, sans-serif",
+                  background: "linear-gradient(180deg, #3a3d44, #1d1f25)",
+                  color: "#f5f5f7", border: "1px solid rgba(0,0,0,0.35)",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12), 0 2px 6px rgba(20,22,28,0.18)",
+                  transition: "opacity 0.15s",
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.82"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}
+              >
+                Yes, plan it
+              </button>
+              <button
+                onClick={() => onDuplicateAction?.("cancel")}
+                style={{
+                  padding: "8px 20px", borderRadius: 999, fontSize: 12.5, fontWeight: 600,
+                  cursor: "pointer", fontFamily: "Inter, sans-serif",
+                  background: "transparent", color: "#5c3d00",
+                  border: "1px solid rgba(180,120,0,0.32)",
+                  transition: "background 0.15s",
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(180,120,0,0.09)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+              >
+                Cancel
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Submit */}
       <motion.button

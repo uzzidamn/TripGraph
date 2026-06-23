@@ -1,10 +1,12 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { RefreshCw, Loader2, AlertTriangle, X } from "lucide-react";
+import { RefreshCw, Loader2, AlertTriangle, X, LogIn, LogOut, User } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 import { PalmCompass } from "./components/ui/PalmCompass";
 
 import { useItinerary } from "./hooks/useItinerary";
 import { SelectionProvider } from "./hooks/useSelection";
+import { AuthProvider, useAuth } from "./hooks/useAuth";
+import { AuthModal } from "./components/auth/AuthModal";
 
 import { ChatRoom } from "./components/chat/ChatRoom";
 import { ExtractedPreferences } from "./components/preferences/ExtractedPreferences";
@@ -18,13 +20,17 @@ import { DelaySimulator } from "./components/delay/DelaySimulator";
 import { DayStrip } from "./components/timeline/DayStrip";
 import { ToastContainer } from "./components/ui/Toast";
 import { GlassPanel, MetalText, Pill } from "./components/ui/Glass";
+import PipelineTrace from "./components/PipelineTrace";
+import UnsupportedRoute from "./components/UnsupportedRoute";
 
 const LEFT_W = 340;
 const RIGHT_W = 320;
 const BOTTOM_LEFT_H = 240; // Cost + delay panel
 
 // ─── Floating header ─────────────────────────────────────────────────────────
-function FloatingHeader({ step, onReset }) {
+function FloatingHeader({ step, onReset, onOpenAuth }) {
+  const { user, signOut } = useAuth();
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const stepIdx = ["chat", "preferences", "refine", "itinerary"].indexOf(step);
   const steps = [
     { id: "chat",        label: "Plan" },
@@ -32,6 +38,10 @@ function FloatingHeader({ step, onReset }) {
     { id: "refine",      label: "Refine" },
     { id: "itinerary",   label: "Explore" },
   ];
+
+  const initial = user
+    ? (user.display_name || user.email || "U")[0].toUpperCase()
+    : null;
 
   return (
     <div
@@ -115,7 +125,201 @@ function FloatingHeader({ step, onReset }) {
         })}
       </GlassPanel>
 
+      {/* Auth — absolute top-right */}
+      <div style={{
+        position: "absolute", top: 12, right: 20,
+        display: "flex", alignItems: "center", gap: 8, pointerEvents: "auto",
+      }}>
+        {!user ? (
+          <button
+            onClick={onOpenAuth}
+            style={{
+              display: "flex", alignItems: "center", gap: 6,
+              padding: "6px 14px",
+              borderRadius: 999,
+              border: "1px solid var(--rim-bright)",
+              background: "rgba(255,255,255,0.68)",
+              backdropFilter: "blur(16px)",
+              color: "var(--chrome)",
+              fontSize: 11.5,
+              fontWeight: 600,
+              cursor: "pointer",
+              fontFamily: "Inter, sans-serif",
+              transition: "background 0.15s, border-color 0.15s",
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.8), 0 2px 8px rgba(20,22,28,0.08)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(255,255,255,0.92)";
+              e.currentTarget.style.borderColor = "rgba(0,0,0,0.20)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "rgba(255,255,255,0.68)";
+              e.currentTarget.style.borderColor = "var(--rim-bright)";
+            }}
+          >
+            <LogIn size={12} />
+            Login
+          </button>
+        ) : (
+          <div style={{ position: "relative" }}>
+            <button
+              onClick={() => setUserMenuOpen((v) => !v)}
+              style={{
+                display: "flex", alignItems: "center", gap: 7,
+                padding: "5px 12px 5px 6px",
+                borderRadius: 999,
+                border: "1px solid var(--rim-bright)",
+                background: "rgba(255,255,255,0.68)",
+                backdropFilter: "blur(16px)",
+                cursor: "pointer",
+                fontFamily: "Inter, sans-serif",
+                transition: "background 0.15s",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.8), 0 2px 8px rgba(20,22,28,0.08)",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.92)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.68)"; }}
+            >
+              {/* Avatar circle */}
+              <div style={{
+                width: 22, height: 22, borderRadius: "50%",
+                background: "linear-gradient(135deg, #3a3d44, #1d1f25)",
+                display: "grid", placeItems: "center",
+                fontSize: 10, fontWeight: 700, color: "#f5f5f7",
+              }}>
+                {initial}
+              </div>
+              <span style={{ fontSize: 11.5, fontWeight: 600, color: "var(--chrome)", maxWidth: 100, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {user.display_name || user.email?.split("@")[0]}
+              </span>
+            </button>
+
+            {/* Dropdown */}
+            <AnimatePresence>
+              {userMenuOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -6, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -4, scale: 0.96 }}
+                  transition={{ duration: 0.14 }}
+                  style={{
+                    position: "absolute", top: "calc(100% + 6px)", right: 0,
+                    minWidth: 160,
+                    background: "linear-gradient(180deg, rgba(255,255,255,0.97), rgba(248,249,251,0.94))",
+                    backdropFilter: "blur(24px)",
+                    border: "1px solid var(--rim)",
+                    borderRadius: 12,
+                    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.9), 0 10px 30px rgba(20,22,28,0.14)",
+                    overflow: "hidden",
+                    zIndex: 100,
+                  }}
+                >
+                  <div style={{ padding: "10px 14px 8px", borderBottom: "1px solid var(--rim)" }}>
+                    <div style={{ fontSize: 11, color: "var(--silver)", marginBottom: 1 }}>Signed in as</div>
+                    <div style={{ fontSize: 12, fontWeight: 600, color: "var(--chrome)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 160 }}>
+                      {user.email}
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => { signOut(); setUserMenuOpen(false); }}
+                    style={{
+                      width: "100%", padding: "9px 14px",
+                      display: "flex", alignItems: "center", gap: 8,
+                      background: "transparent", border: "none",
+                      cursor: "pointer", textAlign: "left",
+                      fontSize: 12, fontWeight: 500, color: "var(--chrome)",
+                      fontFamily: "Inter, sans-serif",
+                      transition: "background 0.12s",
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(0,0,0,0.04)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+                  >
+                    <LogOut size={13} />
+                    Sign out
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        )}
+      </div>
+
     </div>
+  );
+}
+
+// ─── QuickTip ticker — scrolling prompt for anonymous users ─────────────────
+function QuickTipTicker({ onOpenAuth }) {
+  const { user } = useAuth();
+  if (user) return null; // already signed in
+  const msg = "✦  Want us to remember your preferences?  Register and login  ✦  Want us to remember your preferences?  Register and login  ✦  Want us to remember your preferences?  Register and login  ✦";
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 1.2, duration: 0.5 }}
+      style={{
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        zIndex: 55,
+        overflow: "hidden",
+        height: 30,
+        display: "flex",
+        alignItems: "center",
+        background: "linear-gradient(180deg, rgba(255,255,255,0.55), rgba(248,249,251,0.72))",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)",
+        borderTop: "1px solid var(--rim)",
+        pointerEvents: "auto",
+        cursor: "pointer",
+      }}
+      onClick={onOpenAuth}
+      title="Click to sign in or register"
+    >
+      {/* scrolling track */}
+      <div
+        style={{
+          display: "flex",
+          whiteSpace: "nowrap",
+          animation: "tickerScroll 28s linear infinite",
+          gap: 0,
+        }}
+      >
+        {[0, 1].map((i) => (
+          <span
+            key={i}
+            style={{
+              fontSize: 10.5,
+              fontWeight: 600,
+              letterSpacing: "0.04em",
+              color: "var(--silver)",
+              paddingRight: 48,
+              userSelect: "none",
+            }}
+          >
+            {msg}
+            <span
+              style={{
+                color: "var(--chrome)",
+                textDecoration: "underline",
+                marginLeft: 8,
+                fontWeight: 700,
+              }}
+            >
+              Login →
+            </span>
+          </span>
+        ))}
+      </div>
+
+      <style>{`
+        @keyframes tickerScroll {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
+    </motion.div>
   );
 }
 
@@ -288,21 +492,24 @@ const centerCardVariants = {
   exit:    { opacity: 0, scale: 0.9, y: -24, transition: { duration: 0.3 } },
 };
 
-export default function App() {
+function AppInner() {
   const {
     step, loading,
+    chatMessages,
     constraints, assumptions, missingFields, conflictReport,
     refinementQuestions,
     itinerary, alternatives, timeline, mapPoints, routePolyline,
     costBreakdown, scoreBreakdown, explanation, delayResult,
     fatiguePerEvent, weatherForecast, traffic, hotelDeals, insightsPerPlace, retrievalSource, flights, trains, review, architectPlan, segmentPolylines,
+    unsupportedRoute, suggestedRoutes, nodeStatus, guardrailResult, pendingDuplicate,
     toasts,
     submitChat, confirmPreferences, submitRefinements, skipRefinements,
-    runDelaySimulation, resetToChat,
+    handleDuplicateAction, runDelaySimulation, resetToChat, handleSelectSuggestedRoute,
   } = useItinerary();
 
-  const [fitTick, setFitTick] = useState(0);     // bump to ask MapView to fit-all
+  const [fitTick, setFitTick] = useState(0);
   const [selectedDay, setSelectedDay] = useState(1);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
 
   // Reset selected day whenever a new plan loads
   useEffect(() => {
@@ -362,7 +569,10 @@ export default function App() {
           )}
         </AnimatePresence>
 
-        <FloatingHeader step={step} onReset={resetToChat} />
+        <FloatingHeader step={step} onReset={resetToChat} onOpenAuth={() => setAuthModalOpen(true)} />
+
+        {/* Quicktip scroll — shown to anonymous users on all steps */}
+        <QuickTipTicker onOpenAuth={() => setAuthModalOpen(true)} />
 
         {/* API-key warning banner — shown on every step until dismissed */}
         <IntegrationsBanner />
@@ -372,7 +582,17 @@ export default function App() {
             {step === "chat" && (
               <motion.div key="chat" variants={centerCardVariants} initial="initial" animate="animate" exit="exit" style={centerStageStyle}>
                 <div className="hero-card" style={heroBoxStyle}>
-                  <ChatRoom onSubmit={submitChat} loading={loading} />
+                  <ChatRoom
+                    onSubmit={submitChat}
+                    loading={loading}
+                    missingFields={missingFields}
+                    guardrailMessage={
+                      guardrailResult?.action === "clarify" ? guardrailResult.response : null
+                    }
+                    duplicateResult={pendingDuplicate ? guardrailResult : null}
+                    onDuplicateAction={handleDuplicateAction}
+                    initialMessages={chatMessages}
+                  />
                 </div>
               </motion.div>
             )}
@@ -386,7 +606,21 @@ export default function App() {
                     missingFields={missingFields}
                     conflictReport={conflictReport}
                     onConfirm={confirmPreferences}
+                    onBack={resetToChat}
                     loading={loading}
+                  />
+                </div>
+              </motion.div>
+            )}
+
+            {step === "unsupported" && (
+              <motion.div key="unsupported" variants={centerCardVariants} initial="initial" animate="animate" exit="exit" style={centerStageStyle}>
+                <div className="hero-card" style={{ ...heroBoxStyle, maxWidth: 680 }}>
+                  <UnsupportedRoute
+                    unsupportedRoute={unsupportedRoute}
+                    suggestedRoutes={suggestedRoutes}
+                    onSelectRoute={handleSelectSuggestedRoute}
+                    onBack={resetToChat}
                   />
                 </div>
               </motion.div>
@@ -557,11 +791,28 @@ export default function App() {
           <ToastContainer toasts={toasts} />
         </div>
 
+        <PipelineTrace nodeStatus={nodeStatus} />
+
+        {/* Auth modal — rendered above everything */}
+        <AnimatePresence>
+          {authModalOpen && (
+            <AuthModal onClose={() => setAuthModalOpen(false)} />
+          )}
+        </AnimatePresence>
+
         <style>{`
           @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         `}</style>
       </div>
     </SelectionProvider>
+  );
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppInner />
+    </AuthProvider>
   );
 }
 
